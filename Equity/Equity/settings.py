@@ -49,9 +49,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -60,6 +58,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_admin_bootstrapped',
+    'django_evolution',
     'inmuebles',
 )
 
@@ -75,7 +74,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'Equity.urls'
 
 WSGI_APPLICATION = 'Equity.wsgi.application'
-
 
 # # Database
 # # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -99,7 +97,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
