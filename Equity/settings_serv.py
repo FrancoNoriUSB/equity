@@ -27,12 +27,12 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'equity',                      # Or path to database file if using sqlite3.
+        'NAME': 'equity_db',                      # Or path to database file if using sqlite3.
          #The following settings are not used with sqlite3:
-        'USER': 'postgres',
+        'USER': 'equity_db',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '5432',                      # Set to empty string for default.
+        'HOST': '.',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '.',                      # Set to empty string for default.
     }
 }
 
@@ -60,7 +60,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_evolution',
     'inmuebles',
-    'noticias'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,4 +102,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = '/home/franconori/webapps/static_equity'
