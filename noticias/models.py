@@ -2,6 +2,7 @@
 from django.utils.translation import gettext as _
 from django.db import models
 from django.contrib.auth.models import User
+from django_countries.fields import CountryField
 from inmuebles.models import *
 
 #Modelos de las noticias que publican los usuarios.
@@ -24,6 +25,17 @@ class Usuario(models.Model):
 
 	def __unicode__(self):
 		return u"%s" %(self.identificador)
+
+#Pais al cual pertenece el usuario de Perfil
+class Pais(models.Model):
+	nombre = CountryField()
+
+	class Meta:
+		verbose_name = _('Pais')
+		verbose_name_plural = _('Paises')
+
+	def __unicode__(self):
+		return self.nombre.name
 
 #Tabla para las noticias
 class Noticia(models.Model):
