@@ -1,3 +1,3 @@
 #!/bin/bash          
-          rm -rf main/settings.py
-          cp main/settings_serv.py main/settings.py   
+          rm -rf Equity/settings.py
+          cp Equity/settings_serv.py Equity/settings.py   
