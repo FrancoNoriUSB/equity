@@ -12,7 +12,7 @@ class Usuario(models.Model):
 	#Campos de los usuarios
 	identificador = models.CharField(max_length=20)
 	created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)	
+	updated_at = models.DateTimeField(auto_now=True)	
 
 	#Claves foraneas
 	user = models.ForeignKey(User)    
@@ -33,7 +33,7 @@ class Noticia(models.Model):
 	cuerpo = models.TextField(max_length=6000)
 	imagen = models.ImageField(upload_to='')
 	created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+	updated_at = models.DateTimeField(auto_now=True)
 
 	#Claves foraneas
 	autor = models.ForeignKey(Usuario)
@@ -56,10 +56,10 @@ class Banner(models.Model):
 	#Claves foraneas
 	pais = models.ForeignKey(Pais)
 
-    class Meta:
-    	ordering = ('pais',)
-        verbose_name = _('Banner')
-        verbose_name_plural = _('Banners')
+	class Meta:
+		ordering = ('pais',)
+		verbose_name = _('Banner')
+		verbose_name_plural = _('Banners')
 
-    def __unicode__(self):
-        return u"%s" %(self.posicion)
+	def __unicode__(self):
+		return u"%s" %(self.posicion)
