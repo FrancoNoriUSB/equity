@@ -1,0 +1,174 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami">
+        <link rel="SHORTCUT ICON" href="{{STATIC_URL}}files/img/ico.jpg"/>
+        <title>Equity</title>
+ 
+         <!-- Modernizr -->
+        <script src="{% static 'files/js/modernizr.custom.80055.js' %}"></script>
+
+        <!-- jQuery -->
+        <script src="http://code.jquery.com/jquery.js"></script>
+
+        <!--Bootstrap Remoto !!!-->
+        <!-- Latest compiled and minified CSS 
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">-->
+
+        <!-- Optional theme -->
+        <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">-->
+
+        <!-- Latest compiled and minified JavaScript
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        -->
+        <!--Bootstrap Local-->
+        <!--CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+
+        <!--JavaScript -->
+        <script src="{{STATIC_URL}}bootstrap/js/bootstrap.min.js"></script>
+
+        <!--Estilos-->
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/base.css' %}">
+
+        <!-- BLoque para cargar cualquier script en el header -->
+        {% block scripts %}
+            
+        {% endblock scripts %}
+    </head>
+    <body>
+        <!-- Header de la página -->
+        {% block header %}
+        <header>
+            <nav class="navbar navbar-static-top navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                        </button>
+                        <div class="navbar-brand">
+                            <a href="/">
+                                <img src="" alt="" height="45">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse navHeaderCollapse navheader">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="/">English</a>
+                            </li>
+                            <li>
+                                <form role="form" action="">
+                                    <div class="form-group">
+                                        <select class="form-control" name="paises" id="paises">
+                                            <option value="colombia">Colombia</option>
+                                            <option value="costa rica">Costa Rica</option>
+                                            <option value="ecuador">Ecuador</option>
+                                            <option value="eeuu">EEUU</option>
+                                            <option value="mexico">M&eacute;xico</option>
+                                            <option value="panama">Panam&aacute;</option>
+                                            <option value="venezuela">Venezuela</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </li>
+                            <li>
+                                <a href="/">Inmuebles</a>
+                            </li>
+                            <li>
+                                <a href="/">Info Pa&iacute;s</a>
+                            </li>
+                            <li>
+                                <a href="/">EQNews</a>
+                            </li>
+                            <li>
+                                <a href="/">EQAssist</a>
+                            </li>
+                            <li>
+                                <a href="/">Favoritos</a>
+                            </li>
+                            <li>
+                                <a href="/">Comparativo</a>
+                            </li>
+                            <li>
+                                <a href="/">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        {% endblock header %}
+        
+        <!-- Header del home -->
+        <div class="header-home">
+            {% block header_home %}
+            {% endblock header_home %}
+        </div>
+
+        <!-- Sección de titulo de la pagina -->
+        {% block header_title %}
+        {% endblock header_title %}
+
+        <!-- Sección interna de la página -->
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <!-- Footer de la página -->
+        {% block footer %}
+        <footer>
+            <nav class="navbar navbar-static-bottom navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <!--<button class="navbar-toggle" data-toggle="collapse" data-target=".navFooterCollapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>-->
+                    <div class="collapse navbar-collapse navFooterCollapse navfooter">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>
+                                <a href="/">Colombia</a>
+                            </li>
+                            <li>
+                                <a href="/">Costa Rica</a>
+                            </li>
+                            <li>
+                                <a href="/">Ecuador</a>
+                            </li>
+                            <li>
+                                <a href="/">EEUU</a>
+                            </li>
+                            <li>
+                                <a href="/">M&eacute;xico</a>
+                            </li>
+                            <li>
+                                <a href="/">Panam&aacute;</a>
+                            </li>
+                            <li>
+                                <a href="/">Venezuela</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </footer>
+        {% endblock footer %}
+    </body>
+
+<!-- Seccion donde se carga el JS -->
+{%block js%}
+
+{%endblock js%}
+</html>

@@ -1,0 +1,95 @@
+<!-- Archivo donde estan los bloques del home -->
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+<!-- Bloque para scripts que se cargan en la plantilla base -->
+{% block scripts %}
+
+<!-- Estilos del index -->
+<link rel="stylesheet" type="text/css" href="{% static 'files/css/index.css' %}">
+
+<!-- Estilos del carrousel -->
+<link rel="stylesheet" href="{% static 'owl-carousel/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'owl-carousel/owl.theme.css' %}">
+
+{% endblock scripts %}
+
+<!-- Header del home-->
+{% block header_home %}
+
+	<!-- Carrousel del header -->
+	<div class="container-fluid">
+			
+		<!-- Barra de busqueda del home -->
+		<div class="barra-busqueda row">
+			<div class="col-lg-12">
+				<img height="200" src="" alt="">
+			</div>
+		</div>
+
+		<div class="carrousel row">
+
+			<!-- Carrousel de imagenes -->
+			<div class="row">
+				<div class="col-lg-3 col-md-2 col-sm-0"></div>
+				<div class="col-lg-6 col-md-8 col-sm-12">
+				<br>
+					<p class="lead text-center"></p>
+					<div id="carrousel-home" class="owl-carousel owl-theme">
+						<div class="item">
+							
+						</div>
+						<div class="item">
+							
+						</div>
+						<div class="item">
+							
+						</div>
+					</div>
+					<div class="customNavigation">
+						<a class="btn prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+						<a class="btn next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-2 col-sm-0"></div>
+			</div>
+		</div>
+	</div>
+{% endblock header_home%}
+
+<!-- BLoque del contenido de la pagina -->
+{% block content %}
+	
+	
+{% endblock content %}
+
+<!-- Seccion donde se carga el JS -->
+{%block js%}
+
+<!-- Plugin del carrousel -->
+<script src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+ 
+  var owl = $("#carrousel-home");
+ 
+  owl.owlCarousel({
+      items : 2, //2 items above 1000px browser width
+      itemsDesktop : [500,2], //5 items between 1000px and 901px
+      itemsDesktopSmall : [500,2], // betweem 900px and 601px
+      itemsTablet: [500,2], //2 items between 600 and 0
+      itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+  });
+ 
+  // Custom Navigation Events
+  $(".next").click(function(){
+    owl.trigger('owl.next');
+  })
+  $(".prev").click(function(){
+    owl.trigger('owl.prev');
+  })
+ 
+});
+</script>
+{%endblock js%}
