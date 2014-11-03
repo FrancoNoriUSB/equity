@@ -42,10 +42,9 @@ class Zona(models.Model):
 	#Claves foraneas
 	ciudad = models.ForeignKey(Ciudad)
 
-    class Meta:
-        verbose_name = "Zona"
-        verbose_name_plural = "Zonas"
+	class Meta:
+		verbose_name = "Zona"
+		verbose_name_plural = "Zonas"
 
-    def __unicode__(self):
-        pass
-    
+	def __unicode__(self):
+		pass
