@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_evolution',
+    'django_countries',
     'inmuebles',
     'noticias'
 )

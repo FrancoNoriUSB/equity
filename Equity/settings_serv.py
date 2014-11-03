@@ -30,7 +30,7 @@ DATABASES = {
         'NAME': 'equity_db',                      # Or path to database file if using sqlite3.
          #The following settings are not used with sqlite3:
         'USER': 'equity_db',
-        'PASSWORD': 'postgres',
+        'PASSWORD': '4rwnjg;.Hb.Sb',
         'HOST': '.',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '.',                      # Set to empty string for default.
     }
@@ -59,7 +59,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_evolution',
+    'django_countries',
     'inmuebles',
+    'noticias',
 )
 
 MIDDLEWARE_CLASSES = (
