@@ -9,50 +9,98 @@
 <!-- Estilos del index -->
 <link rel="stylesheet" type="text/css" href="{% static 'files/css/index.css' %}">
 
-<!-- Estilos del carrousel -->
-<link rel="stylesheet" href="{% static 'owl-carousel/owl.carousel.css' %}">
-<link rel="stylesheet" href="{% static 'owl-carousel/owl.theme.css' %}">
-
 {% endblock scripts %}
 
 <!-- Header del home-->
 {% block header_home %}
 
-	<!-- Carrousel del header -->
 	<div class="container-fluid">
-			
-		<!-- Barra de busqueda del home -->
-		<div class="barra-busqueda row">
+		
+		<div class="row">
 			<div class="col-lg-12">
-				<img height="200" src="" alt="">
+				<p>&nbsp;</p>
 			</div>
 		</div>
+		<!-- Barra de busqueda -->
+		<div class="busqueda row">
+			<div class="col-lg-9 col-md-9 col-sm-9 col-lg-offset-3 col-md-offset-3 col-sm-offset-3">
+				<form class="form-inline" role="form" action=".">
+                    <div class="form-group">
+                        <select class="form-control" name="ciudad" id="ciudad">
+                        	<option value="ciudad">Ciudad</option>
+                            <option value="caracas" selected="true">Caracas</option>
+                            <option value="maracay">Maracay</option>
+                            <option value="pto la cruz">Pto La Cruz</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="zona" id="zona">
+                        	<option value="zona">Zona</option>
+                            <option value="el hatillo" selected="true">El Hatillo</option>
+                            <option value="las mercedes">Las Mercedes</option>
+                            <option value="chacao">Chacao</option>
+                            <option value="altamira">Altamira</option>
+                            <option value="el cafetal">El Cafetal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="tipo-inmueble" id="tipo-inmueble">
+                        	<option value="" disabled selected="true">Tipo de Inmueble</option>
+                            <option value="casa">Casa</option>
+                            <option value="apartamento">Apartamento</option>
+                            <option value="galpon">Galpon</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="orden" id="orden">
+                        	<option value="" disabled selected>Ordenado Por</option>
+                            <option value="casa">Zona</option>
+                            <option value="apartamento">Tipo</option>
+                            <option value="galpon">Precio</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Código">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Búsqueda">
+                    </div>
+                </form>
+			</div>
+		</div>
+		
 
+		<!-- Carrousel del header -->
 		<div class="carrousel row">
+			<div class="col-lg-8 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					</ol>
 
-			<!-- Carrousel de imagenes -->
-			<div class="row">
-				<div class="col-lg-3 col-md-2 col-sm-0"></div>
-				<div class="col-lg-6 col-md-8 col-sm-12">
-				<br>
-					<p class="lead text-center"></p>
-					<div id="carrousel-home" class="owl-carousel owl-theme">
-						<div class="item">
-							
-						</div>
-						<div class="item">
-							
-						</div>
-						<div class="item">
-							
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+						<div class="item active">
+							<img src="{% static 'files/img/imagen-carrousel.png' %}" alt="">
+						<!--<div class="carousel-caption">
+							<p></p>
+						</div> -->
 						</div>
 					</div>
-					<div class="customNavigation">
-						<a class="btn prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-						<a class="btn next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-					</div>
+
+					<!-- Controls -->
+					<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right"></span>
+						<span class="sr-only">Next</span>
+					</a>
 				</div>
-				<div class="col-lg-3 col-md-2 col-sm-0"></div>
 			</div>
 		</div>
 	</div>
@@ -67,29 +115,4 @@
 <!-- Seccion donde se carga el JS -->
 {%block js%}
 
-<!-- Plugin del carrousel -->
-<script src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
-<script type="text/javascript">
-$(document).ready(function() {
- 
-  var owl = $("#carrousel-home");
- 
-  owl.owlCarousel({
-      items : 2, //2 items above 1000px browser width
-      itemsDesktop : [500,2], //5 items between 1000px and 901px
-      itemsDesktopSmall : [500,2], // betweem 900px and 601px
-      itemsTablet: [500,2], //2 items between 600 and 0
-      itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
-  });
- 
-  // Custom Navigation Events
-  $(".next").click(function(){
-    owl.trigger('owl.next');
-  })
-  $(".prev").click(function(){
-    owl.trigger('owl.prev');
-  })
- 
-});
-</script>
 {%endblock js%}

@@ -7,7 +7,7 @@
 
 /*Estilos de la barra superior de la base*/
 header .navbar{
-	background: #0095d9;
+	background: #4f4e4e;
 	margin-bottom:0px;
 }
 
@@ -20,31 +20,46 @@ body > div.row.titulo{
 	border-color: transparent;
 }
 
+body > header > nav > div > div > div > div.navbar-header > div{
+	margin-top: 12%;
+}
+
+body > header > nav > div > div > div > div.navbar-header > div > a{
+	font-size: 16px;
+	color: #FFF;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
+	margin-top: 0.8%;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li.pais{
+	margin-top: 1%;
+}
+
 body{
 	background-color: #FFFFFF;
 }
 
-body > header > nav > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a{
-	color: #F6FFDE;
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a{
+	color: #FFFFFF;
 }
 
-body > header > nav > div > div.navbar-header > div{
-	margin-top: -12px;
+body > header > div.logo{
+	background-color:#0095d9;
 }
 
-body > div.header-home > div > div > div.logo.row{
-	background:rgba(0,0,0,0.4);
+body > header > div.logo > div > div{
+	padding: 1%;
 }
 
-body > div.header-home > div > div > div.logo.row > div > img{
-	margin-left: 45%;
-}
+
 
 /*Estilos de la barra inferior de la base*/
 footer .navbar{
 	background: #FFFFFF;	
 }
 
-body > footer > nav > div > div.collapse.navbar-collapse.navFooterCollapse.navfooter > ul > li > a, p{
+body > footer > nav > div > div > div > div.collapse.navbar-collapse.navFooterCollapse.navfooter > ul > li > a, p{
 	color: #4f4e4e;
 }
