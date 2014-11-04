@@ -1,0 +1,35 @@
+/*Archivo de estilos para el home de la aplicacion
+  Colores:
+  Azul Claro:#0095d9;
+  Gris:#4f4e4e;
+  Azul Oscuro:#1a2e51;
+*/
+
+/*Estilos del header del home*/
+body > div.header-home > div > div.busqueda.row{
+	background-color: #0095d9;
+}	
+
+body > div.header-home > div > div > div > p{
+	margin:0 0 0 0;
+	font-size: 3px;
+}
+
+body > div.header-home > div > div.busqueda.row > div{
+	padding: 10px;
+}
+
+/*Estilos del carrousel*/
+#carousel-example-generic > div > div.item.active > img{
+	margin-right:auto;
+	margin-left:auto;
+}
+
+/*Estilos del footer*/
+
+body > footer > nav > div > div > ul{
+	margin-left: auto !important;
+	margin-right: auto !important;
+	display: table !important;
+	float: none !important;
+}
