@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami">
-        <link rel="SHORTCUT ICON" href="{{STATIC_URL}}files/img/ico.jpg"/>
+        <link rel="SHORTCUT ICON" href="{% static 'files/img/ico.jpg' %}"/>
         <title>Equity</title>
  
          <!-- Modernizr -->
@@ -130,29 +130,23 @@
         <!-- Sección interna de la página -->
         <div class="container">
             <div class="banners row">
-                <div class="banner-superior col-lg-3">
+                <div class="banners col-lg-3">
                     <a href=""></a>
                         <img class="img-responsive" src="{% static 'files/img/banner-superior.png' %}" alt="">
                     </a>
-                </div>
-                <div class="banner-medio col-lg-3">
                     <a href=""></a>
                         <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
                     </a>
-                </div>
-                <div class="banner-inferior col-lg-3">
                     <a href=""></a>
                         <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
                     </a>
-                </div>
-                <div class="revista col-lg-3">
                     <a href=""></a>
                         <img class="img-responsive" src="{% static 'files/img/revista.png' %}" alt="">
                     </a>
                 </div>
-            </div>
             {% block content %}
             {% endblock content %}
+            </div>
         </div>
 
         <!-- Footer de la página -->
