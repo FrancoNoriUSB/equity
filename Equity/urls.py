@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^', include('inmuebles.urls')),
 
     #Urls de las noticias de Equity
-    url(r'^', include('noticias.urls')),
+#    url(r'^', include('noticias.urls')),
 
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
 

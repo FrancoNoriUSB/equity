@@ -110,7 +110,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/home/franconori/webapps/static_equity'
 
 #Directorio de los templates
-TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates/'),
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),
 )
 
 # List of callables that know how to import templates from various sources.
