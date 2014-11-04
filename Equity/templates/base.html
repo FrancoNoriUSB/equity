@@ -110,7 +110,7 @@
             <div class="logo container-fluid">
                 <div class="row">
                     <div class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
-                        <img src="{% static 'files/img/logo-blanco.png' %}" alt="Equity Media">
+                        <img class="img-responsive" src="{% static 'files/img/logo-blanco.png' %}" alt="Equity Media">
                     </div>
                 </div>
             </div>
@@ -128,7 +128,29 @@
         {% endblock header_title %}
 
         <!-- Sección interna de la página -->
-        <div class="container-fluid">
+        <div class="container">
+            <div class="banners row">
+                <div class="banner-superior col-lg-3">
+                    <a href=""></a>
+                        <img class="img-responsive" src="{% static 'files/img/banner-superior.png' %}" alt="">
+                    </a>
+                </div>
+                <div class="banner-medio col-lg-3">
+                    <a href=""></a>
+                        <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
+                    </a>
+                </div>
+                <div class="banner-inferior col-lg-3">
+                    <a href=""></a>
+                        <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
+                    </a>
+                </div>
+                <div class="revista col-lg-3">
+                    <a href=""></a>
+                        <img class="img-responsive" src="{% static 'files/img/revista.png' %}" alt="">
+                    </a>
+                </div>
+            </div>
             {% block content %}
             {% endblock content %}
         </div>
@@ -145,7 +167,7 @@
                             <span class="icon-bar"></span>
                     </button>-->
                     <div class="collapse navbar-collapse navFooterCollapse navfooter">
-                        <ul class="nav navbar-nav navbar-left">
+                        <ul class="nav navbar-nav">
                             <li>
                                 <a href="/">Colombia</a>
                             </li>
@@ -166,6 +188,22 @@
                             </li>
                             <li>
                                 <a href="/">Venezuela</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse navbar-collapse navFooterCollapse navfooter">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="/">Contacto</a>
+                            </li>
+                            <li>
+                                <a href="/">Revista Virtual</a>
+                            </li>
+                            <li>
+                                <a href="/">EQAssist</a>
+                            </li>
+                            <li>
+                                <a href="/">EQNews</a>
                             </li>
                         </ul>
                     </div>

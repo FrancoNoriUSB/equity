@@ -53,6 +53,10 @@ body > header > div.logo > div > div{
 	padding: 1%;
 }
 
+body > div.container > div > div.col-lg-3{
+	float: initial;
+	margin-bottom: 2%;
+}
 
 
 /*Estilos de la barra inferior de la base*/

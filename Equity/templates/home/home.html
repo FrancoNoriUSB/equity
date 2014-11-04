@@ -7,7 +7,7 @@
 {% block scripts %}
 
 <!-- Estilos del index -->
-<link rel="stylesheet" type="text/css" href="{% static 'files/css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'files/css/home.css' %}">
 
 {% endblock scripts %}
 
@@ -109,6 +109,20 @@
 <!-- BLoque del contenido de la pagina -->
 {% block content %}
 	
+	<div class="row">
+		<div class="paginacion col-lg-3 col-lg-offset-8">
+			<nav>
+			  <ul class="pagination">
+			    <li><a href="#">&laquo;</a></li>
+			    <li><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">&raquo;</a></li>
+			  </ul>
+			</nav>
+		</div>
+	</div>
 	
 {% endblock content %}
 
