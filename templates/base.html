@@ -128,30 +128,49 @@
         {% endblock header_title %}
 
         <!-- Sección interna de la página -->
-        <div class="container">
+        <div class="contenido container">
             <div class="banners row">
                 <div class="banners col-lg-3">
-                    <a href=""></a>
+                    <a class="banner-superior" href="">
                         <img class="img-responsive" src="{% static 'files/img/banner-superior.png' %}" alt="">
                     </a>
-                    <a href=""></a>
+                    <a class="banner-medio" href="">
                         <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
                     </a>
-                    <a href=""></a>
+                    <a class="banner-inferior" href="">
                         <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
                     </a>
-                    <a href=""></a>
-                        <img class="img-responsive" src="{% static 'files/img/revista.png' %}" alt="">
+                    <a class="revista" href="">
+                    <img class="img-responsive" src="{% static 'files/img/revista.png' %}" alt="">
                     </a>
                 </div>
-            {% block content %}
-            {% endblock content %}
+                <!-- Contenido de la pagina -->
+                <div class="contenido col-lg-9">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
             </div>
         </div>
 
         <!-- Footer de la página -->
         {% block footer %}
         <footer>
+            <div class="container">
+                <div class="pre-footer row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img src="" alt="">
+                        <a href=""><strong>L&eacute;anos</strong></a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img src="" alt="">
+                        <a href=""><strong>Conls&uacute;ltenos</strong></a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img src="" alt="">
+                        <a href=""><strong>Ll&aacute;menos</strong></a>
+                    </div>
+                </div>
+            </div>
             <nav class="navbar navbar-static-bottom navbar-default" role="navigation">
                 <div class="container-fluid">
                     <!--<button class="navbar-toggle" data-toggle="collapse" data-target=".navFooterCollapse">
@@ -163,41 +182,41 @@
                     <div class="collapse navbar-collapse navFooterCollapse navfooter">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="/">Colombia</a>
+                                <a href="/"><strong>Colombia</strong></a>
                             </li>
                             <li>
-                                <a href="/">Costa Rica</a>
+                                <a href="/"><strong>Costa Rica</strong></a>
                             </li>
                             <li>
-                                <a href="/">Ecuador</a>
+                                <a href="/"><strong>Ecuador</strong></a>
                             </li>
                             <li>
-                                <a href="/">EEUU</a>
+                                <a href="/"><strong>EEUU</strong></a>
                             </li>
                             <li>
-                                <a href="/">M&eacute;xico</a>
+                                <a href="/"><strong>M&eacute;xico</strong></a>
                             </li>
                             <li>
-                                <a href="/">Panam&aacute;</a>
+                                <a href="/"><strong>Panam&aacute;</strong></a>
                             </li>
                             <li>
-                                <a href="/">Venezuela</a>
+                                <a href="/"><strong>Venezuela</strong></a>
                             </li>
                         </ul>
                     </div>
                     <div class="collapse navbar-collapse navFooterCollapse navfooter">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="/">Contacto</a>
+                                <a href="/"><strong>Contacto</strong></a>
                             </li>
                             <li>
-                                <a href="/">Revista Virtual</a>
+                                <a href="/"><strong>Revista Virtual</strong></a>
                             </li>
                             <li>
-                                <a href="/">EQAssist</a>
+                                <a href="/"><strong>EQAssist</strong></a>
                             </li>
                             <li>
-                                <a href="/">EQNews</a>
+                                <a href="/"><strong>EQNews</strong></a>
                             </li>
                         </ul>
                     </div>
