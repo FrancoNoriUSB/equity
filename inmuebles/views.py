@@ -17,13 +17,14 @@ from noticias.models import *
 from functions import *
 from django.core.mail.message import EmailMessage
 
-#Vista del index o home
+
+# Vista del index o home
 def index(request):
+    error = False
 
-	error = False
+    ctx = {
+        'error': error,
+    }
+    # return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
+    return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
 
-	ctx = {
-		'error':error,
-	}
-	# return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
-	return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))

@@ -4,3 +4,4 @@ dj-static
 django-admin-bootstrapped
 Pillow
 psycopg2
+django-countries
