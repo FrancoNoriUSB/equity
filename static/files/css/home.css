@@ -20,16 +20,59 @@ body > div.header-home > div > div.busqueda.row > div{
 }
 
 /*Estilos del carrousel*/
+body > div.header-home > div > div.carrousel.container{
+	margin-top: 0.5%;
+}
+
 #carousel-example-generic > div > div.item.active > img{
 	margin-right:auto;
 	margin-left:auto;
 }
 
-/*Estilos del footer*/
-
-body > footer > nav > div > div > ul{
-	margin-left: auto !important;
-	margin-right: auto !important;
-	display: table !important;
-	float: none !important;
+#carousel-example-generic > a.left.carousel-control,
+#carousel-example-generic > a.right.carousel-control{
+	background-image: none;
 }
+
+#carousel-example-generic > a.right.carousel-control > span.glyphicon.glyphicon-chevron-right,
+#carousel-example-generic > a.left.carousel-control > span.glyphicon.glyphicon-chevron-left{
+	color: #000;
+}
+
+/*Estilos contenido*/
+
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-3 > strong > a{
+	color: #000;
+}
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-3 > strong > a:hover{
+	text-decoration: none;
+}
+
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div.propiedad{
+	margin-bottom: 4%;
+	border-bottom-style: solid;
+	border-bottom-width: 2px;
+	padding-bottom: 1%;
+}
+
+/*Estilos de bootstrap*/
+
+/* enable absolute positioning */
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 15px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }

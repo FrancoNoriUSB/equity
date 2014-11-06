@@ -29,6 +29,10 @@ body > header > nav > div > div > div > div.navbar-header > div > a{
 	color: #FFF;
 }
 
+body > header > nav > div > div > div > div.navbar-header > div > a:hover{
+	text-decoration: none;
+}
+
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
 	margin-top: 0.8%;
 }
@@ -53,17 +57,50 @@ body > header > div.logo > div > div{
 	padding: 1%;
 }
 
-body > div.container > div > div.col-lg-3{
+/*Estilos barra lateral de banners*/
+body > div.container > div > div.banners.col-lg-3 > a > img{
 	float: initial;
 	margin-bottom: 2%;
 }
 
+/*Estilos del contenido*/
+body > div.contenido{
+	margin-top: 0.5%;
+}
+
 
 /*Estilos de la barra inferior de la base*/
+body > footer > div{
+	background-color: #1a2e51;
+}
+
+body > footer > div > div.pre-footer > div{
+	padding:2% 0% 2% 15%;
+}
+
+body > footer > div > div.pre-footer > div > a{
+	color: white;
+}
+
+body > footer > div > div.pre-footer > div > a:hover{
+	text-decoration: none;
+}
+
 footer .navbar{
 	background: #FFFFFF;	
 }
 
+body > footer > nav{
+	margin-bottom: 0px !important;
+}
+
 body > footer > nav > div > div > div > div.collapse.navbar-collapse.navFooterCollapse.navfooter > ul > li > a, p{
 	color: #4f4e4e;
+}
+
+body > footer > nav > div > div > ul{
+	margin-left: auto !important;
+	margin-right: auto !important;
+	display: table !important;
+	float: none !important;
 }
