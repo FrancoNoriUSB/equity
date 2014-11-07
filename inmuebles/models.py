@@ -15,7 +15,7 @@ class Pais(models.Model):
         verbose_name_plural = _('Paises')
 
     def __unicode__(self):
-        return self.nombre
+        return u"%s" % self.nombre
 
 
 #Ciudad que se relaciona con el pais
@@ -31,7 +31,7 @@ class Ciudad(models.Model):
         verbose_name_plural = "Ciudades"
 
     def __unicode__(self):
-        return self.nombre
+        return u"%s" % self.nombre
 
 
 #Zona que se relaciona con la ciudad
@@ -47,27 +47,33 @@ class Zona(models.Model):
         verbose_name_plural = "Zonas"
 
     def __unicode__(self):
-        return self.nombre
+        return u"%s" % self.nombre
 
 
 class Agente(models.Model):
-    usuario = models.OneToOneField(User)
     codigo = models.CharField(max_length=40)
-    pais = models.ForeignKey(Pais)
     logo = models.ImageField()
+    usuario = models.OneToOneField(User)
+    pais = models.ForeignKey(Pais)
 
     def __unicode__(self):
-        return self.usuario
+        return u"%s" % self.usuario
 
 
 class Telefono(models.Model):
-    agente = models.ForeignKey(Agente)
     telefono = models.CharField(max_length=50)
+    agente = models.ForeignKey(Agente)
+
+    def __unicode__(self):
+        return u"%s" % self.telefono
 
 
 # Modelo para los distintos tipo de inmuebles que se pueden publicar
 class TipoInmueble(models.Model):
     nombre = models.CharField(max_length=80)
+
+    def __unicode__(self):
+        return u"%s" % self.nombre
 
 
 # Modelo para definir los campos bases para cada tipo de inmueble
@@ -80,14 +86,10 @@ class CampoTipoInmueble(models.Model):
     )
     nombre = models.CharField(max_length=80)
     tipo = models.CharField(max_length=1, choices=TIPOS, default=TEXTO)
-    tipo_actividad = models.ForeignKey(TipoInmueble)
+    tipo_inmueble = models.ForeignKey(TipoInmueble)
 
-
-# Modelo para los valores de los campos de cada inmueble publicado
-class ValorCampoTipoInmueble(models.Model):
-    valor = models.CharField(max_length=150)
-    campo = models.ForeignKey(CampoTipoInmueble)
-    inmueble = models.ForeignKey(Inmueble)
+    def __unicode__(self):
+        return u"%s" % self.nombre
 
 
 # Modelo para cada inmueble publicado
@@ -95,12 +97,7 @@ class Inmueble(models.Model):
     titulo = models.CharField(max_length=100)
     codigo = models.CharField(max_length=20)
     descripcion = models.TextField()
-    pais = models.ForeignKey(Pais)
-    ciudad = models.ForeignKey(Ciudad)
-    zona = models.ForeignKey(Zona)
     direccion = models.CharField(max_length=150)
-    agente = models.ForeignKey(Agente)
-    tipo = models.ForeignKey(TipoInmueble)
     # Coodenadas Google Maps
     latitud = models.DecimalField(max_digits=8, decimal_places=6)
     longitud = models.DecimalField(max_digits=8, decimal_places=6)
@@ -109,15 +106,49 @@ class Inmueble(models.Model):
     feche_actualizacion = models.DateTimeField(auto_now=True)
     fecha_expiracion = models.DateTimeField()
 
+    pais = models.ForeignKey(Pais)
+    ciudad = models.ForeignKey(Ciudad)
+    zona = models.ForeignKey(Zona)
+    agente = models.ForeignKey(Agente)
+    tipo = models.ForeignKey(TipoInmueble)
+
+    def __unicode__(self):
+        return u"%s" % self.titulo
+
+
+# Modelo para los valores de los campos de cada inmueble publicado
+class ValorCampoTipoInmueble(models.Model):
+    valor = models.CharField(max_length=150)
+    campo = models.ForeignKey(CampoTipoInmueble)
+    inmueble = models.ForeignKey(Inmueble)
+
+    def __unicode__(self):
+        return u"%s" % self.valor
+
 
 # Modelo para imágenes de un inmueble publicado
 class Imagen(models.Model):
     imagen = models.ImageField()
+    thumbnail = models.ImageField()
     inmueble = models.ForeignKey(Inmueble)
+
+
+class CampoInmueble(models.Model):
+    NUMERO = 'N'
+    TEXTO = 'T'
+    TIPOS = (
+        (NUMERO, 'Número'),
+        (TEXTO, 'Texto'),
+    )
+    nombre = models.CharField(max_length=80)
+    tipo = models.CharField(max_length=1, choices=TIPOS, default=TEXTO)
 
 
 # Modelo para los campos propios de cada inmueble publicado
-class CampoInmueble(models.Model):
-    nombre = models.CharField(max_length=20)
+class ValorCampoInmueble(models.Model):
     valor = models.CharField(max_length=20)
+    campo = models.ForeignKey(CampoInmueble)
     inmueble = models.ForeignKey(Inmueble)
+
+    def __unicode__(self):
+        return u"%s - %s" % self.nombre, self.valor

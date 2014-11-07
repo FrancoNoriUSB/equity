@@ -2,9 +2,8 @@
 from django.utils.translation import gettext as _
 from django.db import models
 from django.contrib.auth.models import User
-from inmuebles.models import *
+from inmuebles.models import Pais
 
-# Modelos de las noticias que publican los usuarios.
 
 #Tabla para las noticias
 class Noticia(models.Model):

@@ -3,12 +3,12 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
-import django_countries.fields
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('inmuebles', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -19,6 +19,9 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('imagen', models.ImageField(upload_to=b'')),
                 ('posicion', models.CharField(max_length=50)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('pais', models.ForeignKey(to='inmuebles.Pais')),
             ],
             options={
                 'ordering': ('pais',),
@@ -36,6 +39,7 @@ class Migration(migrations.Migration):
                 ('imagen', models.ImageField(upload_to=b'')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
+                ('autor', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('created_at',),
@@ -43,45 +47,5 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Noticias',
             },
             bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Pais',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('nombre', django_countries.fields.CountryField(max_length=2)),
-            ],
-            options={
-                'verbose_name': 'Pais',
-                'verbose_name_plural': 'Paises',
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
-            name='Usuario',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('identificador', models.CharField(max_length=20)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'ordering': ('user',),
-                'verbose_name': 'Usuario',
-                'verbose_name_plural': 'Usuarios',
-            },
-            bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='noticia',
-            name='autor',
-            field=models.ForeignKey(to='noticias.Usuario'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='banner',
-            name='pais',
-            field=models.ForeignKey(to='noticias.Pais'),
-            preserve_default=True,
         ),
     ]
