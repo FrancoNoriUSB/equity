@@ -22,6 +22,11 @@ class ValorCampoTipoInLine(admin.StackedInline):
     extra = 0
 
 
+class ValorCampoInmuebleInLine(admin.StackedInline):
+    model = ValorCampoTipoInmueble
+    extra = 0
+
+
 class TelefonoInLine(admin.StackedInline):
     model = Telefono
     extra = 0
@@ -29,7 +34,7 @@ class TelefonoInLine(admin.StackedInline):
 
 class InmuebleAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'codigo', 'pais', 'ciudad', 'zona', 'fecha_publicacion')
-    inlines = [ImagenInLine, CampoInmuebleInLine, ValorCampoTipoInLine]
+    inlines = [ImagenInLine, ValorCampoInmuebleInLine, ValorCampoTipoInLine]
 
 
 class AgenteAdmin(admin.ModelAdmin):
@@ -62,12 +67,16 @@ class CampoTipoInmuebleAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'tipo', 'tipo_inmueble')
 
 
+class CampoInmuebleAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'tipo')
+
+
 class ValorCampoTipoInmuebleAdmin(admin.ModelAdmin):
     list_display = ('valor', 'campo', 'inmueble')
 
 
-class CampoInmuebleAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'valor', 'inmueble')
+class ValorCampoInmuebleAdmin(admin.ModelAdmin):
+    list_display = ('valor', 'campo', 'inmueble')
 
 
 admin.site.register(Inmueble, InmuebleAdmin)
@@ -79,5 +88,6 @@ admin.site.register(TipoInmueble, TipoInmuebleAdmin)
 admin.site.register(Ciudad, CiudadAdmin)
 admin.site.register(Zona, ZonaAdmin)
 admin.site.register(ValorCampoTipoInmueble, ValorCampoTipoInmuebleAdmin)
+admin.site.register(ValorCampoInmueble, ValorCampoInmuebleAdmin)
 admin.site.register(CampoTipoInmueble, CampoTipoInmuebleAdmin)
 admin.site.register(CampoInmueble, CampoInmuebleAdmin)
