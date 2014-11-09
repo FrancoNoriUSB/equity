@@ -32,3 +32,11 @@ def home(request, pais):
 	}
 
 	return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
+
+def inmueble(request, codigo, titulo):
+
+	ctx = {
+		
+	}
+
+	return render_to_response('inmueble/inmueble.html', ctx, context_instance=RequestContext(request))
