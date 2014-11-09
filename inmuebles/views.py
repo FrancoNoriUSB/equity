@@ -20,11 +20,15 @@ from django.core.mail.message import EmailMessage
 
 # Vista del index o home
 def index(request):
-    error = False
 
-    ctx = {
-        'error': error,
-    }
-    # return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
-    return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
+	ctx = {
+	}
+	return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
 
+def home(request, pais):
+
+	ctx = {
+		
+	}
+
+	return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
