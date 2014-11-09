@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
     ('', ''),
@@ -25,22 +22,22 @@ MANAGERS = ADMINS
 # Parse database configuration from $DATABASE_URL
  
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+    #     'NAME': 'equity',                      # Or path to database file if using sqlite3.
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'postgres',
+    #     'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+    #     'PORT': '5432',                      # Set to empty string for default.
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'equity',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'equity',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '5432',                      # Set to empty string for default.
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
-    #'default': {
-    #    'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-    #    'NAME': 'equity',                      # Or path to database file if using sqlite3.
-    #    'USER': 'postgres',
-    #    'PASSWORD': 'postgres',
-    #    'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-    #    'PORT': '3306',                      # Set to empty string for default.
-    #}
 }
 
 # Quick-start development settings - unsuitable for production
@@ -84,6 +81,7 @@ ROOT_URLCONF = 'Equity.urls'
 
 WSGI_APPLICATION = 'Equity.wsgi.application'
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -100,9 +98,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 #Directorio de los templates
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),
