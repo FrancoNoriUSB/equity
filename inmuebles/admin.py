@@ -2,13 +2,8 @@ from django.contrib import admin
 from inmuebles.models import *
 
 
-class ImagenInLine(admin.StackedInline):
-    model = Imagen
-    extra = 0
-
-
-class CampoInmuebleInLine(admin.StackedInline):
-    model = CampoInmueble
+class ImagenInmuebleInLine(admin.StackedInline):
+    model = ImagenInmueble
     extra = 0
 
 
@@ -27,19 +22,19 @@ class ValorCampoInmuebleInLine(admin.StackedInline):
     extra = 0
 
 
-class TelefonoInLine(admin.StackedInline):
-    model = Telefono
+class TelefonoAgenteInLine(admin.StackedInline):
+    model = TelefonoAgente
     extra = 0
 
 
 class InmuebleAdmin(admin.ModelAdmin):
     list_display = ('titulo', 'codigo', 'pais', 'ciudad', 'zona', 'fecha_publicacion')
-    inlines = [ImagenInLine, ValorCampoInmuebleInLine, ValorCampoTipoInLine]
+    inlines = [ImagenInmuebleInLine, ValorCampoInmuebleInLine, ValorCampoTipoInLine]
 
 
 class AgenteAdmin(admin.ModelAdmin):
     list_display = ['usuario', 'codigo', 'pais']
-    inlines = [TelefonoInLine]
+    inlines = [TelefonoAgenteInLine]
 
 
 class TipoInmuebleAdmin(admin.ModelAdmin):
@@ -47,8 +42,8 @@ class TipoInmuebleAdmin(admin.ModelAdmin):
     inlines = [CampoTipoInmuebleInLine]
 
 
-class ImagenAdmin(admin.ModelAdmin):
-    list_display = ('imagen', 'inmueble')
+class ImagenInmuebleAdmin(admin.ModelAdmin):
+    list_display = ['inmueble']
 
 
 class CiudadAdmin(admin.ModelAdmin):
@@ -59,8 +54,8 @@ class ZonaAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'ciudad')
 
 
-class TelefonoAdmin(admin.ModelAdmin):
-    list_display = ('telefono', 'agente')
+class TelefonoAgenteAdmin(admin.ModelAdmin):
+    list_display = ['agente']
 
 
 class CampoTipoInmuebleAdmin(admin.ModelAdmin):
@@ -78,15 +73,15 @@ class ValorCampoTipoInmuebleAdmin(admin.ModelAdmin):
 class ValorCampoInmuebleAdmin(admin.ModelAdmin):
     list_display = ('valor', 'campo', 'inmueble')
 
-# admin.site.register(Inmueble, InmuebleAdmin)
-# admin.site.register(Agente, AgenteAdmin)
-# admin.site.register(ImagenAdmin)
-# admin.site.register(Pais)
-# admin.site.register(TelefonoAdmin)
-# admin.site.register(TipoInmueble, TipoInmuebleAdmin)
-# admin.site.register(Ciudad, CiudadAdmin)
-# admin.site.register(Zona, ZonaAdmin)
-# admin.site.register(ValorCampoTipoInmueble, ValorCampoTipoInmuebleAdmin)
-# admin.site.register(ValorCampoInmueble, ValorCampoInmuebleAdmin)
-# admin.site.register(CampoTipoInmueble, CampoTipoInmuebleAdmin)
-# admin.site.register(CampoInmueble, CampoInmuebleAdmin)
+admin.site.register(Inmueble, InmuebleAdmin)
+admin.site.register(Agente, AgenteAdmin)
+admin.site.register(ImagenInmueble, ImagenInmuebleAdmin)
+admin.site.register(Pais)
+admin.site.register(TelefonoAgente, TelefonoAgenteAdmin)
+admin.site.register(TipoInmueble, TipoInmuebleAdmin)
+admin.site.register(Ciudad, CiudadAdmin)
+admin.site.register(Zona, ZonaAdmin)
+admin.site.register(ValorCampoTipoInmueble, ValorCampoTipoInmuebleAdmin)
+admin.site.register(ValorCampoInmueble, ValorCampoInmuebleAdmin)
+admin.site.register(CampoTipoInmueble, CampoTipoInmuebleAdmin)
+admin.site.register(CampoInmueble, CampoInmuebleAdmin)
