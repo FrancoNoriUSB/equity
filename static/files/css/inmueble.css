@@ -1,0 +1,17 @@
+/*Archivo de estilos para los inmuebles de la aplicacion
+  Colores:
+  Azul Claro:#0095d9;
+  Gris:#4f4e4e;
+  Azul Oscuro:#1a2e51;
+*/
+
+
+
+/*Estilos del Slider*/
+.selected img {
+	opacity:0.5;
+}
+
+#slider-thumbs > ul > li{
+	cursor: pointer;
+}
