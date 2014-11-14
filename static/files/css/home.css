@@ -16,7 +16,13 @@ body > div.header-home > div > div > div > p{
 }
 
 body > div.header-home > div > div.busqueda.row > div{
-	padding: 10px;
+	padding: 4px;
+}
+
+body > div.header-home > div > div.busqueda.row > div > form{
+	display: table;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 /*Estilos del carrousel*/

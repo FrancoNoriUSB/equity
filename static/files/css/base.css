@@ -53,8 +53,15 @@ body > header > div.logo{
 	background-color:#0095d9;
 }
 
+body > header > div > div > div > img.logo-equity{
+	height: 90px;
+}
+
 body > header > div.logo > div > div{
-	padding: 1%;
+	padding-top: 1%;
+	padding-bottom: 1%;
+	padding-right: 0;
+	padding-left: 0;
 }
 
 /*Estilos barra lateral de banners*/
