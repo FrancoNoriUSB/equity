@@ -55,6 +55,12 @@ body > header > div.logo{
 
 body > header > div > div > div > img.logo-equity{
 	height: 90px;
+	float: left;
+}
+
+body > header > div > div > div.col-lg-8.col-md-12.col-sm-12 > img.grafico-izquierdo{
+	height: 90px;
+	float: right;
 }
 
 body > header > div.logo > div > div{
