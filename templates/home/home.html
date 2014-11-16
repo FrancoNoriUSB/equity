@@ -105,6 +105,21 @@
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
+	<div class="pagination">
+		<span class="step-links">
+			{% if contacts.has_previous %}
+			    <a href="?page={{ contacts.previous_page_number }}">previous</a>
+			{% endif %}
+
+			<span class="current">
+			    Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+			</span>
+
+			{% if contacts.has_next %}
+			    <a href="?page={{ contacts.next_page_number }}">next</a>
+			{% endif %}
+		</span>
+	</div>
 	<div class="paginacion-superior row">
 		<div class="col-lg-4 col-md-6 col-lg-offset-8 col-md-offset-6">
 			<nav>
@@ -121,6 +136,12 @@
 	</div>
 	<div class="propiedades row">
 		<div class="col-lg-12 col-md-12 col-sm-12">
+
+			{% for contact in contacts %}
+				{# Each "contact" is a Contact model object. #}
+			{{ contact.full_name|upper }}<br />
+				...
+			{% endfor %}
 			<div class="propiedad row">
 				<div class="foto col-lg-4">
 					<a href="/propiedad/id-nombre">
@@ -128,7 +149,11 @@
 					</a>
 				</div>
 				<div class="descripcion col-lg-3">
-					<strong><a href="/inmueble/id-nombre">HIGH TOWER CONDOS</a></strong>
+					<strong>
+						<a href="/inmueble/id-nombre">
+							HIGH TOWER CONDOS
+						</a>
+					</strong>
 					<p>
 						Apartamentos
 						<br/>
@@ -146,123 +171,23 @@
 					<a class="favoritos" href="">Favoritos</a>
 				</div>
 			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
 		</div>
 	</div>
+	<div class="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a href="?page={{ contacts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+        </span>
+
+        {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
 	<div class="paginacion-inferior row">
 		<div class="col-lg-4  col-md-6 col-lg-offset-8 col-md-offset-6">
 			<nav>

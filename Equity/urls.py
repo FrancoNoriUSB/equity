@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'Equity.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+	url(r'^$', 'index', name='pre_home'),
+
     url(r'^admin/', include(admin.site.urls)),
 
     #Urls de los inmuebles de Equity
