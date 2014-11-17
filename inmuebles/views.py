@@ -13,10 +13,12 @@ from django.forms.models import inlineformset_factory
 from django.db.models import Count
 from django.db.models import Q
 from inmuebles.models import *
+from inmuebles.forms import *
 from noticias.models import *
 from functions import *
 from django.core.mail.message import EmailMessage
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django_countries import countries
 
 
 # Vista del index o home
@@ -30,18 +32,35 @@ def index(request):
 
 def home(request, pais):
 
-    ctx = {
-        
-    }
+    #Busqueda del nombre del pais a partir del codigo
+    for code, name in list(countries):
+        if code == pais:
+            pais = name
+            code = code
+            break
 
-    return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
+    #Formulario para los paises disponibles
+    paisesF = PaisesForm(initial={'pais':pais,})
 
-def inmueble(request, codigo, titulo, pais):
+    if request.POST:
+        paisesF = PaisesForm(request.POST)
+        if paisesF.is_valid():
 
-    inmuebles_list = Inmueble.objects.all()
+            pais = paisesF.cleaned_data['pais']
+            for code, name in list(countries):
+                if name == pais:
+                    pais = code
+                    break
+
+            pais = Pais.objects.get(nombre=pais)
+            return HttpResponseRedirect('/'+str(pais.nombre)+'/')
+
+    #Busqueda de propiedades en el pais actual
+    pais = code
+    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
     paginator = Paginator(inmuebles_list, 6)
-
     page = request.GET.get('page')
+
     try:
         inmuebles = paginator.page(page)
     except PageNotAnInteger:
@@ -52,7 +71,21 @@ def inmueble(request, codigo, titulo, pais):
         inmuebles = paginator.page(paginator.num_pages)
 
     ctx = {
-        
+        'paisesF':paisesF,
+        'pais':pais,
+        'inmuebles': inmuebles,
+    }
+
+    return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
+
+def inmueble(request, codigo, pais):
+
+    #Formulario para los paises disponibles
+    paisesF = PaisesForm(request.POST)
+
+    ctx = {
+        'paisesF':paisesF,
+        'pais':pais,
     }
 
     return render_to_response('inmueble/inmueble.html', ctx, context_instance=RequestContext(request))

@@ -71,17 +71,10 @@
                             <div class="collapse navbar-collapse navHeaderCollapse navheader">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="pais">
-                                        <form role="form" action=".">
+                                        <form role="form" id="paises" method="POST" class="navbar-form navbar-right paises" action="." name="paises">
                                             <div class="form-group">
-                                                <select class="form-control" name="paises" id="paises">
-                                                    <option value="colombia">Colombia</option>
-                                                    <option value="costa rica">Costa Rica</option>
-                                                    <option value="ecuador">Ecuador</option>
-                                                    <option value="eeuu">EEUU</option>
-                                                    <option value="mexico">M&eacute;xico</option>
-                                                    <option value="panama">Panam&aacute;</option>
-                                                    <option value="venezuela" selected="true">Venezuela</option>
-                                                </select>
+                                                {%csrf_token%}
+                                                {{paisesF.pais}}
                                             </div>
                                         </form>
                                     </li>
@@ -246,6 +239,11 @@
     </body>
 
 <!-- Seccion donde se carga el JS -->
+<script>
+$('#id_pais').change(function(){
+    $('#paises').submit();
+});
+</script>
 {%block js%}
 
 {%endblock js%}
