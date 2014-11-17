@@ -30,6 +30,8 @@ def index(request):
 
     return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
 
+
+#Vista del home de cada pais
 def home(request, pais):
 
     #Busqueda del nombre del pais a partir del codigo
@@ -78,11 +80,35 @@ def home(request, pais):
 
     return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
 
+
+#Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
-    #Formulario para los paises disponibles
-    paisesF = PaisesForm(request.POST)
+    #Busqueda del nombre del pais a partir del codigo
+    for code, name in list(countries):
+        if code == pais:
+            pais = name
+            code = code
+            break
 
+    #Formulario para los paises disponibles
+    paisesF = PaisesForm(initial={'pais':pais,})
+
+    if request.POST:
+        paisesF = PaisesForm(request.POST)
+        if paisesF.is_valid():
+            pais = paisesF.cleaned_data['pais']
+
+            #Busqueda del codigo del pais, a partid del nombre
+            for code, name in list(countries):
+                if name == pais:
+                    pais = code
+                    break
+
+            pais = Pais.objects.get(nombre=pais)
+            return HttpResponseRedirect('/'+str(pais.nombre)+'/')
+
+    pais = code
     ctx = {
         'paisesF':paisesF,
         'pais':pais,
