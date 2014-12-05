@@ -12,7 +12,7 @@ class PaisesForm(forms.Form):
     paises_choices = []
 
     paises = Pais.objects.all().order_by('nombre')
-        
+
     paises_choices.append(('', '- Pais -'))
     for pais in paises:
     	paises_choices.append((pais.nombre, (dict(countries)[pais.nombre])))
@@ -36,3 +36,14 @@ class BuscadorForm(forms.Form):
     orden = forms.ChoiceField(choices=ordenes)
     codigo = forms.CharField(max_length=12)
     palabra = forms.CharField(max_length=20)
+
+
+#Formulario de contacto
+class ContactoAgenteForm(forms.Form):
+
+    nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'Nombre y Apellido'}))
+    correo = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder':'Correo'}))
+    telefonos = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder':'Teléfonos'}))
+    pais = forms.ModelChoiceField(queryset=Pais.objects.all())
+    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all())
+    comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder':'comentarios'}))

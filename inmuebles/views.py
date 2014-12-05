@@ -78,6 +78,9 @@ def inmueble(request, codigo, pais):
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
+    #Contacto con el agente
+    contactoF = ContactoAgenteForm()
+
     #Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
         'pais':pais,
@@ -85,6 +88,7 @@ def inmueble(request, codigo, pais):
 
     ctx = {
         'buscadorF':buscadorF,
+        'ContactoAgenteForm':contactoF,
         'paisesF':paisesF,
         'pais':pais,
     }
