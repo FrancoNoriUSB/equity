@@ -20,12 +20,14 @@ from django.core.mail.message import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 
-
 # Vista del index o home
 def index(request):
 
+    #Formulario para los paises disponibles
+    paisesF = PaisesForm()
+
     ctx = {
-    
+        'PaisesForm':paisesF,
     }
 
     return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
@@ -34,31 +36,17 @@ def index(request):
 #Vista del home de cada pais
 def home(request, pais):
 
-    #Busqueda del nombre del pais a partir del codigo
-    for code, name in list(countries):
-        if code == pais:
-            pais = name
-            code = code
-            break
+    #Buscador de inmuebles
+    buscadorF = BuscadorForm()
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
     #Formulario para los paises disponibles
-    paisesF = PaisesForm(initial={'pais':pais,})
-
-    if request.POST:
-        paisesF = PaisesForm(request.POST)
-        if paisesF.is_valid():
-
-            pais = paisesF.cleaned_data['pais']
-            for code, name in list(countries):
-                if name == pais:
-                    pais = code
-                    break
-
-            pais = Pais.objects.get(nombre=pais)
-            return HttpResponseRedirect('/'+str(pais.nombre)+'/')
+    paisesF = PaisesForm(initial={
+        'pais':pais,
+    })
 
     #Busqueda de propiedades en el pais actual
-    pais = code
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
     paginator = Paginator(inmuebles_list, 6)
     page = request.GET.get('page')
@@ -73,6 +61,7 @@ def home(request, pais):
         inmuebles = paginator.page(paginator.num_pages)
 
     ctx = {
+        'buscadorF':buscadorF,
         'paisesF':paisesF,
         'pais':pais,
         'inmuebles': inmuebles,
@@ -84,32 +73,18 @@ def home(request, pais):
 #Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
-    #Busqueda del nombre del pais a partir del codigo
-    for code, name in list(countries):
-        if code == pais:
-            pais = name
-            code = code
-            break
+    #Buscador de inmuebles
+    buscadorF = BuscadorForm()
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
     #Formulario para los paises disponibles
-    paisesF = PaisesForm(initial={'pais':pais,})
+    paisesF = PaisesForm(initial={
+        'pais':pais,
+    })
 
-    if request.POST:
-        paisesF = PaisesForm(request.POST)
-        if paisesF.is_valid():
-            pais = paisesF.cleaned_data['pais']
-
-            #Busqueda del codigo del pais, a partid del nombre
-            for code, name in list(countries):
-                if name == pais:
-                    pais = code
-                    break
-
-            pais = Pais.objects.get(nombre=pais)
-            return HttpResponseRedirect('/'+str(pais.nombre)+'/')
-
-    pais = code
     ctx = {
+        'buscadorF':buscadorF,
         'paisesF':paisesF,
         'pais':pais,
     }

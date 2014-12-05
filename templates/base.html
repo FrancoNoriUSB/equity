@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="es">
     {% load staticfiles %}
+    {% load widget_tweaks %}
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami">
+        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami, Mexico, Ecuador, Costa Rica, Panama, Colombia">
         <link rel="SHORTCUT ICON" href="{% static 'files/img/favicon.ico' %}"/>
         <title>Equity</title>
  
@@ -15,16 +15,6 @@
         <!-- jQuery -->
         <script src="http://code.jquery.com/jquery.js"></script>
 
-        <!--Bootstrap Remoto !!!-->
-        <!-- Latest compiled and minified CSS 
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">-->
-
-        <!-- Optional theme -->
-        <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">-->
-
-        <!-- Latest compiled and minified JavaScript
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        -->
         <!--Bootstrap Local-->
         <!--CSS -->
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -48,7 +38,7 @@
         {% block header %}
         <header>
             <nav class="navbar navbar-static-top navbar-default" role="navigation">
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="navbar-header">
@@ -59,7 +49,7 @@
                                         <span class="icon-bar"></span>
                                 </button>
                                 <div class="navbar-brand">
-                                    <a href="">
+                                    <a href="/">
                                         Contacto
                                     </a>
                                     |
@@ -79,7 +69,7 @@
                                         </form>
                                     </li>
                                     <li>
-                                        <a href="/">Inmuebles</a>
+                                        <a id="inmuebles_link" href="">Inmuebles</a>
                                     </li>
                                     <li>
                                         <a href="/">Info Pa&iacute;s</a>
@@ -105,21 +95,46 @@
                     </div>
                 </div>
             </nav>
-            <div class="logo container-fluid">
-                <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-2">
-                        
-                    </div>
-                    <div class="col-lg-8 col-md-12 col-sm-12">
-                        <img class="logo-equity img-responsive" src="{% static 'files/img/logo-blanco.png' %}" alt="Equity Media">
-                        <img class="grafico-izquierdo img-responsive" src="{{STATIC_URL}}files/img/grafico-derecho.png" alt="">
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2">
-                        
+            <!-- Sección interna de la página -->
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="col-lg-8 col-md-8 col-sm-8 centering">
+                        <img class="text-center" src="{% static 'files/img/logo-blanco.png' %}" alt="">
                     </div>
                 </div>
             </div>
         </header>
+
+        <!-- Barra de busqueda -->
+        <div class="container-fluid">
+            <div class="busqueda row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <form class="form-inline" role="form" action=".">
+                        {% csrf_token %}
+                    <div class="form-group">
+                        {% render_field buscadorF.ciudad class="form-control"%}
+                    </div>
+                    <div class="form-group">
+                        {% render_field buscadorF.zona class="form-control"%}
+                    </div>
+                    <div class="form-group">
+                        {% render_field buscadorF.tipo class="form-control"%}
+                    </div>
+                    <div class="form-group">
+                        {% render_field buscadorF.orden class="form-control"%}
+                    </div>
+                    <div class="form-group inner-addon right-addon">
+                        {% render_field buscadorF.codigo class="form-control" placeholder="Código"%}
+                        <span class="glyphicon glyphicon-barcode form-control-feedback"></span>
+                    </div>
+                    <div class="form-group inner-addon right-addon">
+                        {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
+                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
         {% endblock header %}
         
         <!-- Header del home -->
@@ -134,28 +149,8 @@
 
         <!-- Sección interna de la página -->
         <div class="contenido container">
-            <div class="banners row">
-                <div class="banners col-lg-3">
-                    <a class="banner-superior" href="">
-                        <img class="img-responsive" src="{% static 'files/img/banner-superior.png' %}" alt="">
-                    </a>
-                    <a class="banner-medio" href="">
-                        <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
-                    </a>
-                    <a class="banner-inferior" href="">
-                        <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
-                    </a>
-                    <a class="revista" href="">
-                    <img class="img-responsive" src="{% static 'files/img/revista.png' %}" alt="">
-                    </a>
-                </div>
-
-                <!-- Contenido de la pagina -->
-                <div class="contenido col-lg-9">
-                    {% block content %}
-                    {% endblock content %}
-                </div>
-            </div>
+            {% block content %}
+            {% endblock content %}
         </div>
 
         <!-- Footer de la página -->
@@ -241,10 +236,11 @@
 <!-- Seccion donde se carga el JS -->
 <script>
 $('#id_pais').change(function(){
-    $('#paises').submit();
+    var pais = $(this).val();
+    window.location.replace("/"+pais+"/");
+    $("#inmuebles_link").attr("href", pais);
 });
 </script>
 {%block js%}
-
 {%endblock js%}
 </html>
