@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     #Urls de los inmuebles de Equity
-    url(r'^', include('inmuebles.urls')),
+    url(r'^', include('inmuebles.urls', namespace='inmuebles')),
 
     #Urls de las noticias de Equity
 #    url(r'^', include('noticias.urls')),

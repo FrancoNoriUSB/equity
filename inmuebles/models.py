@@ -53,7 +53,7 @@ class Zona(models.Model):
 #Imagen de los anuncios que se publican
 class Imagen(models.Model):
     imagen = models.ImageField(upload_to='uploads/img/')
-    thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True, editable=False)
     descripcion = models.CharField(max_length=140, null=True)
 
     #Metodo para crear el thumbnail al momento de cear la imagen
