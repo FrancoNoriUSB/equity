@@ -20,7 +20,6 @@ from functions import *
 from django.core.mail.message import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
-from .forms import InmuebleForm
 from django import forms
 
 
@@ -31,7 +30,7 @@ def index(request):
     paisesF = PaisesForm()
 
     ctx = {
-        'PaisesForm':paisesF,
+        'PaisesForm': paisesF,
     }
 
     return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
@@ -47,7 +46,7 @@ def home(request, pais):
 
     #Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
-        'pais':pais,
+        'pais': pais,
     })
 
     #Busqueda de propiedades en el pais actual
@@ -65,9 +64,9 @@ def home(request, pais):
         inmuebles = paginator.page(paginator.num_pages)
 
     ctx = {
-        'buscadorF':buscadorF,
-        'paisesF':paisesF,
-        'pais':pais,
+        'buscadorF': buscadorF,
+        'paisesF': paisesF,
+        'pais': pais,
         'inmuebles': inmuebles,
     }
 
@@ -87,47 +86,96 @@ def inmueble(request, codigo, pais):
 
     #Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
-        'pais':pais,
+        'pais': pais,
     })
 
     ctx = {
-        'buscadorF':buscadorF,
-        'ContactoAgenteForm':contactoF,
-        'paisesF':paisesF,
-        'pais':pais,
+        'buscadorF': buscadorF,
+        'ContactoAgenteForm': contactoF,
+        'paisesF': paisesF,
+        'pais': pais,
     }
 
-    return render_to_response('inmueble/inmueble.html', ctx, context_instance=RequestContext(request))    return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
+    return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
 
 
+# Vista para elegir el tipo de inmueble a publicar
 class ElegirTipo(TemplateView):
     template_name = "inmuebles/elegir-tipo.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ElegirTipo, self).get_context_data(**kwargs)
+        context['pais'] = kwargs["pais"]
+        return context
 
 
 class Publicar(CreateView):
     template_name = 'inmuebles/publicar.html'
     model = Inmueble
     form = InmuebleForm
-    fields = '__all__'
+    fields = ['titulo', 'codigo', 'descripcion', 'ciudad', 'zona', 'direccion', 'agente', 'latitud', 'longitud']
 
     def get(self, request, *args, **kwargs):
-        """
-        Handles GET requests and instantiates blank versions of the form
-        and its inline formsets.
-        """
-        tipo = get_object_or_404(TipoInmueble, nombre=kwargs["tipo"])
-        campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
-        ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble, ValorCampoTipoInmueble, extra=campos.count(), can_delete=True)
-        campotipo_formset = ValorCampoTipoInmuebleFormset()
-        for formset in campotipo_formset:
-            formset.fields['campo'] = forms.ChoiceField(campos.values_list('id', 'nombre'))
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        imagen_formset = inlineformset_factory(Inmueble, ImagenInmueble, extra=1, can_delete=True)
-        campo_formset = inlineformset_factory(Inmueble, ValorCampoInmueble, extra=1, can_delete=True)
+        tipo = get_object_or_404(TipoInmueble, nombre=kwargs["tipo"])
+        campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
+        ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
+                                                              ValorCampoTipoInmueble,
+                                                              extra=campos.count(),
+                                                              can_delete=False,
+                                                              fields=['campo', 'valor'])
+        campotipo_formset = ValorCampoTipoInmuebleFormset()
+        for formset in campotipo_formset:
+            formset.fields['campo'].choices = campos.values_list('id', 'nombre')
+        imagen_formset = ImagenFormset()
+        campo_formset = CampoFormset()
+        return self.render_to_response(self.get_context_data(form=form,
+                                                             campotipo_formset=campotipo_formset,
+                                                             imagen_formset=imagen_formset,
+                                                             campo_formset=campo_formset,
+                                                             pais=kwargs["pais"]))
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        tipo = get_object_or_404(TipoInmueble, nombre=kwargs["tipo"])
+        campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
+        ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
+                                                              ValorCampoTipoInmueble,
+                                                              extra=campos.count(),
+                                                              can_delete=False,
+                                                              fields=['campo', 'valor'])
+        campotipo_formset = ValorCampoTipoInmuebleFormset(self.request.POST)
+        for formset in campotipo_formset:
+            formset.fields['campo'].choices = campos.values_list('id', 'nombre')
+        imagen_formset = ImagenFormset(self.request.POST)
+        campo_formset = CampoFormset(self.request.POST)
+        if (form.is_valid() and imagen_formset.is_valid() and campo_formset.is_valid() and campotipo_formset.is_valid()):
+            return self.form_valid(form, campotipo_formset, imagen_formset, campo_formset, tipo, kwargs["pais"])
+        else:
+            return self.form_invalid(form, campotipo_formset, imagen_formset, campo_formset, kwargs["pais"])
+
+    def form_valid(self, form, campotipo_formset, imagen_formset, campo_formset, tipo, pais):
+        self.object = form.save(commit=False)
+        self.object.pais = Pais.objects.get(nombre=pais)
+        self.object.tipo = tipo
+        self.object.fecha_expiracion = datetime.now()
+        self.object.save()
+        campotipo_formset.instance = self.object
+        campotipo_formset.save()
+        imagen_formset.instance = self.object
+        imagen_formset.save()
+        campo_formset.instance = self.object
+        campo_formset.save()
+        return redirect('inmuebles:home_pais', pais=pais)
+
+    def form_invalid(self, form, campotipo_formset, imagen_formset, campo_formset, pais):
         return self.render_to_response(
             self.get_context_data(form=form,
                                   campotipo_formset=campotipo_formset,
                                   imagen_formset=imagen_formset,
-                                  campo_formset=campo_formset))
+                                  campo_formset=campo_formset,
+                                  pais=pais))

@@ -1,6 +1,6 @@
 <!-- Archivo donde estan los bloques del home -->
 {% extends "base.html" %}
-
+{% load bootstrap3 %}
 {% load staticfiles %}
 
 <!-- Bloque para scripts que se cargan en la plantilla base -->
@@ -79,17 +79,28 @@
 
     <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
     {% csrf_token %}
-        {{ form.as_p }}
+        {% bootstrap_form form %}
         <div>
             {{ imagen_formset.management_form }}
-            <p>FORMSET</p>
+            <p>Imágenes</p>
             {% for form in imagen_formset %}
-                {{ form }}
+                {% bootstrap_form form %}
             {% endfor %}
-            <p>FORMSET 2</p>
+            <h3>Campos Obligatorios</h3>
+            {{ campotipo_formset.management_form }}
             {% for form in campotipo_formset %}
-                {{ form }}
+                {% bootstrap_form form %}
             {% endfor %}
+            <h3>Campos Opcionales</h3>
+            {{ campo_formset.management_form }}
+            {% for form in campo_formset %}
+                {% bootstrap_form form %}
+            {% endfor %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                     Publicar
+                </button>
+            {% endbuttons %}
         </div>
     </form>
 {% endblock content %}

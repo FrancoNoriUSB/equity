@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_countries',
     'widget_tweaks',
+    'bootstrap3',
     'inmuebles',
     'noticias'
 )

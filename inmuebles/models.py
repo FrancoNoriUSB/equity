@@ -170,8 +170,8 @@ class Inmueble(models.Model):
     agente = models.ForeignKey(Agente)
     tipo = models.ForeignKey(TipoInmueble)
     # Coodenadas Google Maps
-    latitud = models.DecimalField(max_digits=8, decimal_places=6)
-    longitud = models.DecimalField(max_digits=8, decimal_places=6)
+    latitud = models.DecimalField(max_digits=12, decimal_places=10)
+    longitud = models.DecimalField(max_digits=12, decimal_places=10)
 
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     feche_actualizacion = models.DateTimeField(auto_now=True)
@@ -190,7 +190,7 @@ class ImagenInmueble(Imagen):
     inmueble = models.ForeignKey(Inmueble)
 
     def __unicode__(self):
-    	return self.descripcion
+        return self.descripcion
 
 
 # Modelo para definir los campos bases para cada tipo de inmueble

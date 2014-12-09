@@ -99,13 +99,13 @@
         			{% for inmueble in inmuebles %}
             			<div class="propiedad row">
             				<div class="foto col-lg-4">
-            					<a href="{% url 'inmueble' pais inmueble.codigo %}">
+            					<a href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">
                                     <img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
                                 </a>
             				</div>
             				<div class="descripcion col-lg-3">
             					<strong>
-            						<a href="{% url 'inmueble' pais inmueble.codigo %}">
+            						<a href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">
             							{{inmueble.titulo}}
             						</a>
             					</strong>
@@ -121,7 +121,7 @@
             				<div class="varios col-lg-3 col-lg-offset-1">
             					<img src="{{inmueble.agente.logo.url}}" alt="">
             					<br>
-            					<a class="ver" href="{% url 'inmueble' pais inmueble.codigo %}">Ver</a>
+            					<a class="ver" href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">Ver</a>
             					<a class="comparar" href="">Comparar</a>
             					<a class="favoritos" href="">Favoritos</a>
             				</div>
