@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+from Equity.settings import *
 from django.utils.translation import gettext as _
 from django.db import models
 from django_countries.fields import CountryField
@@ -103,7 +105,7 @@ class Imagen(models.Model):
         verbose_name_plural = _('Imagenes')
 
     def __unicode__(self):
-        return self.imagen
+        return self.descripcion
 
 
 #Modelo para el Agente inmobiliario
@@ -111,7 +113,7 @@ class Agente(models.Model):
     usuario = models.OneToOneField(User)
     codigo = models.CharField(max_length=40)
     pais = models.ForeignKey(Pais)
-    logo = models.ImageField()
+    logo = models.ImageField(upload_to='agentes/')
 
     class Meta:
         verbose_name = "Agente"
@@ -186,6 +188,9 @@ class Inmueble(models.Model):
 # Modelo para imágenes de un inmueble publicado
 class ImagenInmueble(Imagen):
     inmueble = models.ForeignKey(Inmueble)
+
+    def __unicode__(self):
+    	return self.descripcion
 
 
 # Modelo para definir los campos bases para cada tipo de inmueble

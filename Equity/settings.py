@@ -55,8 +55,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = (
-    'django_admin_bootstrapped.bootstrap3',
-    'django_admin_bootstrapped',
+    'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,6 +63,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_countries',
+    'widget_tweaks',
     'inmuebles',
     'noticias'
 )
@@ -80,7 +80,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'Equity.urls'
 
 WSGI_APPLICATION = 'Equity.wsgi.application'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -107,3 +106,15 @@ STATICFILES_DIRS = (
 #Directorio de los templates
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+MEDIA_URL = '/uploads/'
+
+# For Sidebar Menu (List of apps and models) (RECOMMENDED)
+from django.conf import global_settings
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
+)
+
+BOOTSTRAP_ADMIN_SIDEBAR_MENU = True

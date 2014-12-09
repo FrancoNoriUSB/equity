@@ -5,8 +5,6 @@
   Azul Oscuro:#1a2e51;
 */
 
-
-
 /*Estilos del Slider*/
 .selected img {
 	opacity:0.5;
@@ -14,4 +12,22 @@
 
 #slider-thumbs > ul > li{
 	cursor: pointer;
+}
+
+/*Estilos de info de inmueble*/
+#ubicacion > div > div > .mapa{
+	margin-right: auto;
+	margin-left: auto;
+	width: 600px;
+	height: 500px;
+}
+
+body > div.contenido.container > div.row.informacion > div > div{
+	padding: 2%
+}
+
+
+/*Boostrap modificado*/
+body > div.contenido.container > div.row.informacion > div > ul{
+	border-bottom: 0px;
 }

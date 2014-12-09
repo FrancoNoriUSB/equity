@@ -5,20 +5,6 @@
   Azul Oscuro:#1a2e51;
 */
 
-/*Estilos del header del home*/
-body > div.header-home > div > div.busqueda.row{
-	background-color: #0095d9;
-}	
-
-body > div.header-home > div > div > div > p{
-	margin:0 0 0 0;
-	font-size: 3px;
-}
-
-body > div.header-home > div > div.busqueda.row > div{
-	padding: 10px;
-}
-
 /*Estilos del carrousel*/
 body > div.header-home > div > div.carrousel.container{
 	margin-top: 0.5%;
@@ -40,7 +26,6 @@ body > div.header-home > div > div.carrousel.container{
 }
 
 /*Estilos contenido*/
-
 body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-3 > strong > a{
 	color: #000;
 }
@@ -56,23 +41,3 @@ body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.
 }
 
 /*Estilos de bootstrap*/
-
-/* enable absolute positioning */
-.inner-addon { 
-    position: relative; 
-}
-
-/* style icon */
-.inner-addon .glyphicon {
-  position: absolute;
-  padding: 0px;
-  pointer-events: none;
-}
-
-/* align icon */
-.left-addon .glyphicon  { left:  0px;}
-.right-addon .glyphicon { right: 0px;}
-
-/* add padding  */
-.left-addon input  { padding-left:  30px; }
-.right-addon input { padding-right: 30px; }

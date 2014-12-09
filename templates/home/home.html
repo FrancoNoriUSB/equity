@@ -15,62 +15,6 @@
 {% block header_home %}
 
 	<div class="container-fluid">
-		
-		<div class="row">
-			<div class="col-lg-12">
-				<p>&nbsp;</p>
-			</div>
-		</div>
-		<!-- Barra de busqueda -->
-		<div class="busqueda row">
-			<div class="col-lg-9 col-md-9 col-sm-9 col-lg-offset-3 col-md-offset-3 col-sm-offset-3">
-				<form class="form-inline" role="form" action=".">
-                    <div class="form-group">
-                        <select class="form-control" name="ciudad" id="ciudad">
-                        	<option value="ciudad">Ciudad</option>
-                            <option value="caracas" selected="true">Caracas</option>
-                            <option value="maracay">Maracay</option>
-                            <option value="pto la cruz">Pto La Cruz</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="zona" id="zona">
-                        	<option value="zona">Zona</option>
-                            <option value="el hatillo" selected="true">El Hatillo</option>
-                            <option value="las mercedes">Las Mercedes</option>
-                            <option value="chacao">Chacao</option>
-                            <option value="altamira">Altamira</option>
-                            <option value="el cafetal">El Cafetal</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="tipo-inmueble" id="tipo-inmueble">
-                        	<option value="" disabled selected="true">Tipo de Inmueble</option>
-                            <option value="casa">Casa</option>
-                            <option value="apartamento">Apartamento</option>
-                            <option value="galpon">Galpon</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="orden" id="orden">
-                        	<option value="" disabled selected>Ordenado Por</option>
-                            <option value="casa">Zona</option>
-                            <option value="apartamento">Tipo</option>
-                            <option value="galpon">Precio</option>
-                        </select>
-                    </div>
-                    <div class="form-group inner-addon right-addon">
-                        <span class="glyphicon glyphicon-barcode form-control-feedback"></span>
-                        <input type="text" class="form-control" placeholder="Código Equity">
-                    </div>
-                    <div class="form-group inner-addon right-addon">
-                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                        <input type="text" class="form-control" placeholder="Búsqueda">
-                    </div>
-                </form>
-			</div>
-		</div>
-		
 
 		<!-- Carrousel del header -->
 		<div class="carrousel container">
@@ -110,183 +54,111 @@
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
-	<div class="paginacion-superior row">
-		<div class="col-lg-4 col-md-6 col-lg-offset-8 col-md-offset-6">
-			<nav>
-			  <ul class="pagination">
-			    <li><a href="#">&laquo;</a></li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">&raquo;</a></li>
-			  </ul>
-			</nav>
-		</div>
-	</div>
-	<div class="propiedades row">
-		<div class="col-lg-12 col-md-12 col-sm-12">
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<a href="/propiedad/id-nombre">
-						<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-					</a>
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong><a href="/inmueble/id-nombre">HIGH TOWER CONDOS</a></strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="/propiedad/id-nombre">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-			<div class="propiedad row">
-				<div class="foto col-lg-4">
-					<img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-				</div>
-				<div class="descripcion col-lg-3">
-					<strong>HIGH TOWER CONDOS</strong>
-					<p>
-						Apartamentos
-						<br/>
-						Col. Las Lomas Alcazar
-						<br/>
-						<br/>
-						Cod. Web#32786D2 
-					</p>
-				</div>
-				<div class="varios col-lg-3 col-lg-offset-1">
-					<img src="{% static 'files/img/constructora.png' %}" alt="">
-					<br>
-					<a class="ver" href="">Ver</a>
-					<a class="comparar" href="">Comparar</a>
-					<a class="favoritos" href="">Favoritos</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="paginacion-inferior row">
-		<div class="col-lg-4  col-md-6 col-lg-offset-8 col-md-offset-6">
-			<nav>
-			  <ul class="pagination">
-			    <li><a href="#">&laquo;</a></li>
-			    <li><a href="#">1</a></li>
-			    <li><a href="#">2</a></li>
-			    <li><a href="#">3</a></li>
-			    <li><a href="#">4</a></li>
-			    <li><a href="#">&raquo;</a></li>
-			  </ul>
-			</nav>
-		</div>
-	</div>
-	<div class="logos-camara row">
-		<div class="col-lg-12 col-md-12 col-sm-12">
-			<img src="" alt="">
-		</div>
-	</div>
+    <div class="banners row">
+        <div class="banners col-lg-3">
+            <a class="banner-superior" href="">
+                <img class="img-responsive" src="{% static 'files/img/banner-superior.png' %}" alt="">
+            </a>
+            <a class="banner-medio" href="">
+                <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
+            </a>
+            <a class="banner-inferior" href="">
+                <img class="img-responsive" src="{% static 'files/img/banner-medio.png' %}" alt="">
+            </a>
+            <a class="revista" href="">
+            <img class="img-responsive" src="{% static 'files/img/revista.png' %}" alt="">
+            </a>
+        </div>
+
+        <!-- Contenido de la pagina -->
+        <div class="contenido col-lg-9">
+        	<div class="paginacion-superior row">
+        		<div class="col-lg-4 col-md-6 col-lg-offset-8 col-md-offset-6">
+        			<nav>
+        			  <ul class="pagination">
+                        {% if inmuebles.has_previous %}
+                            <li>
+                                <a href="?page={{ inmuebles.previous_page_number }}">&laquo;</a>
+                            </li>
+                        {% endif %}
+                            <li><a href="">{{ inmuebles.number }}</a></li>
+                        {% if inmuebles.has_next %}
+                            <li>
+                                <a href="?page={{ inmuebles.next_page_number }}">&raquo;</a>
+                            </li>
+                        {% endif %}
+        			    <li><a href="#">2</a></li>
+        			    <li><a href="#">3</a></li>
+        			    <li><a href="#">4</a></li>
+        			  </ul>
+        			</nav>
+        		</div>
+        	</div>
+        	<div class="propiedades row">
+        		<div class="col-lg-12 col-md-12 col-sm-12">
+        			{% for inmueble in inmuebles %}
+            			<div class="propiedad row">
+            				<div class="foto col-lg-4">
+            					<a href="{% url 'inmueble' pais inmueble.codigo %}">
+                                    <img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
+                                </a>
+            				</div>
+            				<div class="descripcion col-lg-3">
+            					<strong>
+            						<a href="{% url 'inmueble' pais inmueble.codigo %}">
+            							{{inmueble.titulo}}
+            						</a>
+            					</strong>
+            					<p>
+            						{{inmueble.tipo.nombre}}
+            						<br/>
+            						{{inmueble.zona.nombre}}
+            						<br/>
+            						<br/>
+            						{{inmueble.codigo}} 
+            					</p>
+            				</div>
+            				<div class="varios col-lg-3 col-lg-offset-1">
+            					<img src="{{inmueble.agente.logo.url}}" alt="">
+            					<br>
+            					<a class="ver" href="{% url 'inmueble' pais inmueble.codigo %}">Ver</a>
+            					<a class="comparar" href="">Comparar</a>
+            					<a class="favoritos" href="">Favoritos</a>
+            				</div>
+            			</div>
+                    {% endfor %}
+        		</div>
+        	</div>
+        	
+        	<div class="paginacion-inferior row">
+        		<div class="col-lg-4 col-md-6 col-lg-offset-8 col-md-offset-6">
+                    <nav>
+                      <ul class="pagination">
+                        {% if inmuebles.has_previous %}
+                            <li>
+                                <a href="?page={{ inmuebles.previous_page_number }}">&laquo;</a>
+                            </li>
+                        {% endif %}
+                            <li><a href="">{{ inmuebles.number }}</a></li>
+                        {% if inmuebles.has_next %}
+                            <li>
+                                <a href="?page={{ inmuebles.next_page_number }}">&raquo;</a>
+                            </li>
+                        {% endif %}
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                      </ul>
+                    </nav>
+                </div>
+        	</div>
+        	<div class="logos-camara row">
+        		<div class="col-lg-12 col-md-12 col-sm-12">
+        			<img src="" alt="">
+        		</div>
+        	</div>
+        </div>
+    </div>
 {% endblock content %}
 
 <!-- Seccion donde se carga el JS -->

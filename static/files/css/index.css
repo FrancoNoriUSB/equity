@@ -4,3 +4,33 @@
   Gris:#4f4e4e;
   Azul Oscuro:#1a2e51;
 */
+
+body{
+	background-color: #0095d9;
+}
+
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0 0;
+}
+
+.container-fluid {
+    height: 100%;
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.row-fluid {
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.centering {
+    float: none;
+    margin: 0 auto;
+}
