@@ -102,5 +102,70 @@
                 </button>
             {% endbuttons %}
         </div>
+        <div>
+            <!-- Mapa de google maps -->
+            Coordenadas:
+            <!-- Campo que posee un text input -->
+            {{ DireccionForm.coord }}
+            <div class="mapa" id="map">
+                <input type="text" id="lat" value='{{lat}}'>
+                <input type="text" id="lng" value='{{lng}}'>
+            </div>
+            (Clickee en el mapa la ubicaci&oacute;n de su local)
+        </div>
     </form>
 {% endblock content %}
+
+{% block js %}
+
+<!-- Mapa de google maps -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">
+</script>
+<script >
+var map;
+function initialize(){
+    /*Inicializacion de variables y toma de argumentos de latitud y longitud*/
+    var lat = parseFloat(document.getElementById('lat').value.replace(/,/g,'.') );
+    var lng = parseFloat(document.getElementById('lng').value.replace(/,/g,'.') );
+    var markers = [];
+    var coord = document.getElementById('id_coord');
+
+    /*Inicializacion del mapa*/
+    var mapOptions = {
+        zoom: 13,
+        center: new google.maps.LatLng(lat, lng)
+    };
+
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    /*Funciones para agregar el marcador y eliminar el anterior*/
+    google.maps.event.addListener(map, 'click', function(event){
+        clearMarkers();
+        markers = [];
+        placeMarker(event.latLng);
+        coord.value = event.latLng.k + ', ' + event.latLng.B;
+    });
+
+    function clearMarkers() {
+        setAllMap(null);
+    }
+
+    function setAllMap(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+
+    function placeMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location, 
+            map: map
+        });
+        markers.push(marker);
+    }
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+{% endblock js %}
