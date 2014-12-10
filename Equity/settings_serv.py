@@ -60,9 +60,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_countries',
     'widget_tweaks',
+    'django_countries',
     'bootstrap3',
     'inmuebles',
-    'noticias'
+    'noticias',
 )
 
 MIDDLEWARE_CLASSES = (
