@@ -101,6 +101,7 @@ def inmueble(request, codigo, pais):
 
 # Vista para elegir el tipo de inmueble a publicar
 class ElegirTipo(TemplateView):
+
     template_name = "inmuebles/elegir-tipo.html"
 
     def get_context_data(self, **kwargs):
@@ -109,6 +110,7 @@ class ElegirTipo(TemplateView):
         return context
 
 
+#Vista para publicar el inmueble
 class Publicar(CreateView):
     template_name = 'inmuebles/publicar.html'
     model = Inmueble

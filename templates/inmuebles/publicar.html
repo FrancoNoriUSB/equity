@@ -1,5 +1,5 @@
 <!-- Archivo donde estan los bloques del home -->
-{% extends "base.html" %}
+{% extends "base_publicar.html" %}
 {% load bootstrap3 %}
 {% load staticfiles %}
 
@@ -19,55 +19,6 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<p>&nbsp;</p>
-			</div>
-		</div>
-		<!-- Barra de busqueda -->
-		<div class="busqueda row">
-			<div class="col-lg-9 col-md-9 col-sm-9 col-lg-offset-3 col-md-offset-3 col-sm-offset-3">
-				<form class="form-inline" role="form" action=".">
-                    <div class="form-group">
-                        <select class="form-control" name="ciudad" id="ciudad">
-                        	<option value="ciudad">Ciudad</option>
-                            <option value="caracas" selected="true">Caracas</option>
-                            <option value="maracay">Maracay</option>
-                            <option value="pto la cruz">Pto La Cruz</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="zona" id="zona">
-                        	<option value="zona">Zona</option>
-                            <option value="el hatillo" selected="true">El Hatillo</option>
-                            <option value="las mercedes">Las Mercedes</option>
-                            <option value="chacao">Chacao</option>
-                            <option value="altamira">Altamira</option>
-                            <option value="el cafetal">El Cafetal</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="tipo-inmueble" id="tipo-inmueble">
-                        	<option value="" disabled selected="true">Tipo de Inmueble</option>
-                            <option value="casa">Casa</option>
-                            <option value="apartamento">Apartamento</option>
-                            <option value="galpon">Galpon</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" name="orden" id="orden">
-                        	<option value="" disabled selected>Ordenado Por</option>
-                            <option value="casa">Zona</option>
-                            <option value="apartamento">Tipo</option>
-                            <option value="galpon">Precio</option>
-                        </select>
-                    </div>
-                    <div class="form-group inner-addon right-addon">
-                        <span class="glyphicon glyphicon-barcode form-control-feedback"></span>
-                        <input type="text" class="form-control" placeholder="Código Equity">
-                    </div>
-                    <div class="form-group inner-addon right-addon">
-                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                        <input type="text" class="form-control" placeholder="Búsqueda">
-                    </div>
-                </form>
 			</div>
 		</div>
 	</div>
