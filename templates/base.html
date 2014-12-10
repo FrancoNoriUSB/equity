@@ -238,6 +238,7 @@
 $('#id_pais').change(function(){
     var pais = $(this).val();
     window.location.replace("/"+pais+"/");
+    console.log("Pais:"+pais);
     $("#inmuebles_link").attr("href", pais);
 });
 </script>
