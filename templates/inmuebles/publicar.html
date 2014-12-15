@@ -8,6 +8,13 @@
 
 <!-- Estilos del index -->
 <link rel="stylesheet" type="text/css" href="{% static 'files/css/home.css' %}">
+<style>
+    html, body, #map-canvas {
+        height: 500px;
+        margin: 0px;
+        padding: 0px
+    }
+</style>
 
 {% endblock scripts %}
 
@@ -30,10 +37,23 @@
 
     <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
     {% csrf_token %}
-        {% bootstrap_form form %}
+        {% bootstrap_field form.titulo %}
+        {% bootstrap_field form.codigo %}
+        {% bootstrap_field form.descripcion %}
+        {% bootstrap_field form.ciudad %}
+        {% bootstrap_field form.zona %}
+        {% bootstrap_field form.direccion %}
+        {% bootstrap_field form.agente %}
         <div>
-            {{ imagen_formset.management_form }}
+            <label>Ubicación</label>
+            <div class="mapa" id="map-canvas">
+            </div>
+            {{ form.latitud.as_hidden }}
+            {{ form.longitud.as_hidden }}
+        </div>
+        <div>
             <p>Imágenes</p>
+            {{ imagen_formset.management_form }}
             {% for form in imagen_formset %}
                 {% bootstrap_form form %}
             {% endfor %}
@@ -53,70 +73,50 @@
                 </button>
             {% endbuttons %}
         </div>
-        <div>
-            <!-- Mapa de google maps -->
-            Coordenadas:
-            <!-- Campo que posee un text input -->
-            {{ DireccionForm.coord }}
-            <div class="mapa" id="map">
-                <input type="text" id="lat" value='{{lat}}'>
-                <input type="text" id="lng" value='{{lng}}'>
-            </div>
-            (Clickee en el mapa la ubicaci&oacute;n de su local)
-        </div>
     </form>
 {% endblock content %}
 
 {% block js %}
 
 <!-- Mapa de google maps -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">
-</script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script >
 var map;
-function initialize(){
-    /*Inicializacion de variables y toma de argumentos de latitud y longitud*/
-    var lat = parseFloat(document.getElementById('lat').value.replace(/,/g,'.') );
-    var lng = parseFloat(document.getElementById('lng').value.replace(/,/g,'.') );
+function initialize() {
     var markers = [];
-    var coord = document.getElementById('id_coord');
-
-    /*Inicializacion del mapa*/
+    var lat = $('#id_latitud');
+    var lon = $('#id_longitud');
     var mapOptions = {
-        zoom: 13,
-        center: new google.maps.LatLng(lat, lng)
+    zoom: 4,
+    center: new google.maps.LatLng(15.152880, -73.702163)
     };
-
-    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
     /*Funciones para agregar el marcador y eliminar el anterior*/
     google.maps.event.addListener(map, 'click', function(event){
         clearMarkers();
         markers = [];
         placeMarker(event.latLng);
-        coord.value = event.latLng.k + ', ' + event.latLng.B;
+        lat.val(event.latLng.k);
+        lon.val(event.latLng.D);
     });
-
     function clearMarkers() {
         setAllMap(null);
     }
-
     function setAllMap(map) {
         for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(map);
+        markers[i].setMap(map);
         }
     }
-
     function placeMarker(location) {
         var marker = new google.maps.Marker({
-            position: location, 
+            position: location,
             map: map
         });
         markers.push(marker);
     }
 }
 google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>
 {% endblock js %}

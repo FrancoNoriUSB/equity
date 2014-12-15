@@ -170,8 +170,8 @@ class Inmueble(models.Model):
     agente = models.ForeignKey(Agente)
     tipo = models.ForeignKey(TipoInmueble)
     # Coodenadas Google Maps
-    latitud = models.DecimalField(max_digits=12, decimal_places=10)
-    longitud = models.DecimalField(max_digits=12, decimal_places=10)
+    latitud = models.DecimalField(max_digits=20, decimal_places=17)
+    longitud = models.DecimalField(max_digits=20, decimal_places=17)
 
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     feche_actualizacion = models.DateTimeField(auto_now=True)

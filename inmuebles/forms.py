@@ -53,6 +53,10 @@ class ContactoAgenteForm(forms.Form):
 class InmuebleForm(forms.ModelForm):
     class Meta:
         model = Inmueble
+        widgets = {
+            'latitud': forms.HiddenInput(),
+            'longitud': forms.HiddenInput()
+        }
         exclude = ['tipo', 'pais']
 
 

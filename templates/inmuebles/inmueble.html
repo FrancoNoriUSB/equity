@@ -8,7 +8,13 @@
 
 <!-- Estilos del index -->
 <link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble.css' %}">
-
+<style>
+    html, body, #mapa {
+        height: 500px;
+        margin: 0px;
+        padding: 0px
+    }
+</style>
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
@@ -273,11 +279,9 @@ $('#myCarousel').on('slid', function (e) {
 var map;
 function initialize() {
 	/*Inicializacion de variables y toma de argumentos de latitud y longitud*/
-	var lat = parseFloat(document.getElementById('lat').value.replace(/,/g,'.') );
-	var lng = parseFloat(document.getElementById('lng').value.replace(/,/g,'.') );
 	var mapOptions = {
 		zoom: 17,
-		center: new google.maps.LatLng(lat, lng)
+		center: new google.maps.LatLng({{ inmueble.latitud }}, {{ inmueble.longitud }})
 	};
   	map = new google.maps.Map(document.getElementById('mapa'),
       mapOptions);

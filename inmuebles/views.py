@@ -80,7 +80,7 @@ def inmueble(request, codigo, pais):
     buscadorF = BuscadorForm()
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
-
+    inmueble = get_object_or_404(Inmueble, codigo=codigo)
     #Contacto con el agente
     contactoF = ContactoAgenteForm()
 
@@ -90,6 +90,7 @@ def inmueble(request, codigo, pais):
     })
 
     ctx = {
+        'inmueble': inmueble,
         'buscadorF': buscadorF,
         'ContactoAgenteForm': contactoF,
         'paisesF': paisesF,
@@ -115,6 +116,10 @@ class Publicar(CreateView):
     template_name = 'inmuebles/publicar.html'
     model = Inmueble
     form = InmuebleForm
+    widgets = {
+        'latitud': forms.HiddenInput(),
+        'longitud': forms.HiddenInput()
+    }
     fields = ['titulo', 'codigo', 'descripcion', 'ciudad', 'zona', 'direccion', 'agente', 'latitud', 'longitud']
 
     def get(self, request, *args, **kwargs):
@@ -155,7 +160,7 @@ class Publicar(CreateView):
             formset.fields['campo'].choices = campos.values_list('id', 'nombre')
         imagen_formset = ImagenFormset(self.request.POST)
         campo_formset = CampoFormset(self.request.POST)
-        if (form.is_valid() and imagen_formset.is_valid() and campo_formset.is_valid() and campotipo_formset.is_valid()):
+        if form.is_valid() and imagen_formset.is_valid() and campo_formset.is_valid() and campotipo_formset.is_valid():
             return self.form_valid(form, campotipo_formset, imagen_formset, campo_formset, tipo, kwargs["pais"])
         else:
             return self.form_invalid(form, campotipo_formset, imagen_formset, campo_formset, kwargs["pais"])
