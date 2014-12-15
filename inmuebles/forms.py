@@ -61,4 +61,4 @@ class InmuebleForm(forms.ModelForm):
 
 
 ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, extra=5, can_delete=True, fields=['imagen', 'descripcion'])
-CampoFormset = inlineformset_factory(Inmueble, ValorCampoInmueble, extra=3, can_delete=True, fields=['campo', 'valor'])
+CampoFormset = inlineformset_factory(Inmueble, ValorCampoInmueble, extra=1, can_delete=True, fields=['campo', 'valor'])

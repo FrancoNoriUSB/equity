@@ -54,18 +54,27 @@
         <div>
             <p>Imágenes</p>
             {{ imagen_formset.management_form }}
-            {% for form in imagen_formset %}
-                {% bootstrap_form form %}
+            {% for formset in imagen_formset %}
+                {% bootstrap_field formset.imagen %}
+                {% bootstrap_field formset.descripcion %}
+                {% if formset.instance.pk %}{% bootstrap_field formset.DELETE %}{% endif %}
             {% endfor %}
             <h3>Campos Obligatorios</h3>
             {{ campotipo_formset.management_form }}
-            {% for form in campotipo_formset %}
-                {% bootstrap_form form %}
+            {% for formset in campotipo_formset %}
+                {% bootstrap_field formset.campo %}
+                {% bootstrap_field formset.valor %}
+                {% if formset.instance.pk %}{% bootstrap_field formset.DELETE %}{% endif %}
+
             {% endfor %}
             <h3>Campos Opcionales</h3>
             {{ campo_formset.management_form }}
-            {% for form in campo_formset %}
-                {% bootstrap_form form %}
+            {% for formset in campo_formset %}
+                <div id="" class="campo-formset">
+                    {% bootstrap_field formset.campo %}
+                    {% bootstrap_field formset.valor %}
+                    {% if formset.instance.pk %}{% bootstrap_field formset.DELETE %}{% endif %}
+                </div>
             {% endfor %}
             {% buttons %}
                 <button type="submit" class="btn btn-primary">
@@ -80,6 +89,15 @@
 
 <!-- Mapa de google maps -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="{% static 'files/js/jquery.formset.js' %}"></script>
+<script type="text/javascript">
+    $(function() {
+        $('.campo-formset').formset({
+            prefix: '{{ campo_formset.prefix }}'
+        });
+    })
+</script>
+
 <script >
 var map;
 function initialize() {
