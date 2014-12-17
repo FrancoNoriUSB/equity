@@ -1,0 +1,143 @@
+<!-- Archivo donde estan los bloques del home -->
+{% extends "base_admin.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+<!-- Bloque para scripts que se cargan en la plantilla base -->
+{% block scripts %}
+
+<!-- Estilos del index -->
+<link rel="stylesheet" type="text/css" href="{% static 'files/css/home.css' %}">
+<style>
+    html, body, #map-canvas {
+        height: 500px;
+        margin: 0px;
+        padding: 0px
+    }
+</style>
+
+{% endblock scripts %}
+
+<!-- Header del home-->
+{% block header_home %}
+
+	<div class="container-fluid">
+
+		<div class="row">
+			<div class="col-lg-12">
+				<p>&nbsp;</p>
+			</div>
+		</div>
+	</div>
+{% endblock header_home%}
+
+
+<!-- Boque del contenido de la pagina -->
+{% block content %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+        </div>
+        <div class="panel-body">
+            <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+            {% csrf_token %}
+                {% bootstrap_field form.titulo %}
+                {% bootstrap_field form.codigo %}
+                {% bootstrap_field form.descripcion %}
+                {% bootstrap_field form.ciudad %}
+                {% bootstrap_field form.zona %}
+                {% bootstrap_field form.direccion %}
+                {% bootstrap_field form.agente %}
+                <div class="form-group">
+                    <label>Ubicación</label>
+                    <div class="mapa" id="map-canvas">
+                    </div>
+                    {{ form.latitud.as_hidden }}
+                    {{ form.longitud.as_hidden }}
+                </div>
+                <div class="form-group">
+                    <p>Imágenes</p>
+                    {{ imagen_formset.management_form }}
+                    {% for formset in imagen_formset %}
+                        {% bootstrap_field formset.imagen %}
+                        {% bootstrap_field formset.descripcion %}
+                        {% if formset.instance.pk %}{% bootstrap_field formset.DELETE %}{% endif %}
+                    {% endfor %}
+                    <h3>Campos Obligatorios</h3>
+                    {{ campotipo_formset.management_form }}
+                    {% for formset in campotipo_formset %}
+                        {% bootstrap_field formset.campo %}
+                        {% bootstrap_field formset.valor %}
+                        {% if formset.instance.pk %}{% bootstrap_field formset.DELETE %}{% endif %}
+                    {% endfor %}
+                    <h3>Campos Opcionales</h3>
+                    {{ campo_formset.management_form }}
+                    {% for formset in campo_formset %}
+                        <div id="" class="campo-formset">
+                            {% bootstrap_field formset.campo %}
+                            {% bootstrap_field formset.valor %}
+                            {% if formset.instance.pk %}{% bootstrap_field formset.DELETE %}{% endif %}
+                        </div>
+                    {% endfor %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                             Publicar
+                        </button>
+                    {% endbuttons %}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block js %}
+
+<!-- Mapa de google maps -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="{% static 'files/js/jquery.formset.js' %}"></script>
+<script type="text/javascript">
+    $(function() {
+        $('.campo-formset').formset({
+            prefix: '{{ campo_formset.prefix }}'
+        });
+    })
+</script>
+<script>
+var map;
+function initialize() {
+    var markers = [];
+    var lat = $('#id_latitud');
+    var lon = $('#id_longitud');
+    var mapOptions = {
+    zoom: 4,
+    center: new google.maps.LatLng(15.152880, -73.702163)
+    };
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    /*Funciones para agregar el marcador y eliminar el anterior*/
+    google.maps.event.addListener(map, 'click', function(event){
+        clearMarkers();
+        markers = [];
+        placeMarker(event.latLng);
+        lat.val(event.latLng.k);
+        lon.val(event.latLng.D);
+    });
+    function clearMarkers() {
+        setAllMap(null);
+    }
+    function setAllMap(map) {
+        for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+        }
+    }
+    function placeMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        markers.push(marker);
+    }
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+{% endblock js %}

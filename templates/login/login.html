@@ -1,0 +1,24 @@
+{% extends "base_admin.html" %}
+{% block content %}
+
+<!-- Estilos de la pagina-->
+<link href="{{MEDIA_URL}}files/css/login.css"	 rel="stylesheet" type="text/css" />
+	<div class="container">
+		<div class="row">			
+			<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<br>
+			  		<form role="form" action="." method="POST">
+			  			<div class="form-group">
+							{%csrf_token%}
+							{{ login.as_p }}
+						</div>
+						<button type="submit" class="btn btn-primary">Ingresar</button>
+					</form>
+					<br>
+					<br>
+				</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>
+{% endblock content %}

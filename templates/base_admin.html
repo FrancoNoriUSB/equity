@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load staticfiles %}
+    {% load widget_tweaks %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami, Mexico, Ecuador, Costa Rica, Panama, Colombia">
+        <link rel="SHORTCUT ICON" href="{% static 'files/img/favicon.ico' %}"/>
+        <title>Equity</title>
+ 
+         <!-- Modernizr -->
+        <script src="{% static 'files/js/modernizr.custom.80055.js' %}"></script>
+
+        <!-- jQuery -->
+        <script src="http://code.jquery.com/jquery.js"></script>
+
+        <!--Bootstrap Local-->
+        <!--CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+
+        <!--JavaScript -->
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+        <!--Estilos-->
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/admin.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/base.css' %}">
+
+        <!-- BLoque para cargar cualquier script en el header -->
+        {% block scripts %}
+            
+        {% endblock scripts %}
+    </head> 
+    <body>
+        <!-- Header de la página -->
+        {% block header %}
+        <header>
+            <nav class="navbar navbar-static-top navbar-default" role="navigation">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="navbar-header">
+                                <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                </button>
+                                <div class="navbar-brand">
+                                    <a href="/">
+                                        Contacto
+                                    </a>
+                                    |
+                                    <a href="/">
+                                        English
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="collapse navbar-collapse navHeaderCollapse navheader">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        <a href="/{{pais}}/admin/perfil/">Administrador</a>
+                                    </li>
+                                    {%if user.is_authenticated%}
+                                    <li>
+                                        <a href="/{{pais}}/admin/perfil/logout">Cerrar Sesi&oacute;n</a>
+                                    </li>
+                                    {%else%}
+                                    <li>
+                                        <a href="/">Login</a>
+                                    </li>
+                                    {%endif%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Sección interna de la página -->
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="col-lg-8 col-md-8 col-sm-8 centering">
+                        <a href="/">
+                            <img class="text-center" src="{% static 'files/img/logo-blanco.png' %}" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {% endblock header %}
+        
+        <!-- Header del home -->
+        <div class="header-home">
+            {% block header_home %}
+            {% endblock header_home %}
+        </div>
+
+        <!-- Sección de titulo de la pagina -->
+        {% block header_title %}
+        {% endblock header_title %}
+
+        <!-- Sección interna de la página -->
+        <div class="contenido container">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <!-- Footer de la página -->
+        {% block footer %}
+        <footer>
+            <div class="container">
+                <div class="pre-footer row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <a href="">
+                            <img src="{% static 'files/img/leanos.png' %}" alt="">
+                            <strong>L&eacute;anos</strong>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <a href="">
+                            <img src="{% static 'files/img/consultenos.png' %}" alt="">
+                            <strong>Conls&uacute;ltenos</strong>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <a href="">
+                            <img src="{% static 'files/img/llamenos.png' %}" alt="">
+                            <strong>Ll&aacute;menos</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-static-bottom navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <!--<button class="navbar-toggle" data-toggle="collapse" data-target=".navFooterCollapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                    </button>-->
+                    <div class="collapse navbar-collapse navFooterCollapse navfooter">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="/"><strong>Colombia</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>Costa Rica</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>Ecuador</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>EEUU</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>M&eacute;xico</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>Panam&aacute;</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>Venezuela</strong></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse navbar-collapse navFooterCollapse navfooter">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="/"><strong>Contacto</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>Revista Virtual</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>EQAssist</strong></a>
+                            </li>
+                            <li>
+                                <a href="/"><strong>EQNews</strong></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </footer>
+        {% endblock footer %}
+    </body>
+{%block js%}
+{%endblock js%}
+</html>

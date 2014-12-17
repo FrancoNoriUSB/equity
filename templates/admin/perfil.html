@@ -1,0 +1,45 @@
+{% extends "base_admin.html" %}
+{% block content %}
+
+<!-- Estilos de la pagina-->
+<link href="{{MEDIA_URL}}files/css/login.css"	 rel="stylesheet" type="text/css" />
+	<div class="container">
+		<div class="row">			
+			<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<div class="panel panel-primary">
+					  <div class="panel-heading">
+					    <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+					  </div>
+					  <div class="panel-body">
+					    Bienvenido, {{user.username}}
+					    <ul class="list-group">
+						  <li class="list-group-item">
+						    <span class="badge">{{inmuebles|length}}</span>
+						    <a href="/{{pais}}/admin/inmuebles/" class="">Inmuebles</a>
+						    <a href="/{{pais}}/admin/inmuebles/elegir-tipo">
+						    	<span class="glyphicon glyphicon-plus"></span>
+						    </a>
+						  </li>
+						  <li class="list-group-item">
+						    <span class="badge">{{agentes|length}}</span>
+						    <a href="/{{pais}}/admin/agentes/" class="">Agentes</a>
+						    <a href="/{{pais}}/admin/agentes/agregar">
+						    	<span class="glyphicon glyphicon-plus"></span>
+						    </a>
+						  </li>
+						  <li class="list-group-item">
+						    <span class="badge">{{ciudades|length}}</span>
+						    <a href="/{{pais}}/admin/ciudades/" class="">Ciudades</a>
+						    <a href="/{{pais}}/admin/ciudades/agregar">
+						    	<span class="glyphicon glyphicon-plus"></span>
+						    </a>
+						  </li>
+						</ul>
+					  </div>
+					</div>
+				</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+{% endblock content %}
