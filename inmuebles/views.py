@@ -8,7 +8,7 @@ from django.template.loader import get_template
 from django.template import Context
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, ListView
 from datetime import datetime, date
 from django.forms.models import inlineformset_factory
 from django.db.models import Count
@@ -21,6 +21,7 @@ from django.core.mail.message import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 from django import forms
+from django.core.urlresolvers import reverse
 
 
 # Vista del index o home
@@ -100,20 +101,89 @@ def inmueble(request, codigo, pais):
     return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
 
 
+#Vista para el ingreso de los usuarios.
+def login_admin(request, pais):
+
+    username = ''
+    password = ''
+    
+    #Formularios basicos
+    loginF = LoginForm()
+
+    if request.user.is_authenticated() and request.user:
+        
+        return HttpResponseRedirect('/'+str(pais)+'/admin/perfil/')
+
+    if request.method == "POST":
+
+        loginF = LoginForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        usuario = authenticate(username=username, password=password)
+
+        if usuario:
+                # Caso del usuario activo
+                if usuario.is_active:
+                    login(request, usuario)
+                    return HttpResponseRedirect('/'+str(pais)+'/admin/perfil/')
+                else:
+                    return "Tu cuenta esta bloqueada"
+        else:
+            # Usuario invalido o no existe!
+            print "Invalid login details: {0}, {1}".format(username, password)
+
+    ctx = {
+        'pais': pais,
+        'login': loginF
+    }
+    return render_to_response('login/login.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para el ingreso de los usuarios.
+@login_required
+def perfil_admin(request, pais):
+
+    inmuebles = Inmueble.objects.filter(pais__nombre=pais)
+    agentes = Agente.objects.filter(pais__nombre=pais)
+    ciudades = Ciudad.objects.filter(pais__nombre=pais)
+
+    ctx = {
+        'inmuebles':inmuebles,
+        'agentes':agentes,
+        'ciudades':ciudades,
+        'pais':pais,
+    }
+    return render_to_response('admin/perfil.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar los inmuebles de ese pais
+@login_required
+def inmuebles_list(request, pais):
+    
+    inmuebles = Inmueble.objects.filter(pais__nombre=pais)
+
+    ctx = {
+        'inmuebles':inmuebles,
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/inmuebles/inmuebles.html', ctx, context_instance=RequestContext(request))
+
+
 # Vista para elegir el tipo de inmueble a publicar
 class ElegirTipo(TemplateView):
 
-    template_name = "inmuebles/elegir-tipo.html"
+    template_name = "admin/inmuebles/elegir-tipo.html"
 
     def get_context_data(self, **kwargs):
         context = super(ElegirTipo, self).get_context_data(**kwargs)
-        context['pais'] = kwargs["pais"]
+        context['pais'] = kwargs['pais']
         return context
 
 
 #Vista para publicar el inmueble
 class Publicar(CreateView):
-    template_name = 'inmuebles/publicar.html'
+    template_name = 'admin/inmuebles/publicar.html'
     model = Inmueble
     form = InmuebleForm
     widgets = {
@@ -186,3 +256,64 @@ class Publicar(CreateView):
                                   imagen_formset=imagen_formset,
                                   campo_formset=campo_formset,
                                   pais=pais))
+
+
+#Vista para listar los agentes de ese pais
+@login_required
+def agentes_list(request, pais):
+    
+    agentes = Agente.objects.filter(pais__nombre=pais)
+
+    ctx = {
+        'agentes':agentes,
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/agentes/agentes.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar los agentes de ese pais
+@login_required
+def agentes_agregar(request, pais):
+    
+
+    ctx = {
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/agentes/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar las ciudades de ese pais
+@login_required
+def ciudades_list(request, pais):
+    
+    ciudades = Ciudad.objects.filter(pais__nombre=pais)
+
+    ctx = {
+        'ciudades':ciudades,
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/ciudades/ciudades.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar las ciudades de ese pais
+@login_required
+def ciudades_agregar(request, pais):
+    
+    ctx = {
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/ciudades/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+
+
+#Vista para cerrar la sesion
+@login_required
+def logout_admin(request, pais):
+
+    logout(request)
+    return HttpResponseRedirect('/'+str(pais)+'/')

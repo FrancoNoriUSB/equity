@@ -6,6 +6,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django_countries import countries
 from django.forms.models import inlineformset_factory
 
+#Formulario para el login de usuario                
+class LoginForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('username','password')
+        widgets = {
+            'password': forms.PasswordInput(attrs={'class':"form-control", 'placeholder':"Contraseña"}),
+            'username': forms.TextInput(attrs={'class':"form-control", 'placeholder':"Usuario"}),
+        }
 
 #Formulario para cambiar los paises en la pagina
 class PaisesForm(forms.Form):
