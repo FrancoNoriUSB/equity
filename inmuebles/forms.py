@@ -65,8 +65,13 @@ class InmuebleForm(forms.ModelForm):
     class Meta:
         model = Inmueble
         widgets = {
+            'fecha_entrega': forms.DateInput(),
             'latitud': forms.HiddenInput(),
             'longitud': forms.HiddenInput()
+        }
+        labels = {
+            'descripcion': 'Descripción',
+            'direccion': 'Dirección',
         }
         exclude = ['tipo', 'pais']
 

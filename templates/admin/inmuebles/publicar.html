@@ -16,6 +16,14 @@
     }
 </style>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script>
+  $(function() {
+    $( "#id_fecha_entrega" ).datepicker();
+  });
+  </script>
 {% endblock scripts %}
 
 <!-- Header del home-->
@@ -44,13 +52,13 @@
             {% csrf_token %}
                 {% bootstrap_field form.titulo %}
                 {% bootstrap_field form.codigo %}
+                {% bootstrap_field form.logo %}
                 {% bootstrap_field form.descripcion %}
                 {% bootstrap_field form.ciudad %}
                 {% bootstrap_field form.zona %}
-                {% bootstrap_field form.banos %}
-                {% bootstrap_field form.habitaciones %}
-                {% bootstrap_field form.estacionamiento %}
                 {% bootstrap_field form.direccion %}
+                {% bootstrap_field form.fecha_entrega %}
+                {% bootstrap_field form.tipo_obra %}
                 {% bootstrap_field form.agente %}
                 <div class="form-group">
                     <label>Ubicación</label>

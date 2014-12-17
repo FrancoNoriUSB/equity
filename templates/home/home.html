@@ -99,7 +99,7 @@
         			{% for inmueble in inmuebles %}
             			<div class="propiedad row">
             				<div class="foto col-lg-4">
-            					<a href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">
+            					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
                                     <img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
                                 </a>
             				</div>

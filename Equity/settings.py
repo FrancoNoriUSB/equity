@@ -53,6 +53,12 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+DATE_INPUT_FORMATS = (
+    '%d/%m/%Y',
+    )
+
+DATETIME_FORMAT = 'N j, Y, P'
+
 # Application definition
 INSTALLED_APPS = (
     'bootstrap_admin',

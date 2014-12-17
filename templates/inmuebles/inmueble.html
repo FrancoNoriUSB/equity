@@ -22,23 +22,22 @@
 	<div class="row titulo-inmueble">
 		<div class="col-lg-12 col-md-12 col-sm-12">
 			<h3 class="text-left">
-				<strong>Apartamento</strong>
+				<strong>{{inmueble.titulo}}</strong>
 			</h3>
 		</div>
 	</div>
 	<div class="row info-base">
 		<div class="col-lg-4 col-md-4 col-sm-12 descripcion">
 			<h4 class="text-left text-uppercase">
-				<strong>High Tower Condos</strong>
+				<strong>{{inmueble.tipo}}</strong>
 			</h4>
 			<p>
-				Apartamentos<br/>
-				Col. Las Lomas de Alcazar <br/><br/>
-				C&oacute;d. Web: #VZ.07050
+				{{inmueble.zona.nombre}}<br/><br/>
+				C&oacute;digo: {{inmueble.codigo}}
 			</p>
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-12 agente">
-			<img src="{% static 'files/img/constructora.png' %}" alt="">
+			<img class="img-responsive" src="{% static inmueble.logo.url %}" alt="">
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-12 links">
 			<p class="text-right">
@@ -143,17 +142,18 @@
 					<div class="informacion-basica row">
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<p class="text-left">
-								<strong>Direccion:</strong>{{inmueble.direccion}}<br>
-								<strong>Estado:</strong>{{inmueble.ciudad.nombre}}<br>
+								<strong>Direcci&oacute;n:</strong> {{inmueble.direccion}}<br>
+								<strong>Ciudad:</strong> {{inmueble.ciudad.nombre}}<br>
+								<strong>Zona:</strong> {{inmueble.zona.nombre}}<br>
 								<strong>Tel&eacute;fono:</strong>{{inmueble.agente.telefonos.numero}}<br>
-								<strong>Ceuluar:</strong>{{inmueble.agente.telefonos.numero}}<br>
+								<strong>Celular:</strong>{{inmueble.agente.telefonos.numero}}<br>
 							</p>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<p class="text-left">
-								<strong>Construye </strong>{{inmueble.direccion}}<br>
-								<strong>Vende: </strong>{{inmueble.ciudad.nombre}}<br>
-								<strong>A&ntilde;o: </strong>{{inmueble.agente.telefonos.numero}}<br>
+								<strong>Construye: </strong>{{inmueble.agente.usuario.username}}<br>
+								<strong>Tipo de obra: </strong>{{inmueble.tipo_obra}}<br>
+								<strong>Fecha de entrega: </strong>{{inmueble.fecha_entrega}}<br>
 							</p>
 						</div>
 					</div>
@@ -183,7 +183,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<strong>Caracter&iacute;sticas</strong>
 							<p class="text-justify">
-							Minions ipsum belloo! Po kass me want bananaaa! Gelatooo hana dul sae chasy gelatooo sit amet. Gelatooo ullamco daa pepete bananaaaa ut veniam. Dolor wiiiii ullamco officia velit ut hana dul sae. Cillum tulaliloo jiji commodo wiiiii ullamco po kass magna. Ex aliqua reprehenderit commodo ti aamoo! Me want bananaaa! uuuhhh pepete sit amet nostrud sit amet. Occaecat minim tempor ut underweaaar baboiii magna poopayee minim nostrud. Baboiii hahaha pepete wiiiii esse officia chasy eiusmod baboiii.
+							{{inmueble.descripcion}}
 							</p>
 						</div>
 					</div>
@@ -217,6 +217,7 @@
 				                {%csrf_token%}
 								<div class="form-group">
 									{{ContactoAgenteForm.as_p}}
+									<button type="submit" class="btn btn-primary">Enviar</button>
 								</div>
 							</form>
 						</div>

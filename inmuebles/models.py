@@ -160,21 +160,29 @@ class TipoInmueble(models.Model):
 
 # Modelo para cada inmueble publicado
 class Inmueble(models.Model):
+
+    tipos_obra = (
+        ('Pre-venta','Pre-venta'),
+        ('En Construccion', u'En Construcción'),
+        ('Listo por entregar','Listo Para Entregar'),
+    )
+
     titulo = models.CharField(max_length=100)
     codigo = models.CharField(max_length=20)
     descripcion = models.TextField()
+    fecha_entrega = models.DateTimeField()
+    tipo_obra = models.CharField(choices=tipos_obra, max_length=20)
+    direccion = models.CharField(max_length=150)
+    latitud = models.DecimalField(max_digits=20, decimal_places=17)
+    longitud = models.DecimalField(max_digits=20, decimal_places=17)
+    logo = models.ImageField(upload_to='logos_inmuebles/')
+    
+    #Claves foraneas
     pais = models.ForeignKey(Pais)
     ciudad = models.ForeignKey(Ciudad)
     zona = models.ForeignKey(Zona)
-    direccion = models.CharField(max_length=150)
     agente = models.ForeignKey(Agente)
     tipo = models.ForeignKey(TipoInmueble)
-    banos = models.IntegerField(max_length=2, default=0)
-    habitaciones = models.IntegerField(max_length=2, default=0)
-    estacionamiento = models.IntegerField(max_length=2, default=0)
-    # Coodenadas Google Maps
-    latitud = models.DecimalField(max_digits=20, decimal_places=17)
-    longitud = models.DecimalField(max_digits=20, decimal_places=17)
 
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     feche_actualizacion = models.DateTimeField(auto_now=True)
@@ -194,6 +202,44 @@ class ImagenInmueble(Imagen):
 
     def __unicode__(self):
         return self.descripcion
+
+
+# Modelo para los modulos de cada inmueble
+class Modulo(models.Model):
+
+    tipo = models.CharField(max_length=30, default='A')
+    metros = models.CharField(max_length=10)
+    banos = models.CharField(max_length=2)
+    dormitorios = models.CharField(max_length=2)
+    estacionamientos = models.CharField(max_length=2)
+    precio = models.CharField(max_length=10)
+    plano = models.ImageField(upload_to='uploads/planos/')
+
+    #Claves foraneas
+    inmueble = models.ForeignKey(Inmueble)
+
+    class Meta:
+        verbose_name = "Modulo"
+        verbose_name_plural = "Modulos"
+
+    def __unicode__(self):
+        return self.nombre
+
+
+# Modelo para las monedas
+class Moneda(models.Model):
+    nombre = models.CharField(max_length=20)
+    tasa = models.CharField(max_length=10)
+
+    #Claves foraneas
+    pais = models.ForeignKey(Pais)
+
+    class Meta:
+        verbose_name = "Moneda"
+        verbose_name_plural = "Monedas"
+
+    def __unicode__(self):
+        return self.nombre
 
 
 # Modelo para definir los campos bases para cada tipo de inmueble
@@ -249,6 +295,7 @@ class CampoInmueble(models.Model):
         return self.nombre
 
 
+# Modelo para los valores de los campos opcionales de los inmuebles
 class ValorCampoInmueble(models.Model):
     valor = models.CharField(max_length=150)
     campo = models.ForeignKey(CampoInmueble)
