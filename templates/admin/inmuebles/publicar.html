@@ -39,6 +39,7 @@
             <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
         </div>
         <div class="panel-body">
+            <h4>Agregar Inmueble: </h4>
             <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
             {% csrf_token %}
                 {% bootstrap_field form.titulo %}

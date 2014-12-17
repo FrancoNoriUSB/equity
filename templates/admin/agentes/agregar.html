@@ -1,4 +1,6 @@
 {% extends "base_admin.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
 {% block content %}
 
 <!-- Estilos de la pagina-->
@@ -8,12 +10,26 @@
 			<div class="col-md-3"></div>
 				<div class="col-md-6">
 					<div class="panel panel-primary">
-					  <div class="panel-heading">
-					    <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
-					  </div>
-					  <div class="panel-body">
-					    
-					  </div>
+						<div class="panel-heading">
+							<h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+						</div>
+						<div class="panel-body">
+							<h4>Agregar Agente:</h4>
+							<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+            				{% csrf_token %}
+            					{% bootstrap_field UserForm.username %}
+            					{% bootstrap_field UserForm.email %}
+            					{% bootstrap_field UserForm.password %}
+            					{% bootstrap_field UserForm.confirm_password %}
+            					{% bootstrap_field AgenteForm.codigo %}
+            					{% bootstrap_field AgenteForm.logo %}
+            					{% buttons %}
+			                        <button type="submit" class="btn btn-primary">
+			                            Agregar
+			                        </button>
+			                    {% endbuttons %}
+							</form>
+						</div>
 					</div>
 				</div>
 			<div class="col-md-3"></div>

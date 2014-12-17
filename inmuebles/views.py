@@ -280,8 +280,12 @@ def agentes_list(request, pais):
 @login_required
 def agentes_agregar(request, pais):
     
+    agenteF = AgenteForm()
+    userF = UserForm()
 
     ctx = {
+        'AgenteForm':agenteF,
+        'UserForm': userF,
         'pais':pais,
     }
     
