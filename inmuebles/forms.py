@@ -60,6 +60,7 @@ class ContactoAgenteForm(forms.Form):
     comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder': 'comentarios'}))
 
 
+#Formulario para agregar inmuebles
 class InmuebleForm(forms.ModelForm):
     class Meta:
         model = Inmueble
@@ -72,3 +73,32 @@ class InmuebleForm(forms.ModelForm):
 
 ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, extra=5, can_delete=True, fields=['imagen', 'descripcion'])
 CampoFormset = inlineformset_factory(Inmueble, ValorCampoInmueble, extra=1, can_delete=True, fields=['campo', 'valor'])
+
+
+#Formulario de registro simple de usuario
+class UserForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput(), label='Confirme Contraseña')
+
+    class Meta:
+        model = User
+        fields = ('email', 'username', 'password',)
+        widgets = {
+            'email': forms.EmailInput(),
+            'password': forms.PasswordInput(),
+        }
+        labels = {
+            'email': 'Correo Electrónico',
+            'password': 'Contraseña',
+        }
+
+
+#Formulario para agregar agentes
+class AgenteForm(forms.ModelForm):
+    class Meta:
+        model = Agente
+        widgets = {
+            'codigo': forms.TextInput(),
+            'logo': forms.FileInput()
+        }
+        exclude = ['pais', 'user']
+    

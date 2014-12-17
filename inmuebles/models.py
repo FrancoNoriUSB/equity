@@ -169,6 +169,9 @@ class Inmueble(models.Model):
     direccion = models.CharField(max_length=150)
     agente = models.ForeignKey(Agente)
     tipo = models.ForeignKey(TipoInmueble)
+    banos = models.IntegerField(max_length=2, default=0)
+    habitaciones = models.IntegerField(max_length=2, default=0)
+    estacionamiento = models.IntegerField(max_length=2, default=0)
     # Coodenadas Google Maps
     latitud = models.DecimalField(max_digits=20, decimal_places=17)
     longitud = models.DecimalField(max_digits=20, decimal_places=17)
