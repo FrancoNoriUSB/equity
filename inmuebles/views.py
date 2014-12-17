@@ -313,8 +313,6 @@ def ciudades_agregar(request, pais):
     return render_to_response('admin/ciudades/agregar.html', ctx, context_instance=RequestContext(request))
 
 
-
-
 #Vista para cerrar la sesion
 @login_required
 def logout_admin(request, pais):
