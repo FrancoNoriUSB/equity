@@ -51,6 +51,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = (
+    'bootstrap_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,10 +59,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_countries',
-    'inmuebles',
-    'noticias',
     'widget_tweaks',
     'bootstrap3',
+    'inmuebles',
+    'noticias'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -126,3 +127,5 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.contrib.auth.context_processors.auth',
 )
+
+BOOTSTRAP_ADMIN_SIDEBAR_MENU = True

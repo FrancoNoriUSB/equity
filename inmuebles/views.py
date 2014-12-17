@@ -132,6 +132,8 @@ class Publicar(CreateView):
                                                               ValorCampoTipoInmueble,
                                                               extra=campos.count(),
                                                               can_delete=False,
+                                                              min_num=campos.count(),
+                                                              max_num=campos.count(),
                                                               fields=['campo', 'valor'])
         campotipo_formset = ValorCampoTipoInmuebleFormset()
         for formset in campotipo_formset:
@@ -153,6 +155,8 @@ class Publicar(CreateView):
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
                                                               ValorCampoTipoInmueble,
                                                               extra=campos.count(),
+                                                              min_num=campos.count(),
+                                                              max_num=campos.count(),
                                                               can_delete=False,
                                                               fields=['campo', 'valor'])
         campotipo_formset = ValorCampoTipoInmuebleFormset(self.request.POST)
