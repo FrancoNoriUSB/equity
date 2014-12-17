@@ -20,10 +20,6 @@ body > div.row.titulo{
 	border-color: transparent;
 }
 
-body > header > nav > div > div > div > div.navbar-header > div{
-	margin-top: 12%;
-}
-
 body > header > nav > div > div > div > div.navbar-header > div > a{
 	font-size: 16px;
 	color: #FFF;
@@ -31,14 +27,6 @@ body > header > nav > div > div > div > div.navbar-header > div > a{
 
 body > header > nav > div > div > div > div.navbar-header > div > a:hover{
 	text-decoration: none;
-}
-
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
-	margin-top: 0.8%;
-}
-
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li.pais{
-	margin-top: 1%;
 }
 
 body{
@@ -49,8 +37,24 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 	color: #FFFFFF;
 }
 
-body > header > div.logo{
+body > header > div.container-fluid{
+    height: 100%;
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
 	background-color:#0095d9;
+}
+
+body > header > div > div.row-fluid {
+    height: 100%;
+    display: table-cell;
+    width: 100%;
+}
+
+body > header > div > div > div.centering{
+    float: none;
+    margin: 0 auto;
 }
 
 body > header > div > div > div > img.logo-equity{
@@ -68,6 +72,26 @@ body > header > div.logo > div > div{
 	padding-bottom: 1%;
 	padding-right: 0;
 	padding-left: 0;
+}
+
+/*Estilos del header de busqueda*/
+body > div.container-fluid > div.busqueda.row{
+	background-color: #0095d9;
+}	
+
+body > div.container-fluid >  div > div > p{
+	margin:0 0 0 0;
+	font-size: 3px;
+}
+
+body > div.container-fluid > div.busqueda.row > div{
+	padding: 4px;
+}
+
+body > div.container-fluid >  div.busqueda.row > div > form{
+	display: table;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 /*Estilos barra lateral de banners*/
@@ -117,3 +141,24 @@ body > footer > nav > div > div > ul{
 	display: table !important;
 	float: none !important;
 }
+
+/*Estilos de Bootstrap*/
+/* enable absolute positioning */
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 0px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }

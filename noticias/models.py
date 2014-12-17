@@ -16,6 +16,7 @@ class Noticia(models.Model):
 
     #Claves foraneas
     autor = models.ForeignKey(User)
+    pais = models.ForeignKey(Pais)
 
     class Meta:
         ordering = ('created_at',)

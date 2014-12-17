@@ -1,25 +1,48 @@
-{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+    {% load staticfiles %}
+    {% load widget_tweaks %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami, Mexico, Ecuador, Costa Rica, Panama, Colombia">
+        <link rel="SHORTCUT ICON" href="{% static 'files/img/favicon.ico' %}"/>
+        <title>Equity</title>
 
-<!-- Bloque para scripts que se cargan en la plantilla base -->
-{% block scripts %}
+        <!-- jQuery -->
+        <script src="http://code.jquery.com/jquery.js"></script>
 
-<!-- Estilos del index -->
-<link rel="stylesheet" type="text/css" href="{% static 'files/css/index.css' %}">
+        <!--CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
 
-{% endblock scripts %}
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
 
-<!-- Header del home-->
-{% block header_home %}
+        <!--JavaScript -->
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
-	
-{% endblock header_home%}
-
-<!-- Boque del contenido de la pagina -->
-{% block content %}
-	
-{% endblock content %}
+        <!--Estilos-->
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/index.css' %}">
+    </head>
+    <body>
+        <!-- Sección interna de la página -->
+        <div class="container-fluid">
+        	<div class="row-fluid">
+        		<div class="col-lg-4 col-md-4 col-sm-4 centering">
+		        	<img class="text-center" src="{% static 'files/img/logo-blanco.png' %}" alt="">
+					<br>
+					<br>
+		        	{% render_field PaisesForm.pais%}
+	        	</div>
+        	</div>
+        </div>
+    </body>
 
 <!-- Seccion donde se carga el JS -->
-{%block js%}
-
-{%endblock js%}
+<script>
+$('#id_pais').change(function(){
+    var pais = $(this).val();
+    window.location.replace("/"+pais+"/");
+});
+</script>
+</html>

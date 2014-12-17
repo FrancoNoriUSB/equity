@@ -26,6 +26,7 @@
         <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
         <!--Estilos-->
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/admin.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'files/css/base.css' %}">
 
         <!-- BLoque para cargar cualquier script en el header -->
@@ -60,35 +61,18 @@
                             </div>
                             <div class="collapse navbar-collapse navHeaderCollapse navheader">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="pais">
-                                        <form role="form" id="paises" method="POST" class="navbar-form navbar-right paises" action="." name="paises">
-                                            <div class="form-group">
-                                                {%csrf_token%}
-                                                {{paisesF.pais}}
-                                            </div>
-                                        </form>
-                                    </li>
                                     <li>
-                                        <a id="inmuebles_link" href="">Inmuebles</a>
+                                        <a href="/{{pais}}/admin/perfil/">Administrador</a>
                                     </li>
+                                    {%if user.is_authenticated%}
                                     <li>
-                                        <a href="/">Info Pa&iacute;s</a>
+                                        <a href="/{{pais}}/admin/perfil/logout">Cerrar Sesi&oacute;n</a>
                                     </li>
+                                    {%else%}
                                     <li>
-                                        <a href="/">EQNews</a>
+                                        <a href="/">Login</a>
                                     </li>
-                                    <li>
-                                        <a href="/">EQAssist</a>
-                                    </li>
-                                    <li>
-                                        <a href="/">Favoritos</a>
-                                    </li>
-                                    <li>
-                                        <a href="/">Comparativo</a>
-                                    </li>
-                                    <li>
-                                        <a href="/{{pais}}/admin/login/">Login</a>
-                                    </li>
+                                    {%endif%}
                                 </ul>
                             </div>
                         </div>
@@ -107,36 +91,6 @@
             </div>
         </header>
 
-        <!-- Barra de busqueda -->
-        <div class="container-fluid">
-            <div class="busqueda row">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <form class="form-inline" role="form" action=".">
-                        {% csrf_token %}
-                    <div class="form-group">
-                        {% render_field buscadorF.ciudad class="form-control"%}
-                    </div>
-                    <div class="form-group">
-                        {% render_field buscadorF.zona class="form-control"%}
-                    </div>
-                    <div class="form-group">
-                        {% render_field buscadorF.tipo class="form-control"%}
-                    </div>
-                    <div class="form-group">
-                        {% render_field buscadorF.orden class="form-control"%}
-                    </div>
-                    <div class="form-group inner-addon right-addon">
-                        {% render_field buscadorF.codigo class="form-control" placeholder="Código"%}
-                        <span class="glyphicon glyphicon-barcode form-control-feedback"></span>
-                    </div>
-                    <div class="form-group inner-addon right-addon">
-                        {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
-                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                    </div>
-                </form>
-                </div>
-            </div>
-        </div>
         {% endblock header %}
         
         <!-- Header del home -->
@@ -234,16 +188,6 @@
         </footer>
         {% endblock footer %}
     </body>
-
-<!-- Seccion donde se carga el JS -->
-<script>
-$('#id_pais').change(function(){
-    var pais = $(this).val();
-    window.location.replace("/"+pais+"/");
-    console.log("Pais:"+pais);
-    $("#inmuebles_link").attr("href", pais);
-});
-</script>
 {%block js%}
 {%endblock js%}
 </html>

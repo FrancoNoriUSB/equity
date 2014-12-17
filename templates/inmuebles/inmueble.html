@@ -8,7 +8,13 @@
 
 <!-- Estilos del index -->
 <link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble.css' %}">
-
+<style>
+    html, body, #mapa {
+        height: 500px;
+        margin: 0px;
+        padding: 0px
+    }
+</style>
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
@@ -123,13 +129,101 @@
 		</div>
 	</div>
 	<div class="row informacion">
-		<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="tabpanel col-lg-12 col-md-12 col-sm-12">
 			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#">Informaci&oacute;n General</a></li>
-				<li role="presentation"><a href="#">Ubicaci&oacute;n</a></li>
-				<li role="presentation"><a href="#">Contactar al constructor</a></li>
-				<li role="presentation"><a href="#">Plusval&iacute;a</a></li>
+				<li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">Informaci&oacute;n General</a></li>
+				<li role="presentation"><a href="#ubicacion" aria-controls="ubicacion" role="tab" data-toggle="tab">Ubicaci&oacute;n</a></li>
+				<li role="presentation"><a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar al constructor</a></li>
+				<li role="presentation"><a href="#plusvalia" aria-controls="plusvalia" role="tab" data-toggle="tab">Plusval&iacute;a</a></li>
 			</ul>
+
+			 <!-- Tab panels -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane fade in active" id="general">
+					<div class="informacion-basica row">
+						<div class="col-lg-6 col-md-6 col-sm-6">
+							<p class="text-left">
+								<strong>Direccion:</strong>{{inmueble.direccion}}<br>
+								<strong>Estado:</strong>{{inmueble.ciudad.nombre}}<br>
+								<strong>Tel&eacute;fono:</strong>{{inmueble.agente.telefonos.numero}}<br>
+								<strong>Ceuluar:</strong>{{inmueble.agente.telefonos.numero}}<br>
+							</p>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6">
+							<p class="text-left">
+								<strong>Construye </strong>{{inmueble.direccion}}<br>
+								<strong>Vende: </strong>{{inmueble.ciudad.nombre}}<br>
+								<strong>A&ntilde;o: </strong>{{inmueble.agente.telefonos.numero}}<br>
+							</p>
+						</div>
+					</div>
+					<div class="tabla-info row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<table class="table table-bordered">
+							  <tr class="active">
+								<td>Mt2</td>
+								<td>Dormitorios</td>
+								<td>Ba&ntilde;os</td>
+								<td>Estacionamiento</td>
+								<td>$</td>
+								<td>Plano</td>
+							  </tr>
+							  <tr>
+								<td class="text-center">70</td>
+								<td class="text-center">3</td>
+								<td class="text-center">2</td>
+								<td class="text-center">1</td>
+								<td class="text-center">400.000</td>
+								<td class="text-center"><a href="">Ver</a></td>
+							  </tr>
+							</table>
+						</div>
+					</div>
+					<div class="caracteristicas row">
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<strong>Caracter&iacute;sticas</strong>
+							<p class="text-justify">
+							Minions ipsum belloo! Po kass me want bananaaa! Gelatooo hana dul sae chasy gelatooo sit amet. Gelatooo ullamco daa pepete bananaaaa ut veniam. Dolor wiiiii ullamco officia velit ut hana dul sae. Cillum tulaliloo jiji commodo wiiiii ullamco po kass magna. Ex aliqua reprehenderit commodo ti aamoo! Me want bananaaa! uuuhhh pepete sit amet nostrud sit amet. Occaecat minim tempor ut underweaaar baboiii magna poopayee minim nostrud. Baboiii hahaha pepete wiiiii esse officia chasy eiusmod baboiii.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane fade" id="ubicacion">
+					<div class="row">
+						<div class="col-lg-2 col-md-2 col-sm-2"></div>
+						<div class="col-lg-8 col-md-8 col-sm-8">
+							<!-- Mapa de google maps -->
+							<div class="mapa" id="mapa">
+								<input type="hidden" id="lat" value='10.4913239'>
+								<input type="hidden" id="lng" value='-66.8746169'>
+						    </div>
+						</div>
+						<div class="col-lg-2 col-md-2 col-sm-2"></div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane fade" id="contactar">
+					<dir class="row">
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<img src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
+							<p class="direccion text-left">
+								
+							</p>
+							<p class="telefonos text-left">
+								
+							</p>
+						</div>
+						<div class="col-lg-8 col-md-8 col-sm-8">
+							<form action="">	
+				                {%csrf_token%}
+								<div class="form-group">
+									{{ContactoAgenteForm.as_p}}
+								</div>
+							</form>
+						</div>
+					</dir>
+				</div>
+				<div role="tabpanel" class="tab-pane fade" id="plusvalia">Plusvalia</div>
+			</div>
 		</div>
 	</div>
 {% endblock content %}
@@ -143,7 +237,6 @@
 </script>
 
 <!-- Codigo de facebook -->
-
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
 	var js, fjs = d.getElementsByTagName(s)[0];
@@ -156,7 +249,7 @@
 <!-- Codigo para el carrousel -->
 <script>
 $('#myCarousel').carousel({
-	interval: 4000
+	interval: 99999999999
 });
 
 // handles the carousel thumbnails
@@ -176,5 +269,30 @@ $('#myCarousel').on('slid', function (e) {
 	$('[id^=carousel-selector-]').removeClass('selected');
 	$('[id=carousel-selector-'+id+']').addClass('selected');
 });
+</script>
+
+<!-- Google Maps -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">
+</script>
+
+<script>
+var map;
+function initialize() {
+	/*Inicializacion de variables y toma de argumentos de latitud y longitud*/
+	var mapOptions = {
+		zoom: 17,
+		center: new google.maps.LatLng({{ inmueble.latitud }}, {{ inmueble.longitud }})
+	};
+  	map = new google.maps.Map(document.getElementById('mapa'),
+      mapOptions);
+
+  	var marker = new google.maps.Marker({
+	    position: map.getCenter(),
+	    map: map,
+	    title: 'Click para hacer zoom'
+  	});
+
+}
+google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 {%endblock js%}

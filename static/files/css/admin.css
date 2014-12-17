@@ -1,0 +1,21 @@
+/*Archivo de estilos para la base de la aplicacion
+  Colores:
+  Azul Claro:#0095d9;
+  Gris:#4f4e4e;
+  Azul Oscuro:#1a2e51;
+*/
+
+
+
+
+
+
+
+
+
+
+
+/*Estilos listar*/
+body > div.contenido.container > div > div > div.col-md-6 > div > div.panel-body > ul > li > a.eliminar{
+	float: right;
+}

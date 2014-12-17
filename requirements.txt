@@ -5,3 +5,6 @@ django-admin-bootstrapped
 Pillow
 psycopg2
 django-countries
+bootstrap-admin
+django-widget-tweaks
+django-bootstrap3

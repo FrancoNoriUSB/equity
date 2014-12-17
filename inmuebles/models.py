@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+from Equity.settings import *
 from django.utils.translation import gettext as _
 from django.db import models
 from django_countries.fields import CountryField
@@ -53,7 +55,7 @@ class Zona(models.Model):
 #Imagen de los anuncios que se publican
 class Imagen(models.Model):
     imagen = models.ImageField(upload_to='uploads/img/')
-    thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True, editable=False)
     descripcion = models.CharField(max_length=140, null=True)
 
     #Metodo para crear el thumbnail al momento de cear la imagen
@@ -103,7 +105,7 @@ class Imagen(models.Model):
         verbose_name_plural = _('Imagenes')
 
     def __unicode__(self):
-        return self.imagen
+        return self.descripcion
 
 
 #Modelo para el Agente inmobiliario
@@ -111,7 +113,7 @@ class Agente(models.Model):
     usuario = models.OneToOneField(User)
     codigo = models.CharField(max_length=40)
     pais = models.ForeignKey(Pais)
-    logo = models.ImageField()
+    logo = models.ImageField(upload_to='agentes/')
 
     class Meta:
         verbose_name = "Agente"
@@ -167,9 +169,12 @@ class Inmueble(models.Model):
     direccion = models.CharField(max_length=150)
     agente = models.ForeignKey(Agente)
     tipo = models.ForeignKey(TipoInmueble)
+    banos = models.IntegerField(max_length=2, default=0)
+    habitaciones = models.IntegerField(max_length=2, default=0)
+    estacionamiento = models.IntegerField(max_length=2, default=0)
     # Coodenadas Google Maps
-    latitud = models.DecimalField(max_digits=8, decimal_places=6)
-    longitud = models.DecimalField(max_digits=8, decimal_places=6)
+    latitud = models.DecimalField(max_digits=20, decimal_places=17)
+    longitud = models.DecimalField(max_digits=20, decimal_places=17)
 
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     feche_actualizacion = models.DateTimeField(auto_now=True)
@@ -186,6 +191,9 @@ class Inmueble(models.Model):
 # Modelo para imágenes de un inmueble publicado
 class ImagenInmueble(Imagen):
     inmueble = models.ForeignKey(Inmueble)
+
+    def __unicode__(self):
+        return self.descripcion
 
 
 # Modelo para definir los campos bases para cada tipo de inmueble
