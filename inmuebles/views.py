@@ -144,7 +144,11 @@ def login_admin(request, pais):
 def perfil_admin(request, pais):
 
     inmuebles = Inmueble.objects.filter(pais__nombre=pais)
-    agentes = Agente.objects.filter(pais__nombre=pais)
+    try:
+        agentes = Agente.objects.filter(pais__nombre=pais)
+    except:
+        agentes = Agente.objects.all()
+        
     ciudades = Ciudad.objects.filter(pais__nombre=pais)
 
     ctx = {
@@ -177,7 +181,9 @@ class ElegirTipo(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ElegirTipo, self).get_context_data(**kwargs)
+        tipos = TipoInmueble.objects.all()
         context['pais'] = kwargs['pais']
+        context['tipos'] = tipos
         return context
 
 
@@ -314,6 +320,32 @@ def ciudades_agregar(request, pais):
     }
     
     return render_to_response('admin/ciudades/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para listar las ciudades de ese pais
+@login_required
+def monedas_list(request, pais):
+    
+    monedas = Moneda.objects.all()
+
+    ctx = {
+        'monedas':monedas,
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/monedas/monedas.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar las ciudades de ese pais
+@login_required
+def monedas_agregar(request, pais):
+    
+    ctx = {
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/monedas/agregar.html', ctx, context_instance=RequestContext(request))
+
 
 
 #Vista para cerrar la sesion

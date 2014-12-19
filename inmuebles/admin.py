@@ -33,7 +33,7 @@ class InmuebleAdmin(admin.ModelAdmin):
 
 
 class AgenteAdmin(admin.ModelAdmin):
-    list_display = ['usuario', 'codigo', 'pais']
+    list_display = ['nombre', 'correo', 'codigo', 'pais']
     inlines = [TelefonoAgenteInLine]
 
 
@@ -85,3 +85,4 @@ admin.site.register(ValorCampoTipoInmueble, ValorCampoTipoInmuebleAdmin)
 admin.site.register(ValorCampoInmueble, ValorCampoInmuebleAdmin)
 admin.site.register(CampoTipoInmueble, CampoTipoInmuebleAdmin)
 admin.site.register(CampoInmueble, CampoInmuebleAdmin)
+admin.site.register(Moneda)

@@ -57,6 +57,7 @@ class Imagen(models.Model):
     imagen = models.ImageField(upload_to='uploads/img/')
     thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True, editable=False)
     descripcion = models.CharField(max_length=140, null=True)
+    principal = models.BooleanField(default=True, help_text='Marcado si desea que se muestre como imagen principal')
 
     #Metodo para crear el thumbnail al momento de cear la imagen
     def create_thumbnail(self):
@@ -110,10 +111,13 @@ class Imagen(models.Model):
 
 #Modelo para el Agente inmobiliario
 class Agente(models.Model):
-    usuario = models.OneToOneField(User)
+    nombre = models.CharField(max_length=30)
+    correo = models.CharField(max_length=40)
     codigo = models.CharField(max_length=40)
-    pais = models.ForeignKey(Pais)
     logo = models.ImageField(upload_to='agentes/')
+
+    #Claves foraneas
+    pais = models.ForeignKey(Pais)
 
     class Meta:
         verbose_name = "Agente"
@@ -138,6 +142,8 @@ class Telefono(models.Model):
 
 # Modelo para los telefonos del agente
 class TelefonoAgente(Telefono):
+
+    tipo = models.CharField(max_length=20, choices=(('Celular','Celular'),('Local','Local')))
     agente = models.ForeignKey(Agente, related_name='telefonos')
 
     class Meta(Telefono.Meta):
@@ -176,6 +182,9 @@ class Inmueble(models.Model):
     latitud = models.DecimalField(max_digits=20, decimal_places=17)
     longitud = models.DecimalField(max_digits=20, decimal_places=17)
     logo = models.ImageField(upload_to='logos_inmuebles/')
+    fecha_publicacion = models.DateTimeField(auto_now_add=True)
+    feche_actualizacion = models.DateTimeField(auto_now=True)
+    fecha_expiracion = models.DateTimeField()
     
     #Claves foraneas
     pais = models.ForeignKey(Pais)
@@ -183,10 +192,6 @@ class Inmueble(models.Model):
     zona = models.ForeignKey(Zona)
     agente = models.ForeignKey(Agente)
     tipo = models.ForeignKey(TipoInmueble)
-
-    fecha_publicacion = models.DateTimeField(auto_now_add=True)
-    feche_actualizacion = models.DateTimeField(auto_now=True)
-    fecha_expiracion = models.DateTimeField()
 
     class Meta:
         verbose_name = "Inmueble"
@@ -252,6 +257,8 @@ class CampoTipoInmueble(models.Model):
     )
     nombre = models.CharField(max_length=80)
     tipo = models.CharField(max_length=1, choices=TIPOS, default=TEXTO)
+
+    #Claves foraneas
     tipo_inmueble = models.ForeignKey(TipoInmueble)
 
     class Meta:
@@ -265,6 +272,8 @@ class CampoTipoInmueble(models.Model):
 # Modelo para los valores de los campos de cada inmueble publicado
 class ValorCampoTipoInmueble(models.Model):
     valor = models.CharField(max_length=150)
+
+    #Claves foraneas
     campo = models.ForeignKey(CampoTipoInmueble)
     inmueble = models.ForeignKey(Inmueble)
 
@@ -298,6 +307,8 @@ class CampoInmueble(models.Model):
 # Modelo para los valores de los campos opcionales de los inmuebles
 class ValorCampoInmueble(models.Model):
     valor = models.CharField(max_length=150)
+
+    #Claves foraneas
     campo = models.ForeignKey(CampoInmueble)
     inmueble = models.ForeignKey(Inmueble)
 

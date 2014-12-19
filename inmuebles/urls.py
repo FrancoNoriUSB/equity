@@ -27,7 +27,7 @@ urlpatterns = patterns('inmuebles.views',
              url(r'^(?P<pais>[A-Z][A-Z])/admin/ciudades/agregar$', 'ciudades_agregar', name='agregar_ciudades'),
 
              #Monedas
-             url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/$', 'ciudades_list', name='listar_monedas'),
-             url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/agregar$', 'ciudades_agregar', name='agregar_monedas'),
+             url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/$', 'monedas_list', name='listar_monedas'),
+             url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/agregar$', 'monedas_agregar', name='agregar_monedas'),
 
 )

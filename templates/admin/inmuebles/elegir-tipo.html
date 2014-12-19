@@ -20,26 +20,14 @@
 					<h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
 				</div>
 				<div class="panel-body">
+					{%for tipo in tipos%}
 					<div class="foto col-lg-4 text-center">
-						<a href="{% url 'inmuebles:publicar' pais 'Apartamento' %}">
-						<img class="img-responsive" src="{% static 'files/img/apartamento.png' %}" alt="Apartamento">
-						Apartamento
-						</a>
-					</div>
-					<div class="foto col-lg-4 text-center">
-						<a href="{% url 'inmuebles:publicar' pais 'Casa' %}">
-						<img class="img-responsive" src="{% static 'files/img/casa.png' %}" alt="Casa">
+						<a href="{% url 'inmuebles:publicar' pais tipo %}">
 						<span class="glyphicon glyphicon-home"></span>
-						Casa
+						{{tipo.nombre}}
 						</a>
 					</div>
-					<div class="foto col-lg-4 text-center">
-						<a href="{% url 'inmuebles:publicar' pais 'Oficina' %}">
-						<img class="img-responsive" src="{% static 'files/img/oficina.png' %}" alt="Oficina">
-						<span class="glyphicon glyphicon-briefcase"></span>
-						Oficina
-						</a>
-					</div>
+					{%endfor%}
 				</div>
 			</div>
         </div>

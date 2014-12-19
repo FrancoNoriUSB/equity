@@ -1,56 +1,30 @@
-<!-- Archivo donde estan los bloques del home -->
 {% extends "base_admin.html" %}
-{% load bootstrap3 %}
-{% load staticfiles %}
-
-<!-- Bloque para scripts que se cargan en la plantilla base -->
-{% block scripts %}
-
-<!-- Estilos del index -->
-<link rel="stylesheet" type="text/css" href="{% static 'files/css/base.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'files/css/admin.css' %}">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-{% endblock scripts %}
-
-<!-- Header del home-->
-{% block header_home %}
-
-	<div class="container-fluid">
-
-		<div class="row">
-			<div class="col-lg-12">
-				<p>&nbsp;</p>
-			</div>
-		</div>
-	</div>
-{% endblock header_home%}
-
-
-<!-- Boque del contenido de la pagina -->
 {% block content %}
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
-        </div>
-        <div class="panel-body">
-            <h4>Monedas: </h4>
-            
+
+<!-- Estilos de la pagina-->
+<link href="{{MEDIA_URL}}files/css/admin.css"    rel="stylesheet" type="text/css" />
+    <div class="container">
+        <div class="row">           
+            <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+                      </div>
+                      <div class="panel-body">
+                        Monedas
+                        <ul class="list-group">
+                            {%for moneda in monedas%}
+                                <li class="list-group-item">
+                                    <a href="">Titulo: {{moneda.nombre}}</a>
+                                    <a href="" class="eliminar">Eliminar<span class="glyphicon glyphicon-trash"></span></a>
+                                </li>
+                            {%endfor%}
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+            <div class="col-md-3"></div>
         </div>
     </div>
 {% endblock content %}
-
-{% block js %}
-
-<!-- Mapa de google maps -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script src="{% static 'files/js/jquery.formset.js' %}"></script>
-<script type="text/javascript">
-    $(function() {
-        $('.campo-formset').formset({
-            prefix: '{{ campo_formset.prefix }}'
-        });
-    })
-</script>
-{% endblock js %}
