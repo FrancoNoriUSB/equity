@@ -127,3 +127,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 )
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, '../static/fixtures'),
+)

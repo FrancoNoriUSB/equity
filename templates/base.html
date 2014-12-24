@@ -69,7 +69,7 @@
                                         </form>
                                     </li>
                                     <li>
-                                        <a id="inmuebles_link" href="">Inmuebles</a>
+                                        <a href="/{{pais}}/">Inmuebles</a>
                                     </li>
                                     <li>
                                         <a href="/">Info Pa&iacute;s</a>
@@ -99,7 +99,7 @@
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div class="col-lg-8 col-md-8 col-sm-8 centering">
-                        <a href="/">
+                        <a href="/{{pais}}/">
                             <img class="text-center" src="{% static 'files/img/logo-blanco.png' %}" alt="">
                         </a>
                     </div>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="form-group inner-addon right-addon">
                         {% render_field buscadorF.codigo class="form-control" placeholder="Código"%}
-                        <span class="glyphicon glyphicon-barcode form-control-feedback"></span>
+                        <span class="glyphicon glyphicon-arrow-down form-control-feedback"></span>
                     </div>
                     <div class="form-group inner-addon right-addon">
                         {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
@@ -241,7 +241,6 @@ $('#id_pais').change(function(){
     var pais = $(this).val();
     window.location.replace("/"+pais+"/");
     console.log("Pais:"+pais);
-    $("#inmuebles_link").attr("href", pais);
 });
 </script>
 {%block js%}

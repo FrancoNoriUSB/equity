@@ -2,29 +2,32 @@
 {% block content %}
 
 <!-- Estilos de la pagina-->
-<link href="{{MEDIA_URL}}files/css/admin.css"	 rel="stylesheet" type="text/css" />
-	<div class="container">
-		<div class="row">			
-			<div class="col-md-3"></div>
-				<div class="col-md-6">
-					<div class="panel panel-primary">
-					  <div class="panel-heading">
-					    <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
-					  </div>
-					  <div class="panel-body">
-					    Inmuebles
-						<ul class="list-group">
-							{%for inmueble in inmuebles%}
-								<li class="list-group-item">
-									<a href="">Titulo: {{inmueble.titulo}}</a>
-									<a href="" class="eliminar">Eliminar<span class="glyphicon glyphicon-trash"></span></a>
-								</li>
-							{%endfor%}
-						</ul>
-					  </div>
-					</div>
-				</div>
-			<div class="col-md-3"></div>
+<link href="{{STATIC_URL}}files/css/admin.css"	 rel="stylesheet" type="text/css" />
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+			    <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+			  </div>
+			  <div class="panel-body">
+			    Inmuebles
+				<ul class="list-group">
+					{%for inmueble in inmuebles%}
+						<li class="list-group-item">
+							<a href="">Titulo: {{inmueble.titulo}}</a>
+							<a href="eliminar/{{inmueble.id}}/" class="eliminar">
+								Eliminar<span class="glyphicon glyphicon-trash"></span>
+							</a>
+	                        <a href="editar/{{inmueble.id}}/" class="editar">
+	                          Editar<span class="glyphicon glyphicon-pencil"></span>
+	                        </a>
+						</li>
+					{%endfor%}
+				</ul>
+			  </div>
+			</div>
 		</div>
-	</div>
 {% endblock content %}
+
+{% block js %}
+	
+{% endblock js %}

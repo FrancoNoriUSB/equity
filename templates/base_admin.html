@@ -2,28 +2,37 @@
 <html lang="es">
     {% load staticfiles %}
     {% load widget_tweaks %}
+    {% load inmuebles_extras %}
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami, Mexico, Ecuador, Costa Rica, Panama, Colombia">
-        <link rel="SHORTCUT ICON" href="{% static 'files/img/favicon.ico' %}"/>
-        <title>Equity</title>
- 
-         <!-- Modernizr -->
-        <script src="{% static 'files/js/modernizr.custom.80055.js' %}"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-        <!-- jQuery -->
-        <script src="http://code.jquery.com/jquery.js"></script>
+        <title>Equity Admin</title>
 
-        <!--Bootstrap Local-->
-        <!--CSS -->
-        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+        <!-- Bootstrap Core CSS -->
+        <link href="{% static 'files/css/bootstrap.min.css' %}" rel="stylesheet">
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+        <!-- MetisMenu CSS -->
+        <link href="{% static 'files/css/plugins/metisMenu/metisMenu.min.css' %}" rel="stylesheet">
 
-        <!--JavaScript -->
-        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <!-- Timeline CSS -->
+        <link href="{% static 'files/css/plugins/timeline.css' %}" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="{% static 'files/css/sb-admin-2.css' %}" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="{% static 'files/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
         <!--Estilos-->
         <link rel="stylesheet" type="text/css" href="{% static 'files/css/admin.css' %}">
@@ -35,159 +44,212 @@
         {% endblock scripts %}
     </head> 
     <body>
-        <!-- Header de la página -->
-        {% block header %}
-        <header>
-            <nav class="navbar navbar-static-top navbar-default" role="navigation">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="navbar-header">
-                                <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                </button>
-                                <div class="navbar-brand">
-                                    <a href="/">
-                                        Contacto
-                                    </a>
-                                    |
-                                    <a href="/">
-                                        English
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="collapse navbar-collapse navHeaderCollapse navheader">
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li>
-                                        <a href="/{{pais}}/admin/perfil/">Administrador</a>
-                                    </li>
-                                    {%if user.is_authenticated%}
-                                    <li>
-                                        <a href="/{{pais}}/admin/perfil/logout">Cerrar Sesi&oacute;n</a>
-                                    </li>
-                                    {%else%}
-                                    <li>
-                                        <a href="/">Login</a>
-                                    </li>
-                                    {%endif%}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/{{pais}}/admin/perfil/">
+                        <img class="" src="{% static 'files/img/logo-solo.png' %}" height="70px" alt="">
+                    </a>
                 </div>
+                <!-- /.navbar-header -->
+
+                <ul class="nav navbar-top-links navbar-right">                   
+                    <!-- /.dropdown -->
+                    <li>
+                        {{nombre_pais}}
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Paises <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="/CO/admin/perfil/">Colombia</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/CR/admin/perfil/">Costa Rica</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/EC/admin/perfil/">Ecuador</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/MX/admin/perfil/">M&eacute;xico</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/PA/admin/perfil/">Panam&aacute;</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/US/admin/perfil/">Estados Unidos</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/VE/admin/perfil/">Venezuela</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#"><i class="fa fa-user fa-fw"></i> Datos de usuario</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="/{{pais}}/admin/perfil/logout/"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesi&oacute;n</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+                            <li>
+                                <a class="active" href="/{{pais}}/admin/perfil"><i class="fa fa-dashboard fa-fw"></i> Escritorio</a>
+                            </li>
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-home"></span> Inmuebles<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/{{pais}}/admin/inmuebles/elegir-tipo/"> Agregar inmueble</a>
+                                    </li>
+                                    <li>
+                                        <a href="/{{pais}}/admin/inmuebles/"> Listar Inmuebles</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-briefcase"></span> Agentes<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/{{pais}}/admin/agentes/agregar"> Agregar Agente</a>
+                                    </li>
+                                    <li>
+                                        <a href="/{{pais}}/admin/agentes/"> Listar Agentes</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                           <li>
+                                <a href="#"><span class="glyphicon glyphicon-th-large"></span> Ciudades<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/{{pais}}/admin/ciudades/agregar/"> Agregar Ciudad</a>
+                                    </li>
+                                    <li>
+                                        <a href="/{{pais}}/admin/ciudades/"> Listar Ciudades</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                           <li>
+                                <a href="#"><span class="glyphicon glyphicon-th"></span> Zonas<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/{{pais}}/admin/zonas/agregar/"> Agregar Zona</a>
+                                    </li>
+                                    <li>
+                                        <a href="/{{pais}}/admin/zonas/"> Listar Zonas</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><span class="glyphicon glyphicon-euro"></span> Monedas<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/{{pais}}/admin/monedas/agregar/"> Agregar Moneda</a>
+                                    </li>
+                                    <li>
+                                        <a href="/{{pais}}/admin/monedas/"> Listar Monedas</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            
+                            <li>
+                                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#">Second Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Second Level Item</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="#">Third Level Item</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third Level Item</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third Level Item</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Third Level Item</a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-third-level -->
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
             </nav>
             <!-- Sección interna de la página -->
-            <div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="col-lg-8 col-md-8 col-sm-8 centering">
-                        <a href="/">
-                            <img class="text-center" src="{% static 'files/img/logo-blanco.png' %}" alt="">
-                        </a>
-                    </div>
-                </div>
+            <div id="page-wrapper" class="contenido container">
+                <br>
+                <br>
+                {% block content %}
+                {% endblock content %}
             </div>
-        </header>
-
-        {% endblock header %}
-        
-        <!-- Header del home -->
-        <div class="header-home">
-            {% block header_home %}
-            {% endblock header_home %}
+            <!-- /#page-wrapper -->
         </div>
+        <!-- /#wrapper -->
+       
+    <!-- jQuery -->
+    <script src="{% static 'files/js/jquery.js' %}"></script>
 
-        <!-- Sección de titulo de la pagina -->
-        {% block header_title %}
-        {% endblock header_title %}
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'files/js/bootstrap.min.js' %}"></script>
 
-        <!-- Sección interna de la página -->
-        <div class="contenido container">
-            {% block content %}
-            {% endblock content %}
-        </div>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{% static 'files/js/plugins/metisMenu/metisMenu.min.js' %}"></script>
 
-        <!-- Footer de la página -->
-        {% block footer %}
-        <footer>
-            <div class="container">
-                <div class="pre-footer row">
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <a href="">
-                            <img src="{% static 'files/img/leanos.png' %}" alt="">
-                            <strong>L&eacute;anos</strong>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <a href="">
-                            <img src="{% static 'files/img/consultenos.png' %}" alt="">
-                            <strong>Conls&uacute;ltenos</strong>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <a href="">
-                            <img src="{% static 'files/img/llamenos.png' %}" alt="">
-                            <strong>Ll&aacute;menos</strong>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <nav class="navbar navbar-static-bottom navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <!--<button class="navbar-toggle" data-toggle="collapse" data-target=".navFooterCollapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                    </button>-->
-                    <div class="collapse navbar-collapse navFooterCollapse navfooter">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="/"><strong>Colombia</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>Costa Rica</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>Ecuador</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>EEUU</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>M&eacute;xico</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>Panam&aacute;</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>Venezuela</strong></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="collapse navbar-collapse navFooterCollapse navfooter">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="/"><strong>Contacto</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>Revista Virtual</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>EQAssist</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>EQNews</strong></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </footer>
-        {% endblock footer %}
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static 'files/js/sb-admin-2.js' %}"></script>
+    {%block js%}
+    {%endblock js%}
+
     </body>
-{%block js%}
-{%endblock js%}
 </html>

@@ -73,8 +73,7 @@ class InmuebleForm(forms.ModelForm):
             'descripcion': 'Descripción',
             'direccion': 'Dirección',
         }
-        exclude = ['tipo', 'pais']
-
+        exclude = ['tipo', 'pais', 'fecha_expiracion']
 
 ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, extra=5, can_delete=True, fields=['imagen', 'descripcion'])
 CampoFormset = inlineformset_factory(Inmueble, ValorCampoInmueble, extra=1, can_delete=True, fields=['campo', 'valor'])
@@ -97,7 +96,7 @@ class UserForm(forms.ModelForm):
         }
 
 
-#Formulario para agregar agentes
+#Formulario para agentes
 class AgenteForm(forms.ModelForm):
     class Meta:
         model = Agente
@@ -105,5 +104,33 @@ class AgenteForm(forms.ModelForm):
             'codigo': forms.TextInput(),
             'logo': forms.FileInput()
         }
-        exclude = ['pais', 'user']
+        exclude = ['pais']
+    
+
+#Formulario para ciudades
+class CiudadForm(forms.ModelForm):
+    class Meta:
+        model = Ciudad
+        widgets = {
+            'nombre': forms.TextInput(),
+        }
+        exclude = ['pais']
+
+
+#Formulario para zonas
+class ZonaForm(forms.ModelForm):
+    class Meta:
+        model = Zona
+        widgets = {
+            'nombre': forms.TextInput(),
+            'ciudad': forms.TextInput(),
+        }
+
+class MonedaForm(forms.ModelForm):
+    class Meta:
+        model = Moneda
+        widgets = {
+            'nombre': forms.TextInput(),
+        }
+        exclude = ['pais']
     

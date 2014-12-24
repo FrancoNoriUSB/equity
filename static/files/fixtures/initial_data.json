@@ -1,0 +1,1083 @@
+[
+{
+    "fields": {
+        "model": "logentry",
+        "name": "log entry",
+        "app_label": "admin"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 1
+},
+{
+    "fields": {
+        "model": "permission",
+        "name": "permission",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 2
+},
+{
+    "fields": {
+        "model": "group",
+        "name": "group",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 3
+},
+{
+    "fields": {
+        "model": "user",
+        "name": "user",
+        "app_label": "auth"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 4
+},
+{
+    "fields": {
+        "model": "contenttype",
+        "name": "content type",
+        "app_label": "contenttypes"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 5
+},
+{
+    "fields": {
+        "model": "session",
+        "name": "session",
+        "app_label": "sessions"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 6
+},
+{
+    "fields": {
+        "model": "pais",
+        "name": "Pais",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 7
+},
+{
+    "fields": {
+        "model": "ciudad",
+        "name": "Ciudad",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 8
+},
+{
+    "fields": {
+        "model": "zona",
+        "name": "Zona",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 9
+},
+{
+    "fields": {
+        "model": "agente",
+        "name": "Agente",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 10
+},
+{
+    "fields": {
+        "model": "telefonoagente",
+        "name": "Telefono Agente",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 11
+},
+{
+    "fields": {
+        "model": "tipoinmueble",
+        "name": "Tipo Inmueble",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 12
+},
+{
+    "fields": {
+        "model": "inmueble",
+        "name": "Inmueble",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 13
+},
+{
+    "fields": {
+        "model": "imageninmueble",
+        "name": "Imagen",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 14
+},
+{
+    "fields": {
+        "model": "modulo",
+        "name": "Modulo",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 15
+},
+{
+    "fields": {
+        "model": "moneda",
+        "name": "Moneda",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 16
+},
+{
+    "fields": {
+        "model": "campotipoinmueble",
+        "name": "Campo Tipo Inmueble",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 17
+},
+{
+    "fields": {
+        "model": "valorcampotipoinmueble",
+        "name": "Valor Campo Tipo Inmueble",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 18
+},
+{
+    "fields": {
+        "model": "campoinmueble",
+        "name": "Campo Inmueble",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 19
+},
+{
+    "fields": {
+        "model": "valorcampoinmueble",
+        "name": "Valor Campo Inmueble",
+        "app_label": "inmuebles"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 20
+},
+{
+    "fields": {
+        "model": "noticia",
+        "name": "Noticia",
+        "app_label": "noticias"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 21
+},
+{
+    "fields": {
+        "model": "banner",
+        "name": "Banner",
+        "app_label": "noticias"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 22
+},
+{
+    "fields": {
+        "expire_date": "2015-01-03T18:27:10.433Z",
+        "session_data": "YzVkNjhhYmY4NmU5NzkzMDRhMTY1NjJmZWU3ZWVmNjgwNmFhZjZiMTp7Il9hdXRoX3VzZXJfaGFzaCI6ImI3Y2I4NjViOWE0YjU5ODBmODUyNDgzNTM5ZDg4NjYxMWE3NGJjNTMiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOjF9"
+    },
+    "model": "sessions.session",
+    "pk": "ntlxfmqwelmervny0cvuef2w1cdbizu1"
+},
+{
+    "fields": {
+        "nombre": "CO"
+    },
+    "model": "inmuebles.pais",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "VE"
+    },
+    "model": "inmuebles.pais",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "CR"
+    },
+    "model": "inmuebles.pais",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "EC"
+    },
+    "model": "inmuebles.pais",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "PA"
+    },
+    "model": "inmuebles.pais",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "US"
+    },
+    "model": "inmuebles.pais",
+    "pk": 6
+},
+{
+    "fields": {
+        "nombre": "MX"
+    },
+    "model": "inmuebles.pais",
+    "pk": 7
+},
+{
+    "fields": {
+        "nombre": "Quito",
+        "pais": 4
+    },
+    "model": "inmuebles.ciudad",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Calderon",
+        "ciudad": 1
+    },
+    "model": "inmuebles.zona",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Los Chillos",
+        "ciudad": 1
+    },
+    "model": "inmuebles.zona",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "La Delicia",
+        "ciudad": 1
+    },
+    "model": "inmuebles.zona",
+    "pk": 3
+},
+{
+    "fields": {
+        "correo": "century21@gmail.com",
+        "nombre": "Century21",
+        "pais": 4,
+        "codigo": "CEN21VE",
+        "logo": "agentes/logo-constructora_KlnLwoa.png"
+    },
+    "model": "inmuebles.agente",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Casa"
+    },
+    "model": "inmuebles.tipoinmueble",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Apartamento"
+    },
+    "model": "inmuebles.tipoinmueble",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Oficina"
+    },
+    "model": "inmuebles.tipoinmueble",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Galp\u00f3n"
+    },
+    "model": "inmuebles.tipoinmueble",
+    "pk": 4
+},
+{
+    "fields": {
+        "codename": "add_logentry",
+        "name": "Can add log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 1
+},
+{
+    "fields": {
+        "codename": "change_logentry",
+        "name": "Can change log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 2
+},
+{
+    "fields": {
+        "codename": "delete_logentry",
+        "name": "Can delete log entry",
+        "content_type": 1
+    },
+    "model": "auth.permission",
+    "pk": 3
+},
+{
+    "fields": {
+        "codename": "add_permission",
+        "name": "Can add permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 4
+},
+{
+    "fields": {
+        "codename": "change_permission",
+        "name": "Can change permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 5
+},
+{
+    "fields": {
+        "codename": "delete_permission",
+        "name": "Can delete permission",
+        "content_type": 2
+    },
+    "model": "auth.permission",
+    "pk": 6
+},
+{
+    "fields": {
+        "codename": "add_group",
+        "name": "Can add group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 7
+},
+{
+    "fields": {
+        "codename": "change_group",
+        "name": "Can change group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 8
+},
+{
+    "fields": {
+        "codename": "delete_group",
+        "name": "Can delete group",
+        "content_type": 3
+    },
+    "model": "auth.permission",
+    "pk": 9
+},
+{
+    "fields": {
+        "codename": "add_user",
+        "name": "Can add user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 10
+},
+{
+    "fields": {
+        "codename": "change_user",
+        "name": "Can change user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 11
+},
+{
+    "fields": {
+        "codename": "delete_user",
+        "name": "Can delete user",
+        "content_type": 4
+    },
+    "model": "auth.permission",
+    "pk": 12
+},
+{
+    "fields": {
+        "codename": "add_contenttype",
+        "name": "Can add content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 13
+},
+{
+    "fields": {
+        "codename": "change_contenttype",
+        "name": "Can change content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 14
+},
+{
+    "fields": {
+        "codename": "delete_contenttype",
+        "name": "Can delete content type",
+        "content_type": 5
+    },
+    "model": "auth.permission",
+    "pk": 15
+},
+{
+    "fields": {
+        "codename": "add_session",
+        "name": "Can add session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 16
+},
+{
+    "fields": {
+        "codename": "change_session",
+        "name": "Can change session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 17
+},
+{
+    "fields": {
+        "codename": "delete_session",
+        "name": "Can delete session",
+        "content_type": 6
+    },
+    "model": "auth.permission",
+    "pk": 18
+},
+{
+    "fields": {
+        "codename": "add_pais",
+        "name": "Can add Pais",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 19
+},
+{
+    "fields": {
+        "codename": "change_pais",
+        "name": "Can change Pais",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 20
+},
+{
+    "fields": {
+        "codename": "delete_pais",
+        "name": "Can delete Pais",
+        "content_type": 7
+    },
+    "model": "auth.permission",
+    "pk": 21
+},
+{
+    "fields": {
+        "codename": "add_ciudad",
+        "name": "Can add Ciudad",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 22
+},
+{
+    "fields": {
+        "codename": "change_ciudad",
+        "name": "Can change Ciudad",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 23
+},
+{
+    "fields": {
+        "codename": "delete_ciudad",
+        "name": "Can delete Ciudad",
+        "content_type": 8
+    },
+    "model": "auth.permission",
+    "pk": 24
+},
+{
+    "fields": {
+        "codename": "add_zona",
+        "name": "Can add Zona",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 25
+},
+{
+    "fields": {
+        "codename": "change_zona",
+        "name": "Can change Zona",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 26
+},
+{
+    "fields": {
+        "codename": "delete_zona",
+        "name": "Can delete Zona",
+        "content_type": 9
+    },
+    "model": "auth.permission",
+    "pk": 27
+},
+{
+    "fields": {
+        "codename": "add_agente",
+        "name": "Can add Agente",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 28
+},
+{
+    "fields": {
+        "codename": "change_agente",
+        "name": "Can change Agente",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 29
+},
+{
+    "fields": {
+        "codename": "delete_agente",
+        "name": "Can delete Agente",
+        "content_type": 10
+    },
+    "model": "auth.permission",
+    "pk": 30
+},
+{
+    "fields": {
+        "codename": "add_telefonoagente",
+        "name": "Can add Telefono Agente",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 31
+},
+{
+    "fields": {
+        "codename": "change_telefonoagente",
+        "name": "Can change Telefono Agente",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 32
+},
+{
+    "fields": {
+        "codename": "delete_telefonoagente",
+        "name": "Can delete Telefono Agente",
+        "content_type": 11
+    },
+    "model": "auth.permission",
+    "pk": 33
+},
+{
+    "fields": {
+        "codename": "add_tipoinmueble",
+        "name": "Can add Tipo Inmueble",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 34
+},
+{
+    "fields": {
+        "codename": "change_tipoinmueble",
+        "name": "Can change Tipo Inmueble",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 35
+},
+{
+    "fields": {
+        "codename": "delete_tipoinmueble",
+        "name": "Can delete Tipo Inmueble",
+        "content_type": 12
+    },
+    "model": "auth.permission",
+    "pk": 36
+},
+{
+    "fields": {
+        "codename": "add_inmueble",
+        "name": "Can add Inmueble",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 37
+},
+{
+    "fields": {
+        "codename": "change_inmueble",
+        "name": "Can change Inmueble",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 38
+},
+{
+    "fields": {
+        "codename": "delete_inmueble",
+        "name": "Can delete Inmueble",
+        "content_type": 13
+    },
+    "model": "auth.permission",
+    "pk": 39
+},
+{
+    "fields": {
+        "codename": "add_imageninmueble",
+        "name": "Can add Imagen",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 40
+},
+{
+    "fields": {
+        "codename": "change_imageninmueble",
+        "name": "Can change Imagen",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 41
+},
+{
+    "fields": {
+        "codename": "delete_imageninmueble",
+        "name": "Can delete Imagen",
+        "content_type": 14
+    },
+    "model": "auth.permission",
+    "pk": 42
+},
+{
+    "fields": {
+        "codename": "add_modulo",
+        "name": "Can add Modulo",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 43
+},
+{
+    "fields": {
+        "codename": "change_modulo",
+        "name": "Can change Modulo",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 44
+},
+{
+    "fields": {
+        "codename": "delete_modulo",
+        "name": "Can delete Modulo",
+        "content_type": 15
+    },
+    "model": "auth.permission",
+    "pk": 45
+},
+{
+    "fields": {
+        "codename": "add_moneda",
+        "name": "Can add Moneda",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 46
+},
+{
+    "fields": {
+        "codename": "change_moneda",
+        "name": "Can change Moneda",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 47
+},
+{
+    "fields": {
+        "codename": "delete_moneda",
+        "name": "Can delete Moneda",
+        "content_type": 16
+    },
+    "model": "auth.permission",
+    "pk": 48
+},
+{
+    "fields": {
+        "codename": "add_campotipoinmueble",
+        "name": "Can add Campo Tipo Inmueble",
+        "content_type": 17
+    },
+    "model": "auth.permission",
+    "pk": 49
+},
+{
+    "fields": {
+        "codename": "change_campotipoinmueble",
+        "name": "Can change Campo Tipo Inmueble",
+        "content_type": 17
+    },
+    "model": "auth.permission",
+    "pk": 50
+},
+{
+    "fields": {
+        "codename": "delete_campotipoinmueble",
+        "name": "Can delete Campo Tipo Inmueble",
+        "content_type": 17
+    },
+    "model": "auth.permission",
+    "pk": 51
+},
+{
+    "fields": {
+        "codename": "add_valorcampotipoinmueble",
+        "name": "Can add Valor Campo Tipo Inmueble",
+        "content_type": 18
+    },
+    "model": "auth.permission",
+    "pk": 52
+},
+{
+    "fields": {
+        "codename": "change_valorcampotipoinmueble",
+        "name": "Can change Valor Campo Tipo Inmueble",
+        "content_type": 18
+    },
+    "model": "auth.permission",
+    "pk": 53
+},
+{
+    "fields": {
+        "codename": "delete_valorcampotipoinmueble",
+        "name": "Can delete Valor Campo Tipo Inmueble",
+        "content_type": 18
+    },
+    "model": "auth.permission",
+    "pk": 54
+},
+{
+    "fields": {
+        "codename": "add_campoinmueble",
+        "name": "Can add Campo Inmueble",
+        "content_type": 19
+    },
+    "model": "auth.permission",
+    "pk": 55
+},
+{
+    "fields": {
+        "codename": "change_campoinmueble",
+        "name": "Can change Campo Inmueble",
+        "content_type": 19
+    },
+    "model": "auth.permission",
+    "pk": 56
+},
+{
+    "fields": {
+        "codename": "delete_campoinmueble",
+        "name": "Can delete Campo Inmueble",
+        "content_type": 19
+    },
+    "model": "auth.permission",
+    "pk": 57
+},
+{
+    "fields": {
+        "codename": "add_valorcampoinmueble",
+        "name": "Can add Valor Campo Inmueble",
+        "content_type": 20
+    },
+    "model": "auth.permission",
+    "pk": 58
+},
+{
+    "fields": {
+        "codename": "change_valorcampoinmueble",
+        "name": "Can change Valor Campo Inmueble",
+        "content_type": 20
+    },
+    "model": "auth.permission",
+    "pk": 59
+},
+{
+    "fields": {
+        "codename": "delete_valorcampoinmueble",
+        "name": "Can delete Valor Campo Inmueble",
+        "content_type": 20
+    },
+    "model": "auth.permission",
+    "pk": 60
+},
+{
+    "fields": {
+        "codename": "add_noticia",
+        "name": "Can add Noticia",
+        "content_type": 21
+    },
+    "model": "auth.permission",
+    "pk": 61
+},
+{
+    "fields": {
+        "codename": "change_noticia",
+        "name": "Can change Noticia",
+        "content_type": 21
+    },
+    "model": "auth.permission",
+    "pk": 62
+},
+{
+    "fields": {
+        "codename": "delete_noticia",
+        "name": "Can delete Noticia",
+        "content_type": 21
+    },
+    "model": "auth.permission",
+    "pk": 63
+},
+{
+    "fields": {
+        "codename": "add_banner",
+        "name": "Can add Banner",
+        "content_type": 22
+    },
+    "model": "auth.permission",
+    "pk": 64
+},
+{
+    "fields": {
+        "codename": "change_banner",
+        "name": "Can change Banner",
+        "content_type": 22
+    },
+    "model": "auth.permission",
+    "pk": 65
+},
+{
+    "fields": {
+        "codename": "delete_banner",
+        "name": "Can delete Banner",
+        "content_type": 22
+    },
+    "model": "auth.permission",
+    "pk": 66
+},
+{
+    "fields": {
+        "username": "franco",
+        "first_name": "",
+        "last_name": "",
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "last_login": "2014-12-20T18:27:10.432Z",
+        "groups": [],
+        "user_permissions": [],
+        "password": "pbkdf2_sha256$12000$UertntZxKWb8$Fk73MqaYEFU5Ro9f2QZoupwvmsqe80FEQRPwIUFKmNk=",
+        "email": "francong2@gmail.com",
+        "date_joined": "2014-12-18T06:42:00.089Z"
+    },
+    "model": "auth.user",
+    "pk": 1
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-18T06:44:25.333Z",
+        "object_repr": "CO",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 1
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-18T06:44:29.986Z",
+        "object_repr": "VE",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 2
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-18T06:44:34.534Z",
+        "object_repr": "CR",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 3
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-18T06:44:39.215Z",
+        "object_repr": "EC",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 4
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-18T06:44:58.134Z",
+        "object_repr": "PA",
+        "object_id": "5",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 5
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-18T06:45:09.806Z",
+        "object_repr": "US",
+        "object_id": "6",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 6
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-18T06:45:25.820Z",
+        "object_repr": "MX",
+        "object_id": "7",
+        "change_message": "",
+        "user": 1,
+        "content_type": 7
+    },
+    "model": "admin.logentry",
+    "pk": 7
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-20T18:18:13.844Z",
+        "object_repr": "Casa",
+        "object_id": "1",
+        "change_message": "",
+        "user": 1,
+        "content_type": 12
+    },
+    "model": "admin.logentry",
+    "pk": 8
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-20T18:18:18.617Z",
+        "object_repr": "Apartamento",
+        "object_id": "2",
+        "change_message": "",
+        "user": 1,
+        "content_type": 12
+    },
+    "model": "admin.logentry",
+    "pk": 9
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-20T18:18:23.211Z",
+        "object_repr": "Oficina",
+        "object_id": "3",
+        "change_message": "",
+        "user": 1,
+        "content_type": 12
+    },
+    "model": "admin.logentry",
+    "pk": 10
+},
+{
+    "fields": {
+        "action_flag": 1,
+        "action_time": "2014-12-20T18:18:28.690Z",
+        "object_repr": "Galp\u00f3n",
+        "object_id": "4",
+        "change_message": "",
+        "user": 1,
+        "content_type": 12
+    },
+    "model": "admin.logentry",
+    "pk": 11
+}
+]

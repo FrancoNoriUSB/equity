@@ -124,7 +124,7 @@ class Agente(models.Model):
         verbose_name_plural = "Agentes"
 
     def __unicode__(self):
-        return self.usuario.username
+        return self.nombre
 
 
 #Clase abstracta de Telefonos
@@ -174,9 +174,9 @@ class Inmueble(models.Model):
     )
 
     titulo = models.CharField(max_length=100)
-    codigo = models.CharField(max_length=20)
+    codigo = models.CharField(max_length=20, unique=True)
     descripcion = models.TextField()
-    fecha_entrega = models.DateTimeField()
+    fecha_entrega = models.DateField()
     tipo_obra = models.CharField(choices=tipos_obra, max_length=20)
     direccion = models.CharField(max_length=150)
     latitud = models.DecimalField(max_digits=20, decimal_places=17)
@@ -234,7 +234,7 @@ class Modulo(models.Model):
 # Modelo para las monedas
 class Moneda(models.Model):
     nombre = models.CharField(max_length=20)
-    tasa = models.CharField(max_length=10)
+    tasa = models.DecimalField(max_digits=20, decimal_places=4)
 
     #Claves foraneas
     pais = models.ForeignKey(Pais)

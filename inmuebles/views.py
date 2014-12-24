@@ -81,6 +81,7 @@ def inmueble(request, codigo, pais):
     buscadorF = BuscadorForm()
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
+   
     inmueble = get_object_or_404(Inmueble, codigo=codigo)
     #Contacto con el agente
     contactoF = ContactoAgenteForm()
@@ -106,6 +107,10 @@ def login_admin(request, pais):
 
     username = ''
     password = ''
+    buscadorF = BuscadorForm()
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
+   
     
     #Formularios basicos
     loginF = LoginForm()
@@ -134,7 +139,8 @@ def login_admin(request, pais):
 
     ctx = {
         'pais': pais,
-        'login': loginF
+        'login': loginF,
+        'buscadorF': buscadorF,
     }
     return render_to_response('login/login.html', ctx, context_instance=RequestContext(request))
 
@@ -148,14 +154,19 @@ def perfil_admin(request, pais):
         agentes = Agente.objects.filter(pais__nombre=pais)
     except:
         agentes = Agente.objects.all()
-        
+
     ciudades = Ciudad.objects.filter(pais__nombre=pais)
+    zonas = Zona.objects.filter(ciudad__pais__nombre=pais)
+
+    nombre_pais = dict(countries)[pais]
 
     ctx = {
         'inmuebles':inmuebles,
         'agentes':agentes,
         'ciudades':ciudades,
+        'zonas':zonas,
         'pais':pais,
+        'nombre_pais':nombre_pais,
     }
     return render_to_response('admin/perfil.html', ctx, context_instance=RequestContext(request))
 
@@ -165,10 +176,12 @@ def perfil_admin(request, pais):
 def inmuebles_list(request, pais):
     
     inmuebles = Inmueble.objects.filter(pais__nombre=pais)
+    nombre_pais = dict(countries)[pais]
 
     ctx = {
         'inmuebles':inmuebles,
         'pais':pais,
+        'nombre_pais':nombre_pais,
     }
     
     return render_to_response('admin/inmuebles/inmuebles.html', ctx, context_instance=RequestContext(request))
@@ -257,9 +270,9 @@ class Publicar(CreateView):
         # imagen_formset.save()
         campo_formset.instance = self.object
         campo_formset.save()
-        return redirect('inmuebles:home_pais', pais=pais)
+        return redirect('inmuebles:listar_inmuebles', pais=pais)
 
-    def form_invalid(self, form, campotipo_formset, imagen_formset, campo_formset, pais):
+    def form_invalid(self, form, campotipo_formset, campo_formset, pais):
         return self.render_to_response(
             self.get_context_data(form=form,
                                   campotipo_formset=campotipo_formset,
@@ -267,15 +280,48 @@ class Publicar(CreateView):
                                   pais=pais))
 
 
+#Vista para agregar los agentes de ese pais
+@login_required
+def inmuebles_editar(request, pais, id_inmueble):
+    
+    editado = ''
+    inmueble = Inmueble.objects.get(id=id_inmueble)
+    inmuebleF = InmuebleForm(instance=inmueble)
+
+    if request.POST:
+        inmuebleF = InmuebleForm(request.POST, request.FILES, instance=inmueble)
+        if inmuebleF.is_valid():
+            inmueble.save()
+            editado = True
+
+    ctx = {
+        'InmuebleForm':inmuebleF,
+        'editado':editado,
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/inmuebles/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar los agentes de ese pais
+@login_required
+def inmuebles_eliminar(request, pais, id_inmueble):
+    
+    inmueble = get_object_or_404(Inmueble, id=id_inmueble).delete()
+
+    return HttpResponseRedirect('/'+str(pais)+'/admin/inmuebles/')
+
 #Vista para listar los agentes de ese pais
 @login_required
 def agentes_list(request, pais):
     
     agentes = Agente.objects.filter(pais__nombre=pais)
+    nombre_pais = dict(countries)[pais]
 
     ctx = {
         'agentes':agentes,
         'pais':pais,
+        'nombre_pais':nombre_pais,
     }
     
     return render_to_response('admin/agentes/agentes.html', ctx, context_instance=RequestContext(request))
@@ -286,15 +332,53 @@ def agentes_list(request, pais):
 def agentes_agregar(request, pais):
     
     agenteF = AgenteForm()
-    userF = UserForm()
+
+    if request.POST:
+        agenteF = AgenteForm(request.POST, request.FILES)
+        if agenteF.is_valid():
+            agente = agenteF.save(commit=False)
+            pais = Pais.objects.get(nombre=pais)
+            agente.pais = pais
+            agente.save()
 
     ctx = {
         'AgenteForm':agenteF,
-        'UserForm': userF,
         'pais':pais,
     }
     
     return render_to_response('admin/agentes/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar los agentes de ese pais
+@login_required
+def agentes_editar(request, pais, id_agente):
+    
+    editado = ''
+    agente = Agente.objects.get(id=id_agente)
+    agenteF = AgenteForm(instance=agente)
+
+    if request.POST:
+        agenteF = AgenteForm(request.POST, request.FILES, instance=agente)
+        if agenteF.is_valid():
+            agente.save()
+            editado = True
+
+    ctx = {
+        'AgenteForm':agenteF,
+        'editado':editado,
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/agentes/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar los agentes de ese pais
+@login_required
+def agentes_eliminar(request, pais, id_agente):
+    
+    agente = get_object_or_404(Agente, id=id_agente).delete()
+
+    return HttpResponseRedirect('/'+str(pais)+'/admin/agentes/')
 
 
 #Vista para listar las ciudades de ese pais
@@ -302,10 +386,12 @@ def agentes_agregar(request, pais):
 def ciudades_list(request, pais):
     
     ciudades = Ciudad.objects.filter(pais__nombre=pais)
+    nombre_pais = dict(countries)[pais]
 
     ctx = {
         'ciudades':ciudades,
         'pais':pais,
+        'nombre_pais':nombre_pais,
     }
     
     return render_to_response('admin/ciudades/ciudades.html', ctx, context_instance=RequestContext(request))
@@ -315,11 +401,125 @@ def ciudades_list(request, pais):
 @login_required
 def ciudades_agregar(request, pais):
     
+    ciudadF = CiudadForm()
+
+    if request.POST:
+        ciudadF = CiudadForm(request.POST)
+        if ciudadF.is_valid():
+            ciudad = ciudadF.save(commit=False)
+            pais = Pais.objects.get(nombre=pais)
+            ciudad.pais = pais
+            ciudad.save()
+
     ctx = {
+        'CiudadForm':ciudadF,
+        'pais':pais,
+    }
+
+    return render_to_response('admin/ciudades/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar las ciudades de ese pais
+@login_required
+def ciudades_editar(request, pais, id_ciudad):
+    
+    editado = ''
+    ciudad = Ciudad.objects.get(id=id_ciudad)
+    ciudadF = CiudadForm(instance=ciudad)
+
+    if request.POST:
+        ciudadF = CiudadForm(request.POST, instance=ciudad)
+        if ciudadF.is_valid():
+            ciudad.save()
+            editado = True
+
+    ctx = {
+        'CiudadForm':ciudadF,
+        'editado':editado,
+        'pais':pais,
+    }
+
+    return render_to_response('admin/ciudades/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar los agentes de ese pais
+@login_required
+def ciudades_eliminar(request, pais, id_ciudad):
+    
+    ciudad = get_object_or_404(Ciudad, id=id_ciudad).delete()
+
+    return HttpResponseRedirect('/'+str(pais)+'/admin/ciudades/')
+
+
+#Vista para listar las ciudades de ese pais
+@login_required
+def zonas_list(request, pais):
+    
+    zonas = Zona.objects.filter(ciudad__pais__nombre=pais)
+    nombre_pais = dict(countries)[pais]
+
+    ctx = {
+        'zonas':zonas,
+        'pais':pais,
+        'nombre_pais':nombre_pais,
+    }
+    
+    return render_to_response('admin/zonas/zonas.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar las ciudades de ese pais
+@login_required
+def zonas_agregar(request, pais):
+    
+    zonaF = ZonaForm()
+    
+    if request.POST:
+        zonaF = ZonaForm(request.POST)
+        if zonaF.is_valid():
+            zonaF.save()
+
+    zonaF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
+
+    ctx = {
+        'ZonaForm':zonaF,
         'pais':pais,
     }
     
-    return render_to_response('admin/ciudades/agregar.html', ctx, context_instance=RequestContext(request))
+    return render_to_response('admin/zonas/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar las ciudades de ese pais
+@login_required
+def zonas_editar(request, pais, id_zona):
+    
+    editado = ''
+    zona = Zona.objects.get(id=id_zona)
+    zonaF = ZonaForm(instance=zona)
+    
+    if request.POST:
+        zonaF = ZonaForm(request.POST, instance=zona)
+        if zonaF.is_valid():
+            zonaF.save()
+            editado = True
+
+    zonaF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
+
+    ctx = {
+        'ZonaForm':zonaF,
+        'editado':editado,
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/zonas/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar los agentes de ese pais
+@login_required
+def zonas_eliminar(request, pais, id_zona):
+    
+    zona = get_object_or_404(Zona, id=id_zona).delete()
+
+    return HttpResponseRedirect('/'+str(pais)+'/admin/zonas/')
 
 
 #Vista para listar las ciudades de ese pais
@@ -327,10 +527,12 @@ def ciudades_agregar(request, pais):
 def monedas_list(request, pais):
     
     monedas = Moneda.objects.all()
+    nombre_pais = dict(countries)[pais]
 
     ctx = {
         'monedas':monedas,
         'pais':pais,
+        'nombre_pais':nombre_pais,
     }
     
     return render_to_response('admin/monedas/monedas.html', ctx, context_instance=RequestContext(request))
@@ -340,11 +542,54 @@ def monedas_list(request, pais):
 @login_required
 def monedas_agregar(request, pais):
     
+    monedaF = MonedaForm()
+    
+    if request.POST:
+        monedaF = MonedaForm(request.POST)
+        if monedaF.is_valid():
+            moneda = monedaF.save(commit=False)
+            pais = Pais.objects.get(nombre=pais)
+            moneda.pais = pais
+            moneda.save()
+
     ctx = {
+        'MonedaForm':monedaF,
         'pais':pais,
     }
     
     return render_to_response('admin/monedas/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar las ciudades de ese pais
+@login_required
+def monedas_editar(request, pais, id_moneda):
+    
+    editado = ''
+    moneda = Moneda.objects.get(pais__nombre=pais, id=id_moneda)
+    monedaF = MonedaForm(instance=moneda)
+    
+    if request.POST:
+        monedaF = MonedaForm(request.POST, instance=moneda)
+        if monedaF.is_valid():
+            moneda.save()
+            editado = True
+
+    ctx = {
+        'MonedaForm':monedaF,
+        'editado':editado,
+        'pais':pais,
+    }
+    
+    return render_to_response('admin/monedas/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar los agentes de ese pais
+@login_required
+def monedas_eliminar(request, pais, id_moneda):
+    
+    moneda = get_object_or_404(Moneda, id=id_moneda).delete()
+
+    return HttpResponseRedirect('/'+str(pais)+'/admin/monedas/')
 
 
 

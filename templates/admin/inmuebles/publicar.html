@@ -7,44 +7,16 @@
 {% block scripts %}
 
 <!-- Estilos del index -->
-<link rel="stylesheet" type="text/css" href="{% static 'files/css/home.css' %}">
-<style>
-    html, body, #map-canvas {
-        height: 500px;
-        margin: 0px;
-        padding: 0px
-    }
-</style>
-
+<link rel="stylesheet" type="text/css" href="{% static 'files/css/admin.css' %}">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-<script>
-  $(function() {
-    $( "#id_fecha_entrega" ).datepicker();
-  });
-  </script>
 {% endblock scripts %}
-
-<!-- Header del home-->
-{% block header_home %}
-
-	<div class="container-fluid">
-
-		<div class="row">
-			<div class="col-lg-12">
-				<p>&nbsp;</p>
-			</div>
-		</div>
-	</div>
-{% endblock header_home%}
-
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+            {{request.view}}
         </div>
         <div class="panel-body">
             <h4>Agregar Inmueble: </h4>
@@ -57,16 +29,31 @@
                 {% bootstrap_field form.ciudad %}
                 {% bootstrap_field form.zona %}
                 {% bootstrap_field form.direccion %}
-                {% bootstrap_field form.fecha_entrega %}
-                {% bootstrap_field form.tipo_obra %}
-                {% bootstrap_field form.agente %}
-                <div class="form-group">
+                <input id="pac-input" class="controls" type="text"
+                    placeholder="Introduzca una direccion">
+                <div id="type-selector" class="controls">
+                  <input type="radio" name="type" id="changetype-all" checked="checked">
+                  <label for="changetype-all">Todo</label>
+
+                  <input type="radio" name="type" id="changetype-establishment">
+                  <label for="changetype-establishment">Establecimietos</label>
+
+                  <input type="radio" name="type" id="changetype-address">
+                  <label for="changetype-address">Direcciones</label>
+
+                  <input type="radio" name="type" id="changetype-geocode">
+                  <label for="changetype-geocode">Geocodigos</label>
+                </div>
+                 <div class="form-group">
                     <label>Ubicación</label>
                     <div class="mapa" id="map-canvas">
                     </div>
                     {{ form.latitud.as_hidden }}
                     {{ form.longitud.as_hidden }}
                 </div>
+                {% bootstrap_field form.fecha_entrega %}
+                {% bootstrap_field form.tipo_obra %}
+                {% bootstrap_field form.agente %}
                 <div class="form-group">
                     <p>Imágenes</p>
                     {{ imagen_formset.management_form }}
@@ -103,10 +90,15 @@
 {% endblock content %}
 
 {% block js %}
-
 <!-- Mapa de google maps -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script></script>
 <script src="{% static 'files/js/jquery.formset.js' %}"></script>
+<script src="{% static 'files/js/jquery-ui.min.js' %}"></script>
+<script>
+  $(function() {
+    $( "#id_fecha_entrega" ).datepicker({ dateFormat: 'dd/mm/yy' });
+  });
+  </script>
 <script type="text/javascript">
     $(function() {
         $('.campo-formset').formset({
@@ -149,7 +141,76 @@ function initialize() {
         });
         markers.push(marker);
     }
-}
+
+    /*Codigo de autocompletacion*/
+    var input = /** @type {HTMLInputElement} */(
+      document.getElementById('pac-input'));
+
+    var types = document.getElementById('type-selector');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            return;
+        }
+
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);  // Why 17? Because it looks good.
+        }
+        marker.setIcon(/** @type {google.maps.Icon} */({
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(false);
+
+        var address = '';
+        if (place.address_components) {
+        address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+        ].join(' ');
+        }
+
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+    });
+
+    // Sets a listener on a radio button to change the filter type on Places
+    // Autocomplete.
+    function setupClickListener(id, types) {
+        var radioButton = document.getElementById(id);
+        google.maps.event.addDomListener(radioButton, 'click', function() {
+            autocomplete.setTypes(types);
+        });
+    }
+
+    setupClickListener('changetype-all', []);
+    setupClickListener('changetype-address', ['address']);
+    setupClickListener('changetype-establishment', ['establishment']);
+    setupClickListener('changetype-geocode', ['geocode']);
+    }
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 {% endblock js %}

@@ -1,0 +1,34 @@
+{% extends "base_admin.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block content %}
+
+<!-- Estilos de la pagina-->
+<link href="{{STATIC_URL}}files/css/admin.css"	 rel="stylesheet" type="text/css" />
+	<div class="col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+			</div>
+			<div class="panel-body">
+				<h4>Editar Zona:</h4>
+				{%if editado%}
+					<div class="alert alert-success alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<strong>Editado!</strong> Se edit&oacute; la zona con &eacute;xito!
+					</div>
+				{%endif%}
+				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+				{% csrf_token %}
+					{% bootstrap_field ZonaForm.nombre %}
+					{% bootstrap_field ZonaForm.ciudad %}
+					{% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            Guardar
+                        </button>
+                    {% endbuttons %}
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

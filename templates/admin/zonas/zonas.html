@@ -1,0 +1,29 @@
+{% extends "base_admin.html" %}
+{% block content %}
+
+<!-- Estilos de la pagina-->
+<link href="{{MEDIA_URL}}files/css/admin.css"	 rel="stylesheet" type="text/css" />
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+			    <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+			  </div>
+			  <div class="panel-body">
+			    Zonas
+				<ul class="list-group">
+					{%for zona in zonas%}
+						<li class="list-group-item">
+							<a href="">Nombre: {{zona.nombre}}</a>
+							<a href="eliminar/{{zona.id}}/" class="eliminar">
+								Eliminar<span class="glyphicon glyphicon-trash"></span>
+							</a>
+							<a href="editar/{{zona.id}}/" class="editar">
+								Editar<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+						</li>
+					{%endfor%}
+				</ul>
+			  </div>
+			</div>
+		</div>
+{% endblock content %}
