@@ -113,7 +113,6 @@ class Imagen(models.Model):
 class Agente(models.Model):
     nombre = models.CharField(max_length=30)
     correo = models.CharField(max_length=40)
-    codigo = models.CharField(max_length=40)
     logo = models.ImageField(upload_to='agentes/')
 
     #Claves foraneas
@@ -164,6 +163,18 @@ class TipoInmueble(models.Model):
         return self.nombre
 
 
+# Modelo para las areas comunes
+class AreaComun(models.Model):
+    nombre = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name = "Area Comun"
+        verbose_name_plural = "Area Comunes"
+
+    def __unicode__(self):
+        return self.nombre
+
+
 # Modelo para cada inmueble publicado
 class Inmueble(models.Model):
 
@@ -192,6 +203,7 @@ class Inmueble(models.Model):
     zona = models.ForeignKey(Zona)
     agente = models.ForeignKey(Agente)
     tipo = models.ForeignKey(TipoInmueble)
+    areas_comunes = models.ManyToManyField(AreaComun)
 
     class Meta:
         verbose_name = "Inmueble"

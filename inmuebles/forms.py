@@ -105,6 +105,13 @@ class AgenteForm(forms.ModelForm):
             'logo': forms.FileInput()
         }
         exclude = ['pais']
+
+
+#Formulario para los telefonos de los agentes
+class TelefonoAgenteForm(forms.ModelForm):
+    class Meta:
+        model = TelefonoAgente
+        exclude = ['agente']
     
 
 #Formulario para ciudades

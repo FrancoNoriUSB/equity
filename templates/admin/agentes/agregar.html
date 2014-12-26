@@ -16,8 +16,9 @@
 				{% csrf_token %}
 					{% bootstrap_field AgenteForm.nombre %}
 					{% bootstrap_field AgenteForm.correo %}
-					{% bootstrap_field AgenteForm.codigo %}
 					{% bootstrap_field AgenteForm.logo %}
+					{% bootstrap_field TelefonoAgenteForm.numero %}
+					{% bootstrap_field TelefonoAgenteForm.tipo %}
 					{% buttons %}
                         <button type="submit" class="btn btn-primary">
                             Agregar

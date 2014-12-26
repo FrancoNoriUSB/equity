@@ -95,17 +95,17 @@
         		</div>
         	</div>
         	<div class="propiedades row">
-        		<div class="col-lg-12 col-md-12 col-sm-12">
+        		<div class="col-lg-11 col-md-11 col-sm-11">
         			{% for inmueble in inmuebles %}
             			<div class="propiedad row">
-            				<div class="foto col-lg-4">
+            				<div class="foto col-lg-3">
             					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
                                     <img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
                                 </a>
             				</div>
-            				<div class="descripcion col-lg-3">
+            				<div class="descripcion col-lg-4">
             					<strong>
-            						<a href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">
+            						<a class="text-uppercase" href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">
             							{{inmueble.titulo}}
             						</a>
             					</strong>
@@ -114,16 +114,19 @@
             						<br/>
             						{{inmueble.zona.nombre}}
             						<br/>
-            						<br/>
-            						{{inmueble.codigo}} 
+                                    <br/>
+                                    <br/>
+            						C&oacute;digo: {{inmueble.codigo}} 
             					</p>
             				</div>
             				<div class="varios col-lg-3 col-lg-offset-1">
-            					<img src="{{inmueble.agente.logo.url}}" alt="">
-            					<br>
-            					<a class="ver" href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">Ver</a>
-            					<a class="comparar" href="">Comparar</a>
-            					<a class="favoritos" href="">Favoritos</a>
+            					<img class="img-responsive" src="{{inmueble.agente.logo.url}}" alt="">
+                                <p class="text-right">{{inmueble.tipo_obra}}</p>
+                                <p class="text-right">
+                					<a class="ver" href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">Ver</a>
+                					<a class="comparar" href="">Comparar</a>
+                					<a class="favoritos" href="">Favoritos</a>
+                                </p>
             				</div>
             			</div>
                     {% endfor %}

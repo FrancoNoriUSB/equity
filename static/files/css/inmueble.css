@@ -15,6 +15,18 @@
 }
 
 /*Estilos de info de inmueble*/
+body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-sm-12.links > p.text-right{
+	margin-bottom: 0px;
+}
+
+#twitter-widget-0{
+	width: 84px !important;
+}
+
+body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-sm-12.links > div.fb-share-button{
+	float: right;
+}
+
 #ubicacion > div > div > .mapa{
 	margin-right: auto;
 	margin-left: auto;

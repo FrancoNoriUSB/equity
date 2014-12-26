@@ -332,16 +332,24 @@ def agentes_list(request, pais):
 def agentes_agregar(request, pais):
     
     agenteF = AgenteForm()
+    telefonoAgenteF = TelefonoAgenteForm()
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES)
-        if agenteF.is_valid():
+        telefonoAgenteF = TelefonoAgenteForm(request.POST)
+        if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agente = agenteF.save(commit=False)
+            telefono = telefonoAgenteF.save(commit=False)
             pais = Pais.objects.get(nombre=pais)
             agente.pais = pais
             agente.save()
+            telefono.agente = agente
+            telefono.save()
+
+            return HttpResponseRedirect('/'+str(pais)+'/admin/agentes/')
 
     ctx = {
+        'TelefonoAgenteForm': telefonoAgenteF,
         'AgenteForm':agenteF,
         'pais':pais,
     }
@@ -356,15 +364,20 @@ def agentes_editar(request, pais, id_agente):
     editado = ''
     agente = Agente.objects.get(id=id_agente)
     agenteF = AgenteForm(instance=agente)
+    telefono = TelefonoAgente.objects.get(agente=agente)
+    telefonoAgenteF = TelefonoAgenteForm(instance=telefono)
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES, instance=agente)
-        if agenteF.is_valid():
-            agente.save()
+        telefonoAgenteF = TelefonoAgenteForm(request.POST, instance=telefono)
+        if agenteF.is_valid() and telefonoAgenteF.is_valid():
+            agenteF.save()
+            telefonoAgenteF.save()
             editado = True
 
     ctx = {
         'AgenteForm':agenteF,
+        'TelefonoAgenteForm': telefonoAgenteF,
         'editado':editado,
         'pais':pais,
     }
@@ -411,6 +424,8 @@ def ciudades_agregar(request, pais):
             ciudad.pais = pais
             ciudad.save()
 
+            return HttpResponseRedirect('/'+str(pais)+'/admin/ciudades/')
+
     ctx = {
         'CiudadForm':ciudadF,
         'pais':pais,
@@ -430,7 +445,7 @@ def ciudades_editar(request, pais, id_ciudad):
     if request.POST:
         ciudadF = CiudadForm(request.POST, instance=ciudad)
         if ciudadF.is_valid():
-            ciudad.save()
+            ciudadF.save()
             editado = True
 
     ctx = {
@@ -477,6 +492,8 @@ def zonas_agregar(request, pais):
         zonaF = ZonaForm(request.POST)
         if zonaF.is_valid():
             zonaF.save()
+
+            return HttpResponseRedirect('/'+str(pais)+'/admin/zonas/')
 
     zonaF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
 
@@ -552,6 +569,8 @@ def monedas_agregar(request, pais):
             moneda.pais = pais
             moneda.save()
 
+            return HttpResponseRedirect('/'+str(pais)+'/admin/monedas/')
+
     ctx = {
         'MonedaForm':monedaF,
         'pais':pais,
@@ -571,7 +590,7 @@ def monedas_editar(request, pais, id_moneda):
     if request.POST:
         monedaF = MonedaForm(request.POST, instance=moneda)
         if monedaF.is_valid():
-            moneda.save()
+            monedaF.save()
             editado = True
 
     ctx = {

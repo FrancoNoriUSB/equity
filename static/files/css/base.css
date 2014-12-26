@@ -19,6 +19,9 @@ body > div.row.titulo{
 .navbar-default{
 	border-color: transparent;
 }
+body > div.container-fluid > div > div > form > div{
+	margin-right: 5px;
+}
 
 body > header > nav > div > div > div > div.navbar-header > div > a{
 	font-size: 16px;

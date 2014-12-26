@@ -5,30 +5,24 @@
 
 <!-- Estilos de la pagina-->
 <link href="{{MEDIA_URL}}files/css/login.css"	 rel="stylesheet" type="text/css" />
-	<div class="container">
-		<div class="row">			
-			<div class="col-md-3"></div>
-				<div class="col-md-6">
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
-						</div>
-						<div class="panel-body">
-							<h4>Agregar Zona:</h4>
-							<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
-            				{% csrf_token %}
-            					{% bootstrap_field ZonaForm.nombre %}
-            					{% bootstrap_field ZonaForm.ciudad %}
-            					{% buttons %}
-			                        <button type="submit" class="btn btn-primary">
-			                            Agregar
-			                        </button>
-			                    {% endbuttons %}
-							</form>
-						</div>
-					</div>
-				</div>
-			<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+			</div>
+			<div class="panel-body">
+				<h4>Agregar Zona:</h4>
+				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+				{% csrf_token %}
+					{% bootstrap_field ZonaForm.nombre %}
+					{% bootstrap_field ZonaForm.ciudad %}
+					{% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            Agregar
+                        </button>
+                    {% endbuttons %}
+				</form>
+			</div>
 		</div>
 	</div>
 {% endblock content %}

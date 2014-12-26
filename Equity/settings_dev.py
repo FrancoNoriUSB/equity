@@ -22,22 +22,22 @@ MANAGERS = ADMINS
 # Parse database configuration from $DATABASE_URL
  
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-    #     'NAME': 'equity',                      # Or path to database file if using sqlite3.
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'postgres',
-    #     'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-    #     'PORT': '5432',                      # Set to empty string for default.
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'equity',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'equity',                      # Or path to database file if using sqlite3.
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '5432',                      # Set to empty string for default.
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'equity',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'postgres',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '3306',
+    # }
 }
 
 # Quick-start development settings - unsuitable for production
@@ -52,6 +52,12 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
+
+DATE_INPUT_FORMATS = (
+    '%d/%m/%Y',
+    )
+
+DATETIME_FORMAT = 'N j, Y, P'
 
 # Application definition
 INSTALLED_APPS = (
@@ -82,10 +88,12 @@ ROOT_URLCONF = 'Equity.urls'
 
 WSGI_APPLICATION = 'Equity.wsgi.application'
 
+LOGIN_URL = '/admin/login/'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
 
@@ -119,3 +127,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
 )
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, '../static/fixtures'),
+)

@@ -25,12 +25,35 @@ body > div.header-home > div > div.carrousel.container{
 	color: #000;
 }
 
-/*Estilos contenido*/
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-3 > strong > a{
-	color: #000;
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.varios.col-lg-3.col-lg-offset-1 > img{
+	height: 80px;
+	float:right;
 }
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-3 > strong > a:hover{
+
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.varios.col-lg-3.col-lg-offset-1 > p{
+	float: right;
+	color: #000;
+	font-size: 15px;
+
+}
+
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.varios.col-lg-3.col-lg-offset-1 > p > a.comparar,
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.varios.col-lg-3.col-lg-offset-1 > p > a.favoritos{
+	color: #000;
+	font-size: 15px;
+}
+
+/*Estilos contenido*/
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a{
+	color: #000;
+	font-size: 16px;
+}
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a:hover{
 	text-decoration: none;
+}
+
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > p{
+	font-size: 15px;
 }
 
 body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div.propiedad{
