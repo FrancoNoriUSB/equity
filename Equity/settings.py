@@ -12,12 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-#Project root vars
-PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
-
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
     ('', ''),
@@ -30,13 +24,20 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'equity_db',                      # Or path to database file if using sqlite3.
-         #The following settings are not used with sqlite3:
-        'USER': 'equity_db',
-        'PASSWORD': '4rwnjg;.Hb.Sb',
+        'NAME': 'equity',                      # Or path to database file if using sqlite3.
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '5432',                      # Set to empty string for default.
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'equity',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'postgres',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '3306',
+    # }
 }
 
 # Quick-start development settings - unsuitable for production
@@ -45,9 +46,18 @@ DATABASES = {
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$^ynby2*+w$(8@xmctv2sj18$gcj=*=x$c!fpz)b&xi)t5em6o'
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
+TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
+
+DATE_INPUT_FORMATS = (
+    '%d/%m/%Y',
+    )
+
+DATETIME_FORMAT = 'N j, Y, P'
 
 # Application definition
 INSTALLED_APPS = (
@@ -78,20 +88,12 @@ ROOT_URLCONF = 'Equity.urls'
 
 WSGI_APPLICATION = 'Equity.wsgi.application'
 
-# # Database
-# # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+LOGIN_URL = '/admin/login/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
 
@@ -105,27 +107,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/franconori/webapps/static_equity'
-
-#Directorio de los templates
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+#Directorio de los templates
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.media',
-    'django.contrib.auth.context_processors.auth',
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+MEDIA_URL = '/uploads/'
+
+# For Sidebar Menu (List of apps and models) (RECOMMENDED)
+from django.conf import global_settings
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
 )
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+
+FIXTURE_DIRS = (
+    os.path.join(BASE_DIR, '../static/fixtures'),
+)
