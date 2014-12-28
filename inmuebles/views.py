@@ -209,7 +209,7 @@ class Publicar(CreateView):
         'latitud': forms.HiddenInput(),
         'longitud': forms.HiddenInput()
     }
-    fields = ['titulo', 'codigo', 'descripcion', 'ciudad', 'zona', 'direccion', 'fecha_entrega', 'tipo_obra', 'agente', 'latitud', 'longitud', 'logo']
+    fields = ['titulo', 'codigo', 'descripcion', 'ciudad', 'zona', 'direccion', 'fecha_entrega', 'tipo_obra', 'agente', 'latitud', 'longitud', 'areas_comunes', 'logo']
 
     def get(self, request, *args, **kwargs):
         self.object = None

@@ -1,7 +1,6 @@
 Django==1.7.1
 dj-database-url
 dj-static
-django-admin-bootstrapped
 Pillow
 psycopg2
 django-countries
