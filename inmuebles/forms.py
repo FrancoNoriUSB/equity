@@ -134,6 +134,7 @@ class ZonaForm(forms.ModelForm):
             'ciudad': forms.TextInput(),
         }
 
+
 class MonedaForm(forms.ModelForm):
     class Meta:
         model = Moneda
@@ -141,4 +142,3 @@ class MonedaForm(forms.ModelForm):
             'nombre': forms.TextInput(),
         }
         exclude = ['pais']
-    

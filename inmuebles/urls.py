@@ -1,5 +1,5 @@
 from django.conf.urls import *
-from inmuebles.views import ElegirTipo, Publicar
+from inmuebles.views import ElegirTipo, Publicar, DetalleInmueble, AgregarModulo, EditarModulo
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
@@ -19,6 +19,9 @@ urlpatterns = patterns('inmuebles.views',
             url(r'^(?P<pais>[A-Z][A-Z])/admin/inmuebles/publicar/(?P<tipo>.*)/$', login_required(Publicar.as_view()), name='publicar'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/inmuebles/editar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'inmuebles_editar', name='editar_inmuebles'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/inmuebles/eliminar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'inmuebles_eliminar', name='eliminar_inmuebles'),
+            url(r'^(?P<pais>[A-Z][A-Z])/admin/inmuebles/detalle/(?P<id_inmueble>\d*)/$', login_required(DetalleInmueble.as_view()), name='detalle'),
+            url(r'^(?P<pais>[A-Z][A-Z])/admin/inmuebles/detalle/(?P<id_inmueble>\d*)/agregar-modulo/$', login_required(AgregarModulo.as_view()), name='agregar_modulo'),
+            url(r'^(?P<pais>[A-Z][A-Z])/admin/inmuebles/detalle/(?P<id_inmueble>\d*)/editar-modulo/(?P<id>\d*)/$', login_required(EditarModulo.as_view()), name='editar_modulo'),
 
             #Agentes
             url(r'^(?P<pais>[A-Z][A-Z])/admin/agentes/$', 'agentes_list', name='listar_agentes'),

@@ -19,7 +19,7 @@
 				<h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
 			</div>
 			<div class="panel-body">
-				{%for tipo in tipos%}
+				{% for tipo in tipos %}
 				<div class="foto col-lg-3 text-center">
 					<a href="{% url 'inmuebles:publicar' pais tipo %}">
 					<span class="glyphicon glyphicon-home"></span>

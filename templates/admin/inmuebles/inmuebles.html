@@ -11,15 +11,18 @@
 			  <div class="panel-body">
 			    Inmuebles
 				<ul class="list-group">
-					{%for inmueble in inmuebles%}
+					{% for inmueble in inmuebles %}
 						<li class="list-group-item">
-							<a href="">Titulo: {{inmueble.titulo}}</a>
+							<a href="{% url 'inmuebles:detalle' pais inmueble.id %}">Titulo: {{inmueble.titulo}}</a>
 							<a href="eliminar/{{inmueble.id}}/" class="eliminar">
 								Eliminar<span class="glyphicon glyphicon-trash"></span>
 							</a>
 	                        <a href="editar/{{inmueble.id}}/" class="editar">
 	                          Editar<span class="glyphicon glyphicon-pencil"></span>
 	                        </a>
+							<a href="{% url 'inmuebles:detalle' pais inmueble.id %}" class="detalle">
+								Detalle
+							</a>
 						</li>
 					{%endfor%}
 				</ul>

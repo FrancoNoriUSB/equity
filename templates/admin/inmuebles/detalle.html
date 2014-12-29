@@ -1,0 +1,46 @@
+{% extends "base_admin.html" %}
+{% block content %}
+
+<!-- Estilos de la pagina-->
+<link href="{{STATIC_URL}}files/css/admin.css"	 rel="stylesheet" type="text/css" />
+		<div class="col-md-12">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+			    <h3 class="panel-title "><a href="/{{pais}}/admin/inmuebles">Inmueble</a></h3>
+			  </div>
+			  <div class="panel-body">
+			    <h3>{{ inmueble.titulo }}</h3>
+			    Código: {{ inmueble.codigo }}<br />
+			    Descripción: {{ inmueble.descripcion }}<br />
+			    Fecha entrega: {{ inmueble.fecha_entrega }}<br />
+			    Tipo obra: {{ inmueble.tipo_obra }}<br />
+			    Tipo inmueble: {{ inmueble.tipo }}<br />
+                Ciudad: {{ inmueble.ciudad }}<br />
+                Zona: {{ inmueble.zona }}<br />
+                Dirección: {{ inmueble.direccion }}<br />
+                Agente: {{ inmueble.agente }}<br />
+                <h4>Módulos</h4>
+                <a href="{% url 'inmuebles:agregar_modulo' pais inmueble.id %}" class="btn btn-xs btn-default">
+                    Agregar módulo
+                </a>
+				<ul class="list-group">
+					{%for modulo in modulos%}
+						<li class="list-group-item">
+							<a href="">{{modulo.tipo}}</a>
+							<a href="eliminar/{{modulo.id}}/" class="eliminar">
+								Eliminar<span class="glyphicon glyphicon-trash"></span>
+							</a>
+	                        <a href="editar-modulo/{{modulo.id}}/" class="editar">
+	                          Editar<span class="glyphicon glyphicon-pencil"></span>
+	                        </a>
+						</li>
+					{%endfor%}
+				</ul>
+			  </div>
+			</div>
+		</div>
+{% endblock content %}
+
+{% block js %}
+	
+{% endblock js %}

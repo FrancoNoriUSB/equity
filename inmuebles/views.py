@@ -8,7 +8,7 @@ from django.template.loader import get_template
 from django.template import Context
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 from datetime import datetime, date
 from django.forms.models import inlineformset_factory
 from django.db.models import Count
@@ -200,6 +200,19 @@ class ElegirTipo(TemplateView):
         return context
 
 
+# Vista para elegir el tipo de inmueble a publicar
+class DetalleInmueble(TemplateView):
+
+    template_name = "admin/inmuebles/detalle.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(DetalleInmueble, self).get_context_data(**kwargs)
+        context['inmueble'] = get_object_or_404(Inmueble, id=kwargs['id_inmueble'])
+        context['modulos'] = Modulo.objects.filter(inmueble=context['inmueble'])
+        context['pais'] = kwargs['pais']
+        return context
+
+
 #Vista para publicar el inmueble
 class Publicar(CreateView):
     template_name = 'admin/inmuebles/publicar.html'
@@ -209,7 +222,19 @@ class Publicar(CreateView):
         'latitud': forms.HiddenInput(),
         'longitud': forms.HiddenInput()
     }
-    fields = ['titulo', 'codigo', 'descripcion', 'ciudad', 'zona', 'direccion', 'fecha_entrega', 'tipo_obra', 'agente', 'latitud', 'longitud', 'areas_comunes', 'logo']
+    fields = ['titulo',
+              'codigo',
+              'descripcion',
+              'ciudad',
+              'zona',
+              'direccion',
+              'fecha_entrega',
+              'tipo_obra',
+              'agente',
+              'latitud',
+              'longitud',
+              'areas_comunes',
+              'logo']
 
     def get(self, request, *args, **kwargs):
         self.object = None
@@ -228,11 +253,11 @@ class Publicar(CreateView):
         for formset in campotipo_formset:
             formset.fields['campo'].choices = campos.values_list('id', 'nombre')
         # imagen_formset = ImagenFormset()
-        campo_formset = CampoFormset()
+        # campo_formset = CampoFormset()
         return self.render_to_response(self.get_context_data(form=form,
                                                              campotipo_formset=campotipo_formset,
                                                              # imagen_formset=imagen_formset,
-                                                             campo_formset=campo_formset,
+                                                             # campo_formset=campo_formset,
                                                              pais=kwargs["pais"]))
 
     def post(self, request, *args, **kwargs):
@@ -252,13 +277,13 @@ class Publicar(CreateView):
         for formset in campotipo_formset:
             formset.fields['campo'].choices = campos.values_list('id', 'nombre')
         # imagen_formset = ImagenFormset(self.request.POST)
-        campo_formset = CampoFormset(self.request.POST)
-        if form.is_valid()  and campo_formset.is_valid() and campotipo_formset.is_valid():
-            return self.form_valid(form, campotipo_formset, campo_formset, tipo, kwargs["pais"])
+        # campo_formset = CampoFormset(self.request.POST)
+        if form.is_valid() and campotipo_formset.is_valid():
+            return self.form_valid(form, campotipo_formset, tipo, kwargs["pais"])
         else:
-            return self.form_invalid(form, campotipo_formset, campo_formset, kwargs["pais"])
+            return self.form_invalid(form, campotipo_formset, kwargs["pais"])
 
-    def form_valid(self, form, campotipo_formset, campo_formset, tipo, pais):
+    def form_valid(self, form, campotipo_formset, tipo, pais):
         self.object = form.save(commit=False)
         self.object.pais = Pais.objects.get(nombre=pais)
         self.object.tipo = tipo
@@ -268,15 +293,107 @@ class Publicar(CreateView):
         campotipo_formset.save()
         # imagen_formset.instance = self.object
         # imagen_formset.save()
-        campo_formset.instance = self.object
-        campo_formset.save()
+        # campo_formset.instance = self.object
+        # campo_formset.save()
         return redirect('inmuebles:listar_inmuebles', pais=pais)
 
-    def form_invalid(self, form, campotipo_formset, campo_formset, pais):
+    def form_invalid(self, form, campotipo_formset, pais):
         return self.render_to_response(
             self.get_context_data(form=form,
                                   campotipo_formset=campotipo_formset,
-                                  campo_formset=campo_formset,
+                                  # campo_formset=campo_formset,
+                                  pais=pais))
+
+
+#Vista para publicar el inmueble
+class AgregarModulo(CreateView):
+    template_name = 'admin/inmuebles/agregar-modulo.html'
+    model = Modulo
+    fields = ['tipo',
+              'metros',
+              'banos',
+              'dormitorios',
+              'estacionamientos',
+              'precio',
+              'plano']
+
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        inm = get_object_or_404(Inmueble, id=kwargs['id_inmueble'])
+        return self.render_to_response(self.get_context_data(form=form,
+                                                             inmueble=inm,
+                                                             pais=kwargs["pais"]))
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form, kwargs["pais"], kwargs["id_inmueble"])
+        else:
+            return self.form_invalid(form, kwargs["pais"], kwargs["id_inmueble"])
+
+    def form_valid(self, form, pais, id_inmueble):
+        self.object = form.save(commit=False)
+        tasa = Moneda.objects.get(pais__nombre=pais)
+        self.object.precio = int(self.object.precio) / tasa.tasa
+        self.object.inmueble = Inmueble.objects.get(id=id_inmueble)
+        self.object.save()
+        return redirect('inmuebles:detalle', pais=pais, id=id_inmueble)
+
+    def form_invalid(self, form, pais, id_inmueble):
+        inm = get_object_or_404(Inmueble, id=id_inmueble)
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  inmueble=inm,
+                                  pais=pais))
+
+
+#Vista para publicar el inmueble
+class EditarModulo(UpdateView):
+    template_name = 'admin/inmuebles/agregar-modulo.html'
+    model = Modulo
+    pk_url_kwarg = 'id'
+    fields = ['tipo',
+              'metros',
+              'banos',
+              'dormitorios',
+              'estacionamientos',
+              'precio',
+              'plano']
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        inm = get_object_or_404(Inmueble, id=kwargs['id_inmueble'])
+        return self.render_to_response(self.get_context_data(form=form,
+                                                             inmueble=inm,
+                                                             pais=kwargs["pais"]))
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form, kwargs["pais"], kwargs["id_inmueble"])
+        else:
+            return self.form_invalid(form, kwargs["pais"], kwargs["id_inmueble"])
+
+    def form_valid(self, form, pais, id_inmueble):
+        tasa = Moneda.objects.get(pais__nombre=pais)
+        self.object.precio = int(self.object.precio) / tasa.tasa
+        self.object.inmueble = Inmueble.objects.get(id=id_inmueble)
+        self.object.save()
+        return redirect('inmuebles:detalle', pais=pais, id_inmueble=id_inmueble)
+
+    def form_invalid(self, form, pais, id_inmueble):
+        inm = get_object_or_404(Inmueble, id=id_inmueble)
+        return self.render_to_response(
+            self.get_context_data(form=form,
+                                  inmueble=inm,
                                   pais=pais))
 
 

@@ -15,6 +15,9 @@
 }
 
 /*Estilos listar*/
+#page-wrapper > div > div > div.panel-body > ul > li > a.detalle{
+	float: right;
+}
 #page-wrapper > div > div > div.panel-body > ul > li > a.editar{
 	float: right;
 }

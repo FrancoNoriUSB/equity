@@ -179,9 +179,9 @@ class AreaComun(models.Model):
 class Inmueble(models.Model):
 
     tipos_obra = (
-        ('Pre-venta','Pre-venta'),
+        ('Pre-venta', 'Pre-venta'),
         ('En Construccion', u'En Construcción'),
-        ('Listo por entregar','Listo Para Entregar'),
+        ('Listo por entregar', 'Listo Para Entregar'),
     )
 
     titulo = models.CharField(max_length=100)
