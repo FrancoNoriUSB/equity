@@ -330,3 +330,44 @@ class ValorCampoInmueble(models.Model):
 
     def __unicode__(self):
         return self.valor
+
+
+# Modelo para las imagenes de los Slides del home
+class Slide(models.Model):
+    nombre = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to='slide-home/')
+
+    #Claves foraneas
+    pais = models.ForeignKey(Pais)
+
+    class Meta:
+        verbose_name = "Slide"
+        verbose_name_plural = "Slides"
+
+    def __unicode__(self):
+        return self.nombre
+
+
+# Modelo para los banners publicitarios
+class Banner(models.Model):
+    posiciones = (
+        ('Superior','Superior'),
+        ('Medio-Superior','Medio-Superior'),
+        ('Medio-Inferior','Medio-Inferior'),
+        ('Inferior','Inferior'),
+    )
+
+    nombre = models.CharField(max_length=100, choices=posiciones)
+    imagen = models.ImageField(upload_to='slide-home/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    #Claves foraneas
+    pais = models.ForeignKey(Pais)
+
+    class Meta:
+        verbose_name = "Banner"
+        verbose_name_plural = "Banners"
+
+    def __unicode__(self):
+        return self.nombre

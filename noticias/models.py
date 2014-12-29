@@ -25,23 +25,3 @@ class Noticia(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.titulo
-
-
-#Tabla para los banners
-class Banner(models.Model):
-    #Campos del banner
-    imagen = models.ImageField(upload_to='')
-    posicion = models.CharField(max_length=50)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    #Claves foraneas
-    pais = models.ForeignKey(Pais)
-
-    class Meta:
-        ordering = ('pais',)
-        verbose_name = _('Banner')
-        verbose_name_plural = _('Banners')
-
-    def __unicode__(self):
-        return u"%s" % self.posicion

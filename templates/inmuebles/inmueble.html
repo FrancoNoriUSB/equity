@@ -50,9 +50,9 @@
 					<span class="glyphicon glyphicon-print"></span> Imprimir
 				</a>
 				<br>
-				<a class="recomendar" href="">
+				<!--<a class="recomendar" href="" >
 					<span class="glyphicon glyphicon-envelope"></span> Recomendar
-				</a>
+				</a>-->
 				<br>
 				<a class="twitter-share-button text-right" href="https://twitter.com/share" data-url="Url a compartir" data-text="Texto a colocar">
 					Twitear
@@ -72,18 +72,21 @@
 	                    <div id="myCarousel" class="carousel slide">
 	                        <!-- main slider carousel items -->
 	                        <div class="carousel-inner">
-	                            <div class="active item" data-slide-number="0">
-	                                <img src="http://placehold.it/1200x480&amp;text=one" class="img-responsive">
+	                        	{%for imagen in imagenes%}
+	                            <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
+	                                <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
 	                            </div>
+	                            {%empty%}
 	                            <div class="item" data-slide-number="1">
-	                              <img src="http://placehold.it/1200x480/&amp;text=two" class="img-responsive">
+	                              <img src="http://placehold.it/1200x480/&amp;text=one" class="img-responsive">
 	                            </div>
 	                            <div class="item" data-slide-number="2">
-	                                <img src="http://placehold.it/1200x480&amp;text=three" class="img-responsive">
+	                                <img src="http://placehold.it/1200x480&amp;text=two" class="img-responsive">
 	                            </div>
 	                            <div class="item" data-slide-number="3">
-	                                <img src="http://placehold.it/1200x480&amp;text=four" class="img-responsive">
+	                                <img src="http://placehold.it/1200x480&amp;text=three" class="img-responsive">
 	                            </div>
+	                            {%endfor%}
 	                        </div>
 	                        <!-- main slider carousel nav controls --> 
 	                        <a class="carousel-control left" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
@@ -100,11 +103,19 @@
 
 				<!-- thumb navigation carousel items -->
 				<ul class="list-inline">
+					{%for imagen in imagenes%}
+					<li>
+						<a id="carousel-selector-{{forloop.counter}}" class="{%if forloop.counter == 1%}selected{%endif%}">
+							<img src="{{imagen.thumbnail.url}}" class="img-responsive">
+						</a>
+					</li>
+					{%empty%}
 					<li>
 						<a id="carousel-selector-0" class="selected">
 							<img src="http://placehold.it/80x60&amp;text=one" class="img-responsive">
 						</a>
 					</li>
+
 					<li>
 						<a id="carousel-selector-1">
 							<img src="http://placehold.it/80x60&amp;text=two" class="img-responsive">
@@ -115,11 +126,7 @@
 							<img src="http://placehold.it/80x60&amp;text=three" class="img-responsive">
 						</a>
 					</li>
-					<li>
-						<a id="carousel-selector-3">
-							<img src="http://placehold.it/80x60&amp;text=four" class="img-responsive">
-						</a>
-					</li>
+					{%endfor%}
 				</ul>
 		    </div>
 		</div>
@@ -142,7 +149,7 @@
 								<strong>Direcci&oacute;n:</strong> {{inmueble.direccion}}<br>
 								<strong>Ciudad:</strong> {{inmueble.ciudad.nombre}}<br>
 								<strong>Zona:</strong> {{inmueble.zona.nombre}}<br>
-								
+
 								{%for telefono in telefonosAgente%}
 									<strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
 								{%endfor%}
@@ -150,7 +157,7 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<p class="text-left">
-								<strong>Construye: </strong>{{inmueble.agente.usuario.username}}<br>
+								<strong>Construye: </strong>{{inmueble.agente.nombre}}<br>
 								<strong>Tipo de obra: </strong>{{inmueble.tipo_obra}}<br>
 								<strong>Fecha de entrega: </strong>{{inmueble.fecha_entrega}}<br>
 							</p>
@@ -236,22 +243,6 @@
 
 <!-- Seccion donde se carga el JS -->
 {%block js%}
-
-<!-- Codigo de twitter -->
-<script type="text/javascript">
-	window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
-</script>
-
-<!-- Codigo de facebook -->
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return;
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=260585997287170&version=v2.0";
-	fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
 <!-- Codigo para el carrousel -->
 <script>
 $('#myCarousel').carousel({
@@ -276,6 +267,23 @@ $('#myCarousel').on('slid', function (e) {
 	$('[id=carousel-selector-'+id+']').addClass('selected');
 });
 </script>
+
+<!-- Codigo de twitter -->
+<script type="text/javascript">
+	window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
+
+<!-- Codigo de facebook -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=260585997287170&version=v2.0";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
 
 <!-- Google Maps -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">

@@ -50,6 +50,9 @@ def home(request, pais):
         'pais': pais,
     })
 
+    #Imagenes del slider
+    imagenes = Slide.objects.filter(pais__nombre=pais)
+
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
 
     if request.GET:
@@ -120,6 +123,7 @@ def home(request, pais):
         'paisesF': paisesF,
         'pais': pais,
         'inmuebles': inmuebles,
+        'imagenes': imagenes,
     }
 
     return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
@@ -145,6 +149,9 @@ def inmueble(request, codigo, pais):
     #Contacto con el agente
     contactoF = ContactoAgenteForm()
 
+    #Imagenes del inmueble
+    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
+
     if request.POST:
         contactoF = ContactoAgenteForm(request.POST)
         if contactoF.is_valid():
@@ -162,6 +169,7 @@ def inmueble(request, codigo, pais):
         'telefonosAgente':telefonos,
         'ContactoAgenteForm': contactoF,
         'paisesF': paisesF,
+        'imagenes':imagenes,
         'pais': pais,
         'envio': envio,
     }

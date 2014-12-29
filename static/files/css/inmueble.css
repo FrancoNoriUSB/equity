@@ -10,6 +10,12 @@
 	opacity:0.5;
 }
 
+#myCarousel > div > div > img{
+	margin-right: auto;
+	margin-left: auto;
+	height: 400px;
+}
+
 #slider-thumbs > ul > li{
 	cursor: pointer;
 }
@@ -36,7 +42,7 @@ body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-s
 #ubicacion > div > div > .mapa{
 	margin-right: auto;
 	margin-left: auto;
-	width: 600px;
+	width: 800px;
 	height: 500px;
 }
 
