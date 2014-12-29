@@ -249,7 +249,7 @@ class Moneda(models.Model):
     tasa = models.DecimalField(max_digits=20, decimal_places=4)
 
     #Claves foraneas
-    pais = models.ForeignKey(Pais)
+    pais = models.OneToOneField(Pais)
 
     class Meta:
         verbose_name = "Moneda"
