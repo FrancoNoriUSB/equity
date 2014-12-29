@@ -10,32 +10,36 @@
 			  </div>
 			  <div class="panel-body">
 			    <h3>{{ inmueble.titulo }}</h3>
-			    Código: {{ inmueble.codigo }}<br />
-			    Descripción: {{ inmueble.descripcion }}<br />
-			    Fecha entrega: {{ inmueble.fecha_entrega }}<br />
-			    Tipo obra: {{ inmueble.tipo_obra }}<br />
-			    Tipo inmueble: {{ inmueble.tipo }}<br />
-                Ciudad: {{ inmueble.ciudad }}<br />
-                Zona: {{ inmueble.zona }}<br />
-                Dirección: {{ inmueble.direccion }}<br />
-                Agente: {{ inmueble.agente }}<br />
+			    <strong>Código:</strong> {{ inmueble.codigo }}<br />
+			    <strong>Descripción:</strong> {{ inmueble.descripcion }}<br />
+			    <strong>Fecha entrega:</strong> {{ inmueble.fecha_entrega }}<br />
+			    <strong>Tipo obra:</strong> {{ inmueble.tipo_obra }}<br />
+			    <strong>Tipo inmueble:</strong> {{ inmueble.tipo }}<br />
+                <strong>Ciudad:</strong> {{ inmueble.ciudad }}<br />
+                <strong>Zona:</strong> {{ inmueble.zona }}<br />
+                <strong>Dirección:</strong> {{ inmueble.direccion }}<br />
+                <strong>Agente:</strong> {{ inmueble.agente }}<br />
                 <h4>Módulos</h4>
-                <a href="{% url 'inmuebles:agregar_modulo' pais inmueble.id %}" class="btn btn-xs btn-default">
+                <a href="{% url 'inmuebles:agregar_modulo' pais inmueble.id %}" class="btn btn-sm btn-primary">
                     Agregar módulo
                 </a>
-				<ul class="list-group">
-					{%for modulo in modulos%}
-						<li class="list-group-item">
-							<a href="">{{modulo.tipo}}</a>
-							<a href="eliminar-modulo/{{modulo.id}}/" class="eliminar">
-								Eliminar<span class="glyphicon glyphicon-trash"></span>
-							</a>
-	                        <a href="editar-modulo/{{modulo.id}}/" class="editar">
-	                          Editar<span class="glyphicon glyphicon-pencil"></span>
-	                        </a>
-						</li>
-					{%endfor%}
-				</ul>
+				{%if modulos%}
+                <br>
+                <br>
+					<ul class="list-group">
+						{%for modulo in modulos%}
+							<li class="list-group-item">
+								<a href="">{{modulo.tipo}}</a>
+								<a href="eliminar-modulo/{{modulo.id}}/" class="eliminar">
+									Eliminar<span class="glyphicon glyphicon-trash"></span>
+								</a>
+		                        <a href="editar-modulo/{{modulo.id}}/" class="editar">
+		                          Editar<span class="glyphicon glyphicon-pencil"></span>
+		                        </a>
+							</li>
+						{%endfor%}
+					</ul>
+				{%endif%}
 			  </div>
 			</div>
 		</div>

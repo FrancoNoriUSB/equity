@@ -17,12 +17,15 @@
 /*Estilos listar*/
 #page-wrapper > div > div > div.panel-body > ul > li > a.detalle{
 	float: right;
+  margin-right: 3px;
 }
 #page-wrapper > div > div > div.panel-body > ul > li > a.editar{
 	float: right;
+  margin-right: 3px;
 }
 #page-wrapper > div > div > div.panel-body > ul > li > a.eliminar{
 	float: right;
+  margin-right: 3px;
 }
 
 /*Maps google*/

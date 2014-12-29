@@ -13,7 +13,7 @@
 				<ul class="list-group">
 					{% for inmueble in inmuebles %}
 						<li class="list-group-item">
-							<a href="{% url 'inmuebles:detalle' pais inmueble.id %}">Titulo: {{inmueble.titulo}}</a>
+							<a href="{% url 'inmuebles:detalle' pais inmueble.id %}">{{inmueble.titulo}}</a>
 							<a href="eliminar/{{inmueble.id}}/" class="eliminar">
 								Eliminar<span class="glyphicon glyphicon-trash"></span>
 							</a>
@@ -21,7 +21,10 @@
 	                          Editar<span class="glyphicon glyphicon-pencil"></span>
 	                        </a>
 							<a href="{% url 'inmuebles:detalle' pais inmueble.id %}" class="detalle">
-								Detalle
+								Detalle<span class="glyphicon glyphicon-list-alt"></span>
+							</a>
+							<a href="{% url 'inmuebles:detalle' pais inmueble.id %}" class="detalle">
+								Imágenes<span class="glyphicon glyphicon-camera"></span>
 							</a>
 						</li>
 					{%endfor%}
