@@ -50,8 +50,59 @@ def home(request, pais):
         'pais': pais,
     })
 
-    #Busqueda de propiedades en el pais actual
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
+
+    if request.GET:
+        buscadorF = BuscadorForm(request.GET)
+        #Caso para el buscador de inmuebles
+        if buscadorF.is_valid():
+            ciudad = buscadorF.cleaned_data['ciudad']
+            zona = buscadorF.cleaned_data['zona']
+            tipo = buscadorF.cleaned_data['tipo']
+            orden = buscadorF.cleaned_data['orden']
+            codigo = buscadorF.cleaned_data['codigo']
+            palabra = buscadorF.cleaned_data['palabra']
+
+            #Caso de busqueda por codigo
+            if codigo != '':
+                inmuebles_list = Inmueble.objects.filter(codigo=codigo)
+            elif palabra != '':
+                inmuebles_list = Inmueble.objects.filter(titulo__contains=palabra)
+
+            # Caso demas
+            elif ciudad != None or zona != None or tipo != None or orden != '':
+
+                #Verificacion de string vacio
+                if orden == '':
+                    orden = None
+
+                #Campos a buscar
+                fields_list = []
+                fields_list.append('ciudad')
+                fields_list.append('zona')
+                fields_list.append('tipo')
+
+                #Comparadores para buscar
+                types_list=[]
+                types_list.append('nombre__exact')
+                types_list.append('nombre__exact')
+                types_list.append('nombre__exact')
+
+                #Valores a buscar
+                values_list=[]
+                values_list.append(ciudad)
+                values_list.append(zona)
+                values_list.append(tipo)
+
+                print orden
+
+                operator = 'and'
+
+                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden)
+
+                print inmuebles_list
+
+    #Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, 6)
     page = request.GET.get('page')
 

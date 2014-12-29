@@ -41,12 +41,12 @@ class BuscadorForm(forms.Form):
         ('precio', 'Precio'),
     )
 
-    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -')
-    zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -')
-    tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all(), empty_label=' - Tipo -')
-    orden = forms.ChoiceField(choices=ordenes)
-    codigo = forms.CharField(max_length=12)
-    palabra = forms.CharField(max_length=20)
+    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
+    zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
+    tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all(), empty_label=' - Tipo -', required=False)
+    orden = forms.ChoiceField(choices=ordenes, required=False)
+    codigo = forms.CharField(max_length=20, required=False)
+    palabra = forms.CharField(max_length=20, required=False)
 
 
 #Formulario de contacto
