@@ -52,12 +52,10 @@ class BuscadorForm(forms.Form):
 #Formulario de contacto
 class ContactoAgenteForm(forms.Form):
 
-    nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre y Apellido'}))
-    correo = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Correo'}))
-    telefonos = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Teléfonos'}))
-    pais = forms.ModelChoiceField(queryset=Pais.objects.all())
-    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all())
-    comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder': 'comentarios'}))
+    nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre y Apellido','class': "form-control"}))
+    correo = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Correo','class': "form-control"}))
+    telefonos = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Teléfonos','class': "form-control"}))
+    comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder': 'comentarios','class': "form-control"}))
 
 
 #Formulario para agregar inmuebles
@@ -133,6 +131,7 @@ class ZonaForm(forms.ModelForm):
             'nombre': forms.TextInput(),
             'ciudad': forms.TextInput(),
         }
+        exclude = ['pais',]
 
 class MonedaForm(forms.ModelForm):
     class Meta:

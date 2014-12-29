@@ -19,6 +19,12 @@ body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-s
 	margin-bottom: 0px;
 }
 
+body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-sm-12.agente > img{
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #twitter-widget-0{
 	width: 84px !important;
 }
@@ -37,7 +43,6 @@ body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-s
 body > div.contenido.container > div.row.informacion > div > div{
 	padding: 2%
 }
-
 
 /*Boostrap modificado*/
 body > div.contenido.container > div.row.informacion > div > ul{

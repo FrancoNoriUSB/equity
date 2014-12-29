@@ -215,7 +215,7 @@ class Inmueble(models.Model):
 
 # Modelo para imágenes de un inmueble publicado
 class ImagenInmueble(Imagen):
-    inmueble = models.ForeignKey(Inmueble)
+    inmueble = models.ForeignKey(Inmueble, related_name='imagenes')
 
     def __unicode__(self):
         return self.descripcion

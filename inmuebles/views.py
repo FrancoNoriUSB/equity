@@ -77,14 +77,28 @@ def home(request, pais):
 #Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
+    envio = False
+
     #Buscador de inmuebles
     buscadorF = BuscadorForm()
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
-   
+
+    #Inmueble
     inmueble = get_object_or_404(Inmueble, codigo=codigo)
+    
+    #Agente
+    agente = inmueble.agente
+    telefonos = TelefonoAgente.objects.filter(agente=agente)
+
     #Contacto con el agente
     contactoF = ContactoAgenteForm()
+
+    if request.POST:
+        contactoF = ContactoAgenteForm(request.POST)
+        if contactoF.is_valid():
+            envio = contact_email(request, contactoF, agente.correo)
+            contactoF = ContactoAgenteForm()
 
     #Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
@@ -94,9 +108,11 @@ def inmueble(request, codigo, pais):
     ctx = {
         'inmueble': inmueble,
         'buscadorF': buscadorF,
+        'telefonosAgente':telefonos,
         'ContactoAgenteForm': contactoF,
         'paisesF': paisesF,
         'pais': pais,
+        'envio': envio,
     }
 
     return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))

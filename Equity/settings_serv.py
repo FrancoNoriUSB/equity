@@ -129,3 +129,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+
+#Configuracion de envio de correos
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'equity_mail'
+EMAIL_HOST_PASSWORD = 'G*7j5$8'
+DEFAULT_FROM_EMAIL = 'contacto@equity-international.com'
+SERVER_EMAIL = 'contacto@equity-international.com'
