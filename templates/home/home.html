@@ -100,15 +100,20 @@
         			</nav>
         		</div>
         	</div>
+
+            <!-- Propiedades -->
         	<div class="propiedades row">
         		<div class="col-lg-11 col-md-11 col-sm-11">
         			{% for inmueble in inmuebles %}
             			<div class="propiedad row">
             				<div class="foto col-lg-3">
-            					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
-                                    
-                                    <img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-                                </a>
+                                {%for imagen in inmueble.imagenes.all|slice:":1"%}
+                                    {%if forloop.counter == 1%}
+                					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
+                                        <img class="img-responsive" src="{{imagen.thumbnail.url}}" alt="">
+                                    </a>
+                                    {%endif%}
+                                {%endfor%}
             				</div>
             				<div class="descripcion col-lg-4">
             					<strong>
