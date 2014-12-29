@@ -152,6 +152,9 @@ def inmueble(request, codigo, pais):
     #Imagenes del inmueble
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
 
+    #Banners del home
+    banners = Banner.objects.filter(pais__nombre=pais)
+
     if request.POST:
         contactoF = ContactoAgenteForm(request.POST)
         if contactoF.is_valid():
@@ -169,7 +172,8 @@ def inmueble(request, codigo, pais):
         'telefonosAgente':telefonos,
         'ContactoAgenteForm': contactoF,
         'paisesF': paisesF,
-        'imagenes':imagenes,
+        'imagenes': imagenes,
+        'banners': banners,
         'pais': pais,
         'envio': envio,
     }

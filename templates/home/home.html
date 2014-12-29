@@ -59,6 +59,11 @@
 {% block content %}
     <div class="banners row">
         <div class="banners col-lg-3">
+            {%for banner in banners%}
+                <a class="banner-superior" href="{{banner.url}}">
+                    <img class="img-responsive" src="{{banner.imagen.url}}" alt="">
+                </a>
+            {%empty%}
             <a class="banner-superior" href="">
                 <img class="img-responsive" src="{% static 'files/img/banner-superior.png' %}" alt="">
             </a>
@@ -71,6 +76,7 @@
             <a class="revista" href="">
             <img class="img-responsive" src="{% static 'files/img/revista.png' %}" alt="">
             </a>
+            {%endfor%}
         </div>
 
         <!-- Contenido de la pagina -->

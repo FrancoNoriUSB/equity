@@ -359,9 +359,10 @@ class Banner(models.Model):
 
     nombre = models.CharField(max_length=100, choices=posiciones)
     imagen = models.ImageField(upload_to='slide-home/')
+    url = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     #Claves foraneas
     pais = models.ForeignKey(Pais)
 
