@@ -10,7 +10,7 @@ def contact_email(request, form, correo):
 
     #Informacion del usuario
     name = emailF.cleaned_data['nombre']
-    emails.append(emailF.cleaned_data['correo'])
+    emails.append(correo)
     telephone = emailF.cleaned_data['telefonos']
 
     #Verificacion de si posee telefono
@@ -18,7 +18,7 @@ def contact_email(request, form, correo):
         telephone = 'No posee telefono de contacto.'
 
     #Mensaje a enviar
-    message = 'Correo de contacto del usuario: '+ str(name) +'. Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
+    message = 'Correo de contacto del usuario: '+ str(name) +'.<br> Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
     message += 'Mensaje: '+ str(emailF.cleaned_data['comentario']) + '<br>'
     message += 'Telefono de contacto: '+ str(telephone)
 
