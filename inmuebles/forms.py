@@ -41,23 +41,21 @@ class BuscadorForm(forms.Form):
         ('precio', 'Precio'),
     )
 
-    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -')
-    zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -')
-    tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all(), empty_label=' - Tipo -')
-    orden = forms.ChoiceField(choices=ordenes)
-    codigo = forms.CharField(max_length=12)
-    palabra = forms.CharField(max_length=20)
+    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
+    zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
+    tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all(), empty_label=' - Tipo -', required=False)
+    orden = forms.ChoiceField(choices=ordenes, required=False)
+    codigo = forms.CharField(max_length=20, required=False)
+    palabra = forms.CharField(max_length=20, required=False)
 
 
 #Formulario de contacto
 class ContactoAgenteForm(forms.Form):
 
-    nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre y Apellido'}))
-    correo = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Correo'}))
-    telefonos = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Teléfonos'}))
-    pais = forms.ModelChoiceField(queryset=Pais.objects.all())
-    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all())
-    comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder': 'comentarios'}))
+    nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre y Apellido','class': "form-control"}))
+    correo = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Correo','class': "form-control"}))
+    telefonos = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Teléfonos','class': "form-control"}))
+    comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder': 'comentarios','class': "form-control"}))
 
 
 #Formulario para agregar inmuebles
@@ -133,6 +131,7 @@ class ZonaForm(forms.ModelForm):
             'nombre': forms.TextInput(),
             'ciudad': forms.TextInput(),
         }
+        exclude = ['pais',]
 
 
 class MonedaForm(forms.ModelForm):

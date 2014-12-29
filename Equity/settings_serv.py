@@ -112,6 +112,10 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+MEDIA_URL = '/uploads/'
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -128,4 +132,17 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
 )
 
+# For Sidebar Menu (List of apps and models) (RECOMMENDED)
+from django.conf import global_settings
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
+)
+
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
+
+#Configuracion de envio de correos
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'equity_mail'
+EMAIL_HOST_PASSWORD = 'G*7j5$8'
+DEFAULT_FROM_EMAIL = 'contacto@equity-international.com'
+SERVER_EMAIL = 'contacto@equity-international.com'

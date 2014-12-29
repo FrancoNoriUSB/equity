@@ -20,21 +20,24 @@
 		<div class="carrousel container">
 			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-					</ol>
-
+					
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
-						<div class="item active">
-							<img src="{% static 'files/img/imagen-carrousel.png' %}" alt="">
-						<!--<div class="carousel-caption">
-							<p></p>
-						</div> -->
-						</div>
+                        {%for imagen in imagenes%}
+    						<div class="item {%if forloop.counter == 1%}active{%endif%}">
+        						<img src="{{imagen.imagen.url}}" alt="">
+        						<div class="carousel-caption">
+        							<p>{{imagen.nombre}}</p>
+        						</div>
+    						</div>
+                        {%empty%}
+                            <div class="item active">
+                                <img src="{% static 'files/img/imagen-carrousel.png' %}" alt="">
+                                <div class="carousel-caption">
+                                    <p></p>
+                                </div>
+                            </div>
+                        {%endfor%}
 					</div>
 
 					<!-- Controls -->
@@ -56,6 +59,11 @@
 {% block content %}
     <div class="banners row">
         <div class="banners col-lg-3">
+            {%for banner in banners%}
+                <a class="banner-superior" href="{{banner.url}}">
+                    <img class="img-responsive" src="{{banner.imagen.url}}" alt="">
+                </a>
+            {%empty%}
             <a class="banner-superior" href="">
                 <img class="img-responsive" src="{% static 'files/img/banner-superior.png' %}" alt="">
             </a>
@@ -68,6 +76,7 @@
             <a class="revista" href="">
             <img class="img-responsive" src="{% static 'files/img/revista.png' %}" alt="">
             </a>
+            {%endfor%}
         </div>
 
         <!-- Contenido de la pagina -->
@@ -87,21 +96,24 @@
                                 <a href="?page={{ inmuebles.next_page_number }}">&raquo;</a>
                             </li>
                         {% endif %}
-        			    <li><a href="#">2</a></li>
-        			    <li><a href="#">3</a></li>
-        			    <li><a href="#">4</a></li>
         			  </ul>
         			</nav>
         		</div>
         	</div>
+
+            <!-- Propiedades -->
         	<div class="propiedades row">
         		<div class="col-lg-11 col-md-11 col-sm-11">
         			{% for inmueble in inmuebles %}
             			<div class="propiedad row">
             				<div class="foto col-lg-3">
-            					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
-                                    <img class="img-responsive" src="{% static 'files/img/condominio.png' %}" alt="">
-                                </a>
+                                {%for imagen in inmueble.imagenes.all|slice:":1"%}
+                                    {%if forloop.counter == 1%}
+                					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
+                                        <img class="img-responsive" src="{{imagen.thumbnail.url}}" alt="">
+                                    </a>
+                                    {%endif%}
+                                {%endfor%}
             				</div>
             				<div class="descripcion col-lg-4">
             					<strong>
@@ -148,9 +160,6 @@
                                 <a href="?page={{ inmuebles.next_page_number }}">&raquo;</a>
                             </li>
                         {% endif %}
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
                       </ul>
                     </nav>
                 </div>

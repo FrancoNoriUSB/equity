@@ -50,8 +50,62 @@ def home(request, pais):
         'pais': pais,
     })
 
-    #Busqueda de propiedades en el pais actual
+    #Imagenes del slider
+    imagenes = Slide.objects.filter(pais__nombre=pais)
+
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
+
+    if request.GET:
+        buscadorF = BuscadorForm(request.GET)
+        #Caso para el buscador de inmuebles
+        if buscadorF.is_valid():
+            ciudad = buscadorF.cleaned_data['ciudad']
+            zona = buscadorF.cleaned_data['zona']
+            tipo = buscadorF.cleaned_data['tipo']
+            orden = buscadorF.cleaned_data['orden']
+            codigo = buscadorF.cleaned_data['codigo']
+            palabra = buscadorF.cleaned_data['palabra']
+
+            #Caso de busqueda por codigo
+            if codigo != '':
+                inmuebles_list = Inmueble.objects.filter(codigo=codigo)
+            elif palabra != '':
+                inmuebles_list = Inmueble.objects.filter(titulo__contains=palabra)
+
+            # Caso demas
+            elif ciudad != None or zona != None or tipo != None or orden != '':
+
+                #Verificacion de string vacio
+                if orden == '':
+                    orden = None
+
+                #Campos a buscar
+                fields_list = []
+                fields_list.append('ciudad')
+                fields_list.append('zona')
+                fields_list.append('tipo')
+
+                #Comparadores para buscar
+                types_list=[]
+                types_list.append('nombre__exact')
+                types_list.append('nombre__exact')
+                types_list.append('nombre__exact')
+
+                #Valores a buscar
+                values_list=[]
+                values_list.append(ciudad)
+                values_list.append(zona)
+                values_list.append(tipo)
+
+                print orden
+
+                operator = 'and'
+
+                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden)
+
+                print inmuebles_list
+
+    #Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, 6)
     page = request.GET.get('page')
 
@@ -69,6 +123,7 @@ def home(request, pais):
         'paisesF': paisesF,
         'pais': pais,
         'inmuebles': inmuebles,
+        'imagenes': imagenes,
     }
 
     return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
@@ -77,14 +132,34 @@ def home(request, pais):
 #Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
+    envio = False
+
     #Buscador de inmuebles
     buscadorF = BuscadorForm()
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
-   
+
+    #Inmueble
     inmueble = get_object_or_404(Inmueble, codigo=codigo)
+    
+    #Agente
+    agente = inmueble.agente
+    telefonos = TelefonoAgente.objects.filter(agente=agente)
+
     #Contacto con el agente
     contactoF = ContactoAgenteForm()
+
+    #Imagenes del inmueble
+    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
+
+    #Banners del home
+    banners = Banner.objects.filter(pais__nombre=pais)
+
+    if request.POST:
+        contactoF = ContactoAgenteForm(request.POST)
+        if contactoF.is_valid():
+            envio = contact_email(request, contactoF, agente.correo)
+            contactoF = ContactoAgenteForm()
 
     #Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
@@ -94,9 +169,13 @@ def inmueble(request, codigo, pais):
     ctx = {
         'inmueble': inmueble,
         'buscadorF': buscadorF,
+        'telefonosAgente':telefonos,
         'ContactoAgenteForm': contactoF,
         'paisesF': paisesF,
+        'imagenes': imagenes,
+        'banners': banners,
         'pais': pais,
+        'envio': envio,
     }
 
     return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))

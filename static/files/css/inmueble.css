@@ -10,6 +10,12 @@
 	opacity:0.5;
 }
 
+#myCarousel > div > div > img{
+	margin-right: auto;
+	margin-left: auto;
+	height: 400px;
+}
+
 #slider-thumbs > ul > li{
 	cursor: pointer;
 }
@@ -17,6 +23,12 @@
 /*Estilos de info de inmueble*/
 body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-sm-12.links > p.text-right{
 	margin-bottom: 0px;
+}
+
+body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-sm-12.agente > img{
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #twitter-widget-0{
@@ -30,14 +42,13 @@ body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-s
 #ubicacion > div > div > .mapa{
 	margin-right: auto;
 	margin-left: auto;
-	width: 600px;
+	width: 800px;
 	height: 500px;
 }
 
 body > div.contenido.container > div.row.informacion > div > div{
 	padding: 2%
 }
-
 
 /*Boostrap modificado*/
 body > div.contenido.container > div.row.informacion > div > ul{
