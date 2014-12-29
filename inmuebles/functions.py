@@ -25,7 +25,7 @@ def contact_email(request, form, correo):
     email = EmailMessage()
     email.subject = '[Equity International] Correo contacto'
     email.body = message
-    email.from_email = 'Usuario Equity <'+str(emailF.cleaned_data['correo'])+'>'
+    email.from_email = 'Usuario Equity <contacto@equity-international.com>'
     email.to = emails
     email.content_subtype = "html"
     enviado=email.send()

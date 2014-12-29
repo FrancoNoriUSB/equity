@@ -142,8 +142,10 @@
 								<strong>Direcci&oacute;n:</strong> {{inmueble.direccion}}<br>
 								<strong>Ciudad:</strong> {{inmueble.ciudad.nombre}}<br>
 								<strong>Zona:</strong> {{inmueble.zona.nombre}}<br>
-								<strong>Tel&eacute;fono:</strong>{{inmueble.agente.telefonos.numero}}<br>
-								<strong>Celular:</strong>{{inmueble.agente.telefonos.numero}}<br>
+								
+								{%for telefono in telefonosAgente%}
+									<strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
+								{%endfor%}
 							</p>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6">

@@ -112,6 +112,10 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+MEDIA_URL = '/uploads/'
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
