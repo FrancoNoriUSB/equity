@@ -341,7 +341,7 @@ class AgregarModulo(CreateView):
         self.object.precio = int(self.object.precio) / tasa.tasa
         self.object.inmueble = Inmueble.objects.get(id=id_inmueble)
         self.object.save()
-        return redirect('inmuebles:detalle', pais=pais, id=id_inmueble)
+        return redirect('inmuebles:detalle', pais=pais, id_inmueble=id_inmueble)
 
     def form_invalid(self, form, pais, id_inmueble):
         inm = get_object_or_404(Inmueble, id=id_inmueble)
@@ -355,7 +355,7 @@ class AgregarModulo(CreateView):
 class EditarModulo(UpdateView):
     template_name = 'admin/inmuebles/agregar-modulo.html'
     model = Modulo
-    pk_url_kwarg = 'id'
+    pk_url_kwarg = 'id_modulo'
     fields = ['tipo',
               'metros',
               'banos',
@@ -366,6 +366,8 @@ class EditarModulo(UpdateView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+        tasa = Moneda.objects.get(pais__nombre=kwargs["pais"])
+        self.object.precio = self.object.precio * tasa.tasa
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         inm = get_object_or_404(Inmueble, id=kwargs['id_inmueble'])
@@ -374,7 +376,7 @@ class EditarModulo(UpdateView):
                                                              pais=kwargs["pais"]))
 
     def post(self, request, *args, **kwargs):
-        self.object = None
+        self.object = self.get_object()
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         if form.is_valid():
@@ -395,6 +397,14 @@ class EditarModulo(UpdateView):
             self.get_context_data(form=form,
                                   inmueble=inm,
                                   pais=pais))
+
+
+#Vista para agregar los agentes de ese pais
+@login_required
+def modulos_eliminar(request, pais, id_inmueble, id_modulo):
+    modulo = get_object_or_404(Modulo, id=id_modulo).delete()
+
+    return redirect('inmuebles:detalle', pais=pais, id_inmueble=id_inmueble)
 
 
 #Vista para agregar los agentes de ese pais

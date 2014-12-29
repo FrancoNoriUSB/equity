@@ -229,7 +229,7 @@ class Modulo(models.Model):
     banos = models.CharField(max_length=2)
     dormitorios = models.CharField(max_length=2)
     estacionamientos = models.CharField(max_length=2)
-    precio = models.CharField(max_length=10)
+    precio = models.DecimalField(max_digits=25, decimal_places=5)
     plano = models.ImageField(upload_to='uploads/planos/')
 
     #Claves foraneas
