@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 #Urls para los views del frontend del usuario visitante
 urlpatterns = patterns('inmuebles.views',
             url(r'^(?P<pais>[A-Z][A-Z])/$', 'home', name='home_pais'),
-            url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/(?P<codigo>[0-9A-Za-z]+)/$', 'inmueble', name='inmueble'),
+            url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/(?P<codigo>[0-9A-Za-z.-]+)/$', 'inmueble', name='inmueble'),
 
             #Vistas del admin de equity
             url(r'^(?P<pais>[A-Z][A-Z])/admin/login/$', 'login_admin', name='login_admin'),

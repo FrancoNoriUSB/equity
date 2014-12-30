@@ -117,7 +117,7 @@
             				</div>
             				<div class="descripcion col-lg-4">
             					<strong>
-            						<a class="text-uppercase" href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">
+            						<a class="text-uppercase" href="/{{pais}}/inmueble/{{inmueble.codigo}}/">
             							{{inmueble.titulo}}
             						</a>
             					</strong>
@@ -132,10 +132,10 @@
             					</p>
             				</div>
             				<div class="varios col-lg-3 col-lg-offset-1">
-            					<img class="img-responsive" src="{{inmueble.agente.logo.url}}" alt="">
+            					<img class="img-responsive" src="{{inmueble.logo.url}}" alt="">
                                 <p class="text-right">{{inmueble.tipo_obra}}</p>
                                 <p class="text-right">
-                					<a class="ver" href="{% url 'inmuebles:inmueble' pais inmueble.codigo %}">Ver</a>
+                					<a class="ver" href="/{{pais}}/inmueble/{{inmueble.codigo}}/">Ver</a>
                 					<a class="comparar" href="">Comparar</a>
                 					<a class="favoritos" href="">Favoritos</a>
                                 </p>
