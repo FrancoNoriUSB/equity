@@ -142,6 +142,9 @@ def inmueble(request, codigo, pais):
     #Inmueble
     inmueble = get_object_or_404(Inmueble, codigo=codigo)
     
+    #Modulos
+    modulos = Modulo.objects.filter(inmueble=inmueble)
+
     #Agente
     agente = inmueble.agente
     telefonos = TelefonoAgente.objects.filter(agente=agente)
@@ -168,6 +171,7 @@ def inmueble(request, codigo, pais):
 
     ctx = {
         'inmueble': inmueble,
+        'modulos': modulos,
         'buscadorF': buscadorF,
         'telefonosAgente':telefonos,
         'ContactoAgenteForm': contactoF,

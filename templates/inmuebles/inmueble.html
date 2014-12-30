@@ -174,14 +174,37 @@
 								<td>$</td>
 								<td>Plano</td>
 							  </tr>
+							  {%for modulo in modulos%}
 							  <tr>
-								<td class="text-center">70</td>
-								<td class="text-center">3</td>
-								<td class="text-center">2</td>
-								<td class="text-center">1</td>
-								<td class="text-center">400.000</td>
-								<td class="text-center"><a href="">Ver</a></td>
+								<td class="text-center">{{modulo.metros}}</td>
+								<td class="text-center">{{modulo.dormitorios}}</td>
+								<td class="text-center">{{modulo.banos}}</td>
+								<td class="text-center">{{modulo.estacionamientos}}</td>
+								<td class="text-center">{{modulo.precio}}</td>
+								<td class="text-center">
+									<!-- Button trigger modal -->
+									<a href="" type="button" class="" data-toggle="modal" data-target="#{{modulo.tipo}}Modal">
+									Ver
+									</a>
+								</td>
+								
+
+								<!-- Modal -->
+								<div class="modal fade" id="{{modulo.tipo}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{modulo.tipo}}ModalModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<h4 class="modal-title" id="{{modulo.tipo}}ModalModalLabel">Plano</h4>
+											</div>
+											<div class="modal-body">
+												<img src="{{modulo.plano.url}}" alt="">
+											</div>
+										</div>
+									</div>
+								</div>
 							  </tr>
+							  {%endfor%}
 							</table>
 						</div>
 					</div>
