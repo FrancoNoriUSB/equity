@@ -19,7 +19,7 @@
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
-	<div class="col-md-12">
+	<div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
@@ -38,25 +38,26 @@
 	                {% bootstrap_field InmuebleForm.codigo %}
 	                {% bootstrap_field InmuebleForm.logo %}
 	                {% bootstrap_field InmuebleForm.descripcion %}
+                    {% bootstrap_field InmuebleForm.areas_comunes %}
 	                {% bootstrap_field InmuebleForm.ciudad %}
 	                {% bootstrap_field InmuebleForm.zona %}
 	                {% bootstrap_field InmuebleForm.direccion %}
 	                <input id="pac-input" class="controls" type="text"
 	                    placeholder="Introduzca una direccion">
 	                <div id="type-selector" class="controls">
-	                  <input type="radio" name="type" id="changetype-all" checked="checked">
-	                  <label for="changetype-all">Todo</label>
+                        <input type="radio" name="type" id="changetype-all" checked="checked">
+                        <label for="changetype-all">Todo</label>
 
-	                  <input type="radio" name="type" id="changetype-establishment">
-	                  <label for="changetype-establishment">Establecimietos</label>
+                        <input type="radio" name="type" id="changetype-establishment">
+                        <label for="changetype-establishment">Establecimietos</label>
 
-	                  <input type="radio" name="type" id="changetype-address">
-	                  <label for="changetype-address">Direcciones</label>
+                        <input type="radio" name="type" id="changetype-address">
+                        <label for="changetype-address">Direcciones</label>
 
-	                  <input type="radio" name="type" id="changetype-geocode">
-	                  <label for="changetype-geocode">Geocodigos</label>
+                        <input type="radio" name="type" id="changetype-geocode">
+                        <label for="changetype-geocode">Geocodigos</label>
 	                </div>
-	                 <div class="form-group">
+	                <div class="form-group">
 	                    <label>Ubicación</label>
 	                    <div class="mapa" id="map-canvas">
 	                    </div>

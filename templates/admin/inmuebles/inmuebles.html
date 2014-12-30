@@ -3,7 +3,7 @@
 
 <!-- Estilos de la pagina-->
 <link href="{{STATIC_URL}}files/css/admin.css"	 rel="stylesheet" type="text/css" />
-		<div class="col-md-6">
+	    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
 			<div class="panel panel-primary">
 			  <div class="panel-heading">
 			    <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
@@ -23,7 +23,7 @@
 							<a href="{% url 'inmuebles:detalle' pais inmueble.id %}" class="detalle">
 								Detalle<span class="glyphicon glyphicon-list-alt"></span>
 							</a>
-							<a href="{% url 'inmuebles:detalle' pais inmueble.id %}" class="detalle">
+							<a href="{% url 'inmuebles:imagenes_inmuebles' pais inmueble.id %}" class="detalle">
 								Imágenes<span class="glyphicon glyphicon-camera"></span>
 							</a>
 						</li>

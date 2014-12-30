@@ -13,28 +13,30 @@
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title "><a href="{% url 'inmuebles:detalle' pais inmueble.id %}">{{ inmueble.titulo }}</a></h3>
-            {{request.view}}
-        </div>
-        <div class="panel-body">
-            <h4>Agregar módulo: </h4>
-            <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
-            {% csrf_token %}
-                {% bootstrap_field form.tipo %}
-                {% bootstrap_field form.metros %}
-                {% bootstrap_field form.banos %}
-                {% bootstrap_field form.dormitorios %}
-                {% bootstrap_field form.estacionamientos %}
-                {% bootstrap_field form.precio %}
-                {% bootstrap_field form.plano %}
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">
-                         Agregar
-                    </button>
-                {% endbuttons %}
-            </form>
+    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title "><a href="{% url 'inmuebles:detalle' pais inmueble.id %}">{{ inmueble.titulo }}</a></h3>
+                {{request.view}}
+            </div>
+            <div class="panel-body">
+                <h4>Agregar módulo: </h4>
+                <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+                {% csrf_token %}
+                    {% bootstrap_field form.tipo %}
+                    {% bootstrap_field form.metros %}
+                    {% bootstrap_field form.banos %}
+                    {% bootstrap_field form.dormitorios %}
+                    {% bootstrap_field form.estacionamientos %}
+                    {% bootstrap_field form.precio %}
+                    {% bootstrap_field form.plano %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                             Agregar
+                        </button>
+                    {% endbuttons %}
+                </form>
+            </div>
         </div>
     </div>
 {% endblock content %}

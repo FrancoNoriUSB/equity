@@ -497,7 +497,7 @@ def inmuebles_editar(request, pais, id_inmueble):
     if request.POST:
         inmuebleF = InmuebleForm(request.POST, request.FILES, instance=inmueble)
         if inmuebleF.is_valid():
-            inmueble.save()
+            inmuebleF.save()
             editado = True
 
     ctx = {
@@ -507,6 +507,30 @@ def inmuebles_editar(request, pais, id_inmueble):
     }
     
     return render_to_response('admin/inmuebles/editar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar las imagenes del inmueble
+def inmuebles_imagenes(request, pais, id_inmueble):
+
+    editado = ''
+    inmueble = Inmueble.objects.get(id=id_inmueble)
+    inmuebleF = ImagenFormset(instance=inmueble)
+
+    if request.POST:
+        inmuebleF = ImagenFormset(request.POST, request.FILES, instance=inmueble)
+        if inmuebleF.is_valid():
+            inmuebleF.save()
+            print 'agrego'
+
+    inmuebleF = ImagenFormset(instance=inmueble)
+
+    ctx = {
+        'InmuebleForm':inmuebleF,
+        'editado':editado,
+        'pais':pais,
+    }
+
+    return render_to_response('admin/inmuebles/imagenes-inmueble.html', ctx, context_instance=RequestContext(request))
 
 
 #Vista para agregar los agentes de ese pais

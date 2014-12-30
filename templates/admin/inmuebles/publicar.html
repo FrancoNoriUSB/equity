@@ -13,56 +13,58 @@
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
-            {{request.view}}
-        </div>
-        <div class="panel-body">
-            <h4>Agregar Inmueble: </h4>
-            <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
-            {% csrf_token %}
-                {% bootstrap_field form.titulo %}
-                {% bootstrap_field form.codigo %}
-                {% bootstrap_field form.logo %}
-                {% bootstrap_field form.descripcion %}
-                {% bootstrap_field form.areas_comunes %}
-                {% bootstrap_field form.ciudad %}
-                {% bootstrap_field form.zona %}
-                {% bootstrap_field form.direccion %}
-                <input id="pac-input" class="controls" type="text"
-                    placeholder="Introduzca una direccion">
-                <div id="type-selector" class="controls">
-                  <input type="radio" name="type" id="changetype-all" checked="checked">
-                  <label for="changetype-all">Todo</label>
+    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+                {{request.view}}
+            </div>
+            <div class="panel-body">
+                <h4>Agregar Inmueble: </h4>
+                <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+                {% csrf_token %}
+                    {% bootstrap_field form.titulo %}
+                    {% bootstrap_field form.codigo %}
+                    {% bootstrap_field form.logo %}
+                    {% bootstrap_field form.descripcion %}
+                    {% bootstrap_field form.areas_comunes %}
+                    {% bootstrap_field form.ciudad %}
+                    {% bootstrap_field form.zona %}
+                    {% bootstrap_field form.direccion %}
+                    <input id="pac-input" class="controls" type="text"
+                        placeholder="Introduzca una direccion">
+                    <div id="type-selector" class="controls">
+                      <input type="radio" name="type" id="changetype-all" checked="checked">
+                      <label for="changetype-all">Todo</label>
 
-                  <input type="radio" name="type" id="changetype-establishment">
-                  <label for="changetype-establishment">Establecimietos</label>
+                      <input type="radio" name="type" id="changetype-establishment">
+                      <label for="changetype-establishment">Establecimietos</label>
 
-                  <input type="radio" name="type" id="changetype-address">
-                  <label for="changetype-address">Direcciones</label>
+                      <input type="radio" name="type" id="changetype-address">
+                      <label for="changetype-address">Direcciones</label>
 
-                  <input type="radio" name="type" id="changetype-geocode">
-                  <label for="changetype-geocode">Geocodigos</label>
-                </div>
-                 <div class="form-group">
-                    <label>Ubicación</label>
-                    <div class="mapa" id="map-canvas">
+                      <input type="radio" name="type" id="changetype-geocode">
+                      <label for="changetype-geocode">Geocodigos</label>
                     </div>
-                    {{ form.latitud.as_hidden }}
-                    {{ form.longitud.as_hidden }}
-                </div>
-                {% bootstrap_field form.fecha_entrega %}
-                {% bootstrap_field form.tipo_obra %}
-                {% bootstrap_field form.agente %}
-                <div class="form-group">
-                    {% buttons %}
-                        <button type="submit" class="btn btn-primary">
-                             Publicar
-                        </button>
-                    {% endbuttons %}
-                </div>
-            </form>
+                     <div class="form-group">
+                        <label>Ubicación</label>
+                        <div class="mapa" id="map-canvas">
+                        </div>
+                        {{ form.latitud.as_hidden }}
+                        {{ form.longitud.as_hidden }}
+                    </div>
+                    {% bootstrap_field form.fecha_entrega %}
+                    {% bootstrap_field form.tipo_obra %}
+                    {% bootstrap_field form.agente %}
+                    <div class="form-group">
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">
+                                 Publicar
+                            </button>
+                        {% endbuttons %}
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock content %}
