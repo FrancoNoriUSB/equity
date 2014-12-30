@@ -328,13 +328,13 @@ class Publicar(CreateView):
                                                               min_num=campos.count(),
                                                               max_num=campos.count(),
                                                               fields=['campo', 'valor'])
-        campotipo_formset = ValorCampoTipoInmuebleFormset()
-        for formset in campotipo_formset:
-            formset.fields['campo'].choices = campos.values_list('id', 'nombre')
+        # campotipo_formset = ValorCampoTipoInmuebleFormset()
+        # for formset in campotipo_formset:
+        #     formset.fields['campo'].choices = campos.values_list('id', 'nombre')
         # imagen_formset = ImagenFormset()
         # campo_formset = CampoFormset()
         return self.render_to_response(self.get_context_data(form=form,
-                                                             campotipo_formset=campotipo_formset,
+                                                             # campotipo_formset=campotipo_formset,
                                                              # imagen_formset=imagen_formset,
                                                              # campo_formset=campo_formset,
                                                              pais=kwargs["pais"]))
@@ -352,34 +352,34 @@ class Publicar(CreateView):
                                                               max_num=campos.count(),
                                                               can_delete=False,
                                                               fields=['campo', 'valor'])
-        campotipo_formset = ValorCampoTipoInmuebleFormset(self.request.POST)
-        for formset in campotipo_formset:
-            formset.fields['campo'].choices = campos.values_list('id', 'nombre')
+        # campotipo_formset = ValorCampoTipoInmuebleFormset(self.request.POST)
+        # for formset in campotipo_formset:
+        #     formset.fields['campo'].choices = campos.values_list('id', 'nombre')
         # imagen_formset = ImagenFormset(self.request.POST)
         # campo_formset = CampoFormset(self.request.POST)
-        if form.is_valid() and campotipo_formset.is_valid():
-            return self.form_valid(form, campotipo_formset, tipo, kwargs["pais"])
+        if form.is_valid():
+            return self.form_valid(form, tipo, kwargs["pais"])
         else:
-            return self.form_invalid(form, campotipo_formset, kwargs["pais"])
+            return self.form_invalid(form, kwargs["pais"])
 
-    def form_valid(self, form, campotipo_formset, tipo, pais):
+    def form_valid(self, form, tipo, pais):
         self.object = form.save(commit=False)
         self.object.pais = Pais.objects.get(nombre=pais)
         self.object.tipo = tipo
         self.object.fecha_expiracion = datetime.now()
         self.object.save()
-        campotipo_formset.instance = self.object
-        campotipo_formset.save()
+        # campotipo_formset.instance = self.object
+        # campotipo_formset.save()
         # imagen_formset.instance = self.object
         # imagen_formset.save()
         # campo_formset.instance = self.object
         # campo_formset.save()
         return redirect('inmuebles:listar_inmuebles', pais=pais)
 
-    def form_invalid(self, form, campotipo_formset, pais):
+    def form_invalid(self, form,  pais):
         return self.render_to_response(
             self.get_context_data(form=form,
-                                  campotipo_formset=campotipo_formset,
+                                  # campotipo_formset=campotipo_formset,
                                   # campo_formset=campo_formset,
                                   pais=pais))
 
