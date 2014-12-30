@@ -277,7 +277,7 @@ class ElegirTipo(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ElegirTipo, self).get_context_data(**kwargs)
-        tipos = TipoInmueble.objects.all()
+        tipos = BuscadorForm()
         context['pais'] = kwargs['pais']
         context['tipos'] = tipos
         return context

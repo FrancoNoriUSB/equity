@@ -201,7 +201,7 @@ class Inmueble(models.Model):
     pais = models.ForeignKey(Pais)
     ciudad = models.ForeignKey(Ciudad)
     zona = models.ForeignKey(Zona)
-    agente = models.ForeignKey(Agente)
+    agente = models.ForeignKey(Agente, null=True, on_delete=models.SET_NULL)
     tipo = models.ForeignKey(TipoInmueble)
     areas_comunes = models.ManyToManyField(AreaComun)
 

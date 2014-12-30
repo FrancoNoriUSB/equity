@@ -13,20 +13,16 @@
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
-	<div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
 			</div>
 			<div class="panel-body">
-				{% for tipo in tipos %}
-				<div class="foto col-lg-3 text-center">
-					<a href="{% url 'inmuebles:publicar' pais tipo %}">
-					<span class="glyphicon glyphicon-home"></span>
-					{{tipo.nombre}}
-					</a>
-				</div>
-				{%endfor%}
+				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
+                	{% csrf_token %}
+					{{ tipos.tipo }}
+				</form>
 			</div>
 		</div>
     </div>
