@@ -54,7 +54,7 @@ class Zona(models.Model):
 
 #Imagen de los anuncios que se publican
 class Imagen(models.Model):
-    imagen = models.ImageField(upload_to='uploads/img/')
+    imagen = models.ImageField(upload_to='uploads/img/', null=True)
     thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True, editable=False)
     descripcion = models.CharField(max_length=140, null=True)
     principal = models.BooleanField(default=True, help_text='Marcado si desea que se muestre como imagen principal')
@@ -142,7 +142,7 @@ class Telefono(models.Model):
 # Modelo para los telefonos del agente
 class TelefonoAgente(Telefono):
 
-    tipo = models.CharField(max_length=20, choices=(('Celular','Celular'),('Telefono','Teléfono')))
+    tipo = models.CharField(max_length=20, choices=(('Celular','Celular'),('Teléfono','Telefono')))
     agente = models.ForeignKey(Agente, related_name='telefonos')
 
     class Meta(Telefono.Meta):
@@ -246,6 +246,7 @@ class Modulo(models.Model):
 # Modelo para las monedas
 class Moneda(models.Model):
     nombre = models.CharField(max_length=20)
+    simbolo = models.CharField(max_length=10)
     tasa = models.DecimalField(max_digits=20, decimal_places=4)
 
     #Claves foraneas

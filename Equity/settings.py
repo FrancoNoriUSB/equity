@@ -72,7 +72,8 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'bootstrap3',
     'inmuebles',
-    'noticias'
+    'noticias',
+    'mathfilters'
 )
 
 MIDDLEWARE_CLASSES = (

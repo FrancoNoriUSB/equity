@@ -80,9 +80,10 @@ class ImagenInmuebleForm(forms.ModelForm):
     class Meta:
         model = ImagenInmueble
         exclude = ['inmueble']
+        widgets = {
+            'descripcion': forms.TextInput(),
+        }
 
-#Formset de imagen
-ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, form = ImagenInmuebleForm, can_delete=True, fields=['imagen', 'descripcion'])
 
 #Formulario de registro simple de usuario
 class UserForm(forms.ModelForm):
@@ -140,6 +141,7 @@ class ZonaForm(forms.ModelForm):
         exclude = ['pais',]
 
 
+#Formulario de monedas
 class MonedaForm(forms.ModelForm):
     class Meta:
         model = Moneda

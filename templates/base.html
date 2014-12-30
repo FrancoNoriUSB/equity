@@ -37,7 +37,7 @@
         <!-- Header de la página -->
         {% block header %}
         <header>
-            <nav class="navbar navbar-static-top navbar-default" role="navigation">
+            <nav class="navbar navbar-static-top navbar-default">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
@@ -126,14 +126,21 @@
                             {% render_field buscadorF.orden class="form-control"%}
                         </div>
                         <div class="form-group inner-addon right-addon">
+                            <div class="input-group-btn">
                             {% render_field buscadorF.codigo class="form-control" placeholder="Código"%}
-                            <span class="glyphicon glyphicon-arrow-down form-control-feedback"></span>
+                                <button class="btn btn-primary" id="">
+                                    <span class="glyphicon glyphicon-arrow-down"></span>
+                                </button>
+                            </div>
                         </div>
                         <div class="form-group inner-addon right-addon">
+                            <div class="input-group-btn">
                             {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
-                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                <button class="btn btn-primary" id="">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </div>
                         </div>
-                        <button class="btn btn-primary">Buscar</button>
                     </form>
                 </div>
             </div>

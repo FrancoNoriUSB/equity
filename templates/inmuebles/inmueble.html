@@ -1,6 +1,6 @@
 <!-- Archivo donde estan los bloques del home -->
 {% extends "base.html" %}
-
+{% load mathfilters %}
 {% load staticfiles %}
 
 <!-- Bloque para scripts que se cargan en la plantilla base -->
@@ -8,13 +8,6 @@
 
 <!-- Estilos del index -->
 <link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble.css' %}">
-<style>
-    html, body, #mapa {
-        height: 500px;
-        margin: 0px;
-        padding: 0px
-    }
-</style>
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
@@ -171,7 +164,7 @@
 								<td>Dormitorios</td>
 								<td>Ba&ntilde;os</td>
 								<td>Estacionamiento</td>
-								<td>$</td>
+								<td>{{moneda.nombre}} / $</td>
 								<td>Plano</td>
 							  </tr>
 							  {%for modulo in modulos%}
@@ -180,14 +173,13 @@
 								<td class="text-center">{{modulo.dormitorios}}</td>
 								<td class="text-center">{{modulo.banos}}</td>
 								<td class="text-center">{{modulo.estacionamientos}}</td>
-								<td class="text-center">{{modulo.precio}}</td>
+								<td class="text-center">{{moneda.simbolo|div:modulo.precio}} / {{modulo.precio}}</td>
 								<td class="text-center">
 									<!-- Button trigger modal -->
 									<a href="" type="button" class="" data-toggle="modal" data-target="#{{modulo.tipo}}Modal">
 									Ver
 									</a>
 								</td>
-								
 
 								<!-- Modal -->
 								<div class="modal fade" id="{{modulo.tipo}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{modulo.tipo}}ModalModalLabel" aria-hidden="true">
@@ -268,7 +260,7 @@
 						</div>
 					</dir>
 				</div>
-				<div role="tabpanel" class="tab-pane fade" id="plusvalia">Plusvalia</div>
+				<!-- <div role="tabpanel" class="tab-pane fade" id="plusvalia">Plusvalia</div> -->
 			</div>
 		</div>
 	</div>

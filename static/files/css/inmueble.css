@@ -39,7 +39,7 @@ body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-s
 	float: right;
 }
 
-#ubicacion > div > div > .mapa{
+#ubicacion > div > div > #mapa{
 	margin-right: auto;
 	margin-left: auto;
 	width: 800px;

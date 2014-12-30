@@ -14,13 +14,7 @@
             	<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
 				{% csrf_token %}
 				{{ InmuebleForm.management_form }}
-				{%for form in InmuebleForm%}
-					{% bootstrap_field form.imagen %}
-					{% bootstrap_field form.descripcion %}
-					{% for hidden in form.hidden_fields %}
-					{{ hidden }}
-					{% endfor %}
-				{%endfor%}
+					{% bootstrap_formset InmuebleForm %}
 				{% buttons %}
                     <button type="submit" class="btn btn-primary">
                          Agregar
@@ -34,5 +28,6 @@
 {% endblock content %}
 
 {% block js %}
-	
+<script>
+</script>
 {% endblock js %}

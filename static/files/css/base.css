@@ -19,8 +19,28 @@ body > div.row.titulo{
 .navbar-default{
 	border-color: transparent;
 }
+
 body > div.container-fluid > div > div > form > div{
 	margin-right: 5px;
+}
+
+body > div.container-fluid > div > div > form > div > div > button{
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	margin-left: -34px !important;
+	background-image: linear-gradient(to bottom,#FFFFFF 0,#FFFFFF 100%);
+	border-width: 0px;
+}
+
+
+body > div.container-fluid > div > div > form > div > div > button:hover{
+	background-color: transparent;
+	background-image: linear-gradient(to bottom,#FFFFFF 0,#FFFFFF 100%);
+}
+
+body > div.container-fluid > div > div > form > div > div > button > span{
+	color: #000000 !important;
 }
 
 body > header > nav > div > div > div > div.navbar-header > div > a{
@@ -146,22 +166,3 @@ body > footer > nav > div > div > ul{
 }
 
 /*Estilos de Bootstrap*/
-/* enable absolute positioning */
-.inner-addon { 
-    position: relative; 
-}
-
-/* style icon */
-.inner-addon .glyphicon {
-  position: absolute;
-  padding: 0px;
-  pointer-events: none;
-}
-
-/* align icon */
-.left-addon .glyphicon  { left:  0px;}
-.right-addon .glyphicon { right: 0px;}
-
-/* add padding  */
-.left-addon input  { padding-left:  30px; }
-.right-addon input { padding-right: 30px; }
