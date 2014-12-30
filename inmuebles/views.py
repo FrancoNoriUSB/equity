@@ -502,7 +502,7 @@ def inmuebles_imagenes(request, pais, id_inmueble):
     inmueble = Inmueble.objects.get(id=id_inmueble)
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
     #Formset de imagen
-    ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, form = ImagenInmuebleForm, can_delete=True, extra=1, max_num=len(imagenes)+1, fields=['imagen', 'descripcion'])
+    ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, form = ImagenInmuebleForm, can_delete=True, extra=1, max_num=len(imagenes)+2, fields=['imagen', 'descripcion'])
     inmuebleF = ImagenFormset(instance=inmueble, queryset=ImagenInmueble.objects.filter(inmueble=inmueble))
 
     if request.POST:
@@ -510,7 +510,7 @@ def inmuebles_imagenes(request, pais, id_inmueble):
         if inmuebleF.is_valid():
             inmuebleF.save()
 
-    inmuebleF = ImagenFormset(instance=inmueble)
+    inmuebleF = ImagenFormset(instance=inmueble, queryset=ImagenInmueble.objects.filter(inmueble=inmueble))
     ctx = {
         'InmuebleForm':inmuebleF,
         'editado':editado,

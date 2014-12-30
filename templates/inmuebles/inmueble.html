@@ -21,6 +21,8 @@
 				<strong>{{inmueble.tipo}}</strong>
 			</h4>
 			<p>
+				{{inmueble.ciudad.nombre}}
+				<br>
 				{{inmueble.zona.nombre}}
 				<br/>
 				C&oacute;digo: {{inmueble.codigo}}
@@ -173,7 +175,7 @@
 								<td class="text-center">{{modulo.dormitorios}}</td>
 								<td class="text-center">{{modulo.banos}}</td>
 								<td class="text-center">{{modulo.estacionamientos}}</td>
-								<td class="text-center">{{moneda.simbolo|div:modulo.precio}} / {{modulo.precio}}</td>
+								<td class="text-center">{{moneda.precio|div:modulo.tasa}} / {{modulo.precio}}</td>
 								<td class="text-center">
 									<!-- Button trigger modal -->
 									<a href="" type="button" class="" data-toggle="modal" data-target="#{{modulo.tipo}}Modal">
@@ -271,7 +273,7 @@
 <!-- Codigo para el carrousel -->
 <script>
 $('#myCarousel').carousel({
-	interval: 99999999999
+	interval: 3000
 });
 
 // handles the carousel thumbnails
