@@ -187,7 +187,7 @@ class Inmueble(models.Model):
     titulo = models.CharField(max_length=100)
     codigo = models.CharField(max_length=20, unique=True)
     descripcion = models.TextField()
-    fecha_entrega = models.DateField()
+    fecha_entrega = models.CharField(max_length=20)
     tipo_obra = models.CharField(choices=tipos_obra, max_length=20)
     direccion = models.CharField(max_length=150)
     latitud = models.DecimalField(max_digits=20, decimal_places=17)
