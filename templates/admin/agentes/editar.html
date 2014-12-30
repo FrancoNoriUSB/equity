@@ -23,8 +23,17 @@
 					{% bootstrap_field AgenteForm.nombre %}
 					{% bootstrap_field AgenteForm.correo %}
 					{% bootstrap_field AgenteForm.logo %}
-					{% bootstrap_field TelefonoAgenteForm.numero %}
-					{% bootstrap_field TelefonoAgenteForm.tipo %}
+					{{ TelefonoAgenteForm.management_form }}
+					{%for form in TelefonoAgenteForm%}
+						<strong>Tel&eacute;fono:</strong>
+						<br>
+						<br>
+						{% bootstrap_field form.numero %}
+						{% bootstrap_field form.tipo %}
+						{% for hidden in form.hidden_fields %}
+							{{ hidden }}
+						{% endfor %}
+					{%endfor%}
 					{% buttons %}
                         <button type="submit" class="btn btn-primary">
                             Guardar

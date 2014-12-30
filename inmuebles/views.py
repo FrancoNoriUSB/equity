@@ -567,19 +567,23 @@ def agentes_list(request, pais):
 def agentes_agregar(request, pais):
     
     agenteF = AgenteForm()
-    telefonoAgenteF = TelefonoAgenteForm()
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=2, max_num=2, form = TelefonoAgenteForm, can_delete = False)
+    telefonoAgenteF = telefonoFormSet()
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES)
-        telefonoAgenteF = TelefonoAgenteForm(request.POST)
+        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=1, max_num=2, form = TelefonoAgenteForm, can_delete = False)
+        telefonoAgenteF = telefonoFormSet(request.POST)
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agente = agenteF.save(commit=False)
-            telefono = telefonoAgenteF.save(commit=False)
             pais = Pais.objects.get(nombre=pais)
             agente.pais = pais
             agente.save()
-            telefono.agente = agente
-            telefono.save()
+
+            for form in telefonoAgenteF:
+                telefono = form.save(commit=False)
+                telefono.agente = agente
+                telefono.save()
 
             return HttpResponseRedirect('/'+str(pais)+'/admin/agentes/')
 
@@ -599,12 +603,13 @@ def agentes_editar(request, pais, id_agente):
     editado = ''
     agente = Agente.objects.get(id=id_agente)
     agenteF = AgenteForm(instance=agente)
-    telefono = TelefonoAgente.objects.get(agente=agente)
-    telefonoAgenteF = TelefonoAgenteForm(instance=telefono)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=1, max_num=2, form = TelefonoAgenteForm, can_delete = False)
+    telefonoAgenteF = telefonoFormSet(instance=agente)
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES, instance=agente)
-        telefonoAgenteF = TelefonoAgenteForm(request.POST, instance=telefono)
+        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=1, max_num=2, form = TelefonoAgenteForm, can_delete = False)
+        telefonoAgenteF = telefonoFormSet(request.POST, instance=agente)
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agenteF.save()
             telefonoAgenteF.save()
