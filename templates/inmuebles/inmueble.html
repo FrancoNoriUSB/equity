@@ -149,17 +149,17 @@
 								<strong>Direcci&oacute;n:</strong> {{inmueble.direccion}}<br>
 								<strong>Ciudad:</strong> {{inmueble.ciudad.nombre}}<br>
 								<strong>Zona:</strong> {{inmueble.zona.nombre}}<br>
+								<strong>Tipo de obra: </strong>{{inmueble.tipo_obra}}<br>
+								<strong>Fecha de entrega: </strong>{{inmueble.fecha_entrega}}<br>
 
-								{%for telefono in telefonosAgente%}
-									<strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
-								{%endfor%}
 							</p>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<p class="text-left">
 								<strong>Construye: </strong>{{inmueble.agente.nombre}}<br>
-								<strong>Tipo de obra: </strong>{{inmueble.tipo_obra}}<br>
-								<strong>Fecha de entrega: </strong>{{inmueble.fecha_entrega}}<br>
+								{%for telefono in telefonosAgente%}
+									<strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
+								{%endfor%}
 							</p>
 						</div>
 					</div>
@@ -210,16 +210,23 @@
 					</div>
 					<div class="caracteristicas row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
-							<strong>Caracter&iacute;sticas</strong>
+							<strong>Descripci&oacute;n:</strong>
 							<p class="text-justify">
 							{{inmueble.descripcion}}
+							</p>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<strong>&Aacute;reas Comunes:</strong>
+							<p class="text-justify">
+							{%for area in inmueble.areas_comunes.all%}
+							<span class="glyphicon glyphicon-ok"></span> {{area}}
+							{%endfor%}
 							</p>
 						</div>
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane fade" id="ubicacion">
 					<div class="row">
-						<div class="col-lg-2 col-md-2 col-sm-2"></div>
 						<div class="col-lg-8 col-md-8 col-sm-8">
 							<!-- Mapa de google maps -->
 							<div class="mapa" id="mapa">
@@ -227,7 +234,6 @@
 								<input type="hidden" id="lng" value='-66.8746169'>
 						    </div>
 						</div>
-						<div class="col-lg-2 col-md-2 col-sm-2"></div>
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane fade" id="contactar">

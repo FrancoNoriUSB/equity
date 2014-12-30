@@ -142,7 +142,7 @@ class Telefono(models.Model):
 # Modelo para los telefonos del agente
 class TelefonoAgente(Telefono):
 
-    tipo = models.CharField(max_length=20, choices=(('Celular','Celular'),('Local','Local')))
+    tipo = models.CharField(max_length=20, choices=(('Celular','Celular'),('Telefono','Teléfono')))
     agente = models.ForeignKey(Agente, related_name='telefonos')
 
     class Meta(Telefono.Meta):
@@ -230,7 +230,7 @@ class Modulo(models.Model):
     dormitorios = models.CharField(max_length=2)
     estacionamientos = models.CharField(max_length=2)
     precio = models.DecimalField(max_digits=25, decimal_places=5)
-    plano = models.ImageField(upload_to='uploads/planos/')
+    plano = models.ImageField(upload_to='uploads/planos/', null=True)
 
     #Claves foraneas
     inmueble = models.ForeignKey(Inmueble)
