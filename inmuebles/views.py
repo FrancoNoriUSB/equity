@@ -522,9 +522,10 @@ def inmuebles_imagenes(request, pais, id_inmueble):
 
     if request.POST:
         inmuebleF = ImagenFormset(request.POST, request.FILES, instance=inmueble)
-        if inmuebleF.is_valid():
-            inmuebleF.save()
-            print 'agrego'
+        for form in inmuebleF:
+            if form.is_valid():
+                form.save()
+                print 'agrego'
 
     inmuebleF = ImagenFormset(instance=inmueble)
 
