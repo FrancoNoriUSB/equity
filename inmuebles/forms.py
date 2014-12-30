@@ -74,9 +74,15 @@ class InmuebleForm(forms.ModelForm):
         }
         exclude = ['tipo', 'pais', 'fecha_expiracion']
 
-ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, extra=1, can_delete=True, fields=['imagen', 'descripcion'])
-CampoFormset = inlineformset_factory(Inmueble, ValorCampoInmueble, extra=1, can_delete=True, fields=['campo', 'valor'])
 
+#Formulario de imagenes de inmuebles
+class ImagenInmuebleForm(forms.ModelForm):
+    class Meta:
+        model = ImagenInmueble
+        exclude = ['inmueble']
+
+#Formset de imagen
+ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, form = ImagenInmuebleForm, can_delete=True, fields=['imagen', 'descripcion'])
 
 #Formulario de registro simple de usuario
 class UserForm(forms.ModelForm):

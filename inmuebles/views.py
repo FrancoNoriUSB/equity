@@ -323,7 +323,7 @@ class Publicar(CreateView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        tipo = get_object_or_404(TipoInmueble, nombre=kwargs["tipo"])
+        tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
                                                               ValorCampoTipoInmueble,
@@ -347,7 +347,7 @@ class Publicar(CreateView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        tipo = get_object_or_404(TipoInmueble, nombre=kwargs["tipo"])
+        tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
                                                               ValorCampoTipoInmueble,
@@ -518,6 +518,7 @@ def inmuebles_imagenes(request, pais, id_inmueble):
 
     editado = ''
     inmueble = Inmueble.objects.get(id=id_inmueble)
+    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
     inmuebleF = ImagenFormset(instance=inmueble)
 
     if request.POST:
@@ -525,8 +526,7 @@ def inmuebles_imagenes(request, pais, id_inmueble):
         for form in inmuebleF:
             if form.is_valid():
                 form.save()
-                print 'agrego'
-
+                
     inmuebleF = ImagenFormset(instance=inmueble)
 
     ctx = {
