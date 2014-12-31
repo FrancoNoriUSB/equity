@@ -15,6 +15,7 @@
 				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
 				{% csrf_token %}
 					{% bootstrap_field MonedaForm.nombre %}
+					{% bootstrap_field MonedaForm.simbolo %}
 					{% bootstrap_field MonedaForm.tasa %}
 					{% buttons %}
                         <button type="submit" class="btn btn-primary">

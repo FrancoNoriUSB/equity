@@ -11,17 +11,15 @@
           <div class="panel-body">
             Monedas
             <ul class="list-group">
-                {%for moneda in monedas%}
-                    <li class="list-group-item">
-                        <a href="">Nombre: {{moneda.nombre}}</a>
-                        <a href="eliminar/{{moneda.id}}/" class="eliminar">
-                          Eliminar<span class="glyphicon glyphicon-trash"></span>
-                        </a>
-                        <a href="editar/{{moneda.id}}/" class="editar">
-                          Editar<span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                    </li>
-                {%endfor%}
+                <li class="list-group-item">
+                    <a href="">Nombre: {{moneda.nombre}}</a>
+                    <a href="eliminar/{{moneda.id}}/" class="eliminar">
+                      Eliminar<span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    <a href="editar/{{moneda.id}}/" class="editar">
+                      Editar<span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                </li>
             </ul>
           </div>
         </div>

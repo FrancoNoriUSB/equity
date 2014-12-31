@@ -156,7 +156,7 @@ def inmueble(request, codigo, pais):
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
 
     #Moneda
-    moneda = Moneda.objects.filter(pais__nombre=pais)
+    moneda = Moneda.objects.get(pais__nombre=pais)
 
     #Banners del home
     banners = Banner.objects.filter(pais__nombre=pais)
@@ -766,11 +766,11 @@ def zonas_eliminar(request, pais, id_zona):
 @login_required
 def monedas_list(request, pais):
     
-    monedas = Moneda.objects.all()
+    moneda = Moneda.objects.get(pais__nombre=pais)
     nombre_pais = dict(countries)[pais]
 
     ctx = {
-        'monedas':monedas,
+        'moneda':moneda,
         'pais':pais,
         'nombre_pais':nombre_pais,
     }
