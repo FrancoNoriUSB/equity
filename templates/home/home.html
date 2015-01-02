@@ -3,6 +3,8 @@
 
 {% load staticfiles %}
 
+{% load mathfilters %}
+
 <!-- Bloque para scripts que se cargan en la plantilla base -->
 {% block scripts %}
 
@@ -115,7 +117,7 @@
                                     {%endif%}
                                 {%endfor%}
             				</div>
-            				<div class="descripcion col-lg-4">
+            				<div class="descripcion col-lg-5">
             					<strong>
             						<a class="text-uppercase" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
             							{{inmueble.titulo}}
@@ -129,15 +131,18 @@
                                     {{inmueble.zona.nombre}}
             						<br/>
                                     <br/>
-            						C&oacute;digo: {{inmueble.codigo}} 
+            						C&oacute;digo: {{inmueble.codigo}}
+                                    <br>
+                                    {%for modulo in inmueble.modulo_set.all|slice:":1"%}
+                                        Desde: {{modulo.metros}} mts; {{modulo.precio}} / {{ modulo.precio|mul:moneda.tasa|floatformat}} USD
+                                    {%endfor%}
             					</p>
             				</div>
-            				<div class="varios col-lg-3 col-lg-offset-1">
+            				<div class="varios col-lg-3">
             					<img class="img-responsive" src="{{inmueble.logo.url}}" alt="">
                                 <p class="text-right">{{inmueble.tipo_obra}}</p>
                                 <p class="text-right">
                 					<a class="ver" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">Ver</a>
-                					<a class="comparar" href="">Comparar</a>
                 					<a class="favoritos" href="">Favoritos</a>
                                 </p>
             				</div>

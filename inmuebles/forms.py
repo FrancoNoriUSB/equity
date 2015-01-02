@@ -53,7 +53,7 @@ class BuscadorForm(forms.Form):
 class ContactoAgenteForm(forms.Form):
 
     nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre y Apellido','class': "form-control"}))
-    correo = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Correo','class': "form-control"}))
+    correo = forms.CharField(max_length=50, widget=forms.EmailInput(attrs={'placeholder': 'Correo','class': "form-control"}))
     telefonos = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Teléfonos','class': "form-control"}))
     comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder': 'comentarios','class': "form-control"}))
 

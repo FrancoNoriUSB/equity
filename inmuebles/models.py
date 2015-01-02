@@ -142,7 +142,7 @@ class Telefono(models.Model):
 # Modelo para los telefonos del agente
 class TelefonoAgente(Telefono):
 
-    tipo = models.CharField(max_length=20, choices=(('Celular','Celular'),('Teléfono','Telefono')))
+    tipo = models.CharField(max_length=20, choices=(('Celular','Celular'),( u'Teléfono', u'Teléfono')))
     agente = models.ForeignKey(Agente, related_name='telefonos')
 
     class Meta(Telefono.Meta):
@@ -181,7 +181,7 @@ class Inmueble(models.Model):
     tipos_obra = (
         ('Pre-venta', 'Pre-venta'),
         (u'En Construcción', u'En Construcción'),
-        ('Listo Por entregar', 'Listo Por Entregar'),
+        ('Listo Por Entregar', 'Listo Por Entregar'),
     )
 
     titulo = models.CharField(max_length=100)
@@ -229,13 +229,14 @@ class Modulo(models.Model):
     banos = models.CharField(max_length=2)
     dormitorios = models.CharField(max_length=2)
     estacionamientos = models.CharField(max_length=2)
-    precio = models.DecimalField(max_digits=25, decimal_places=5)
+    precio = models.DecimalField(max_digits=25, decimal_places=2)
     plano = models.ImageField(upload_to='uploads/planos/', null=True)
 
     #Claves foraneas
     inmueble = models.ForeignKey(Inmueble)
 
     class Meta:
+        ordering = ('precio',)
         verbose_name = "Modulo"
         verbose_name_plural = "Modulos"
 
@@ -247,7 +248,7 @@ class Modulo(models.Model):
 class Moneda(models.Model):
     nombre = models.CharField(max_length=20)
     simbolo = models.CharField(max_length=10)
-    tasa = models.DecimalField(max_digits=20, decimal_places=4)
+    tasa = models.DecimalField(max_digits=20, decimal_places=2)
 
     #Claves foraneas
     pais = models.OneToOneField(Pais)

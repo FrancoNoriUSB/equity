@@ -55,6 +55,9 @@ def home(request, pais):
 
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
 
+    #Moneda nacional
+    moneda = Moneda.objects.get(pais__nombre=pais)
+
     if request.GET:
         buscadorF = BuscadorForm(request.GET)
         #Caso para el buscador de inmuebles
@@ -97,13 +100,9 @@ def home(request, pais):
                 values_list.append(zona)
                 values_list.append(tipo)
 
-                print orden
-
                 operator = 'and'
 
                 inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden)
-
-                print inmuebles_list
 
     #Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, 6)
@@ -121,6 +120,7 @@ def home(request, pais):
     ctx = {
         'buscadorF': buscadorF,
         'paisesF': paisesF,
+        'moneda': moneda,
         'pais': pais,
         'inmuebles': inmuebles,
         'imagenes': imagenes,
@@ -143,7 +143,7 @@ def inmueble(request, codigo, pais):
     inmueble = get_object_or_404(Inmueble, codigo=codigo)
     
     #Modulos
-    modulos = Modulo.objects.filter(inmueble=inmueble)
+    modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
 
     #Agente
     agente = inmueble.agente
@@ -309,6 +309,7 @@ class Publicar(CreateView):
         'latitud': forms.HiddenInput(),
         'longitud': forms.HiddenInput()
     }
+
     fields = ['titulo',
               'codigo',
               'descripcion',
@@ -327,6 +328,9 @@ class Publicar(CreateView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+        form.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=kwargs["pais"]))
+        form.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=kwargs["pais"]))
+        form.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=kwargs["pais"]))
         tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
@@ -342,6 +346,9 @@ class Publicar(CreateView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+        form.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=kwargs["pais"]))
+        form.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=kwargs["pais"]))
+        form.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=kwargs["pais"]))
         tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
@@ -432,7 +439,7 @@ class EditarModulo(UpdateView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         tasa = Moneda.objects.get(pais__nombre=kwargs["pais"])
-        self.object.precio = self.object.precio * tasa.tasa
+        self.object.precio = self.object.precio
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         inm = get_object_or_404(Inmueble, id=kwargs['id_inmueble'])
@@ -451,7 +458,7 @@ class EditarModulo(UpdateView):
 
     def form_valid(self, form, pais, id_inmueble):
         tasa = Moneda.objects.get(pais__nombre=pais)
-        self.object.precio = int(self.object.precio) / tasa.tasa
+        self.object.precio = int(self.object.precio)
         self.object.inmueble = Inmueble.objects.get(id=id_inmueble)
         self.object.save()
         return redirect('inmuebles:detalle', pais=pais, id_inmueble=id_inmueble)
@@ -549,7 +556,7 @@ def agentes_list(request, pais):
 def agentes_agregar(request, pais):
     
     agenteF = AgenteForm()
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=2, max_num=2, form = TelefonoAgenteForm, can_delete = False)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = False)
     telefonoAgenteF = telefonoFormSet()
 
     if request.POST:
@@ -562,8 +569,16 @@ def agentes_agregar(request, pais):
             agente.pais = pais
             agente.save()
 
+            #Verificacion de telefonos del agente
             for form in telefonoAgenteF:
-                if form.cleaned_data['numero'] != '':
+
+                #Verificar que se llenaron los numeros
+                try:
+                    numero  = form.cleaned_data['numero']
+                except:
+                    numero = ''
+
+                if numero != '':
                     telefono = form.save(commit=False)
                     telefono.agente = agente
                     telefono.save()
