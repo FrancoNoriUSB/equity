@@ -56,7 +56,10 @@ def home(request, pais):
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
 
     #Moneda nacional
-    moneda = Moneda.objects.get(pais__nombre=pais)
+    try:
+        moneda = Moneda.objects.get(pais__nombre=pais)
+    except:
+        moneda = ''
 
     if request.GET:
         buscadorF = BuscadorForm(request.GET)
@@ -117,6 +120,9 @@ def home(request, pais):
         # If page is out of range (e.g. 9999), deliver last page of results.
         inmuebles = paginator.page(paginator.num_pages)
 
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
+
     ctx = {
         'buscadorF': buscadorF,
         'paisesF': paisesF,
@@ -156,7 +162,10 @@ def inmueble(request, codigo, pais):
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
 
     #Moneda
-    moneda = Moneda.objects.get(pais__nombre=pais)
+    try:
+        moneda = Moneda.objects.get(pais__nombre=pais)
+    except:
+        moneda = ''
 
     #Banners del home
     banners = Banner.objects.filter(pais__nombre=pais)
@@ -305,9 +314,10 @@ class Publicar(CreateView):
     template_name = 'admin/inmuebles/publicar.html'
     model = Inmueble
     form = InmuebleForm
+    # areacomunF = AreaComunForm()
     widgets = {
         'latitud': forms.HiddenInput(),
-        'longitud': forms.HiddenInput()
+        'longitud': forms.HiddenInput(),
     }
 
     fields = ['titulo',
@@ -328,9 +338,11 @@ class Publicar(CreateView):
         self.object = None
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+        areacomunF = AreaComunForm()
         form.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=kwargs["pais"]))
+        form.fields['areas_comunes'] = forms.ModelMultipleChoiceField(AreaComun.objects.all(), widget=forms.CheckboxSelectMultiple())
         tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
@@ -349,6 +361,7 @@ class Publicar(CreateView):
         form.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=kwargs["pais"]))
+        form.fields['areas_comunes'] = forms.ModelMultipleChoiceField(AreaComun.objects.all(), widget=forms.CheckboxSelectMultiple())
         tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
@@ -556,12 +569,12 @@ def agentes_list(request, pais):
 def agentes_agregar(request, pais):
     
     agenteF = AgenteForm()
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = False)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
     telefonoAgenteF = telefonoFormSet()
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES)
-        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=1, max_num=2, form = TelefonoAgenteForm, can_delete = False)
+        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
         telefonoAgenteF = telefonoFormSet(request.POST)
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agente = agenteF.save(commit=False)
@@ -601,17 +614,20 @@ def agentes_editar(request, pais, id_agente):
     editado = ''
     agente = Agente.objects.get(id=id_agente)
     agenteF = AgenteForm(instance=agente)
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=1, max_num=2, form = TelefonoAgenteForm, can_delete = False)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
     telefonoAgenteF = telefonoFormSet(instance=agente)
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES, instance=agente)
-        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=1, max_num=2, form = TelefonoAgenteForm, can_delete = False)
+        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
         telefonoAgenteF = telefonoFormSet(request.POST, instance=agente)
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agenteF.save()
             telefonoAgenteF.save()
             editado = True
+
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
+    telefonoAgenteF = telefonoFormSet(instance=agente)
 
     ctx = {
         'AgenteForm':agenteF,
@@ -781,7 +797,11 @@ def zonas_eliminar(request, pais, id_zona):
 @login_required
 def monedas_list(request, pais):
     
-    moneda = Moneda.objects.get(pais__nombre=pais)
+    try:
+        moneda = Moneda.objects.get(pais__nombre=pais)
+    except:
+        moneda = ''
+
     nombre_pais = dict(countries)[pais]
 
     ctx = {

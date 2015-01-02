@@ -2,6 +2,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load mathfilters %}
+{% load humanize %}
 <!-- Bloque para scripts que se cargan en la plantilla base -->
 {% block scripts %}
 
@@ -40,7 +41,7 @@
 					<span class="glyphicon glyphicon-star-empty"></span> Favoritos
 				</a>
 				<br>
-				<a class="imprimir" href="" onclick="">
+				<a class="imprimir" href="" onclick="Imprimir()">
 					<span class="glyphicon glyphicon-print"></span> Imprimir
 				</a>
 				<br>
@@ -173,7 +174,7 @@
 								<td class="text-center">{{modulo.dormitorios}}</td>
 								<td class="text-center">{{modulo.banos}}</td>
 								<td class="text-center">{{modulo.estacionamientos}}</td>
-								<td class="text-center">{%if moneda.tasa != None%}{{ modulo.precio|mul:moneda.tasa|floatformat}}{%else%}Conversion no disponible{%endif%} / {{modulo.precio|floatformat}}</td>
+								<td class="text-center">{%if moneda.tasa != None%}{{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}}{%else%}Conversion no disponible{%endif%} / {{modulo.precio|floatformat|intcomma}}</td>
 								<td class="text-center">
 									<!-- Button trigger modal -->
 									<a href="" type="button" class="" data-toggle="modal" data-target="#{{modulo.tipo}}Modal">
@@ -334,11 +335,19 @@ $('#myCarousel').on('slid', function (e) {
 
 <!-- Codigo de facebook -->
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+(function(d, s, id) {
 	var js, fjs = d.getElementsByTagName(s)[0];
 	if (d.getElementById(id)) return;
 	js = d.createElement(s); js.id = id;
 	js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=260585997287170&version=v2.0";
 	fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+function Imprimir() {
+    window.print();
+}
+</script>
 {%endblock js%}

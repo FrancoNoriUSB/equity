@@ -119,6 +119,7 @@ class Agente(models.Model):
     pais = models.ForeignKey(Pais)
 
     class Meta:
+        ordering = ('nombre',)
         verbose_name = "Agente"
         verbose_name_plural = "Agentes"
 

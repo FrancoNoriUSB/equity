@@ -149,3 +149,15 @@ class MonedaForm(forms.ModelForm):
             'nombre': forms.TextInput(),
         }
         exclude = ['pais']
+
+#Formulario de areas comunes
+class AreaComunForm(forms.ModelForm):
+    class Meta:
+        model = AreaComun
+        widgets = {
+            'nombre': forms.TextInput(),
+        }
+        fields = ['nombre',]
+        labels = {
+            'nombre': 'Otra área común',
+        }
