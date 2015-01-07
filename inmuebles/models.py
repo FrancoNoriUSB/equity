@@ -182,7 +182,7 @@ class Inmueble(models.Model):
     tipos_obra = (
         ('Pre-venta', 'Pre-venta'),
         (u'En Construcción', u'En Construcción'),
-        ('Listo Por Entregar', 'Listo Por Entregar'),
+        ('Listo Para Entregar', 'Listo Para Entregar'),
     )
 
     titulo = models.CharField(max_length=100)

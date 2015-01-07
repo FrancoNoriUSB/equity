@@ -87,6 +87,7 @@ def home(request, pais):
 
                 #Campos a buscar
                 fields_list = []
+                fields_list.append('pais')
                 fields_list.append('ciudad')
                 fields_list.append('zona')
                 fields_list.append('tipo')
@@ -96,9 +97,11 @@ def home(request, pais):
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
+                types_list.append('nombre__exact')
 
                 #Valores a buscar
                 values_list=[]
+                values_list.append(pais)
                 values_list.append(ciudad)
                 values_list.append(zona)
                 values_list.append(tipo)

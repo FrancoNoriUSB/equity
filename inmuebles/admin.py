@@ -58,21 +58,6 @@ class TelefonoAgenteAdmin(admin.ModelAdmin):
     list_display = ['agente']
 
 
-class CampoTipoInmuebleAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'tipo', 'tipo_inmueble')
-
-
-class CampoInmuebleAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'tipo')
-
-
-class ValorCampoTipoInmuebleAdmin(admin.ModelAdmin):
-    list_display = ('valor', 'campo', 'inmueble')
-
-
-class ValorCampoInmuebleAdmin(admin.ModelAdmin):
-    list_display = ('valor', 'campo', 'inmueble')
-
 admin.site.register(Inmueble, InmuebleAdmin)
 admin.site.register(Agente, AgenteAdmin)
 admin.site.register(ImagenInmueble, ImagenInmuebleAdmin)
@@ -81,10 +66,6 @@ admin.site.register(TelefonoAgente, TelefonoAgenteAdmin)
 admin.site.register(TipoInmueble, TipoInmuebleAdmin)
 admin.site.register(Ciudad, CiudadAdmin)
 admin.site.register(Zona, ZonaAdmin)
-admin.site.register(ValorCampoTipoInmueble, ValorCampoTipoInmuebleAdmin)
-admin.site.register(ValorCampoInmueble, ValorCampoInmuebleAdmin)
-admin.site.register(CampoTipoInmueble, CampoTipoInmuebleAdmin)
-admin.site.register(CampoInmueble, CampoInmuebleAdmin)
 admin.site.register(Moneda)
 admin.site.register(AreaComun)
 admin.site.register(Slide)
