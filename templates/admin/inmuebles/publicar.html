@@ -98,7 +98,7 @@ function cargar_zonas(){
         });
     } else {
         elem_zonas.empty();
-        elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
+        elem_zonas.append('<option value="" selected="selected"> -----</option>');
     }
 }
 $(document).on('change', '#id_ciudad', cargar_zonas);
