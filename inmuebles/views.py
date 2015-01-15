@@ -22,7 +22,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 from django import forms
 from django.core.urlresolvers import reverse
-
+import json
 
 # Vista del index o home
 def index(request):
@@ -49,6 +49,8 @@ def home(request, pais):
     paisesF = PaisesForm(initial={
         'pais': pais,
     })
+
+    zonas = {}
 
     #Imagenes del slider
     imagenes = Slide.objects.filter(pais__nombre=pais)
@@ -126,6 +128,10 @@ def home(request, pais):
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
+    for ciudad in Ciudad.objects.filter(pais__nombre=pais):
+        zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+    zonas = json.dumps(zonas)
+
     ctx = {
         'buscadorF': buscadorF,
         'paisesF': paisesF,
@@ -133,6 +139,7 @@ def home(request, pais):
         'pais': pais,
         'inmuebles': inmuebles,
         'imagenes': imagenes,
+        'zonas': zonas
     }
 
     return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
@@ -339,6 +346,7 @@ class Publicar(CreateView):
 
     def get(self, request, *args, **kwargs):
         self.object = None
+        zonas = {}
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         areacomunF = AreaComunForm()
@@ -348,6 +356,11 @@ class Publicar(CreateView):
         form.fields['areas_comunes'] = forms.ModelMultipleChoiceField(AreaComun.objects.all(), widget=forms.CheckboxSelectMultiple())
         tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
+
+        for ciudad in Ciudad.objects.filter(pais__nombre=kwargs["pais"]):
+            zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+        zonas = json.dumps(zonas)
+
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
                                                               ValorCampoTipoInmueble,
                                                               extra=campos.count(),
@@ -355,10 +368,11 @@ class Publicar(CreateView):
                                                               min_num=campos.count(),
                                                               max_num=campos.count(),
                                                               fields=['campo', 'valor'])
-        return self.render_to_response(self.get_context_data(form=form, pais=kwargs["pais"]))
+        return self.render_to_response(self.get_context_data(form=form, pais=kwargs["pais"], zonas=zonas))
 
     def post(self, request, *args, **kwargs):
         self.object = None
+        zonas = {}
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         form.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=kwargs["pais"]))
@@ -367,6 +381,10 @@ class Publicar(CreateView):
         form.fields['areas_comunes'] = forms.ModelMultipleChoiceField(AreaComun.objects.all(), widget=forms.CheckboxSelectMultiple())
         tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
+        for ciudad in Ciudad.objects.filter(pais__nombre=kwargs["pais"]):
+            zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+        zonas = json.dumps(zonas)
+
         ValorCampoTipoInmuebleFormset = inlineformset_factory(Inmueble,
                                                               ValorCampoTipoInmueble,
                                                               extra=campos.count(),
@@ -378,7 +396,7 @@ class Publicar(CreateView):
         if form.is_valid():
             return self.form_valid(form, tipo, kwargs["pais"])
         else:
-            return self.form_invalid(form, kwargs["pais"])
+            return self.form_invalid(form, zonas, kwargs["pais"])
 
     def form_valid(self, form, tipo, pais):
         self.object = form.save(commit=False)
@@ -388,9 +406,9 @@ class Publicar(CreateView):
         self.object.save()
         return redirect('inmuebles:listar_inmuebles', pais=pais)
 
-    def form_invalid(self, form,  pais):
+    def form_invalid(self, form, zonas, pais):
         return self.render_to_response(
-            self.get_context_data(form=form, pais=pais))
+            self.get_context_data(form=form, pais=pais, zonas=zonas))
 
 
 #Vista para publicar el inmueble

@@ -7,3 +7,4 @@ django-countries
 bootstrap-admin
 django-widget-tweaks
 django-bootstrap3
+django-mathfilters
