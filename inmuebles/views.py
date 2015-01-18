@@ -53,6 +53,7 @@ def home(request, pais):
     #Imagenes del slider
     imagenes = Slide.objects.filter(pais__nombre=pais)
 
+    #Lista inmuebles por pagina
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
 
     #Moneda nacional
@@ -63,6 +64,7 @@ def home(request, pais):
 
     if request.GET:
         buscadorF = BuscadorForm(request.GET)
+        
         #Caso para el buscador de inmuebles
         if buscadorF.is_valid():
             ciudad = buscadorF.cleaned_data['ciudad']
