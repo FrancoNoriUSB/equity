@@ -180,6 +180,28 @@
 {% endblock content %}
 
 <!-- Seccion donde se carga el JS -->
-{%block js%}
+{% block js %}
+<script type="text/javascript">
+var zonas = {{ zonas|safe }};
 
-{%endblock js%}
+function cargar_zonas(){
+    var ciudad = $('#id_ciudad');
+    var elem_zonas = $('#id_zona');
+
+    ciudad = ciudad.val();
+
+    if (ciudad != ""){
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
+        $.each(zonas[ciudad], function(i, zona){
+            console.log(zona);
+            elem_zonas.append('<option value="'+ i +'">' + zona + '</option>')
+        });
+    } else {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
+    }
+}
+$(document).on('change', '#id_ciudad', cargar_zonas);
+</script>
+{% endblock js %}

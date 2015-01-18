@@ -72,7 +72,7 @@
 
 {% block js %}
 <!-- Mapa de google maps -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
 <script src="{% static 'files/js/jquery.formset.js' %}"></script>
 <script src="{% static 'files/js/jquery-ui.min.js' %}"></script>
 <script>
@@ -80,6 +80,29 @@
     $( "#id_fecha_entrega" ).datepicker({ dateFormat: 'dd/mm/yy' });
   });
   </script>
+<script type="text/javascript">
+var zonas = {{ zonas|safe }};
+
+function cargar_zonas(){
+    var ciudad = $('#id_ciudad');
+    var elem_zonas = $('#id_zona');
+
+    ciudad = ciudad.val();
+
+    if (ciudad != ""){
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> -----</option>');
+        $.each(zonas[ciudad], function(i, zona){
+            console.log(zona);
+            elem_zonas.append('<option value="'+ i +'">' + zona + '</option>')
+        });
+    } else {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected"> -----</option>');
+    }
+}
+$(document).on('change', '#id_ciudad', cargar_zonas);
+</script>
 <script type="text/javascript">
 //     $(function() {
 //         $('.campo-formset').formset({
