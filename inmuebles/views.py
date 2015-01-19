@@ -66,7 +66,7 @@ def home(request, pais):
 
     if request.GET:
         buscadorF = BuscadorForm(request.GET)
-        
+        print buscadorF
         #Caso para el buscador de inmuebles
         if buscadorF.is_valid():
             ciudad = buscadorF.cleaned_data['ciudad']
@@ -76,6 +76,8 @@ def home(request, pais):
             orden = buscadorF.cleaned_data['orden']
             codigo = buscadorF.cleaned_data['codigo']
             palabra = buscadorF.cleaned_data['palabra']
+
+            print ciudad, zona, tipo
 
             #Caso de busqueda por codigo
             if codigo != '':
