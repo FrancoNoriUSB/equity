@@ -3,6 +3,8 @@
   Azul Claro:#0095d9;
   Gris:#4f4e4e;
   Azul Oscuro:#1a2e51;
+  Marron Oscuro:#33302e;
+  Marron Claro:#473d36;
 */
 
 /*Estilos de la barra superior de la base*/
@@ -33,7 +35,6 @@ body > div.container-fluid > div > div > form > div > div > button{
 	border-width: 0px;
 }
 
-
 body > div.container-fluid > div > div > form > div > div > button:hover{
 	background-color: transparent;
 	background-image: linear-gradient(to bottom,#FFFFFF 0,#FFFFFF 100%);
@@ -41,6 +42,18 @@ body > div.container-fluid > div > div > form > div > div > button:hover{
 
 body > div.container-fluid > div > div > form > div > div > button > span{
 	color: #000000 !important;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
+	width: 88%;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(8){
+	width: 25%;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(8) > form > div > div{
+	width: 67%;
 }
 
 body > header > nav > div > div > div > div.navbar-header > div > a{
@@ -52,12 +65,22 @@ body > header > nav > div > div > div > div.navbar-header > div > a:hover{
 	text-decoration: none;
 }
 
+body > header > div > div > div{
+	padding-bottom: 0.6%;
+	padding-top: 0.6%;
+}
+
 body{
 	background-color: #FFFFFF;
 }
 
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a{
 	color: #FFFFFF;
+}
+
+body > header > div > div > div > img{
+	margin-left: 32%;
+	position: absolute;
 }
 
 body > header > div.container-fluid{
@@ -80,14 +103,8 @@ body > header > div > div > div.centering{
     margin: 0 auto;
 }
 
-body > header > div > div > div > img.logo-equity{
-	height: 90px;
-	float: left;
-}
-
-body > header > div > div > div.col-lg-8.col-md-12.col-sm-12 > img.grafico-izquierdo{
-	height: 90px;
-	float: right;
+body > header > div > div > div > img{
+	float:right;
 }
 
 body > header > div.logo > div > div{
@@ -130,39 +147,108 @@ body > div.contenido{
 
 
 /*Estilos de la barra inferior de la base*/
-body > footer > div{
-	background-color: #1a2e51;
+
+body > footer > div.container.primario{
+	background-color: #33302e;
+	padding-left: 5%;
+	padding-right: 5%;
 }
 
-body > footer > div > div.pre-footer > div{
-	padding:2% 0% 2% 15%;
+body > footer > div.container.primario > div.row.paises{
+	padding-top: 4%;
+	padding-bottom: 1%;
+	border-bottom-color: white;
+	border-bottom-style: solid;
+	border-bottom-width: 4px;
 }
 
-body > footer > div > div.pre-footer > div > a{
+body > footer > div.container.primario > div.row.paises > div > ul > li > a > strong,
+body > footer > div.container.primario > div.row.paises > div > ul > li > abbr{
 	color: white;
 }
 
-body > footer > div > div.pre-footer > div > a:hover{
-	text-decoration: none;
+body > footer > div.container.primario > div.row.paises > div > ul > li{
+	line-height: 0.7;
 }
 
-footer .navbar{
-	background: #FFFFFF;	
+body > footer > div.container.primario > div.row.paises > div:nth-child(1),
+body > footer > div.container.primario > div.row.paises > div:nth-child(1) > ul:nth-child(1){
+	float: left;
 }
 
-body > footer > nav{
-	margin-bottom: 0px !important;
+body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li > a > img{
+	float: right;
 }
 
-body > footer > nav > div > div > div > div.collapse.navbar-collapse.navFooterCollapse.navfooter > ul > li > a, p{
-	color: #4f4e4e;
+body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li > a > h4{
+	float: left;
 }
 
-body > footer > nav > div > div > ul{
-	margin-left: auto !important;
-	margin-right: auto !important;
-	display: table !important;
-	float: none !important;
+body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(1) > a > h4{
+	margin-left: 44px;
+}
+
+body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(2) > a > h4{
+	margin-top:18px;
+}
+
+body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(3) > a > h4{
+	margin-left: 30px;
+}
+
+body > footer > div.container.primario > div.row.paises > div:nth-child(1) > ul:nth-child(2){
+	float: left;
+	margin-left: 15%;
+}
+
+body > footer > div.container.primario > div.row.paises > div:nth-child(2){
+	float: right;
+}
+
+body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul{
+	float: right;
+}
+
+body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li > a > h4 > strong{
+	color: white;
+}
+
+body > footer > div.container.primario > div.row.redes{
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+
+body > footer > div.container.primario > div.row.redes > div{
+	text-align: center;
+}
+
+body > footer > div.container.secundario{
+	background-color: #473d36;
+}
+
+body > footer > div.container.secundario > div > div > form > div > label > h5{
+	color:white;
+}
+
+body > footer > div.container.secundario > div > div{
+	padding-top: 2%;
+	padding-bottom: 2%;
+	padding-left: 25%;
+	padding-right: 25%;
 }
 
 /*Estilos de Bootstrap*/
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(8) > form > div > div > button{
+	background-image: -webkit-linear-gradient(white 0%, white 100%)!important;
+	background-image: -o-linear-gradient(white 0%, white 100%)!important;
+	background-image: linear-gradient(white 0%, white 100%)!important;	
+	background-color: #fff !important;
+	border-color: #ccc !important;
+	border-left-color: #fff !important;
+	border-radius: 3px;
+	margin-left: -5px;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(8) > form > div > div > button > span{
+	color: black;
+}

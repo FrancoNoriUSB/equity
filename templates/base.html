@@ -86,6 +86,19 @@
                                     <li>
                                         <a href="/{{pais}}/admin/login/">Login</a>
                                     </li>
+                                    <li>
+                                        <form class="navbar-form navbar-right" role="form" action="/{{pais}}/" method="GET">
+                                            {% csrf_token %}
+                                            <div class="form-group inner-addon right-addon">
+                                                <div class="input-group-btn">
+                                                {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
+                                                    <button class="btn btn-primary" id="">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -99,49 +112,12 @@
                         <a href="/{{pais}}/">
                             <img class="text-center" src="{% static 'files/img/logo-blanco.png' %}" alt="">
                         </a>
+                        <img class="text-center" src="{% static 'files/img/revista.png' %}" alt="">
                     </div>
                 </div>
             </div>
         </header>
 
-        <!-- Barra de busqueda -->
-        <div class="container-fluid">
-            <div class="busqueda row">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <form class="form-inline" role="form" action="/{{pais}}/" method="GET">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            {% render_field buscadorF.ciudad class="form-control"%}
-                        </div>
-                        <div class="form-group">
-                            {% render_field buscadorF.zona class="form-control"%}
-                        </div>
-                        <div class="form-group">
-                            {% render_field buscadorF.tipo class="form-control"%}
-                        </div>
-                        <div class="form-group">
-                            {% render_field buscadorF.orden class="form-control"%}
-                        </div>
-                        <div class="form-group inner-addon right-addon">
-                            <div class="input-group-btn">
-                            {% render_field buscadorF.codigo class="form-control" placeholder="Código"%}
-                                <button class="btn btn-primary" id="">
-                                    <span class="glyphicon glyphicon-arrow-down"></span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-group inner-addon right-addon">
-                            <div class="input-group-btn">
-                            {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
-                                <button class="btn btn-primary" id="">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
         {% endblock header %}
         
         <!-- Header del home -->
@@ -163,73 +139,108 @@
         <!-- Footer de la página -->
         {% block footer %}
         <footer>
-            <div class="container">
-                <div class="pre-footer row">
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <a href="">
-                            <img src="{% static 'files/img/leanos.png' %}" alt="">
-                            <strong>L&eacute;anos</strong>
-                        </a>
+            <!--Footer principal-->
+            <div class="container primario">
+                <div class="row paises">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <ul class="media-list">
+                            <li class="media">
+                                <a href="/CO/"><strong>Colombia, Cali</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/CO/"><strong>Colombia, Bogot&aacute;</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/CR/"><strong>Costa Rica</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/US/"><strong>EEUU, Miami</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/MX/"><strong>M&eacute;xico, DF.</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/PA/"><strong>Panam&aacute;, Ciudad de Panam&aacute;</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/VE/"><strong>Venezuela, Caracas</strong></a>
+                            </li>
+                        </ul> 
+                        <ul class="media-list">
+                            <li class="media">
+                                <abbr title="Teléfono">(+57)-2-891.24.15</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">(+57)-1-486.49.14</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">506-40.00.19.67</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Phone">(+1)-305-770.61.42</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">(+52)-55-47.77.28.87</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">507-833.69.96</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">(+58)-212-710.21.34</abbr>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <a href="">
-                            <img src="{% static 'files/img/consultenos.png' %}" alt="">
-                            <strong>Conls&uacute;ltenos</strong>
-                        </a>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <ul class="media-list">
+                            <li class="media">
+                                <a href="">
+                                    <h4><strong>L&eacute;anos</strong></h4>
+                                    <img src="{% static 'files/img/leanos.png' %}" alt="">
+                                    
+                                </a>
+                            </li>
+                            <li class="media">
+                               <a href="">
+                                    <h4><strong>Conls&uacute;ltenos</strong></h4>
+                                    <img src="{% static 'files/img/consultenos.png' %}" alt="">
+                                </a>
+                            </li>
+                            <li class="media">
+                                <a href="">
+                                    <h4><strong>Ll&aacute;menos</strong></h4>
+                                    <img src="{% static 'files/img/llamenos.png' %}" alt="">
+                                </a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <a href="">
-                            <img src="{% static 'files/img/llamenos.png' %}" alt="">
-                            <strong>Ll&aacute;menos</strong>
-                        </a>
+                </div>
+                <div class="row redes">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-6 col-sm-offset-0 col-xs-offset-0">
+                        <img class="correo" src="{% static 'files/img/correo.png' %}" alt="">
+                        <img class="fb" src="{% static 'files/img/fb.png' %}" alt="">
+                        <img class="tw" src="{% static 'files/img/tw.png' %}" alt="">
+                        <img class="g+" src="{% static 'files/img/g+.png' %}" alt="">
+                        <img class="yt" src="{% static 'files/img/yt.png' %}" alt="">
+                        <img class="pn" src="{% static 'files/img/pn.png' %}" alt="">
+                        <img class="in" src="{% static 'files/img/in.png' %}" alt="">
                     </div>
                 </div>
             </div>
-            <nav class="navbar navbar-static-bottom navbar-default" role="navigation">
-                <div class="container-fluid">
-                    <div class="collapse navbar-collapse navFooterCollapse navfooter">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="/CO/"><strong>Colombia</strong></a>
-                            </li>
-                            <li>
-                                <a href="/CR/"><strong>Costa Rica</strong></a>
-                            </li>
-                            <li>
-                                <a href="/EC/"><strong>Ecuador</strong></a>
-                            </li>
-                            <li>
-                                <a href="/US/"><strong>EEUU</strong></a>
-                            </li>
-                            <li>
-                                <a href="/MX/"><strong>M&eacute;xico</strong></a>
-                            </li>
-                            <li>
-                                <a href="/PA/"><strong>Panam&aacute;</strong></a>
-                            </li>
-                            <li>
-                                <a href="/VE/"><strong>Venezuela</strong></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="collapse navbar-collapse navFooterCollapse navfooter">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a href="/"><strong>Contacto</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>Revista Virtual</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>EQAssist</strong></a>
-                            </li>
-                            <li>
-                                <a href="/"><strong>EQNews</strong></a>
-                            </li>
-                        </ul>
+            <!--Footer secundario-->
+            <div class="container secundario">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <form class="form-inline" role="form" action="/{{pais}}/" method="POST">
+                        {%csrf_token%}
+                            <div class="form-group">
+                                <label for="form-control"><h5>Suscr&iacute;base a nuestro Newsletter EQNEWS</h5></label>
+                                <input class="form-control" type="text" placeholder="Email">
+                                <button class="btn btn-primary">Suscribirse</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </nav>
+            </div>
         </footer>
         {% endblock footer %}
     </body>
@@ -244,3 +255,74 @@ $('#id_pais').change(function(){
 {%block js%}
 {%endblock js%}
 </html>
+
+
+<!--
+<div class="container">
+    <div class="pre-footer row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <a href="">
+                <img src="{% static 'files/img/leanos.png' %}" alt="">
+                <strong>L&eacute;anos</strong>
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <a href="">
+                <img src="{% static 'files/img/consultenos.png' %}" alt="">
+                <strong>Conls&uacute;ltenos</strong>
+            </a>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <a href="">
+                <img src="{% static 'files/img/llamenos.png' %}" alt="">
+                <strong>Ll&aacute;menos</strong>
+            </a>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-static-bottom navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse navFooterCollapse navfooter">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/CO/"><strong>Colombia</strong></a>
+                </li>
+                <li>
+                    <a href="/CR/"><strong>Costa Rica</strong></a>
+                </li>
+                <li>
+                    <a href="/EC/"><strong>Ecuador</strong></a>
+                </li>
+                <li>
+                    <a href="/US/"><strong>EEUU</strong></a>
+                </li>
+                <li>
+                    <a href="/MX/"><strong>M&eacute;xico</strong></a>
+                </li>
+                <li>
+                    <a href="/PA/"><strong>Panam&aacute;</strong></a>
+                </li>
+                <li>
+                    <a href="/VE/"><strong>Venezuela</strong></a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse navFooterCollapse navfooter">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="/"><strong>Contacto</strong></a>
+                </li>
+                <li>
+                    <a href="/"><strong>Revista Virtual</strong></a>
+                </li>
+                <li>
+                    <a href="/"><strong>EQAssist</strong></a>
+                </li>
+                <li>
+                    <a href="/"><strong>EQNews</strong></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+-->

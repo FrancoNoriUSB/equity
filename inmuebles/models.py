@@ -113,6 +113,7 @@ class Imagen(models.Model):
 class Agente(models.Model):
     nombre = models.CharField(max_length=30)
     correo = models.CharField(max_length=40)
+    pagina = models.CharField(max_length=100, default='', null=True)
     logo = models.ImageField(upload_to='agentes/')
 
     #Claves foraneas
@@ -227,9 +228,9 @@ class Modulo(models.Model):
 
     tipo = models.CharField(max_length=30, default='A')
     metros = models.CharField(max_length=10)
-    banos = models.CharField(max_length=2)
-    dormitorios = models.CharField(max_length=2)
-    estacionamientos = models.CharField(max_length=2)
+    banos = models.CharField(max_length=4)
+    dormitorios = models.CharField(max_length=4)
+    estacionamientos = models.CharField(max_length=4)
     precio = models.DecimalField(max_digits=25, decimal_places=2)
     plano = models.ImageField(upload_to='uploads/planos/', null=True)
 

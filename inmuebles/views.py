@@ -72,6 +72,7 @@ def home(request, pais):
             ciudad = buscadorF.cleaned_data['ciudad']
             zona = buscadorF.cleaned_data['zona']
             tipo = buscadorF.cleaned_data['tipo']
+            habitaciones = buscadorF.cleaned_data['habitaciones']
             orden = buscadorF.cleaned_data['orden']
             codigo = buscadorF.cleaned_data['codigo']
             palabra = buscadorF.cleaned_data['palabra']
@@ -83,11 +84,13 @@ def home(request, pais):
                 inmuebles_list = Inmueble.objects.filter(titulo__contains=palabra)
 
             # Caso demas
-            elif ciudad != None or zona != None or tipo != None or orden != '':
+            elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '':
 
                 #Verificacion de string vacio
                 if orden == '':
                     orden = None
+                if habitaciones == '':
+                    habitaciones = None
 
                 #Campos a buscar
                 fields_list = []
@@ -95,6 +98,7 @@ def home(request, pais):
                 fields_list.append('ciudad')
                 fields_list.append('zona')
                 fields_list.append('tipo')
+                fields_list.append('modulo')
 
                 #Comparadores para buscar
                 types_list=[]
@@ -102,6 +106,7 @@ def home(request, pais):
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
+                types_list.append('dormitorios__exact')
 
                 #Valores a buscar
                 values_list=[]
@@ -109,6 +114,7 @@ def home(request, pais):
                 values_list.append(ciudad)
                 values_list.append(zona)
                 values_list.append(tipo)
+                values_list.append(habitaciones)
 
                 operator = 'and'
 
