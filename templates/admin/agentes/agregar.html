@@ -16,6 +16,7 @@
 				{% csrf_token %}
 					{% bootstrap_field AgenteForm.nombre %}
 					{% bootstrap_field AgenteForm.correo %}
+					{% bootstrap_field AgenteForm.pagina %}
 					{% bootstrap_field AgenteForm.logo %}
 					<br>
 					{{ TelefonoAgenteForm.management_form }}

@@ -530,7 +530,10 @@ def inmuebles_editar(request, pais, id_inmueble):
     editado = ''
     inmueble = Inmueble.objects.get(id=id_inmueble)
     inmuebleF = InmuebleForm(instance=inmueble)
-
+    inmuebleF.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=pais))
+    inmuebleF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais))
+    inmuebleF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais))
+        
     if request.POST:
         inmuebleF = InmuebleForm(request.POST, request.FILES, instance=inmueble)
         if inmuebleF.is_valid():

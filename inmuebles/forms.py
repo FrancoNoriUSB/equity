@@ -109,6 +109,7 @@ class AgenteForm(forms.ModelForm):
         model = Agente
         widgets = {
             'codigo': forms.TextInput(),
+            'pagina': forms.TextInput(),
             'logo': forms.FileInput()
         }
         exclude = ['pais']
