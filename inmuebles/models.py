@@ -246,6 +246,22 @@ class Modulo(models.Model):
         return self.nombre
 
 
+#Modelo para los videos de cada inmueble
+class Video(models.Model):
+    link = models.CharField(max_length=200)
+
+    #Claves foraneas
+    inmueble = models.ForeignKey(Inmueble)
+
+    class Meta:
+        verbose_name = "Video"
+        verbose_name_plural = "Videos"
+
+    def __unicode__(self):
+        return self.inmueble.titulo
+
+
+
 # Modelo para las monedas
 class Moneda(models.Model):
     nombre = models.CharField(max_length=20)
