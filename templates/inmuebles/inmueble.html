@@ -14,52 +14,35 @@
 {% block content %}
 	<div class="row info-base">
 		<div class="col-lg-4 col-md-4 col-sm-12 descripcion">
-			<h3 class="text-left">
-				<strong>{{inmueble.titulo}}</strong>
-			</h3>
-			<h4 class="text-left text-uppercase">
-				<strong>{{inmueble.tipo}}</strong>
-			</h4>
-			<p>
-				{{inmueble.ciudad.nombre}}
-				<br>
-				{{inmueble.zona.nombre}}
-				<br/>
-				C&oacute;digo: {{inmueble.codigo}}
-			</p>
+            <div class="row info-inmueble">
+                <img src="{{ inmueble.logo.url }}" style="width: 100%;" />
+                <h3 class="text-left">
+                    <strong>{{inmueble.titulo}}</strong>
+                </h3>
+                <h4 class="text-left">
+                    <strong>{{inmueble.tipo}} - {{ inmueble.tipo_obra }}</strong>
+                </h4>
+                <span class="text-left text-danger">
+                    C&oacute;digo: {{inmueble.codigo}}
+                </span>
+                <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}} <br />
+                   {{inmueble.direccion}}<br>
+                   Entrega estimada: {{ inmueble.fecha_entrega }}<br>
+                </p>
+            </div>
+            <div class="row info-agente">
+                <h4 class="text-left">
+                    <strong>Contacto:</strong>
+                </h4>
+                <p>
+                    {{ inmueble.agente.nombre }} <br />
+                    {% for telefono in telefonosAgente %}
+                        {{ telefono.tipo }}: {{ telefono.numero }}<br>
+                    {% endfor %}
+                </p>
+            </div>
 		</div>
-		<div class="col-lg-4 col-md-4 col-sm-12 agente">
-			<img class="thumbnail img-responsive" src="{% static inmueble.logo.url %}" alt="">
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-12 links">
-			<p class="text-right">
-				<a class="comparar" href="">
-					Comparar
-				</a>
-				<br>
-				<a class="favoritos" href="">
-					<span class="glyphicon glyphicon-star-empty"></span> Favoritos
-				</a>
-				<br>
-				<a class="imprimir" href="" onclick="Imprimir()">
-					<span class="glyphicon glyphicon-print"></span> Imprimir
-				</a>
-				<br>
-				<!--<a class="recomendar" href="" >
-					<span class="glyphicon glyphicon-envelope"></span> Recomendar
-				</a>-->
-				<br>
-				<a class="twitter-share-button text-right" href="https://twitter.com/share" data-url="Url a compartir" data-text="Texto a colocar">
-					Twitear
-				</a>
-				<br>
-				<div class="fb-share-button text-right" data-href="https://developers.facebook.com/docs/plugins/" data-layout="icon_link"></div>
-			</p>
-		</div>
-	</div>
-	<br>
-	<div class="row carousel">
-		<div class="col-lg-12 col-md-12 col-sm-12">
+		<div class="col-lg-8 col-md-8 col-sm-12">
 		    <!-- main slider carousel -->
 		    <div class="row">
 		        <div class="col-lg-12 col-md-12" id="slider">
@@ -137,38 +120,18 @@
 			 <!-- Tab panels -->
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane fade in active" id="general">
-					<div class="informacion-basica row">
-						<div class="col-lg-6 col-md-6 col-sm-6">
-							<p class="text-left">
-								<strong>Direcci&oacute;n:</strong> {{inmueble.direccion}}<br>
-								<strong>Ciudad:</strong> {{inmueble.ciudad.nombre}}<br>
-								<strong>Zona:</strong> {{inmueble.zona.nombre}}<br>
-								<strong>Tipo de obra: </strong>{{inmueble.tipo_obra}}<br>
-								<strong>Fecha de entrega: </strong>{{inmueble.fecha_entrega}}<br>
-
-							</p>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-6">
-							<p class="text-left">
-								<strong>Construye: </strong>{{inmueble.agente.nombre}}<br>
-								{%for telefono in telefonosAgente%}
-									<strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
-								{%endfor%}
-							</p>
-						</div>
-					</div>
 					<div class="tabla-info row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
 							<table class="table table-bordered">
 							  <tr class="active">
-								<td><p class="text-center">Mt2</p></td>
+								<td><p class="text-center">Mt&#178;</p></td>
 								<td><p class="text-center">Dormitorios</p></td>
 								<td><p class="text-center">Ba&ntilde;os</p></td>
 								<td><p class="text-center">Estacionamiento</p></td>
 								<td><p class="text-center">Moneda Nacional / USD</p></td>
 								<td><p class="text-center">Plano</p></td>
 							  </tr>
-							  {%for modulo in modulos%}
+							  {% for modulo in modulos %}
 							  <tr>
 								<td class="text-center">{{modulo.metros}}</td>
 								<td class="text-center">{{modulo.dormitorios}}</td>
@@ -183,25 +146,25 @@
 								</td>
 
 								<!-- Modal -->
-								<div class="modal fade" id="{{modulo.tipo}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{modulo.tipo}}ModalModalLabel" aria-hidden="true">
+								<div class="modal fade" id="{{ modulo.tipo }}Modal" tabindex="-1" role="dialog" aria-labelledby="{{modulo.tipo}}ModalModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<h4 class="modal-title" id="{{modulo.tipo}}ModalModalLabel">Plano</h4>
+												<h4 class="modal-title" id="{{modulo.tipo}}ModalModalLabel">Plano {{ modulo.tipo }}</h4>
 											</div>
 											<div class="modal-body">
-												<img src="{{modulo.plano.url}}" alt="">
+												<img src="{{ modulo.plano.url }}" alt="" class="img-responsive">
 											</div>
 										</div>
 									</div>
 								</div>
 							  </tr>
-							  {%empty%}
+							  {% empty %}
 							  <tr>
 							  	<td>No disponible</td>
 							  </tr>
-							  {%endfor%}
+							  {% endfor %}
 							</table>
 						</div>
 					</div>
