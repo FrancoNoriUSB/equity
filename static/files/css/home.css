@@ -10,6 +10,10 @@ body > div.header-home > div > div.carrousel.container{
 	margin-top: 0.5%;
 }
 
+body > div.header-home > div.row{
+	margin-top: 4%;
+}
+
 #carousel-example-generic > div > div.item.active > img{
 	margin-right:auto;
 	margin-left:auto;
@@ -62,6 +66,11 @@ body > div.contenido.container > div > div.banners.col-lg-3 > div > div{
 	margin-bottom: 5%;
 }
 
+body > div.contenido.container > div > div.banners.col-lg-3 > div.banner {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 body > div.contenido.container > div > div.banners.col-lg-3 > div > div > div > form > div.form-group,
 body > div.contenido.container > div > div.banners.col-lg-3 > div > div > div > form > button{
 	margin-top: 2%;
@@ -88,5 +97,4 @@ body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.
 	border-bottom-width: 2px;
 	padding-bottom: 1%;
 }
-
 /*Estilos de bootstrap*/
