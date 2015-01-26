@@ -144,15 +144,6 @@
                                 <button class="btn btn-primary">
                                     Aplicar
                                 </button>
-
-                                <!--<div class="form-group inner-addon right-addon">
-                                    <div class="input-group-btn">
-                                    {% render_field buscadorF.codigo class="form-control" placeholder="Código"%}
-                                        <button class="btn btn-primary" id="">
-                                            <span class="glyphicon glyphicon-arrow-down"></span>
-                                        </button>
-                                    </div>
-                                </div>-->
                             </form>
                         </div>
                     </div>
@@ -284,7 +275,6 @@ function cargar_zonas(){
         elem_zonas.empty();
         elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
         $.each(zonas[ciudad], function(i, zona){
-            console.log(zona);
             elem_zonas.append('<option value="'+ i +'">' + zona + '</option>')
         });
     } else {

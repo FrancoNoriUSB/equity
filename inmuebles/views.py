@@ -74,16 +74,15 @@ def home(request, pais):
             tipo = buscadorF.cleaned_data['tipo']
             habitaciones = buscadorF.cleaned_data['habitaciones']
             orden = buscadorF.cleaned_data['orden']
-            codigo = buscadorF.cleaned_data['codigo']
             palabra = buscadorF.cleaned_data['palabra']
 
             print ciudad, zona, tipo
 
             #Caso de busqueda por codigo
-            if codigo != '':
-                inmuebles_list = Inmueble.objects.filter(codigo=codigo)
-            elif palabra != '':
+            if palabra != '':
                 inmuebles_list = Inmueble.objects.filter(titulo__contains=palabra)
+                if inmuebles_list == []:
+                    inmuebles_list = Inmueble.objects.filter(codigo=palabra)
 
             # Caso demas
             elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '':

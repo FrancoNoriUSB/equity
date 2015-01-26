@@ -46,7 +46,6 @@ class BuscadorForm(forms.Form):
     tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all(), empty_label=' - Tipo -', required=False)
     habitaciones = forms.ChoiceField(choices=(('','Habitaciones'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5'), ), required=False)
     orden = forms.ChoiceField(choices=ordenes, required=False)
-    codigo = forms.CharField(max_length=20, required=False)
     palabra = forms.CharField(max_length=20, required=False)
 
 
