@@ -22,6 +22,10 @@ body > div.row.titulo{
 	border-color: transparent;
 }
 
+body > header > div{
+	margin-top: 2.7%;
+}
+
 body > div.container-fluid > div > div > form > div{
 	margin-right: 5px;
 }
