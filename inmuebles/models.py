@@ -365,7 +365,7 @@ class Slide(models.Model):
         verbose_name_plural = "Slides"
 
     def __unicode__(self):
-        return self.nombre
+        return u"%s - %s" %(self.nombre, self.pais.nombre.name)
 
 
 # Modelo para los banners publicitarios
@@ -391,4 +391,4 @@ class Banner(models.Model):
         verbose_name_plural = "Banners"
 
     def __unicode__(self):
-        return self.nombre
+        return u"%s - %s" %(self.nombre, self.pais.nombre.name)

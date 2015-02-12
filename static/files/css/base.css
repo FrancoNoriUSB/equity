@@ -52,11 +52,11 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 	width: 88%;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(8){
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(7){
 	width: 25%;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(8) > form > div > div{
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(7) > form > div > div{
 	width: 67%;
 }
 
@@ -242,7 +242,7 @@ body > footer > div.container.secundario > div > div{
 }
 
 /*Estilos de Bootstrap*/
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(8) > form > div > div > button{
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(7) > form > div > div > button{
 	background-image: -webkit-linear-gradient(white 0%, white 100%)!important;
 	background-image: -o-linear-gradient(white 0%, white 100%)!important;
 	background-image: linear-gradient(white 0%, white 100%)!important;	
@@ -253,6 +253,6 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 	margin-left: -5px;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(8) > form > div > div > button > span{
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(7) > form > div > div > button > span{
 	color: black;
 }
