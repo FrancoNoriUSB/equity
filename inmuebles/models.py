@@ -371,10 +371,10 @@ class Slide(models.Model):
 # Modelo para los banners publicitarios
 class Banner(models.Model):
     posiciones = (
-        ('Superior','Superior'),
-        ('Medio-Superior','Medio-Superior'),
-        ('Medio-Inferior','Medio-Inferior'),
-        ('Inferior','Inferior'),
+        ('1','Superior'),
+        ('2','Medio-Superior'),
+        ('3','Medio-Inferior'),
+        ('4','Inferior'),
     )
 
     nombre = models.CharField(max_length=100, choices=posiciones)

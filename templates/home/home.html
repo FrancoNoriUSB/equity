@@ -26,7 +26,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-12">
                     {% if banners %}
                         <a class="banner-superior" href="{{ banners.0.url }}">
-                            <img class="img-responsive" style="width: 100%;" src="{{ banner.0.imagen.url }}" alt="">
+                            <img class="img-responsive" style="width: 100%;" src="{{ banners.0.imagen.url }}" alt="">
                         </a>
                     {% else %}
                         <a class="banner-superior" href="">
@@ -118,7 +118,6 @@
                         </a>
                     </div>
                 {% endif %}
-
             {%empty%}
                 <!-- Barra de busqueda -->
                 <div class="container-fluid">

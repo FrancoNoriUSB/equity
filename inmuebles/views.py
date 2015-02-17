@@ -141,6 +141,9 @@ def home(request, pais):
         zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
     zonas = json.dumps(zonas)
 
+    #Banners publicitarios de cada pais
+    banners = Banner.objects.filter(pais__nombre=pais).order_by('nombre')
+
     ctx = {
         'buscadorF': buscadorF,
         'paisesF': paisesF,
@@ -148,7 +151,8 @@ def home(request, pais):
         'pais': pais,
         'inmuebles': inmuebles,
         'imagenes': imagenes,
-        'zonas': zonas
+        'zonas': zonas,
+        'banners':banners,
     }
 
     return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
