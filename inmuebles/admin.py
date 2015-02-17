@@ -1,7 +1,6 @@
 from django.contrib import admin
 from inmuebles.models import *
 
-
 class ImagenInmuebleInLine(admin.StackedInline):
     model = ImagenInmueble
     extra = 0
