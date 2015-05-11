@@ -59,3 +59,8 @@ body > div.contenido.container > div.row.informacion > div > div{
 body > div.contenido.container > div.row.informacion > div > ul{
 	border-bottom: 0px;
 }
+
+.carousel-control.right,
+.carousel-control.left{
+	background-image: none;
+}
