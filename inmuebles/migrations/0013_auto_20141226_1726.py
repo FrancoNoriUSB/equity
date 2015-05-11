@@ -27,6 +27,6 @@ class Migration(migrations.Migration):
             model_name='inmueble',
             name='areas_comunes',
             field=models.ManyToManyField(to='inmuebles.AreaComun'),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

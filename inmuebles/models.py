@@ -392,3 +392,31 @@ class Banner(models.Model):
 
     def __unicode__(self):
         return u"%s - %s" %(self.nombre, self.pais.nombre.name)
+
+
+#Modelo para los links editables
+class Link(models.Model):
+
+    nombre = models.CharField(max_length=100)
+    url = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name = "Link"
+        verbose_name_plural = "Links"
+
+    def __unicode__(self):
+        return u"%s - %s" %(self.nombre)
+    
+
+#Modelo para los telefonos de contacto
+class Contacto(Telefono):
+
+    ciudad = models.ForeignKey(Ciudad)
+    pais = models.ForeignKey(Pais)
+
+    class Meta:
+        verbose_name = "Contacto"
+        verbose_name_plural = "Contactos"
+
+    def __unicode__(self):
+        return u"%s - %s" %(self.pais)

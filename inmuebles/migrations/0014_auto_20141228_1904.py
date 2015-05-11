@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='imageninmueble',
             name='inmueble',
             field=models.ForeignKey(related_name='imagenes', to='inmuebles.Inmueble'),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

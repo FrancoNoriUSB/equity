@@ -88,6 +88,6 @@ class Migration(migrations.Migration):
             model_name='valorcampoinmueble',
             name='valor',
             field=models.CharField(max_length=150),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

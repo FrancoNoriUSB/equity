@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='inmueble',
             name='fecha_entrega',
             field=models.CharField(max_length=20),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

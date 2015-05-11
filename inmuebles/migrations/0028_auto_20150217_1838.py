@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='banner',
             name='nombre',
             field=models.CharField(max_length=100, choices=[(b'1', b'Superior'), (b'2', b'Medio-Superior'), (b'3', b'Medio-Inferior'), (b'4', b'Inferior')]),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

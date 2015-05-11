@@ -23,18 +23,18 @@ class Migration(migrations.Migration):
             model_name='inmueble',
             name='tipo_obra',
             field=models.CharField(max_length=20, choices=[(b'Pre-venta', b'Pre-venta'), ('En Construcci\xf3n', 'En Construcci\xf3n'), (b'Listo Para Entregar', b'Listo Para Entregar')]),
-            preserve_default=True,
+            # preserve_default=True,
         ),
-        migrations.AlterField(
-            model_name='moneda',
-            name='tasa',
-            field=models.DecimalField(max_digits=20, decimal_places=2),
-            preserve_default=True,
-        ),
+        # migrations.AlterField(
+        #     model_name='moneda',
+        #     name='tasa',
+        #     field=models.DecimalField(max_digits=20, decimal_places=2),
+        #     # preserve_default=True,
+        # ),
         migrations.AlterField(
             model_name='telefonoagente',
             name='tipo',
             field=models.CharField(max_length=20, choices=[(b'Celular', b'Celular'), ('Tel\xe9fono', 'Tel\xe9fono')]),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

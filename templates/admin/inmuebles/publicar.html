@@ -32,8 +32,7 @@
                     {% bootstrap_field form.ciudad %}
                     {% bootstrap_field form.zona %}
                     {% bootstrap_field form.direccion %}
-                    <input id="pac-input" class="controls" type="text"
-                        placeholder="Introduzca una direccion">
+                    <input id="pac-input" class="controls" type="text" placeholder="Introduzca una direccion">
                     <div id="type-selector" class="controls">
                       <input type="radio" name="type" id="changetype-all" checked="checked">
                       <label for="changetype-all">Todo</label>
@@ -103,13 +102,6 @@ function cargar_zonas(){
 }
 $(document).on('change', '#id_ciudad', cargar_zonas);
 </script>
-<script type="text/javascript">
-//     $(function() {
-//         $('.campo-formset').formset({
-//             prefix: '{{ campo_formset.prefix }}'
-//         });
-//     })
-</script>
 <script>
 var map;
 function initialize() {
@@ -127,8 +119,8 @@ function initialize() {
         clearMarkers();
         markers = [];
         placeMarker(event.latLng);
-        lat.val(event.latLng.k);
-        lon.val(event.latLng.D);
+        lat.val(event.latLng.A);
+        lng.val(event.latLng.F);
     });
 
     function clearMarkers() {
@@ -217,7 +209,8 @@ function initialize() {
     setupClickListener('changetype-address', ['address']);
     setupClickListener('changetype-establishment', ['establishment']);
     setupClickListener('changetype-geocode', ['geocode']);
-    }
+}
+
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 {% endblock js %}

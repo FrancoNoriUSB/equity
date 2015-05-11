@@ -15,24 +15,24 @@ class Migration(migrations.Migration):
             model_name='agente',
             name='pagina',
             field=models.CharField(default=b'', max_length=100, null=True),
-            preserve_default=True,
+            # preserve_default=True,
         ),
         migrations.AlterField(
             model_name='modulo',
             name='banos',
             field=models.CharField(max_length=4),
-            preserve_default=True,
+            # preserve_default=True,
         ),
         migrations.AlterField(
             model_name='modulo',
             name='dormitorios',
             field=models.CharField(max_length=4),
-            preserve_default=True,
+            # preserve_default=True,
         ),
         migrations.AlterField(
             model_name='modulo',
             name='estacionamientos',
             field=models.CharField(max_length=4),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

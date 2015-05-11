@@ -1,10 +1,8 @@
 <!-- Archivo donde estan los bloques del home -->
 {% extends "base.html" %}
-
 {% load staticfiles %}
-
 {% load mathfilters %}
-
+{% load humanize %}
 {% load widget_tweaks %}
 
 <!-- Bloque para scripts que se cargan en la plantilla base -->
@@ -224,10 +222,10 @@
                                     {{inmueble.zona.nombre}}
             						<br/>
                                     <br/>
-            						C&oacute;digo: {{inmueble.codigo}}
+            						<p class="text-danger">C&oacute;digo: {{inmueble.codigo}}</p>
                                     <br>
                                     {%for modulo in inmueble.modulo_set.all|slice:":1"%}
-                                        Desde: {{modulo.metros}} mts; {{modulo.precio}} / {{ modulo.precio|mul:moneda.tasa|floatformat}} USD
+                                        Desde: {{modulo.metros}} mts;{{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}} {{moneda.simbolo }} /  {{modulo.precio|floatformat|intcomma}} USD
                                     {%endfor%}
             					</p>
             				</div>
@@ -235,7 +233,7 @@
             					<img class="img-responsive" src="{{inmueble.logo.url}}" alt="">
                                 <p class="text-right">{{inmueble.tipo_obra}}</p>
                                 <p class="text-right">
-                					<a class="ver" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">Ver</a>
+                					<a class="ver" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">Ver</a> &nbsp;&nbsp;&nbsp;&nbsp;
                 					<a class="favoritos" href="">Favoritos</a>
                                 </p>
             				</div>

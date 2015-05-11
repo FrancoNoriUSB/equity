@@ -35,18 +35,18 @@ class Migration(migrations.Migration):
             model_name='campoinmueble',
             name='tipo',
             field=models.CharField(default=b'T', max_length=1, choices=[(b'N', b'N\xc3\xbamero'), (b'T', b'Texto')]),
-            preserve_default=True,
+            # preserve_default=True,
         ),
         migrations.AddField(
             model_name='imagen',
             name='thumbnail',
             field=models.ImageField(default='', upload_to=b''),
-            preserve_default=False,
+            # preserve_default=False,
         ),
         migrations.AlterField(
             model_name='campoinmueble',
             name='nombre',
             field=models.CharField(max_length=80),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

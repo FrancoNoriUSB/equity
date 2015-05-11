@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('banos', models.CharField(max_length=2)),
                 ('dormitorios', models.CharField(max_length=2)),
                 ('estacionamientos', models.CharField(max_length=2)),
-                ('precio', models.CharField(max_length=10)),
+                ('precio', models.DecimalField(max_digits=25, decimal_places=2)),
                 ('inmueble', models.ForeignKey(to='inmuebles.Inmueble')),
             ],
             options={
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nombre', models.CharField(max_length=20)),
-                ('tasa', models.CharField(max_length=10)),
+                ('tasa', models.DecimalField(max_digits=20, decimal_places=2)),
                 ('pais', models.ForeignKey(to='inmuebles.Pais')),
             ],
             options={
@@ -61,18 +61,18 @@ class Migration(migrations.Migration):
             model_name='inmueble',
             name='fecha_entrega',
             field=models.DateTimeField(default=datetime.datetime(2014, 12, 17, 19, 40, 26, 190000, tzinfo=utc)),
-            preserve_default=False,
+            # preserve_default=False,
         ),
         migrations.AddField(
             model_name='inmueble',
             name='logo',
             field=models.ImageField(default='uploads/logos_inmuebles/logo.png', upload_to=b'logos_inmuebles/'),
-            preserve_default=False,
+            # preserve_default=False,
         ),
         migrations.AddField(
             model_name='inmueble',
             name='tipo_obra',
             field=models.CharField(default='Pre-venta', max_length=20, choices=[(b'Pre-venta', b'Pre-venta'), (b'En Construccion', 'En Construcci\xf3n'), (b'Listo por entregar', b'Listo Para Entregar')]),
-            preserve_default=False,
+            # preserve_default=False,
         ),
     ]

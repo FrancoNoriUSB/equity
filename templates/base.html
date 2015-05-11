@@ -140,9 +140,9 @@
         {% block footer %}
         <footer>
             <!--Footer principal-->
-            <div class="container primario">
-                <div class="row paises">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="container-fluid primario">
+                <div class="row paises centering">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centering">
                         <ul class="media-list">
                             <li class="media">
                                 <a href="/CO/"><strong>Colombia, Cali</strong></a>
@@ -215,7 +215,7 @@
                     </div>
                 </div>
                 <div class="row redes">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-6 col-sm-offset-0 col-xs-offset-0">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-6 col-sm-offset-0 col-xs-offset-0 centering">
                         <img class="correo" src="{% static 'files/img/correo.png' %}" alt="">
                         <a href="https://www.facebook.com/RevistaEquity"><img class="fb" src="{% static 'files/img/fb.png' %}" alt=""></a>
                         <a href="https://twitter.com/EquityLA"><img class="tw" src="{% static 'files/img/tw.png' %}" alt=""></a>
@@ -227,7 +227,7 @@
                 </div>
             </div>
             <!--Footer secundario-->
-            <div class="container secundario">
+            <div class="container-fluid secundario">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <form class="form-inline" role="form" action="/{{pais}}/" method="POST">
@@ -255,74 +255,3 @@ $('#id_pais').change(function(){
 {%block js%}
 {%endblock js%}
 </html>
-
-
-<!--
-<div class="container">
-    <div class="pre-footer row">
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <a href="">
-                <img src="{% static 'files/img/leanos.png' %}" alt="">
-                <strong>L&eacute;anos</strong>
-            </a>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <a href="">
-                <img src="{% static 'files/img/consultenos.png' %}" alt="">
-                <strong>Conls&uacute;ltenos</strong>
-            </a>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <a href="">
-                <img src="{% static 'files/img/llamenos.png' %}" alt="">
-                <strong>Ll&aacute;menos</strong>
-            </a>
-        </div>
-    </div>
-</div>
-<nav class="navbar navbar-static-bottom navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse navFooterCollapse navfooter">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/CO/"><strong>Colombia</strong></a>
-                </li>
-                <li>
-                    <a href="/CR/"><strong>Costa Rica</strong></a>
-                </li>
-                <li>
-                    <a href="/EC/"><strong>Ecuador</strong></a>
-                </li>
-                <li>
-                    <a href="/US/"><strong>EEUU</strong></a>
-                </li>
-                <li>
-                    <a href="/MX/"><strong>M&eacute;xico</strong></a>
-                </li>
-                <li>
-                    <a href="/PA/"><strong>Panam&aacute;</strong></a>
-                </li>
-                <li>
-                    <a href="/VE/"><strong>Venezuela</strong></a>
-                </li>
-            </ul>
-        </div>
-        <div class="collapse navbar-collapse navFooterCollapse navfooter">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="/"><strong>Contacto</strong></a>
-                </li>
-                <li>
-                    <a href="/"><strong>Revista Virtual</strong></a>
-                </li>
-                <li>
-                    <a href="/"><strong>EQAssist</strong></a>
-                </li>
-                <li>
-                    <a href="/"><strong>EQNews</strong></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
--->

@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='inmueble',
             name='codigo',
             field=models.CharField(unique=True, max_length=20),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
             model_name='agente',
             name='logo',
             field=models.ImageField(upload_to=b'uploads/img/agentes'),
-            preserve_default=True,
+            # preserve_default=True,
         ),
         migrations.AlterField(
             model_name='imageninmueble',
             name='thumbnail',
             field=models.ImageField(upload_to=b'uploads/img/thumbnails/', null=True, editable=False, blank=True),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

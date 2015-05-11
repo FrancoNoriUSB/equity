@@ -152,13 +152,13 @@ body > div.contenido{
 
 /*Estilos de la barra inferior de la base*/
 
-body > footer > div.container.primario{
+footer > .primario{
 	background-color: #33302e;
 	padding-left: 5%;
 	padding-right: 5%;
 }
 
-body > footer > div.container.primario > div.row.paises{
+footer > .primario > div.row.paises{
 	padding-top: 4%;
 	padding-bottom: 1%;
 	border-bottom-color: white;
@@ -166,75 +166,75 @@ body > footer > div.container.primario > div.row.paises{
 	border-bottom-width: 4px;
 }
 
-body > footer > div.container.primario > div.row.paises > div > ul > li > a > strong,
-body > footer > div.container.primario > div.row.paises > div > ul > li > abbr{
+footer > .primario > div.row.paises > div > ul > li > a > strong,
+footer > .primario > div.row.paises > div > ul > li > abbr{
 	color: white;
 }
 
-body > footer > div.container.primario > div.row.paises > div > ul > li{
+footer > .primario > div.row.paises > div > ul > li{
 	line-height: 0.7;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(1),
-body > footer > div.container.primario > div.row.paises > div:nth-child(1) > ul:nth-child(1){
+footer > .primario > div.row.paises > div:nth-child(1),
+footer > .primario > div.row.paises > div:nth-child(1) > ul:nth-child(1){
 	float: left;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li > a > img{
+footer > .primario > div.row.paises > div:nth-child(2) > ul > li > a > img{
 	float: right;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li > a > h4{
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li > a > h4{
 	float: left;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(1) > a > h4{
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(1) > a > h4{
 	margin-left: 44px;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(2) > a > h4{
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(2) > a > h4{
 	margin-top:18px;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(3) > a > h4{
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(3) > a > h4{
 	margin-left: 30px;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(1) > ul:nth-child(2){
+footer > div.primario > div.row.paises > div:nth-child(1) > ul:nth-child(2){
 	float: left;
 	margin-left: 15%;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(2){
+footer > div.primario > div.row.paises > div:nth-child(2){
 	float: right;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul{
+footer > div.primario > div.row.paises > div:nth-child(2) > ul{
 	float: right;
 }
 
-body > footer > div.container.primario > div.row.paises > div:nth-child(2) > ul > li > a > h4 > strong{
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li > a > h4 > strong{
 	color: white;
 }
 
-body > footer > div.container.primario > div.row.redes{
+footer > div.primario > div.row.redes{
 	padding-top: 2%;
 	padding-bottom: 2%;
 }
 
-body > footer > div.container.primario > div.row.redes > div{
+footer > div.primario > div.row.redes > div{
 	text-align: center;
 }
 
-body > footer > div.container.secundario{
+footer > div.secundario{
 	background-color: #473d36;
 }
 
-body > footer > div.container.secundario > div > div > form > div > label > h5{
+footer > div.secundario > div > div > form > div > label > h5{
 	color:white;
 }
 
-body > footer > div.container.secundario > div > div{
+footer > div.secundario > div > div{
 	padding-top: 2%;
 	padding-bottom: 2%;
 	padding-left: 25%;

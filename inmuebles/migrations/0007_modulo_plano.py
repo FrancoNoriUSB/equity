@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='modulo',
             name='plano',
             field=models.ImageField(default='uploads/planos/plano.png', upload_to=b'uploads/planos/'),
-            preserve_default=False,
+            # preserve_default=False,
         ),
     ]

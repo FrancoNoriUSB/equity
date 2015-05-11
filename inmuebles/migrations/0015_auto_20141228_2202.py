@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='moneda',
             name='pais',
             field=models.OneToOneField(to='inmuebles.Pais'),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

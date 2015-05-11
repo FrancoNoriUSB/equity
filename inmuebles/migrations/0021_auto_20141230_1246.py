@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='inmueble',
             name='agente',
             field=models.ForeignKey(to='inmuebles.Agente', null=True),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

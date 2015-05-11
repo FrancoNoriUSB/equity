@@ -10,11 +10,11 @@ class Migration(migrations.Migration):
         ('inmuebles', '0017_banner_url'),
     ]
 
-    operations = [
-        migrations.AlterField(
-            model_name='modulo',
-            name='precio',
-            field=models.DecimalField(max_digits=25, decimal_places=5),
-            preserve_default=True,
-        ),
-    ]
+    # operations = [
+    #     migrations.AlterField(
+    #         model_name='modulo',
+    #         name='precio',
+    #         field=models.DecimalField(max_digits=25, decimal_places=5),
+    #         # preserve_default=True,
+    #     ),
+    # ]

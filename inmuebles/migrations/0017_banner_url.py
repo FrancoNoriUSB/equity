@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
             model_name='banner',
             name='url',
             field=models.CharField(default='/', max_length=200),
-            preserve_default=False,
+            # preserve_default=False,
         ),
     ]

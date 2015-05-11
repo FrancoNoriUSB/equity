@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
             model_name='inmueble',
             name='agente',
             field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to='inmuebles.Agente', null=True),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]

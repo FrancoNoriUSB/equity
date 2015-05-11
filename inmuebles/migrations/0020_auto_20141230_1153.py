@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
             model_name='modulo',
             name='plano',
             field=models.ImageField(null=True, upload_to=b'uploads/planos/'),
-            preserve_default=True,
+            # preserve_default=True,
         ),
         migrations.AlterField(
             model_name='telefonoagente',
             name='tipo',
             field=models.CharField(max_length=20, choices=[(b'Celular', b'Celular'), (b'Telefono', b'Tel\xc3\xa9fono')]),
-            preserve_default=True,
+            # preserve_default=True,
         ),
     ]
