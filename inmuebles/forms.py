@@ -24,7 +24,7 @@ class PaisesForm(forms.Form):
 
     paises = Pais.objects.all().order_by('nombre')
 
-    paises_choices.append(('', '- Pais -'))
+    paises_choices.append(('', u'- País -'))
     for pais in paises:
         paises_choices.append((pais.nombre, (dict(countries)[pais.nombre])))
 

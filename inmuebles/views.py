@@ -56,7 +56,7 @@ def home(request, pais):
     imagenes = Slide.objects.filter(pais__nombre=pais)
 
     #Lista inmuebles por pagina
-    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais)
+    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais).order_by('codigo')
 
     #Moneda nacional
     try:
