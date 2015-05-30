@@ -66,7 +66,6 @@ def home(request, pais):
 
     if request.GET:
         buscadorF = BuscadorForm(request.GET)
-        print buscadorF
         #Caso para el buscador de inmuebles
         if buscadorF.is_valid():
             ciudad = buscadorF.cleaned_data['ciudad']
@@ -76,13 +75,11 @@ def home(request, pais):
             orden = buscadorF.cleaned_data['orden']
             palabra = buscadorF.cleaned_data['palabra']
 
-            print ciudad, zona, tipo
-
             #Caso de busqueda por codigo
             if palabra != '':
-                inmuebles_list = Inmueble.objects.filter(titulo__contains=palabra)
+                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, titulo__contains=palabra)
                 if inmuebles_list == []:
-                    inmuebles_list = Inmueble.objects.filter(codigo=palabra)
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo=palabra)
 
             # Caso demas
             elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '':
@@ -169,7 +166,7 @@ def inmueble(request, codigo, pais):
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
     #Inmueble
-    inmueble = get_object_or_404(Inmueble, codigo=codigo)
+    inmueble = get_object_or_404(Inmueble, codigo=codigo, pais__nombre=pais)
     
     #Modulos
     modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
