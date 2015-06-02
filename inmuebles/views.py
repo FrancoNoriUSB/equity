@@ -533,15 +533,21 @@ def inmuebles_editar(request, pais, id_inmueble):
     inmuebleF.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=pais))
     inmuebleF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais))
     inmuebleF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais))
+    tiposF = BuscadorForm(initial={'tipo':inmueble.tipo})
         
     if request.POST:
         inmuebleF = InmuebleForm(request.POST, request.FILES, instance=inmueble)
-        if inmuebleF.is_valid():
+        tiposF = BuscadorForm(request.POST)
+        if inmuebleF.is_valid() and tiposF.is_valid():
+            tipo = tiposF.cleaned_data['tipo']
+            inmueble = inmuebleF.save(commit=False)
+            inmueble.tipo = tipo
             inmuebleF.save()
             editado = True
 
     ctx = {
         'InmuebleForm':inmuebleF,
+        'TiposForm': tiposF,
         'editado':editado,
         'pais':pais,
     }
