@@ -225,10 +225,9 @@
             						<p class="text-danger">C&oacute;digo: {{inmueble.codigo}}</p>
                                     <br>
                                     {%for modulo in inmueble.modulo_set.all|slice:":1"%}
-                                        Desde: {{modulo.metros}} m&#178;{%if modulo.dormitorios != 0%} ({{modulo.dormitorios}} dormitorios){%endif%};&nbsp;&nbsp;
+                                        Desde: {{modulo.metros}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
                                         {%if modulo.precio != 0%}
-                                            {{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}} {{moneda.simbolo }} <br>
-                                            {{modulo.precio|floatformat|intcomma}} USD
+                                            {{moneda.simbolo }} {{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
                                         {%endif%}
                                     {%endfor%}
             					</p>
