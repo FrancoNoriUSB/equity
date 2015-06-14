@@ -20,7 +20,7 @@
                     <strong>{{inmueble.titulo}}</strong>
                 </h3>
                 <h4 class="text-left">
-                    <strong>{{inmueble.tipo}} - {{ inmueble.tipo_obra }}</strong>
+                    <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
                 </h4>
                 <span class="text-left text-danger">
                     C&oacute;digo: {{inmueble.codigo}}
@@ -162,6 +162,7 @@
 											</div>
 											<div class="modal-body">
 												<img src="{{ modulo.plano.url }}" alt="" class="img-responsive">
+												<a target="_blank" href="{{ modulo.plano.url }}">Ver grande</a>
 											</div>
 										</div>
 									</div>
