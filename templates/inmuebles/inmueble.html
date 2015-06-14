@@ -76,37 +76,6 @@
 		    </div>
 		    <!--/main slider carousel-->
 			<br>
-		    <!-- thumb navigation carousel -->
-		    <div class="col-lg-12 col-md-12 hidden-sm hidden-xs" id="slider-thumbs">
-
-				<!-- thumb navigation carousel items -->
-				<!--<ul class="list-inline">
-					{%for imagen in imagenes%}
-					<li>
-						<a id="carousel-selector-{{forloop.counter}}" class="{%if forloop.counter == 1%}selected{%endif%}">
-							<img src="{{imagen.thumbnail.url}}" class="img-responsive">
-						</a>
-					</li>
-					{%empty%}
-					<li>
-						<a id="carousel-selector-0" class="selected">
-							<img src="http://placehold.it/80x60&amp;text=one" class="img-responsive">
-						</a>
-					</li>
-
-					<li>
-						<a id="carousel-selector-1">
-							<img src="http://placehold.it/80x60&amp;text=two" class="img-responsive">
-						</a>
-					</li>
-					<li>
-						<a id="carousel-selector-2">
-							<img src="http://placehold.it/80x60&amp;text=three" class="img-responsive">
-						</a>
-					</li>
-					{%endfor%}
-				</ul>-->
-		    </div>
 		</div>
 	</div>
 	<div class="row informacion">
@@ -162,7 +131,7 @@
 											</div>
 											<div class="modal-body">
 												<img src="{{ modulo.plano.url }}" alt="" class="img-responsive">
-												<a target="_blank" href="{{ modulo.plano.url }}">Ver grande</a>
+												<a class="text-center" target="_blank" href="{{ modulo.plano.url }}">Ver grande</a>
 											</div>
 										</div>
 									</div>
@@ -277,7 +246,7 @@ $('a[href="#ubicacion"]').on('shown.bs.tab', function (e) {
 <!-- Codigo para el carrousel -->
 <script>
 $('#myCarousel').carousel({
-	interval: 3000
+	interval: 5000
 });
 
 // handles the carousel thumbnails

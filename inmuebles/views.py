@@ -169,7 +169,7 @@ def inmueble(request, codigo, pais):
     inmueble = get_object_or_404(Inmueble, codigo=codigo, pais__nombre=pais)
     
     #Modulos
-    modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
+    modulos = Modulo.objects.filter(inmueble=inmueble).order_by('id')
 
     #Agente
     agente = inmueble.agente
@@ -179,7 +179,7 @@ def inmueble(request, codigo, pais):
     contactoF = ContactoAgenteForm()
 
     #Imagenes del inmueble
-    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
+    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('fecha_publicacion')
 
     #Moneda
     try:
