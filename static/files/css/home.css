@@ -10,8 +10,8 @@ body > div.header-home > div > div.carrousel.container{
 	margin-top: 0.5%;
 }
 
-body > div.header-home > div.row{
-	margin-top: 4%;
+body > div.header-home > div.container{
+	margin-top: 3%;
 }
 
 #carousel-example-generic > div > div.item.active > img{

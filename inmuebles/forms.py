@@ -40,11 +40,20 @@ class BuscadorForm(forms.Form):
         ('tipo', 'Tipo'),
         ('precio', 'Precio'),
     )
+    
+    precios = (
+        ('', '- Precio -'),
+        ('0-100000', '0-100000'),
+        ('100000-200000', '100000-200000'),
+        ('200000-500000', '200000-500000'),
+        ('500000-1000000', '500000-1000000'),
+    )
 
     ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
     zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
     tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all(), empty_label=' - Tipo -', required=False)
     habitaciones = forms.ChoiceField(choices=(('','Habitaciones'),('1','1'),('2','2'),('3','3'),('4','4'),('5','5'), ), required=False)
+    precio = forms.ChoiceField(choices=precios, required=False)
     orden = forms.ChoiceField(choices=ordenes, required=False)
     palabra = forms.CharField(max_length=20, required=False)
 
