@@ -179,7 +179,7 @@ def inmueble(request, codigo, pais):
     contactoF = ContactoAgenteForm()
 
     #Imagenes del inmueble
-    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('fecha_publicacion')
+    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('id')
 
     #Moneda
     try:

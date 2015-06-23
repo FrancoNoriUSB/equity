@@ -49,12 +49,12 @@
                                         <span class="icon-bar"></span>
                                 </button>
                                 <div class="navbar-brand">
-                                    <a href="/">
+                                    <a href="http://revistaequity.jimdo.com/contacto/">
                                         Contacto
                                     </a>
                                     |
-                                    <a href="/">
-                                        English
+                                    <a href="http://equitymedia.la/">
+                                        Home
                                     </a>
                                 </div>
                             </div>
@@ -69,16 +69,13 @@
                                         </form>
                                     </li>
                                     <li>
-                                        <a href="/{{pais}}/">Home</a>
+                                        <a href="/{{pais}}/">Inicio</a>
                                     </li>
                                     <li>
-                                        <a href="/">Info Pa&iacute;s</a>
+                                        <a href="http://revistaequity.jimdo.com/info-pa%C3%ADs/">Info Pa&iacute;s</a>
                                     </li>
                                     <li>
-                                        <a href="/">EQNews</a>
-                                    </li>
-                                    <li>
-                                        <a href="/">EQAssist</a>
+                                        <a href="http://revistaequity.jimdo.com/eq-news/">EQNews</a>
                                     </li>
                                     <li>
                                         <a href="/">Favoritos</a>
@@ -112,7 +109,9 @@
                         <a href="/{{pais}}/">
                             <img class="text-center" src="{% static 'files/img/logo-blanco.png' %}" alt="">
                         </a>
-                        <img class="text-center" src="{% static 'files/img/revista.png' %}" alt="">
+                        <a href="http://revistaequity.jimdo.com/versi%C3%B3n-digital/">
+                            <img class="text-center" src="{% static 'files/img/revista.png' %}" alt="">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -241,6 +240,14 @@
 
 <!-- Seccion donde se carga el JS -->
 <script>
+$('#id_pais').select(function(){
+    var pais = $(this).val();
+    var pais_actual = '{{pais|safe}}';
+    console.log(pais_actual);
+    if (pais==pais_actual){
+        window.location.replace("/"+pais+"/");
+    }
+});
 $('#id_pais').change(function(){
     var pais = $(this).val();
     window.location.replace("/"+pais+"/");
