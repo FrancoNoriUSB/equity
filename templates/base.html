@@ -40,7 +40,7 @@
             <nav class="navbar navbar-fixed-top navbar-default">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 centering">
                             <div class="navbar-header">
                                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
                                         <span class="icon-bar"></span>
@@ -58,7 +58,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="collapse navbar-collapse navHeaderCollapse navheader">
+                            <div class="collapse navbar-collapse navHeaderCollapse navheader centering">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="pais">
                                         <form role="form" id="paises" method="POST" class="navbar-form navbar-right paises" action="." name="paises">
@@ -240,14 +240,6 @@
 
 <!-- Seccion donde se carga el JS -->
 <script>
-$('#id_pais').select(function(){
-    var pais = $(this).val();
-    var pais_actual = '{{pais|safe}}';
-    console.log(pais_actual);
-    if (pais==pais_actual){
-        window.location.replace("/"+pais+"/");
-    }
-});
 $('#id_pais').change(function(){
     var pais = $(this).val();
     window.location.replace("/"+pais+"/");

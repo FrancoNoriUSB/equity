@@ -74,12 +74,13 @@ def home(request, pais):
             habitaciones = buscadorF.cleaned_data['habitaciones']
             orden = buscadorF.cleaned_data['orden']
             palabra = buscadorF.cleaned_data['palabra']
+            precio = buscadorF.cleaned_data['precio']
 
             #Caso de busqueda por codigo
             if palabra != '':
-                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, titulo__contains=palabra)
-                if inmuebles_list == []:
-                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo=palabra)
+                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, titulo__icontains=palabra)
+                if not inmuebles_list:
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra)
 
             # Caso demas
             elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '':
@@ -346,6 +347,8 @@ class Publicar(CreateView):
               'ciudad',
               'zona',
               'direccion',
+              'pagina',
+              'video',
               'fecha_entrega',
               'tipo_obra',
               'agente',

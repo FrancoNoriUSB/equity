@@ -64,6 +64,8 @@
 	                    {{ InmuebleForm.latitud.as_hidden }}
 	                    {{ InmuebleForm.longitud.as_hidden }}
 	                </div>
+                    {% bootstrap_field InmuebleForm.pagina %}
+                    {% bootstrap_field InmuebleForm.video %}
 	                {% bootstrap_field InmuebleForm.fecha_entrega %}
 	                {% bootstrap_field InmuebleForm.tipo_obra %}
 	                {% bootstrap_field InmuebleForm.agente %}

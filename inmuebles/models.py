@@ -195,6 +195,8 @@ class Inmueble(models.Model):
     latitud = models.DecimalField(max_digits=20, decimal_places=17)
     longitud = models.DecimalField(max_digits=20, decimal_places=17)
     logo = models.ImageField(upload_to='logos_inmuebles/')
+    pagina = models.CharField(max_length=200, blank=True, null=True)
+    video = models.CharField(max_length=200, blank=True, null=True)
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     feche_actualizacion = models.DateTimeField(auto_now=True)
     fecha_expiracion = models.DateTimeField()
@@ -244,22 +246,6 @@ class Modulo(models.Model):
 
     def __unicode__(self):
         return self.nombre
-
-
-#Modelo para los videos de cada inmueble
-class Video(models.Model):
-    link = models.CharField(max_length=200)
-
-    #Claves foraneas
-    inmueble = models.ForeignKey(Inmueble)
-
-    class Meta:
-        verbose_name = "Video"
-        verbose_name_plural = "Videos"
-
-    def __unicode__(self):
-        return self.inmueble.titulo
-
 
 
 # Modelo para las monedas

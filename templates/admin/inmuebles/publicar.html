@@ -53,6 +53,8 @@
                         {{ form.latitud.as_hidden }}
                         {{ form.longitud.as_hidden }}
                     </div>
+                    {% bootstrap_field form.pagina %}
+                    {% bootstrap_field form.video %}
                     {% bootstrap_field form.fecha_entrega %}
                     {% bootstrap_field form.tipo_obra %}
                     {% bootstrap_field form.agente %}
