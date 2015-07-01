@@ -50,6 +50,7 @@ def home(request, pais):
         'pais': pais,
     })
 
+    inmuebles = []
     zonas = {}
 
     #Imagenes del slider
@@ -73,8 +74,21 @@ def home(request, pais):
             tipo = buscadorF.cleaned_data['tipo']
             habitaciones = buscadorF.cleaned_data['habitaciones']
             orden = buscadorF.cleaned_data['orden']
-            palabra = buscadorF.cleaned_data['palabra']
+            metros = buscadorF.cleaned_data['metros']
             precio = buscadorF.cleaned_data['precio']
+            palabra = buscadorF.cleaned_data['palabra']
+
+            #Revisa si los metros no son vacios
+            if metros != '':
+                metros = metros.split('-',2)
+                metros_min = int(metros[0])
+                metros_max = int(metros[1])
+
+            #Revisa si el precio no es vacio
+            if precio != '':
+                precio = precio.split('-', 2)
+                precio_min = int(precio[0])
+                precio_max = int(precio[1])
 
             #Caso de busqueda por codigo
             if palabra != '':
@@ -83,7 +97,7 @@ def home(request, pais):
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra)
 
             # Caso demas
-            elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '':
+            elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '' or precio != '' or metros != '':
 
                 #Verificacion de string vacio
                 if orden == '':
@@ -97,7 +111,14 @@ def home(request, pais):
                 fields_list.append('ciudad')
                 fields_list.append('zona')
                 fields_list.append('tipo')
-                fields_list.append('modulo')
+
+                if metros != '':
+                    fields_list.append('modulo__metros')
+
+                fields_list.append('modulo__dormitorios')
+
+                if precio != '':
+                    fields_list.append('modulo__precio')
 
                 #Comparadores para buscar
                 types_list=[]
@@ -105,7 +126,14 @@ def home(request, pais):
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
-                types_list.append('dormitorios__exact')
+
+                if metros != '':
+                    types_list.append('range')
+
+                types_list.append('exact')
+
+                if precio != '':    
+                    types_list.append('range')
 
                 #Valores a buscar
                 values_list=[]
@@ -113,11 +141,19 @@ def home(request, pais):
                 values_list.append(ciudad)
                 values_list.append(zona)
                 values_list.append(tipo)
+
+                if metros != '':
+                    values_list.append((metros_min, metros_max))
+
                 values_list.append(habitaciones)
+
+                if precio != '':
+                    values_list.append((precio_min, precio_max))
 
                 operator = 'and'
 
-                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden)
+                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden).distinct()
+
 
     #Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, 6)

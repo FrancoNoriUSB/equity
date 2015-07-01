@@ -5,6 +5,8 @@ from django.utils.translation import gettext as _
 from django.db import models
 from django_countries.fields import CountryField
 from django.contrib.auth.models import User
+from django.template import defaultfilters
+from django.template.defaultfilters import slugify
 
 
 # Pais al cual pertenece el usuario de Perfil
@@ -186,7 +188,8 @@ class Inmueble(models.Model):
         ('Listo Para Entregar', 'Listo Para Entregar'),
     )
 
-    titulo = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=100, unique=True)
+    slug = models.CharField(max_length=200, unique=True)
     codigo = models.CharField(max_length=20, unique=True)
     descripcion = models.TextField()
     fecha_entrega = models.CharField(max_length=20)
@@ -208,6 +211,10 @@ class Inmueble(models.Model):
     agente = models.ForeignKey(Agente, null=True, on_delete=models.SET_NULL)
     tipo = models.ForeignKey(TipoInmueble)
     areas_comunes = models.ManyToManyField(AreaComun)
+
+    def save(self, *args, **kwargs):
+        self.slug = defaultfilters.slugify(self.titulo)
+        super(Inmueble, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = "Inmueble"
@@ -245,7 +252,7 @@ class Modulo(models.Model):
         verbose_name_plural = "Modulos"
 
     def __unicode__(self):
-        return self.nombre
+        return u"%s" %(self.precio)
 
 
 # Modelo para las monedas

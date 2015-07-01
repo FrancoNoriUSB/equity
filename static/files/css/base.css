@@ -90,13 +90,12 @@ body > header > div > div > div > a:nth-child(2) > img{
 body > header > div.container-fluid{
     height: 100%;
     display: table;
-    width: 100%;
     padding-right: 0;
     padding-left: 0;
 	background-color:#0095d9;
 }
 
-body > header > div > div.row-fluid {
+body > header > div > div.row {
     height: 100%;
     display: table-cell;
     width: 100%;

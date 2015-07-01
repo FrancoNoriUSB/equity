@@ -47,8 +47,12 @@ def dynamic_query(model, fields, types, values, operator, order):
     queries = []
     for (f, t, v) in zip(fields, types, values):
         # We only want to build a Q with a value
-        if v != None:
-            kwargs = {str('%s__%s' % (f,t)) : str('%s' % v)}
+        if v != None: 
+            if t == 'range':
+                kwargs = {str('%s__%s' % (f,t)) : (v)}
+                print kwargs
+            else:
+                kwargs = {str('%s__%s' % (f,t)) : str('%s' % v)}
             queries.append(Q(**kwargs))
     
     # Make sure we have a list of filters
