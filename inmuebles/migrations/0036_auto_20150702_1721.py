@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='modulo',
-            name='metraje',
+        migrations.AlterModelOptions(
+            name='modulo',
+            options={'ordering': ('precio', 'metros'), 'verbose_name': 'Modulo', 'verbose_name_plural': 'Modulos'},
         ),
         migrations.AlterField(
             model_name='modulo',

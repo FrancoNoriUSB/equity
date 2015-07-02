@@ -247,7 +247,7 @@ class Modulo(models.Model):
     inmueble = models.ForeignKey(Inmueble)
 
     class Meta:
-        ordering = ('precio',)
+        ordering = ('precio','metros',)
         verbose_name = "Modulo"
         verbose_name_plural = "Modulos"
 
