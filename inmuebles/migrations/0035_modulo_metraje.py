@@ -8,7 +8,7 @@ def create_modulo_metraje(apps, schema_editor):
     # version than this migration expects. We use the historical version.
     Modulo = apps.get_model("inmuebles", "Modulo")
     for modulo in Modulo.objects.all():
-        modulo.slug = int(modulo.metros)
+        modulo.slug = float(modulo.metros)
         modulo.save()
 
 class Migration(migrations.Migration):
