@@ -8,7 +8,8 @@ def create_modulo_metraje(apps, schema_editor):
     # version than this migration expects. We use the historical version.
     Modulo = apps.get_model("inmuebles", "Modulo")
     for modulo in Modulo.objects.all():
-        modulo.slug = float(modulo.metros.replace(',','.'))
+        metros = float(str(modulo.metros).replace(',','.'))
+        modulo.metraje = metros
         modulo.save()
 
 class Migration(migrations.Migration):
@@ -21,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='modulo',
             name='metraje',
-            field=models.DecimalField(default=0.00, max_digits=10, decimal_places=2),
+            field=models.DecimalField(default=0, max_digits=10, decimal_places=2),
             preserve_default=False,
         ),
         migrations.RunPython(create_modulo_metraje),
