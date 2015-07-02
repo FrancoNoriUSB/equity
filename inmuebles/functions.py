@@ -50,7 +50,6 @@ def dynamic_query(model, fields, types, values, operator, order):
         if v != None: 
             if t == 'range':
                 kwargs = {str('%s__%s' % (f,t)) : (v)}
-                print kwargs
             else:
                 kwargs = {str('%s__%s' % (f,t)) : str('%s' % v)}
             queries.append(Q(**kwargs))

@@ -22,6 +22,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 from django import forms
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
 import json
 
 # Vista del index o home
@@ -92,7 +93,8 @@ def home(request, pais):
 
             #Caso de busqueda por codigo
             if palabra != '':
-                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, titulo__icontains=palabra)
+                slug = slugify(palabra)
+                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, slug__icontains=slug)
                 if not inmuebles_list:
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra)
 
@@ -158,7 +160,11 @@ def home(request, pais):
     #Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, 6)
     page = request.GET.get('page')
-
+    
+    #Busqueda con paginacion
+    query = request.GET.copy()
+    if query.has_key('page'):
+        del query['page']
     try:
         inmuebles = paginator.page(page)
     except PageNotAnInteger:
@@ -187,6 +193,7 @@ def home(request, pais):
         'imagenes': imagenes,
         'zonas': zonas,
         'banners':banners,
+        'query':query,
     }
 
     return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
@@ -577,6 +584,7 @@ def inmuebles_editar(request, pais, id_inmueble):
     if request.POST:
         inmuebleF = InmuebleForm(request.POST, request.FILES, instance=inmueble)
         tiposF = BuscadorForm(request.POST)
+        print inmuebleF
         if inmuebleF.is_valid() and tiposF.is_valid():
             tipo = tiposF.cleaned_data['tipo']
             inmueble = inmuebleF.save(commit=False)

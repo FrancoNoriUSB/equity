@@ -100,7 +100,7 @@ class InmuebleForm(forms.ModelForm):
             'descripcion': 'Descripción',
             'direccion': 'Dirección',
         }
-        exclude = ['tipo', 'pais', 'fecha_expiracion']
+        exclude = ['tipo', 'pais', 'fecha_expiracion', 'slug']
 
 
 #Formulario de imagenes de inmuebles

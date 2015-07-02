@@ -197,13 +197,13 @@
         			  <ul class="pagination">
                         {% if inmuebles.has_previous %}
                             <li>
-                                <a href="?page={{ inmuebles.previous_page_number }}">&laquo;</a>
+                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
                             </li>
                         {% endif %}
                             <li><a href="">{{ inmuebles.number }}</a></li>
                         {% if inmuebles.has_next %}
                             <li>
-                                <a href="?page={{ inmuebles.next_page_number }}">&raquo;</a>
+                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
                             </li>
                         {% endif %}
         			  </ul>
@@ -270,13 +270,13 @@
                       <ul class="pagination">
                         {% if inmuebles.has_previous %}
                             <li>
-                                <a href="?page={{ inmuebles.previous_page_number }}">&laquo;</a>
+                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
                             </li>
                         {% endif %}
                             <li><a href="">{{ inmuebles.number }}</a></li>
                         {% if inmuebles.has_next %}
                             <li>
-                                <a href="?page={{ inmuebles.next_page_number }}">&raquo;</a>
+                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
                             </li>
                         {% endif %}
                       </ul>

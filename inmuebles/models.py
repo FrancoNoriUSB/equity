@@ -236,7 +236,7 @@ class ImagenInmueble(Imagen):
 class Modulo(models.Model):
 
     tipo = models.CharField(max_length=30, default='A')
-    metros = models.CharField(max_length=10)
+    metros = models.IntegerField(max_length=10)
     banos = models.CharField(max_length=4)
     dormitorios = models.CharField(max_length=4)
     estacionamientos = models.CharField(max_length=4)
