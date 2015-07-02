@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='modulo',
             name='metraje',
-            field=models.IntegerField(default=0, max_length=10),
+            field=models.DecimalField(default=0.00, max_digits=10, decimal_places=2),
             preserve_default=False,
         ),
         migrations.RunPython(create_modulo_metraje),
