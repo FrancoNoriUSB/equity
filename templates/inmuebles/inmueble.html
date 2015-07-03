@@ -28,6 +28,7 @@
                 <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}} <br />
                    {{inmueble.direccion}}<br>
                    Entrega estimada: {{ inmueble.fecha_entrega }}<br>
+                   {%if inmueble.pagina%}Web del proyecto: <a href="http://{{ inmueble.pagina }}" target="new">{{inmueble.pagina}}</a>{%endif%}<br>
                 </p>
             </div>
             <div class="row info-agente">

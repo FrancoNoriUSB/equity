@@ -94,6 +94,8 @@
                                     <button class="btn btn-primary">
                                         Filtrar
                                     </button>
+                                    <br>
+                                    <br>
                                     <div class="form-group">
                                         <h5>Metros</h5>
                                     </div>
@@ -113,9 +115,9 @@
                                         {% render_field buscadorF.habitaciones class="form-control"%}
                                     </div>
                                     <button class="btn btn-primary">
-                                        Aplicar
+                                        Buscar
                                     </button>
-                                    &nbsp;&nbsp;&nbsp;<a href="/{{pais}}/">Limpiar</a>
+                                    &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
                             </div>
                         </div>
                     </div>
@@ -148,6 +150,8 @@
                                 <button class="btn btn-primary">
                                     Filtrar
                                 </button>
+                                <br>
+                                <br>
                                 <div class="form-group">
                                     <h5>Metros</h5>
                                 </div>
@@ -167,9 +171,9 @@
                                     {% render_field buscadorF.habitaciones class="form-control"%}
                                 </div>
                                 <button class="btn btn-primary">
-                                    Aplicar
+                                    Buscar
                                 </button>
-                                &nbsp;&nbsp;&nbsp;<a href="/{{pais}}/">Limpiar</a>
+                                &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
                         </div>
                     </div>
                 </div>
@@ -239,19 +243,19 @@
                                 {{inmueble.zona.nombre}}
         						<br/>
                                 <br/>
-        						<p class="text-danger">C&oacute;digo: {{inmueble.codigo}}</p>
+        						<p class="text-danger"><strong>C&oacute;digo: {{inmueble.codigo}}</strong></p>
                                 <br>
                                 {%for modulo in inmueble.modulo_set.all|slice:":1"%}
                                     Desde: {{modulo.metros}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
                                     {%if modulo.precio != 0%}
-                                        {{moneda.simbolo }} {{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
+                                        {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
                                     {%endif%}
                                 {%endfor%}
         					</p>
         				</div>
         				<div class="varios col-lg-3">
         					<img class="img-responsive" src="{{inmueble.logo.url}}" alt="">
-                            <p class="text-right">{{inmueble.tipo_obra}}</p>
+                            <p class="text-right"><u>{{inmueble.tipo_obra}}</u></p>
                             <p class="text-right">
             					<a class="ver" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">Ver</a> &nbsp;&nbsp;
             					<a class="favoritos" href="">Favoritos</a>

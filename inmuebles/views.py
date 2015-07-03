@@ -51,8 +51,8 @@ def home(request, pais):
         'pais': pais,
     })
 
-    inmuebles = []
     zonas = {}
+    inmuebles = []
 
     #Imagenes del slider
     imagenes = Slide.objects.filter(pais__nombre=pais)
@@ -154,8 +154,15 @@ def home(request, pais):
 
                 operator = 'and'
 
-                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden).distinct()
+                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden)
 
+                #Eliminando repetidos
+                if orden == 'precio':
+                    for inmueble in inmuebles_list:
+                        if inmueble not in inmuebles:
+                            inmuebles.append(inmueble)
+                    print inmuebles
+                    inmuebles_list = inmuebles
 
     #Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, 6)
