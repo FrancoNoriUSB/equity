@@ -55,10 +55,6 @@ def home(request, pais):
     inmuebles = []
     min_habitaciones = 0
     max_habitaciones = 0
-    metros_min = 0
-    metros_max = 0
-    precio_min = 0
-    precio_max = 0
 
     #Imagenes del slider
     imagenes = Slide.objects.filter(pais__nombre=pais)
@@ -74,6 +70,7 @@ def home(request, pais):
 
     if request.GET:
         buscadorF = BuscadorForm(request.GET)
+
         #Caso para el buscador de inmuebles
         if buscadorF.is_valid():
             ciudad = buscadorF.cleaned_data['ciudad']
@@ -116,8 +113,6 @@ def home(request, pais):
                 #Verificacion de string vacio
                 if orden == '':
                     orden = None
-                if habitaciones == '':
-                    habitaciones = None
 
                 #Campos a buscar
                 fields_list = []
@@ -169,7 +164,7 @@ def home(request, pais):
 
                 operator = 'and'
 
-                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden).distinct()
+                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden)
 
                 #Eliminando repetidos
                 if orden == 'precio':
@@ -196,8 +191,8 @@ def home(request, pais):
         # If page is out of range (e.g. 9999), deliver last page of results.
         inmuebles = paginator.page(paginator.num_pages)
 
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais).order_by('nombre'), empty_label=' - Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais).order_by('nombre'), empty_label=' - Zona -')
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
     for ciudad in Ciudad.objects.filter(pais__nombre=pais):
         zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))

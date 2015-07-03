@@ -69,7 +69,7 @@ def dynamic_query(model, fields, types, values, operator, order):
             # We have a Q object, return the QuerySet
             if order == 'precio':
                 return model.objects.filter(q).order_by('modulo')
-            return model.objects.filter(q).order_by(order)
+            return model.objects.filter(q)
         elif q:
             # We have a Q object, return the QuerySet
             return model.objects.filter(q)
