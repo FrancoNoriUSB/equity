@@ -69,6 +69,9 @@ def dynamic_query(model, fields, types, values, operator, order):
             # We have a Q object, return the QuerySet
             if order == 'precio':
                 return model.objects.filter(q).order_by('modulo')
+            elif order == 'tipo':
+                return model.objects.filter(q).order_by('tipo__nombre')
+
             return model.objects.filter(q)
         elif q:
             # We have a Q object, return the QuerySet
