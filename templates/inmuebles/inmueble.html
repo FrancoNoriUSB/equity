@@ -8,6 +8,22 @@
 
 <!-- Estilos del index -->
 <link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble.css' %}">
+
+<!-- Boton de compartir de facebook -->
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.3&appId=260585997287170";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: 'es'}
+</script>
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
@@ -23,12 +39,16 @@
                     <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
                 </h4>
                 <span class="text-left text-danger">
-                    C&oacute;digo: {{inmueble.codigo}}
+                    <strong>C&oacute;digo: {{inmueble.codigo}}</strong>
                 </span>
                 <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}} <br />
-                   {{inmueble.direccion}}<br>
-                   Entrega estimada: {{ inmueble.fecha_entrega }}<br>
-                   {%if inmueble.pagina%}Web del proyecto: <a href="http://{{ inmueble.pagina }}" target="new">{{inmueble.pagina}}</a>{%endif%}<br>
+					{{inmueble.direccion}}<br>
+					Entrega estimada: {{ inmueble.fecha_entrega }}<br>
+					{%if inmueble.pagina%}Web del proyecto: <a href="http://{{ inmueble.pagina }}" target="new">{{inmueble.pagina}}</a>{%endif%}<br>
+					<div class="fb-share-button" data-href="{{request.path}}" data-layout="button"></div>
+					<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Inmueble de Revista Equity: {{inmueble.titulo}}" data-count="none">Tweet</a>
+
+					<div class="g-plus" data-action="share" data-annotation="none"></div>
                 </p>
             </div>
             <div class="row info-agente">
@@ -36,7 +56,8 @@
                     <strong>Contacto:</strong>
                 </h4>
                 <p>
-                    {{ inmueble.agente.nombre }} <br />
+                    {{ inmueble.agente.nombre }} <br /> 
+                    {%if inmueble.agente.pagina%}Web del agente: <a href="http://{{ inmueble.agente.pagina }}" target="new">{{inmueble.agente.pagina}}</a>{%endif%}<br>
                     {% for telefono in telefonosAgente %}
                         {{ telefono.tipo }}: {{ telefono.numero }}<br>
                     {% endfor %}
@@ -76,6 +97,33 @@
 		        </div>
 		    </div>
 		    <!--/main slider carousel-->
+			{%if inmueble.video%}
+		    <br>
+		    <!-- Button trigger modal -->
+			<button type="button" class="text-center btn btn-primary btn-md video" data-toggle="modal" data-target="#videoModal">
+			  Video
+			</button>
+
+			<!-- Modal -->
+			<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Video de la obra</h4>
+			      </div>
+			      <div class="modal-body">
+			        <div class="video-container">
+			        	<iframe width="640" height="352" src="{{inmueble.video}}" frameborder="0" allowfullscreen=""></iframe>
+			        </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			{%endif%}
 			<br>
 		</div>
 	</div>

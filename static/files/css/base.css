@@ -256,3 +256,7 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(6) > form > div > div > button > span{
 	color: black;
 }
+
+.text-danger{
+	color: #D94442;
+}

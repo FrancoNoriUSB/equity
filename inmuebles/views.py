@@ -79,6 +79,12 @@ def home(request, pais):
             precio = buscadorF.cleaned_data['precio']
             palabra = buscadorF.cleaned_data['palabra']
 
+            #Revisa si las habitaciones no son vacias
+            if habitaciones != '':
+                habitaciones = habitaciones.split('-',2)
+                min_habitaciones = int(habitaciones[0])
+                max_habitaciones = int(habitaciones[1])
+
             #Revisa si los metros no son vacios
             if metros != '':
                 metros = metros.split('-',2)
@@ -132,7 +138,7 @@ def home(request, pais):
                 if metros != '':
                     types_list.append('range')
 
-                types_list.append('exact')
+                types_list.append('range')
 
                 if precio != '':    
                     types_list.append('range')
@@ -147,14 +153,14 @@ def home(request, pais):
                 if metros != '':
                     values_list.append((metros_min, metros_max))
 
-                values_list.append(habitaciones)
+                values_list.append((min_habitaciones, max_habitaciones))
 
                 if precio != '':
                     values_list.append((precio_min, precio_max))
 
                 operator = 'and'
 
-                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden)
+                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden).distinct()
 
                 #Eliminando repetidos
                 if orden == 'precio':
@@ -181,8 +187,8 @@ def home(request, pais):
         # If page is out of range (e.g. 9999), deliver last page of results.
         inmuebles = paginator.page(paginator.num_pages)
 
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais).order_by('nombre'), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais).order_by('nombre'), empty_label=' - Zona -')
 
     for ciudad in Ciudad.objects.filter(pais__nombre=pais):
         zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))

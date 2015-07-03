@@ -43,11 +43,10 @@ class BuscadorForm(forms.Form):
 
     habitaciones = (
         ('',' - Habitaciones - '),
-        ('1','1'),
-        ('2','2'),
-        ('3','3'),
-        ('4','4'),
-        ('5','5'), 
+        ('0-1',' 0 - 1 '),
+        ('2-3',' 2 - 3'),
+        ('4-5',' 4 - 5 '),
+        ('5-100',u' 5 o más '), 
     )
 
     metros = (
@@ -69,7 +68,7 @@ class BuscadorForm(forms.Form):
 
     ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
     zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
-    tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all(), empty_label=' - Tipo -', required=False)
+    tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all().order_by('nombre'), empty_label=' - Tipo -', required=False)
     habitaciones = forms.ChoiceField(choices=habitaciones, required=False)
     metros = forms.ChoiceField(choices=metros, required=False)
     precio = forms.ChoiceField(choices=precios, required=False)
