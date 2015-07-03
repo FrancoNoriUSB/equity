@@ -123,7 +123,8 @@ def home(request, pais):
                 if metros != '':
                     fields_list.append('modulo__metros')
 
-                fields_list.append('modulo__dormitorios')
+                if habitaciones != '':
+                    fields_list.append('modulo__dormitorios')
 
                 if precio != '':
                     fields_list.append('modulo__precio')
@@ -138,7 +139,8 @@ def home(request, pais):
                 if metros != '':
                     types_list.append('range')
 
-                types_list.append('range')
+                if habitaciones != '':
+                    types_list.append('range')
 
                 if precio != '':    
                     types_list.append('range')
@@ -153,7 +155,8 @@ def home(request, pais):
                 if metros != '':
                     values_list.append((metros_min, metros_max))
 
-                values_list.append((min_habitaciones, max_habitaciones))
+                if habitaciones != '':
+                    values_list.append((min_habitaciones, max_habitaciones))
 
                 if precio != '':
                     values_list.append((precio_min, precio_max))
