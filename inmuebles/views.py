@@ -53,6 +53,12 @@ def home(request, pais):
 
     zonas = {}
     inmuebles = []
+    min_habitaciones = 0
+    max_habitaciones = 0
+    metros_min = 0
+    metros_max = 0
+    precio_min = 0
+    precio_max = 0
 
     #Imagenes del slider
     imagenes = Slide.objects.filter(pais__nombre=pais)
