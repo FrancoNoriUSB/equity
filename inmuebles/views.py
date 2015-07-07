@@ -164,7 +164,7 @@ def home(request, pais):
 
                 operator = 'and'
 
-                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden)
+                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden).distinct()
 
                 #Eliminando repetidos
                 if orden == 'precio':

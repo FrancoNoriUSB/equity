@@ -44,7 +44,7 @@
                 <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}} <br />
 					{{inmueble.direccion}}<br>
 					Entrega estimada: {{ inmueble.fecha_entrega }}<br>
-					{%if inmueble.pagina%}Web del proyecto: <a href="http://{{ inmueble.pagina }}" target="new">{{inmueble.pagina}}</a>{%endif%}<br>
+
 					<div class="fb-share-button" data-href="{{request.path}}" data-layout="button"></div>
 					<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Inmueble de Revista Equity: {{inmueble.titulo}}" data-count="none">Tweet</a>
 
@@ -56,8 +56,10 @@
                     <strong>Contacto:</strong>
                 </h4>
                 <p>
-                    {{ inmueble.agente.nombre }} <br /> 
-                    {%if inmueble.agente.pagina%}Web del agente: <a href="http://{{ inmueble.agente.pagina }}" target="new">{{inmueble.agente.pagina}}</a>{%endif%}<br>
+                    {%if inmueble.pagina%}
+						Web del proyecto: <a href="http://{{ inmueble.pagina }}" target="new">{{inmueble.pagina}}</a>
+					{%endif%}
+					<br>
                     {% for telefono in telefonosAgente %}
                         {{ telefono.tipo }}: {{ telefono.numero }}<br>
                     {% endfor %}
@@ -114,7 +116,7 @@
 			      </div>
 			      <div class="modal-body">
 			        <div class="video-container">
-			        	<iframe width="640" height="352" src="{{inmueble.video}}" frameborder="0" allowfullscreen=""></iframe>
+			        	<iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen=""></iframe>
 			        </div>
 			      </div>
 			      <div class="modal-footer">

@@ -71,6 +71,9 @@ def dynamic_query(model, fields, types, values, operator, order):
                 return model.objects.filter(q).order_by('modulo')
             elif order == 'tipo':
                 return model.objects.filter(q).order_by('tipo__nombre')
+            elif order == 'zona':
+                print order
+                return model.objects.filter(q).order_by('zona__nombre')
 
             return model.objects.filter(q)
         elif q:

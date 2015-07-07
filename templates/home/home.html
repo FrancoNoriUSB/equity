@@ -246,7 +246,7 @@
         						<p class="text-danger"><strong>C&oacute;digo: {{inmueble.codigo}}</strong></p>
                                 <br>
                                 {%for modulo in inmueble.modulo_set.all|slice:":1"%}
-                                    Desde: {{modulo.metros}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
+                                    Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
                                     {%if modulo.precio != 0%}
                                         {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
                                     {%endif%}
