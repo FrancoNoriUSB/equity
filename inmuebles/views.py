@@ -415,7 +415,9 @@ class Publicar(CreateView):
               'latitud',
               'longitud',
               'areas_comunes',
-              'logo']
+              'logo',
+              'archivo',
+              'forma_pago']
 
     def get(self, request, *args, **kwargs):
         self.object = None

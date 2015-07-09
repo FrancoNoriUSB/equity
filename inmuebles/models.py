@@ -198,6 +198,8 @@ class Inmueble(models.Model):
     latitud = models.DecimalField(max_digits=20, decimal_places=17)
     longitud = models.DecimalField(max_digits=20, decimal_places=17)
     logo = models.ImageField(upload_to='logos_inmuebles/')
+    archivo = models.FileField(upload_to='archivos_inmuebles/', blank=True, null=True)
+    forma_pago = models.TextField(max_length=100, blank=True, null=True, verbose_name='Forma de pago')
     pagina = models.CharField(max_length=200, blank=True, null=True)
     video = models.CharField(max_length=200, blank=True, null=True)
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
