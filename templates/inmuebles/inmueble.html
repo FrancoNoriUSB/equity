@@ -47,8 +47,10 @@
 
 					<div class="fb-share-button" data-href="{{request.path}}" data-layout="button"></div>
 					<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Inmueble de Revista Equity: {{inmueble.titulo}}" data-count="none">Tweet</a>
-
 					<div class="g-plus" data-action="share" data-annotation="none"></div>
+					{%if inmueble.archivo%}
+						<a href="inmueble.archivo.url" class="btn btn-primary" target="_new">Descargar Archivo</a>
+					{%endif%}
                 </p>
             </div>
             <div class="row info-agente">
