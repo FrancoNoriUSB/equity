@@ -280,7 +280,9 @@
                                 <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
                             </li>
                         {% endif %}
-                            <li><a href="">{{ inmuebles.number }}</a></li>
+                            <li>
+                                <a href="">{{ inmuebles.number }}</a>
+                            </li>
                         {% if inmuebles.has_next %}
                             <li>
                                 <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
@@ -323,10 +325,12 @@ function cargar_zonas(){
 }
 $(document).on('change', '#id_ciudad', cargar_zonas);
 
+/*Funcion para hacer submit en orden de resultados*/
 $('#id_orden').change(function(){
     $('#form').submit();
 });
 
+/*Funcion para hacer submit en numero de inmuebles por pagina*/
 $('#id_inmuebles').change(function(){
     $('#form').submit();
 });

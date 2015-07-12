@@ -172,7 +172,6 @@ def home(request, pais):
                 if orden == 'precio':
                     for inmueble in inmuebles_list:
                         modulos = Modulo.objects.filter(inmueble=inmueble)
-                        print modulos
                         if inmueble not in inmuebles:
                             if modulos:
                                 inmuebles.append(inmueble)
