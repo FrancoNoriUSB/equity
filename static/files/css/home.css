@@ -55,7 +55,8 @@ body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-s
 	float: right;
 }
 
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-superior.row > div > nav > ul{
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-superior.row > div > nav > ul,
+body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-inferior.row > div > nav > ul{
 	margin: 0px 0;
 }
 

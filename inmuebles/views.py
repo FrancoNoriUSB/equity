@@ -55,6 +55,7 @@ def home(request, pais):
     inmuebles = []
     min_habitaciones = 0
     max_habitaciones = 0
+    inmuebles_pagina = 6
 
     #Imagenes del slider
     imagenes = Slide.objects.filter(pais__nombre=pais)
@@ -81,6 +82,7 @@ def home(request, pais):
             metros = buscadorF.cleaned_data['metros']
             precio = buscadorF.cleaned_data['precio']
             palabra = buscadorF.cleaned_data['palabra']
+            inmuebles_pagina = buscadorF.cleaned_data['inmuebles']
 
             #Revisa si las habitaciones no son vacias
             if habitaciones != '':
@@ -175,7 +177,7 @@ def home(request, pais):
                     inmuebles_list = inmuebles
 
     #Busqueda de propiedades en el pais actual
-    paginator = Paginator(inmuebles_list, 6)
+    paginator = Paginator(inmuebles_list, inmuebles_pagina)
     page = request.GET.get('page')
     
     #Busqueda con paginacion

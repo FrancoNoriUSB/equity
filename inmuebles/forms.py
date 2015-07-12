@@ -66,6 +66,13 @@ class BuscadorForm(forms.Form):
         ('500000-1000000', '500000 - 1000000'),
     )
 
+    inmuebles = (
+        ('6', '6'),
+        ('12','12'),
+        ('24', '24'),
+        ('48', '48'),
+    )
+
     ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
     zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
     tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all().order_by('nombre'), empty_label=' - Tipo -', required=False)
@@ -73,6 +80,7 @@ class BuscadorForm(forms.Form):
     metros = forms.ChoiceField(choices=metros, required=False)
     precio = forms.ChoiceField(choices=precios, required=False)
     orden = forms.ChoiceField(choices=ordenes, required=False)
+    inmuebles = forms.ChoiceField(choices=inmuebles, required=False)
     palabra = forms.CharField(max_length=20, required=False)
 
 
