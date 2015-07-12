@@ -3,21 +3,23 @@ from __future__ import unicode_literals
 import codecs
 
 from django.db import models, migrations
-def create_inmueble_areas(apps, schema_editor):
+# def create_inmueble_areas(apps, schema_editor):
 
-    Inmueble = apps.get_model("inmuebles", "Inmueble")
-    for inmueble in Inmueble.objects.all():
-        areas = ''
-        areas_comunes = inmueble.areas_comunes.all()
-        for area in areas_comunes:
-            area = area.nombre.encode('unicode-escape')
-            if area == areas_comunes[len(areas_comunes)-1]:
-                areas += area +'.'
-            else:
-                areas += area +', '
+#     Inmueble = apps.get_model("inmuebles", "Inmueble")
+#     for inmueble in Inmueble.objects.all():
+#         areas = ''
+#         i = 0
+#         areas_comunes = inmueble.areas_comunes.all()
+#         for area in areas_comunes:
+#             i+=1
+#             area = area.nombre.encode('unicode-escape')
+#             if i==len(areas_comunes):
+#                 areas += area +'.'
+#             else:
+#                 areas += area +', '
 
-        inmueble.areas = areas
-        inmueble.save()
+#         inmueble.areas = areas
+#         inmueble.save()
 
 
 class Migration(migrations.Migration):
@@ -33,5 +35,5 @@ class Migration(migrations.Migration):
             field=models.TextField(default=''),
             preserve_default=False,
         ),
-        migrations.RunPython(create_inmueble_areas),
+        # migrations.RunPython(create_inmueble_areas),
     ]
