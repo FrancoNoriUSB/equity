@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import codecs
 
 from django.db import models, migrations
 def create_inmueble_areas(apps, schema_editor):
@@ -9,10 +10,11 @@ def create_inmueble_areas(apps, schema_editor):
         areas = ''
         areas_comunes = inmueble.areas_comunes.all()
         for area in areas_comunes:
+            area = area.nombre.encode('unicode-escape')
             if area == areas_comunes[len(areas_comunes)-1]:
-                areas= areas + str(area.nombre) +'.'
+                areas += area +'.'
             else:
-                areas= areas + str(area.nombre) +', '
+                areas += area +', '
 
         inmueble.areas = areas
         inmueble.save()
