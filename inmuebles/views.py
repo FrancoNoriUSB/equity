@@ -171,9 +171,13 @@ def home(request, pais):
                 #Eliminando repetidos
                 if orden == 'precio':
                     for inmueble in inmuebles_list:
+                        modulos = Modulo.objects.filter(inmueble=inmueble)
+                        print modulos
                         if inmueble not in inmuebles:
-                            inmuebles.append(inmueble)
-                    print inmuebles
+                            if modulos:
+                                inmuebles.append(inmueble)
+                            else:
+                                inmuebles.insert(0,inmueble)
                     inmuebles_list = inmuebles
 
     #Busqueda de propiedades en el pais actual
