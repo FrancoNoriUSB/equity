@@ -433,7 +433,6 @@ class Publicar(CreateView):
         form.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=kwargs["pais"]))
-        form.fields['areas_comunes'] = forms.ModelMultipleChoiceField(AreaComun.objects.all(), widget=forms.CheckboxSelectMultiple())
         tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
 
@@ -458,7 +457,6 @@ class Publicar(CreateView):
         form.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=kwargs["pais"]))
-        form.fields['areas_comunes'] = forms.ModelMultipleChoiceField(AreaComun.objects.all(), widget=forms.CheckboxSelectMultiple())
         tipo = get_object_or_404(TipoInmueble, id=kwargs["tipo"])
         campos = CampoTipoInmueble.objects.filter(tipo_inmueble=tipo)
         for ciudad in Ciudad.objects.filter(pais__nombre=kwargs["pais"]):
@@ -608,7 +606,7 @@ def inmuebles_editar(request, pais, id_inmueble):
     if request.POST:
         inmuebleF = InmuebleForm(request.POST, request.FILES, instance=inmueble)
         tiposF = BuscadorForm(request.POST)
-        print inmuebleF
+
         if inmuebleF.is_valid() and tiposF.is_valid():
             tipo = tiposF.cleaned_data['tipo']
             inmueble = inmuebleF.save(commit=False)

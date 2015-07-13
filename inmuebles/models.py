@@ -202,7 +202,7 @@ class Inmueble(models.Model):
     forma_pago = models.TextField(max_length=100, blank=True, null=True, verbose_name='Forma de pago')
     pagina = models.CharField(max_length=200, blank=True, null=True)
     video = models.CharField(max_length=200, blank=True, null=True)
-    areas = models.TextField()
+    areas_comunes = models.TextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     feche_actualizacion = models.DateTimeField(auto_now=True)
     fecha_expiracion = models.DateTimeField()
@@ -213,7 +213,6 @@ class Inmueble(models.Model):
     zona = models.ForeignKey(Zona)
     agente = models.ForeignKey(Agente, null=True, on_delete=models.SET_NULL)
     tipo = models.ForeignKey(TipoInmueble)
-    areas_comunes = models.ManyToManyField(AreaComun)
 
     def save(self, *args, **kwargs):
         self.slug = defaultfilters.slugify(self.titulo)

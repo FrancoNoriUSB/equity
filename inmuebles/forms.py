@@ -101,7 +101,6 @@ class InmuebleForm(forms.ModelForm):
             'fecha_entrega': forms.DateInput(),
             'latitud': forms.HiddenInput(),
             'longitud': forms.HiddenInput(),
-            'areas_comunes': forms.CheckboxSelectMultiple(),
         }
         labels = {
             'descripcion': 'Descripción',
