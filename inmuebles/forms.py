@@ -45,8 +45,7 @@ class BuscadorForm(forms.Form):
         ('',' - Habitaciones - '),
         ('0-1',' 0 - 1 '),
         ('2-3',' 2 - 3'),
-        ('4-5',' 4 - 5 '),
-        ('5-100',u' 5 o más '), 
+        ('3-100',u' 3 o más '), 
     )
 
     metros = (
@@ -58,14 +57,6 @@ class BuscadorForm(forms.Form):
         ('500-1000000000', u' 500 - más '),
     )
 
-    precios = (
-        ('', ' - Precio - '),
-        ('0-100000', '0 - 100000'),
-        ('100000-200000', '100000 - 200000'),
-        ('200000-500000', '200000 - 500000'),
-        ('500000-1000000', '500000 - 1000000'),
-    )
-
     inmuebles = (
         ('6', '6'),
         ('12','12'),
@@ -73,14 +64,23 @@ class BuscadorForm(forms.Form):
         ('48', '48'),
     )
 
+    monedas = (
+        ('',' - Moneda - '),
+        ('nacional','Nacional'),
+        ('usd','USD'),
+    )
+
     ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
     zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
     tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all().order_by('nombre'), empty_label=' - Tipo -', required=False)
     habitaciones = forms.ChoiceField(choices=habitaciones, required=False)
     metros = forms.ChoiceField(choices=metros, required=False)
-    precio = forms.ChoiceField(choices=precios, required=False)
+    moneda = forms.ChoiceField(choices=monedas, required=False)
+    desde = forms.CharField(max_length=5, required=False)
+    hasta = forms.CharField(max_length=10, required=False)
     orden = forms.ChoiceField(choices=ordenes, required=False)
-    inmuebles = forms.ChoiceField(choices=inmuebles, required=False)
+    inmuebles_inf = forms.ChoiceField(choices=inmuebles, required=False)
+    inmuebles_sup = forms.ChoiceField(choices=inmuebles, required=False)
     palabra = forms.CharField(max_length=20, required=False)
 
 

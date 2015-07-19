@@ -56,6 +56,13 @@ def home(request, pais):
     min_habitaciones = 0
     max_habitaciones = 0
     inmuebles_pagina = 6
+    inmuebles_inf = 6
+    inmuebles_sup = 6
+    moneda_get = ''
+    desde = ''
+    hasta = ''
+    precio_min = ''
+    precio_max = ''
 
     #Imagenes del slider
     imagenes = Slide.objects.filter(pais__nombre=pais)
@@ -80,9 +87,13 @@ def home(request, pais):
             habitaciones = buscadorF.cleaned_data['habitaciones']
             orden = buscadorF.cleaned_data['orden']
             metros = buscadorF.cleaned_data['metros']
-            precio = buscadorF.cleaned_data['precio']
+            moneda_get = buscadorF.cleaned_data['moneda']
+            desde = buscadorF.cleaned_data['desde']
+            hasta = buscadorF.cleaned_data['hasta']
             palabra = buscadorF.cleaned_data['palabra']
-            inmuebles_pagina = buscadorF.cleaned_data['inmuebles']
+            inmuebles_inf = buscadorF.cleaned_data['inmuebles_inf']
+            inmuebles_sup = buscadorF.cleaned_data['inmuebles_sup']
+
 
             #Revisa si las habitaciones no son vacias
             if habitaciones != '':
@@ -97,10 +108,9 @@ def home(request, pais):
                 metros_max = int(metros[1])
 
             #Revisa si el precio no es vacio
-            if precio != '':
-                precio = precio.split('-', 2)
-                precio_min = int(precio[0])
-                precio_max = int(precio[1])
+            if desde != '' and hasta !='' and desde <= hasta:
+                precio_min = int(desde)
+                precio_max = int(hasta)
 
             #Caso de busqueda por codigo
             if palabra != '':
@@ -110,7 +120,7 @@ def home(request, pais):
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra)
 
             # Caso demas
-            elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '' or precio != '' or metros != '':
+            elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '' or (precio_min != '' and precio_max != '') or metros != '':
 
                 #Verificacion de string vacio
                 if orden == '':
@@ -129,7 +139,7 @@ def home(request, pais):
                 if habitaciones != '':
                     fields_list.append('modulo__dormitorios')
 
-                if precio != '':
+                if precio_min != '' and precio_max != '':
                     fields_list.append('modulo__precio')
 
                 #Comparadores para buscar
@@ -145,7 +155,7 @@ def home(request, pais):
                 if habitaciones != '':
                     types_list.append('range')
 
-                if precio != '':    
+                if precio_min != '' and precio_max != '':    
                     types_list.append('range')
 
                 #Valores a buscar
@@ -161,7 +171,7 @@ def home(request, pais):
                 if habitaciones != '':
                     values_list.append((min_habitaciones, max_habitaciones))
 
-                if precio != '':
+                if precio_min != '' and precio_max != '':
                     values_list.append((precio_min, precio_max))
 
                 operator = 'and'
@@ -178,6 +188,13 @@ def home(request, pais):
                             else:
                                 inmuebles.insert(0,inmueble)
                     inmuebles_list = inmuebles
+
+
+    #Verificacion de cual de los filtros se uso
+    if inmuebles_inf != 6 :
+        inmuebles_pagina=inmuebles_inf
+    elif inmuebles_sup != 6 :
+        inmuebles_pagina=inmuebles_sup
 
     #Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, inmuebles_pagina)
@@ -209,9 +226,11 @@ def home(request, pais):
     ctx = {
         'buscadorF': buscadorF,
         'paisesF': paisesF,
+        'moneda_get':moneda_get,
         'moneda': moneda,
         'pais': pais,
         'inmuebles': inmuebles,
+        'inmuebles_pagina':inmuebles_pagina,
         'imagenes': imagenes,
         'zonas': zonas,
         'banners':banners,

@@ -82,11 +82,6 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 	color: #FFFFFF;
 }
 
-body > header > div > div > div > a:nth-child(2) > img{
-	margin-left: 32%;
-	position: absolute;
-}
-
 body > header > div.container-fluid{
     height: 100%;
     display: table;
@@ -96,22 +91,25 @@ body > header > div.container-fluid{
 	background-color:#0095d9;
 }
 
-body > header > div > div.row-fluid {
+body > header > div > div.row-fluid{
     height: 100%;
     display: table-cell;
-    width: 100%;
+    width: 1170px;
 }
 
-body > header > div > div > div.centering{
+body > header > div > div  > a > img.revista{
+	float:right;
+	margin-left: 40%;
+	margin-top: 14px;
+	position: absolute;
+}
+
+.centering {
     float: none;
     margin: 0 auto;
 }
 
-body > header > div > div > div > img{
-	float:right;
-}
-
-body > header > div.logo > div > div{
+body > header > div > div > a > img.logo{
 	padding-top: 1%;
 	padding-bottom: 1%;
 	padding-right: 0;
@@ -123,7 +121,7 @@ body > div.container-fluid > div.busqueda.row{
 	background-color: #0095d9;
 }	
 
-body > div.container-fluid >  div > div > p{
+body > div.container >  div > div > p{
 	margin:0 0 0 0;
 	font-size: 3px;
 }
@@ -151,7 +149,6 @@ body > div.contenido{
 
 
 /*Estilos de la barra inferior de la base*/
-
 footer > .primario{
 	background-color: #33302e;
 	padding-left: 5%;

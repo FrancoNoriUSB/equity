@@ -46,6 +46,17 @@ body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.
 	font-size: 15px;
 }
 
+/*Estilos de filtro*/
+#id_desde{
+	display: inline-block;
+	width: 48%
+}
+
+#id_hasta{
+	display: inline-block;
+	width: 48%
+}
+
 /*Estilos contenido*/
 body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-superior.row > div > form{
 	float: left;
@@ -97,4 +108,3 @@ body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.
 	border-bottom-width: 2px;
 	padding-bottom: 1%;
 }
-

@@ -80,7 +80,7 @@
                                 <form id="form" class="form" role="form" action="/{{pais}}/" method="GET">
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <h5>Filtrar Resultados</h5>
+                                        <h5><strong>Buscar Inmuebles</strong></h5>
                                     </div>
                                     <div class="form-group">
                                         {% render_field buscadorF.ciudad class="form-control"%}
@@ -92,12 +92,16 @@
                                         {% render_field buscadorF.tipo class="form-control"%}
                                     </div>
                                     <button class="btn btn-primary">
-                                        Filtrar
+                                    Buscar
                                     </button>
+                                    &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
                                     <br>
                                     <br>
                                     <div class="form-group">
-                                        <h5>Metros&sup2;:</h5>
+                                        <h5><strong>Filtrar</strong></h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <h5>Superficie:</h5>
                                     </div>
                                     <div class="form-group">
                                         {% render_field buscadorF.metros class="form-control"%}
@@ -106,7 +110,8 @@
                                         <h5>Precio:</h5>
                                     </div>
                                     <div class="form-group">
-                                        {% render_field buscadorF.precio class="form-control"%}
+                                        {% render_field buscadorF.desde class="form-control"%}
+                                        {% render_field buscadorF.hasta class="form-control"%}
                                     </div>
                                     <div class="form-group">
                                         <h5>Habitaciones:</h5>
@@ -115,9 +120,10 @@
                                         {% render_field buscadorF.habitaciones class="form-control"%}
                                     </div>
                                     <button class="btn btn-primary">
-                                        Buscar
+                                        Filtrar
                                     </button>
-                                    &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
+                                    <br>
+                                    <br>
                             </div>
                         </div>
                     </div>
@@ -136,7 +142,7 @@
                             <form id="form" class="form" role="form" action="/{{pais}}/" method="GET">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <h5>Filtrar Resultados</h5>
+                                    <h5><strong>Buscar Inmuebles</strong></h5>
                                 </div>
                                 <div class="form-group">
                                     {% render_field buscadorF.ciudad class="form-control"%}
@@ -148,12 +154,16 @@
                                     {% render_field buscadorF.tipo class="form-control"%}
                                 </div>
                                 <button class="btn btn-primary">
-                                    Filtrar
+                                    Buscar
                                 </button>
+                                &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
                                 <br>
                                 <br>
                                 <div class="form-group">
-                                    <h5>Metros&sup2;:</h5>
+                                    <h5><strong>Filtrar</strong></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Superficie</h5>
                                 </div>
                                 <div class="form-group">
                                     {% render_field buscadorF.metros class="form-control"%}
@@ -162,7 +172,18 @@
                                     <h5>Precio:</h5>
                                 </div>
                                 <div class="form-group">
-                                    {% render_field buscadorF.precio class="form-control"%}
+                                    <div class="form-group">
+                                        {% render_field buscadorF.desde class="form-control desde" placeholder="Desde"%}
+                                        {% render_field buscadorF.hasta class="form-control hasta" placeholder="Hasta"%}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Moneda:</h5>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        {% render_field buscadorF.moneda class="form-control"%}
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <h5>Habitaciones:</h5>
@@ -171,9 +192,10 @@
                                     {% render_field buscadorF.habitaciones class="form-control"%}
                                 </div>
                                 <button class="btn btn-primary">
-                                    Buscar
+                                    Filtrar
                                 </button>
-                                &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
+                                <br>
+                                <br>
                         </div>
                     </div>
                 </div>
@@ -193,7 +215,10 @@
         <div class="contenido col-lg-9 col-md-9">
         	<div class="paginacion-superior row">
         		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
-                    <div class="form-group col-lg-4 col-md-4">
+                        <div class="form-inline col-lg-6 col-md-3">
+                            <label for="id_inmuebles">Mostrar:  {% render_field buscadorF.inmuebles_sup class="form-control"%} resultados por p&aacute;gina.</label>
+                        </div>
+                    <div class="form-group col-lg-3 col-md-3">
                         {% render_field buscadorF.orden class="form-control"%}
                     </div>
         			<nav>
@@ -235,6 +260,7 @@
         						</a>
         					</strong>
         					<p>
+                                {{moneda_get}}
         						{{inmueble.tipo.nombre}}
                                 <br/>
                                 {{inmueble.ciudad.nombre}}
@@ -247,7 +273,13 @@
                                 {%for modulo in inmueble.modulo_set.all|slice:":1"%}
                                     Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
                                     {%if modulo.precio != 0%}
-                                        {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
+                                        {%if moneda_get == 'nacional'%}
+                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                        {%elif moneda_get == 'usd'%}
+                                            {{modulo.precio|floatformat|intcomma}} USD
+                                        {%else%}
+                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
+                                        {%endif%}
                                     {%endif%}
                                 {%endfor%}
         					</p>
@@ -268,9 +300,9 @@
         	</div>
         	
         	<div class="paginacion-inferior row">
-        		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0"> 
+        		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
                         <div class="form-inline col-lg-6 col-md-3">
-                            <label for="id_inmuebles">Mostrar:  {% render_field buscadorF.inmuebles class="form-control"%} resultados por p&aacute;gina.</label>
+                            <label for="id_inmuebles">Mostrar:  {% render_field buscadorF.inmuebles_inf class="form-control"%} resultados por p&aacute;gina.</label>
                         </div>
                     </form>
                     <nav class="text-right">
@@ -331,8 +363,28 @@ $('#id_orden').change(function(){
 });
 
 /*Funcion para hacer submit en numero de inmuebles por pagina*/
-$('#id_inmuebles').change(function(){
+$('#id_inmuebles_inf').change(function(){
+    $('#id_inmuebles_sup').val(6);
     $('#form').submit();
 });
+
+/*Funcion para hacer submit en numero de inmuebles por pagina*/
+$('#id_inmuebles_sup').change(function(){
+    $('#id_inmuebles_inf').val(6);
+    $('#form').submit();
+});
+
+/*Funcion para asignar un valor al formulario de paginas*/
+$( document ).ready(function() {
+    var paginas_sup = $('#id_inmuebles_sup').val();
+    var paginas_inf = $('#id_inmuebles_inf').val();
+
+    if (paginas_inf !=6){
+        $('#id_inmuebles_sup').val(paginas_inf);
+    }else if(paginas_sup !=6){
+        $('#id_inmuebles_inf').val(paginas_sup);
+    }
+});
+
 </script>
 {% endblock js %}
