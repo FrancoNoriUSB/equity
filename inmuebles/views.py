@@ -189,12 +189,11 @@ def home(request, pais):
                                 inmuebles.insert(0,inmueble)
                     inmuebles_list = inmuebles
 
-
     #Verificacion de cual de los filtros se uso
-    if inmuebles_inf != 6 :
-        inmuebles_pagina=inmuebles_inf
-    elif inmuebles_sup != 6 :
-        inmuebles_pagina=inmuebles_sup
+    if inmuebles_inf != '6':
+        inmuebles_pagina = inmuebles_inf
+    if inmuebles_sup != '6':
+        inmuebles_pagina = inmuebles_sup
 
     #Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, inmuebles_pagina)
