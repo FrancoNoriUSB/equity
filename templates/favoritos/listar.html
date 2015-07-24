@@ -7,7 +7,9 @@
 
 <!-- Bloque para scripts que se cargan en la plantilla base -->
 {% block scripts %}
-
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/jquery.dataTables.css">
+    <script src="{{STATIC_URL}}files/js/jquery.dataTables.js"></script>
+    <script src="{{STATIC_URL}}files/js/dataTables.bootstrap.js"></script>
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
@@ -15,7 +17,7 @@
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<h2>Proyectos favoritos:</h2>
-			<table class="table table-bordered">
+			<table id="content" class="display dataTable table">
 				<thead>
 					<tr>
 						<th class="">
@@ -35,27 +37,48 @@
 						</th>
 					</tr>
 				</thead>
-				{%for inmueble in inmuebles%}
-					<tr class="{% cycle 'active' 'info' %}">
-						<td>
-							<img src="{{inmueble.logo.url}}" alt="" height="150">
-						</td>
-						<td>
-							{{inmueble.pais.nombre.name}}
-						</td>
-						<td>
-							{{inmueble.ciudad.nombre}}
-						</td>
-						<td>
-							{{inmueble.titulo}}
-						</td>
-						<td>
-							<a href="">
-								Ver
-							</a>
-						</td>
+				<tfoot>
+					<tr>
+						<th class="">
+							Logo
+						</th>
+						<th class="">
+							Pa&iacute;s
+						</th>
+						<th class="">
+							Ciudad
+						</th>
+						<th class="">
+							Proyecto
+						</th>
+						<th class="">
+							Ver
+						</th>
 					</tr>
-				{%endfor%}
+				</tfoot>
+				<tbody>
+					{%for inmueble in inmuebles%}
+						<tr class="{% cycle 'active' 'info' %}">
+							<td>
+								<img src="{{inmueble.logo.url}}" alt="" height="150">
+							</td>
+							<td>
+								{{inmueble.pais.nombre.name}}
+							</td>
+							<td>
+								{{inmueble.ciudad.nombre}}
+							</td>
+							<td>
+								{{inmueble.titulo}}
+							</td>
+							<td>
+								<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}/">
+									Ver
+								</a>
+							</td>
+						</tr>
+					{%endfor%}
+				</tbody>
 			</table>
 		</div>
 	</div>
@@ -63,5 +86,24 @@
 
 <!-- Seccion donde se carga el JS -->
 {% block js %}
-
+<script>
+$(document).ready(function() {
+    $('#content').dataTable( {
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ cantidad por página",
+            "zeroRecords": "Disculpe, no se han encontrado resultados",
+            "info": "Mostrando _PAGE_ página(s) de _PAGES_",
+            "infoEmpty": "No hay datos introducidos",
+            "infoFiltered": "(Filtrados de _MAX_ en total)",
+            "search": "Buscar: ",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "previous": "Anterior",
+                "next": "Siguiente"
+            }
+        }
+    } );
+} );
+</script>
 {% endblock js %}
