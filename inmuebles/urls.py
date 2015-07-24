@@ -8,6 +8,10 @@ urlpatterns = patterns('inmuebles.views',
             url(r'^(?P<pais>[A-Z][A-Z])/$', 'home', name='home_pais'),
             url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/(?P<codigo>[0-9A-Za-z]+)/$', 'inmueble', name='inmueble'),
 
+            #Favoritos
+            url(r'^(?P<pais>[A-Z][A-Z])/favoritos/$', 'favoritos_list', name='listar_favoritos'),
+            url(r'^(?P<pais>[A-Z][A-Z])/favoritos/agregar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_agregar', name='agregar_favoritos'),
+
             #Vistas del admin de equity
             url(r'^(?P<pais>[A-Z][A-Z])/admin/login/$', 'login_admin', name='login_admin'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/perfil/logout/$', 'logout_admin', name='logout_admin'),

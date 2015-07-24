@@ -1,0 +1,67 @@
+<!-- Archivo donde estan los bloques del home -->
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load mathfilters %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+<!-- Bloque para scripts que se cargan en la plantilla base -->
+{% block scripts %}
+
+{% endblock scripts %}
+
+<!-- Boque del contenido de la pagina -->
+{% block content %}
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2>Proyectos favoritos:</h2>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="">
+							Logo
+						</th>
+						<th class="">
+							Pa&iacute;s
+						</th>
+						<th class="">
+							Ciudad
+						</th>
+						<th class="">
+							Proyecto
+						</th>
+						<th class="">
+							Ver
+						</th>
+					</tr>
+				</thead>
+				{%for inmueble in inmuebles%}
+					<tr class="{% cycle 'active' 'info' %}">
+						<td>
+							<img src="{{inmueble.logo.url}}" alt="" height="150">
+						</td>
+						<td>
+							{{inmueble.pais.nombre.name}}
+						</td>
+						<td>
+							{{inmueble.ciudad.nombre}}
+						</td>
+						<td>
+							{{inmueble.titulo}}
+						</td>
+						<td>
+							<a href="">
+								Ver
+							</a>
+						</td>
+					</tr>
+				{%endfor%}
+			</table>
+		</div>
+	</div>
+{% endblock content %}
+
+<!-- Seccion donde se carga el JS -->
+{% block js %}
+
+{% endblock js %}

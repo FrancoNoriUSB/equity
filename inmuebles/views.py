@@ -302,6 +302,56 @@ def inmueble(request, codigo, pais):
     return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
 
 
+#Vista de inmuebles favoritos
+def favoritos_list(request, pais):
+
+    inmuebles = []
+
+    #Buscador de inmuebles
+    buscadorF = BuscadorForm()
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
+
+    #Moneda
+    try:
+        moneda = Moneda.objects.get(pais__nombre=pais)
+    except:
+        moneda = ''
+
+
+    #Formulario para los paises disponibles
+    paisesF = PaisesForm(initial={
+        'pais': pais,
+    })
+
+    id_inmuebles = request.session['inmuebles']
+    inmuebles = Inmueble.objects.filter(id__in=id_inmuebles).order_by('pais__nombre')
+
+    ctx = {
+        'moneda': moneda,
+        'buscadorF': buscadorF,
+        'paisesF': paisesF,
+        'pais': pais,
+        'inmuebles':inmuebles,
+    }
+
+    return render_to_response('favoritos/listar.html', ctx, context_instance=RequestContext(request))
+
+
+#Vista para agregar inmuebles favoritos
+def favoritos_agregar(request, pais, id_inmueble):
+
+
+    if request.session.get('inmuebles'):
+        inmuebles = request.session['inmuebles']
+        inmuebles.append(id_inmueble)
+        request.session['inmuebles'] = inmuebles
+    else:
+        request.session['inmuebles'] = [int(id_inmueble)]
+
+    return HttpResponseRedirect('/'+str(pais)+'/')
+
+
 #Vista para el ingreso de los usuarios.
 def login_admin(request, pais):
 
