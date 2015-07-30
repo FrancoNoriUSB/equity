@@ -49,7 +49,7 @@ class BuscadorForm(forms.Form):
     )
 
     metros = (
-        ('', ' - Metros - '),
+        ('', ' - Metros² - '),
         ('0-50', ' 0 - 50 '),
         ('50-100', ' 50 - 100 '),
         ('100-300', ' 100 - 300 '),
@@ -76,8 +76,8 @@ class BuscadorForm(forms.Form):
     habitaciones = forms.ChoiceField(choices=habitaciones, required=False)
     metros = forms.ChoiceField(choices=metros, required=False)
     moneda = forms.ChoiceField(choices=monedas, required=False)
-    desde = forms.CharField(max_length=5, required=False)
-    hasta = forms.CharField(max_length=10, required=False)
+    desde = forms.CharField(max_length=15, required=False)
+    hasta = forms.CharField(max_length=25, required=False)
     orden = forms.ChoiceField(choices=ordenes, required=False)
     inmuebles_inf = forms.ChoiceField(choices=inmuebles, required=False)
     inmuebles_sup = forms.ChoiceField(choices=inmuebles, required=False)

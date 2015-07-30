@@ -189,10 +189,11 @@ def home(request, pais):
                                 inmuebles.insert(0,inmueble)
                     inmuebles_list = inmuebles
 
+
     #Verificacion de cual de los filtros se uso
-    if inmuebles_inf != '6':
+    if inmuebles_inf != 6 and inmuebles_inf != '':
         inmuebles_pagina = inmuebles_inf
-    if inmuebles_sup != '6':
+    if inmuebles_sup != 6 and inmuebles_sup != '':
         inmuebles_pagina = inmuebles_sup
 
     #Busqueda de propiedades en el pais actual
@@ -306,6 +307,9 @@ def inmueble(request, codigo, pais):
 def favoritos_list(request, pais):
 
     inmuebles = []
+    modulos = []
+    id_inmuebles = []
+    id_modulos = []
 
     #Buscador de inmuebles
     buscadorF = BuscadorForm()
@@ -318,14 +322,22 @@ def favoritos_list(request, pais):
     except:
         moneda = ''
 
-
     #Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
         'pais': pais,
     })
+    try:
+        id_inmuebles = request.session['inmuebles']
+    except:
+        id_inmuebles = []
 
-    id_inmuebles = request.session['inmuebles']
+    try:
+        id_modulos = request.session['modulos']
+    except:
+        id_modulos = []
+
     inmuebles = Inmueble.objects.filter(id__in=id_inmuebles).order_by('pais__nombre')
+    modulos = Modulo.objects.filter(id__in=id_modulos).order_by('inmueble__pais__nombre')
 
     ctx = {
         'moneda': moneda,
@@ -333,6 +345,7 @@ def favoritos_list(request, pais):
         'paisesF': paisesF,
         'pais': pais,
         'inmuebles':inmuebles,
+        'modulos':modulos
     }
 
     return render_to_response('favoritos/listar.html', ctx, context_instance=RequestContext(request))
@@ -344,12 +357,27 @@ def favoritos_agregar(request, pais, id_inmueble):
 
     if request.session.get('inmuebles'):
         inmuebles = request.session['inmuebles']
-        inmuebles.append(id_inmueble)
-        request.session['inmuebles'] = inmuebles
+        if id_inmueble not in inmuebles:
+            inmuebles.append(int(id_inmueble))
+            request.session['inmuebles'] = inmuebles
     else:
         request.session['inmuebles'] = [int(id_inmueble)]
 
     return HttpResponseRedirect('/'+str(pais)+'/')
+
+
+#Vista para agregar modulos de inmuebles favoritos
+def favoritos_modulo_agregar(request, pais, cod_inmueble, id_modulo):
+
+    if request.session.get('modulos'):
+        modulos = request.session['modulos']
+        if id_modulo not in modulos:
+            modulos.append(int(id_modulo))
+            request.session['modulos'] = modulos
+    else:
+        request.session['modulos'] = [int(id_modulo)]
+
+    return HttpResponseRedirect('/'+str(pais)+'/inmuebles/'+str(cod_inmueble)+'/')
 
 
 #Vista para el ingreso de los usuarios.

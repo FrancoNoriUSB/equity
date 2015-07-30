@@ -11,6 +11,7 @@ urlpatterns = patterns('inmuebles.views',
             #Favoritos
             url(r'^(?P<pais>[A-Z][A-Z])/favoritos/$', 'favoritos_list', name='listar_favoritos'),
             url(r'^(?P<pais>[A-Z][A-Z])/favoritos/agregar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_agregar', name='agregar_favoritos'),
+            url(r'^(?P<pais>[A-Z][A-Z])/favoritos/modulos/agregar/(?P<cod_inmueble>[0-9A-Za-z]+)/(?P<id_modulo>[0-9A-Za-z]+)/$', 'favoritos_modulo_agregar', name='agregar_modulo_favoritos'),
 
             #Vistas del admin de equity
             url(r'^(?P<pais>[A-Z][A-Z])/admin/login/$', 'login_admin', name='login_admin'),
@@ -35,13 +36,11 @@ urlpatterns = patterns('inmuebles.views',
             url(r'^(?P<pais>[A-Z][A-Z])/admin/agentes/editar/(?P<id_agente>[0-9A-Za-z]+)/$', 'agentes_editar', name='editar_agentes'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/agentes/eliminar/(?P<id_agente>[0-9A-Za-z]+)/$', 'agentes_eliminar', name='eliminar_agentes'),
 
-
             #Ciudades
             url(r'^(?P<pais>[A-Z][A-Z])/admin/ciudades/$', 'ciudades_list', name='listar_ciudades'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/ciudades/agregar/$', 'ciudades_agregar', name='agregar_ciudades'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/ciudades/editar/(?P<id_ciudad>[0-9A-Za-z]+)/$', 'ciudades_editar', name='editar_ciudades'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/ciudades/eliminar/(?P<id_ciudad>[0-9A-Za-z]+)/$', 'ciudades_eliminar', name='eliminar_ciudades'),
-
 
             #Zonas
             url(r'^(?P<pais>[A-Z][A-Z])/admin/zonas/$', 'zonas_list', name='listar_zonas'),
@@ -49,11 +48,9 @@ urlpatterns = patterns('inmuebles.views',
             url(r'^(?P<pais>[A-Z][A-Z])/admin/zonas/editar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zonas_editar', name='editar_zonas'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/zonas/eliminar/(?P<id_zona>[0-9A-Za-z]+)/$', 'zonas_eliminar', name='eliminar_zonas'),
 
-
             #Monedas
             url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/$', 'monedas_list', name='listar_monedas'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/agregar/$', 'monedas_agregar', name='agregar_monedas'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/editar/(?P<id_moneda>[0-9A-Za-z]+)/$', 'monedas_editar', name='editar_monedas'),
             url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/eliminar/(?P<id_moneda>[0-9A-Za-z]+)/$', 'monedas_eliminar', name='eliminar_monedas'),
-
 )
