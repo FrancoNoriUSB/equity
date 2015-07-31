@@ -15,6 +15,9 @@
         <!-- jQuery -->
         <script src="{{STATIC_URL}}files/js/jquery-1.11.3.min.js"></script>
 
+        <!-- Numeral JS -->
+        <script src="{{STATIC_URL}}files/js/numeral.min.js"></script>
+
         <!--Bootstrap Local-->
         <!--CSS -->
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -238,17 +241,23 @@
 
 <!-- Seccion donde se carga el JS -->
 <script>
-$('#id_pais').select(function(){
-    var pais = $(this).val();
-    var pais_actual = '{{pais|safe}}';
-    console.log(pais_actual);
-    if (pais==pais_actual){
-        window.location.replace("/"+pais+"/");
-    }
-});
+/*Funcion para cambiar de pais actual*/
 $('#id_pais').change(function(){
     var pais = $(this).val();
     window.location.replace("/"+pais+"/");
+});
+
+/*Funciones para darle formato a los campos de precios*/
+$('#id_desde').change(function(){
+    var valor = $(this).val();
+    valor = numeral(valor).format('0,0.00');
+    $(this).val(valor);
+});
+
+$('#id_hasta').change(function(){
+    var valor = $(this).val();
+    valor = numeral(valor).format('0,0.00');
+    $(this).val(valor);
 });
 </script>
 {%block js%}

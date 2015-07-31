@@ -24,6 +24,8 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 import json
+import re
+
 
 # Vista del index o home
 def index(request):
@@ -88,8 +90,8 @@ def home(request, pais):
             orden = buscadorF.cleaned_data['orden']
             metros = buscadorF.cleaned_data['metros']
             moneda_get = buscadorF.cleaned_data['moneda']
-            desde = buscadorF.cleaned_data['desde']
-            hasta = buscadorF.cleaned_data['hasta']
+            desde = str(buscadorF.cleaned_data['desde'])
+            hasta = str(buscadorF.cleaned_data['hasta'])
             palabra = buscadorF.cleaned_data['palabra']
             inmuebles_inf = buscadorF.cleaned_data['inmuebles_inf']
             inmuebles_sup = buscadorF.cleaned_data['inmuebles_sup']
@@ -108,9 +110,14 @@ def home(request, pais):
                 metros_max = int(metros[1])
 
             #Revisa si el precio no es vacio
+            desde = int(re.sub('[,.]', '', desde.split('.')[0]))
+            hasta = int(re.sub('[,.]', '', hasta.split('.')[0]))
             if desde != '' and hasta !='' and desde <= hasta:
-                precio_min = int(desde)
-                precio_max = int(hasta)
+                precio_min = desde
+                precio_max = hasta
+                if moneda_get != '':
+                    precio_min = precio_min/int(moneda.tasa)
+                    precio_max = precio_max/int(moneda.tasa)
 
             #Caso de busqueda por codigo
             if palabra != '':

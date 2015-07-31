@@ -111,6 +111,7 @@ function initialize() {
     var markers = [];
     var lat = $('#id_latitud');
     var lon = $('#id_longitud');
+
     var mapOptions = {
     zoom: 4,
     center: new google.maps.LatLng(15.152880, -73.702163)
@@ -122,8 +123,8 @@ function initialize() {
         clearMarkers();
         markers = [];
         placeMarker(event.latLng);
-        lat.val(event.latLng.A);
-        lon.val(event.latLng.F);
+        lat.val(event.latLng.G);
+        lon.val(event.latLng.K);
     });
 
     function clearMarkers() {
