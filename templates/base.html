@@ -250,13 +250,17 @@ $('#id_pais').change(function(){
 /*Funciones para darle formato a los campos de precios*/
 $('#id_desde').change(function(){
     var valor = $(this).val();
-    valor = numeral(valor).format('0,0.00');
+    if (valor != ''){
+        valor = numeral(valor).format('0,0.00');
+    }
     $(this).val(valor);
 });
 
 $('#id_hasta').change(function(){
     var valor = $(this).val();
-    valor = numeral(valor).format('0,0.00');
+    if (valor != ''){
+        valor = numeral(valor).format('0,0.00');
+    }
     $(this).val(valor);
 });
 </script>
