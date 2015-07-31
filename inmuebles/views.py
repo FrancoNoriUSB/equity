@@ -110,14 +110,16 @@ def home(request, pais):
                 metros_max = int(metros[1])
 
             #Revisa si el precio no es vacio
-            desde = int(re.sub('[,.]', '', desde.split('.')[0]))
-            hasta = int(re.sub('[,.]', '', hasta.split('.')[0]))
-            if desde != '' and hasta !='' and desde <= hasta:
-                precio_min = desde
-                precio_max = hasta
-                if moneda_get != '':
-                    precio_min = precio_min/int(moneda.tasa)
-                    precio_max = precio_max/int(moneda.tasa)
+            if desde != '' and hasta !='':
+                desde = int(re.sub('[,.]', '', desde.split('.')[0]))
+                hasta = int(re.sub('[,.]', '', hasta.split('.')[0]))
+                
+                if desde <= hasta:
+                    precio_min = desde
+                    precio_max = hasta
+                    if moneda_get != '':
+                        precio_min = precio_min/int(moneda.tasa)
+                        precio_max = precio_max/int(moneda.tasa)
 
             #Caso de busqueda por codigo
             if palabra != '':
