@@ -253,58 +253,59 @@
         	<div class="propiedades row">
         		<div class="col-lg-11 col-md-11 col-sm-11">
         			{% for inmueble in inmuebles %}
-        			<div class="propiedad row">
-        				<div class="foto col-lg-3">
-                            {%for imagen in inmueble.imagenes.all|slice:":1"%}
-                                {%if forloop.counter == 1%}
-            					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
-                                    <img class="img-responsive" src="{{imagen.thumbnail.url}}" alt="">
-                                </a>
-                                {%endif%}
-                            {%endfor%}
-        				</div>
-        				<div class="descripcion col-lg-5">
-        					<strong>
-        						<a class="text-uppercase" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
-        							{{inmueble.titulo}}
-        						</a>
-        					</strong>
-        					<p>
-                                {{moneda_get}}
-        						{{inmueble.tipo.nombre}}
-                                <br/>
-                                {{inmueble.ciudad.nombre}}
-                                <br/>
-                                {{inmueble.zona.nombre}}
-        						<br/>
-                                <br/>
-        						<p class="text-danger"><strong>C&oacute;digo: {{inmueble.codigo}}</strong></p>
-                                <br>
-                                {%for modulo in inmueble.modulo_set.all|slice:":1"%}
-                                    Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
-                                    {%if modulo.precio != 0%}
-                                        {%if moneda_get == 'nacional'%}
-                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-                                        {%elif moneda_get == 'usd'%}
-                                            {{modulo.precio|floatformat|intcomma}} USD
-                                        {%else%}
-                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
-                                        {%endif%}
+            			<div class="propiedad row">
+            				<div class="foto col-lg-3">
+                                {%for imagen in inmueble.imagenes.all|slice:":1"%}
+                                    {%if forloop.counter == 1%}
+                					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
+                                        <img class="img-responsive" src="{{imagen.thumbnail.url}}" alt="">
+                                    </a>
                                     {%endif%}
                                 {%endfor%}
-        					</p>
-        				</div>
-        				<div class="varios col-lg-3">
-        					<img class="img-responsive" src="{{inmueble.logo.url}}" alt="">
-                            <p class="text-right"><u>{{inmueble.tipo_obra}}</u></p>
-                            <p class="text-right">
-            					<a class="ver" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">Ver</a> &nbsp;&nbsp;
-            					<a class="favoritos" href="/{{pais}}/favoritos/agregar/{{inmueble.id}}/">Favorito</a>
-                            </p>
-        				</div>
-        			</div>
+            				</div>
+            				<div class="descripcion col-lg-5">
+            					<strong>
+            						<a class="text-uppercase" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
+            							{{inmueble.titulo}}
+            						</a>
+            					</strong>
+            					<p>
+                                    {{moneda_get}}
+            						{{inmueble.tipo.nombre}}
+                                    <br/>
+                                    {{inmueble.ciudad.nombre}}
+                                    <br/>
+                                    {{inmueble.zona.nombre}}
+            						<br/>
+                                    <br/>
+            						<p class="text-danger"><strong>C&oacute;digo: {{inmueble.codigo}}</strong></p>
+                                    <br>
+                                    {%for modulo in inmueble.modulo_set.all|slice:":1"%}
+                                        Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
+                                        {%if modulo.precio != 0%}
+                                            {%if moneda_get == 'nacional'%}
+                                                {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                            {%elif moneda_get == 'usd'%}
+                                                {{modulo.precio|floatformat|intcomma}} USD
+                                            {%else%}
+                                                {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
+                                            {%endif%}
+                                        {%endif%}
+                                    {%endfor%}
+            					</p>
+            				</div>
+            				<div class="varios col-lg-3">
+            					<img class="img-responsive" src="{{inmueble.logo.url}}" alt="">
+                                <p class="text-right"><u>{{inmueble.tipo_obra}}</u></p>
+                                <p class="text-right">
+                					<a class="ver" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">Ver</a> &nbsp;&nbsp;
+                					<a class="favoritos" href="/{{pais}}/favoritos/agregar/{{inmueble.id}}/">Favorito</a>
+                                </p>
+            				</div>
+            			</div>
                     {%empty%}
-                    <h3>No se encontraron resultados, por favor redefine tu b&uacute;squeda.</h3>
+                        <img class="img-responsive" src="{{STATIC_URL}}files/img/error-de-busqueda.jpg" alt="">
+                        <br>
                     {% endfor %}
         		</div>
         	</div>

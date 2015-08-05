@@ -118,8 +118,10 @@ def home(request, pais):
                     precio_min = desde
                     precio_max = hasta
                     if moneda_get != '':
-                        precio_min = precio_min/int(moneda.tasa)
-                        precio_max = precio_max/int(moneda.tasa)
+                        precio_min = precio_min*int(moneda.tasa)
+                        precio_max = precio_max*int(moneda.tasa)
+
+                print precio_min, precio_max
 
             #Caso de busqueda por codigo
             if palabra != '':
