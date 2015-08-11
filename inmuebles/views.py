@@ -117,9 +117,13 @@ def home(request, pais):
                 if desde <= hasta:
                     precio_min = desde
                     precio_max = hasta
-                    if moneda_get != '':
-                        precio_min = precio_min*int(moneda.tasa)
-                        precio_max = precio_max*int(moneda.tasa)
+                    if moneda_get == 'nacional':
+                        precio_min = precio_min/int(moneda.tasa)
+                        precio_max = precio_max/int(moneda.tasa)
+                    elif moneda_get == 'usd':
+                        precio_min = precio_min
+                        precio_max = precio_max
+
 
                 print precio_min, precio_max
 
