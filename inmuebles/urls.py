@@ -11,7 +11,9 @@ urlpatterns = patterns('inmuebles.views',
             #Favoritos
             url(r'^(?P<pais>[A-Z][A-Z])/favoritos/$', 'favoritos_list', name='listar_favoritos'),
             url(r'^(?P<pais>[A-Z][A-Z])/favoritos/agregar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_agregar', name='agregar_favoritos'),
+            url(r'^(?P<pais>[A-Z][A-Z])/favoritos/eliminar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_eliminar', name='eliminar_favoritos'),
             url(r'^(?P<pais>[A-Z][A-Z])/favoritos/modulos/agregar/(?P<cod_inmueble>[0-9A-Za-z]+)/(?P<id_modulo>[0-9A-Za-z]+)/$', 'favoritos_modulo_agregar', name='agregar_modulo_favoritos'),
+            url(r'^(?P<pais>[A-Z][A-Z])/favoritos/modulos/eliminar/(?P<cod_inmueble>[0-9A-Za-z]+)/(?P<id_modulo>[0-9A-Za-z]+)/$', 'favoritos_modulo_eliminar', name='eliminar_modulo_favoritos'),
 
             #Vistas del admin de equity
             url(r'^(?P<pais>[A-Z][A-Z])/admin/login/$', 'login_admin', name='login_admin'),

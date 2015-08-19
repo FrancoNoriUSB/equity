@@ -353,7 +353,6 @@ def favoritos_list(request, pais):
 
     inmuebles = Inmueble.objects.filter(id__in=id_inmuebles).order_by('pais__nombre')
     modulos = Modulo.objects.filter(id__in=id_modulos).order_by('inmueble__pais__nombre')
-
     ctx = {
         'moneda': moneda,
         'buscadorF': buscadorF,
@@ -369,10 +368,9 @@ def favoritos_list(request, pais):
 #Vista para agregar inmuebles favoritos
 def favoritos_agregar(request, pais, id_inmueble):
 
-
     if request.session.get('inmuebles'):
         inmuebles = request.session['inmuebles']
-        if id_inmueble not in inmuebles:
+        if int(id_inmueble) not in inmuebles:
             inmuebles.append(int(id_inmueble))
             request.session['inmuebles'] = inmuebles
     else:
@@ -381,18 +379,42 @@ def favoritos_agregar(request, pais, id_inmueble):
     return HttpResponseRedirect('/'+str(pais)+'/')
 
 
+#Vista para eliminar inmuebles favoritos
+def favoritos_eliminar(request, pais, id_inmueble):
+    
+    if request.session.get('inmuebles'):
+        inmuebles = request.session['inmuebles']
+        if int(id_inmueble) in inmuebles:
+            inmuebles.remove(int(id_inmueble))
+            request.session['inmuebles'] = inmuebles
+
+    return HttpResponseRedirect('/'+str(pais)+'/favoritos/')
+
+
 #Vista para agregar modulos de inmuebles favoritos
 def favoritos_modulo_agregar(request, pais, cod_inmueble, id_modulo):
 
     if request.session.get('modulos'):
         modulos = request.session['modulos']
-        if id_modulo not in modulos:
+        if int(id_modulo) not in modulos:
             modulos.append(int(id_modulo))
             request.session['modulos'] = modulos
     else:
         request.session['modulos'] = [int(id_modulo)]
 
     return HttpResponseRedirect('/'+str(pais)+'/inmuebles/'+str(cod_inmueble)+'/')
+
+
+#Vista para eliminar inmuebles favoritos
+def favoritos_modulo_eliminar(request, pais, cod_inmueble, id_modulo):
+    
+    if request.session.get('modulos'):
+        modulos = request.session['modulos']
+        if int(id_modulo) in modulos:
+            modulos.remove(int(id_modulo))
+            request.session['modulos'] = modulos
+
+    return HttpResponseRedirect('/'+str(pais)+'/favoritos/')
 
 
 #Vista para el ingreso de los usuarios.
