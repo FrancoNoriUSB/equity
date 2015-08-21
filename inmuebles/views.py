@@ -811,12 +811,12 @@ def agentes_list(request, pais):
 def agentes_agregar(request, pais):
     
     agenteF = AgenteForm()
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form = TelefonoAgenteForm, can_delete = True)
     telefonoAgenteF = telefonoFormSet()
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES)
-        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
+        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form = TelefonoAgenteForm, can_delete = True)
         telefonoAgenteF = telefonoFormSet(request.POST)
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agente = agenteF.save(commit=False)
@@ -856,19 +856,19 @@ def agentes_editar(request, pais, id_agente):
     editado = ''
     agente = Agente.objects.get(id=id_agente)
     agenteF = AgenteForm(instance=agente)
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form = TelefonoAgenteForm, can_delete = True)
     telefonoAgenteF = telefonoFormSet(instance=agente)
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES, instance=agente)
-        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
+        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form = TelefonoAgenteForm, can_delete = True)
         telefonoAgenteF = telefonoFormSet(request.POST, instance=agente)
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agenteF.save()
             telefonoAgenteF.save()
             editado = True
 
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=4, max_num=4, form = TelefonoAgenteForm, can_delete = True)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form = TelefonoAgenteForm, can_delete = True)
     telefonoAgenteF = telefonoFormSet(instance=agente)
 
     ctx = {

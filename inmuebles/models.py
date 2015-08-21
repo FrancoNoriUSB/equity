@@ -13,6 +13,7 @@ from django.template.defaultfilters import slugify
 class Pais(models.Model):
     # Campos del pais
     nombre = CountryField()
+    orden = models.IntegerField(max_length=2, default=1, editable=False)
 
     class Meta:
         verbose_name = _('Pais')
@@ -115,6 +116,7 @@ class Imagen(models.Model):
 class Agente(models.Model):
     nombre = models.CharField(max_length=30)
     correo = models.CharField(max_length=40)
+    correo2 = models.CharField(max_length=40, null=True, default='')
     pagina = models.CharField(max_length=100, default='', null=True)
     logo = models.ImageField(upload_to='agentes/')
 

@@ -22,7 +22,7 @@ class PaisesForm(forms.Form):
     
     paises_choices = []
 
-    paises = Pais.objects.all().order_by('nombre')
+    paises = Pais.objects.all().order_by('orden')
 
     paises_choices.append(('', u'- País -'))
     for pais in paises:
