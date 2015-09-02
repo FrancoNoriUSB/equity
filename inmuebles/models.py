@@ -32,6 +32,7 @@ class Ciudad(models.Model):
     pais = models.ForeignKey(Pais)
 
     class Meta:
+        ordering = ('nombre',)
         verbose_name = "Ciudad"
         verbose_name_plural = "Ciudades"
 
@@ -48,6 +49,7 @@ class Zona(models.Model):
     ciudad = models.ForeignKey(Ciudad)
 
     class Meta:
+        ordering = ('nombre',)
         verbose_name = "Zona"
         verbose_name_plural = "Zonas"
 

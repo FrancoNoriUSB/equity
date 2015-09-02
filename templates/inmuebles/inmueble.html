@@ -245,6 +245,9 @@
 							<p class="datos text-left">
 								<strong>Agente: {{inmueble.agente.nombre}}</strong><br>
 								<strong>Correo: {{inmueble.agente.correo}}</strong>
+								{% if inmueble.agente.correo2 %}
+									<br><strong>Correo 2: {{inmueble.agente.correo2}}</strong>
+								{%endif%}
 							</p>
 							<p class="telefonos text-left">
 								{%for telefono in telefonosAgente%}

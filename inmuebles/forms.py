@@ -70,8 +70,8 @@ class BuscadorForm(forms.Form):
         ('usd','USD'),
     )
 
-    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), empty_label=' - Ciudad -', required=False)
-    zona = forms.ModelChoiceField(queryset=Zona.objects.all(), empty_label=' - Zona -', required=False)
+    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all().order_by('nombre'), empty_label=' - Ciudad -', required=False)
+    zona = forms.ModelChoiceField(queryset=Zona.objects.all().order_by('nombre'), empty_label=' - Zona -', required=False)
     tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all().order_by('nombre'), empty_label=' - Tipo -', required=False)
     habitaciones = forms.ChoiceField(choices=habitaciones, required=False)
     metros = forms.ChoiceField(choices=metros, required=False)
@@ -141,7 +141,6 @@ class AgenteForm(forms.ModelForm):
     class Meta:
         model = Agente
         widgets = {
-            'codigo': forms.TextInput(),
             'pagina': forms.TextInput(),
             'logo': forms.FileInput()
         }
