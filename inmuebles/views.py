@@ -139,6 +139,10 @@ def home(request, pais):
                 #Verificacion de string vacio
                 if orden == '':
                     orden = None
+
+                if precio_min != '' and precio_max != '':
+                    orden = 'precio'
+
                 if metros != '':
                     orden = 'metros'
 
@@ -155,7 +159,7 @@ def home(request, pais):
                 if habitaciones != '':
                     fields_list.append('modulo__dormitorios')
 
-                if precio_min != '' and precio_max != '':
+                if (precio_min != '' and precio_max != '') or (precio_min != 0 and precio_max != 0):
                     fields_list.append('modulo__precio')
 
                 #Comparadores para buscar
