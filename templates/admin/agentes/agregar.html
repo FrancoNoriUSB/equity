@@ -1,6 +1,7 @@
 {% extends "base_admin.html" %}
 {% load bootstrap3 %}
 {% load staticfiles %}
+{% load widget_tweaks %}
 {% block content %}
 
 <!-- Estilos de la pagina-->
@@ -16,7 +17,10 @@
 				{% csrf_token %}
 					{% bootstrap_field AgenteForm.nombre %}
 					{% bootstrap_field AgenteForm.correo %}
-					{% bootstrap_field AgenteForm.correo2 %}
+					<div class="form-group">
+						<label class="control-label" for="id_correo2">Correo 2</label>
+						{% render_field AgenteForm.correo2 class="form-control" placeholder="Correo 2"%}
+					</div>
 					{% bootstrap_field AgenteForm.pagina %}
 					{% bootstrap_field AgenteForm.logo %}
 					<br>

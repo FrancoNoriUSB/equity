@@ -124,15 +124,14 @@ def home(request, pais):
                         precio_min = precio_min
                         precio_max = precio_max
 
-
-                print precio_min, precio_max
-
             #Caso de busqueda por codigo
             if palabra != '':
                 slug = slugify(palabra)
                 inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, slug__icontains=slug)
                 if not inmuebles_list:
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra)
+                if not inmuebles_list:
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, agente__nombre=slug)
 
             # Caso demas
             elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '' or (precio_min != '' and precio_max != '') or metros != '':
@@ -140,6 +139,8 @@ def home(request, pais):
                 #Verificacion de string vacio
                 if orden == '':
                     orden = None
+                if metros != '':
+                    orden = 'metros'
 
                 #Campos a buscar
                 fields_list = []
@@ -194,7 +195,7 @@ def home(request, pais):
                 inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden).distinct()
 
                 #Eliminando repetidos
-                if orden == 'precio':
+                if orden == 'precio' or orden == 'metros':
                     for inmueble in inmuebles_list:
                         modulos = Modulo.objects.filter(inmueble=inmueble)
                         if inmueble not in inmuebles:
@@ -533,7 +534,6 @@ class Publicar(CreateView):
     template_name = 'admin/inmuebles/publicar.html'
     model = Inmueble
     form = InmuebleForm
-    # areacomunF = AreaComunForm()
     widgets = {
         'latitud': forms.HiddenInput(),
         'longitud': forms.HiddenInput(),
@@ -562,7 +562,6 @@ class Publicar(CreateView):
         zonas = {}
         form_class = self.get_form_class()
         form = self.get_form(form_class)
-        areacomunF = AreaComunForm()
         form.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=kwargs["pais"]))
         form.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=kwargs["pais"]))
@@ -618,6 +617,7 @@ class Publicar(CreateView):
         return redirect('inmuebles:listar_inmuebles', pais=pais)
 
     def form_invalid(self, form, zonas, pais):
+        print form
         return self.render_to_response(
             self.get_context_data(form=form, pais=pais, zonas=zonas))
 
@@ -818,6 +818,7 @@ def agentes_agregar(request, pais):
         agenteF = AgenteForm(request.POST, request.FILES)
         telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete = True)
         telefonoAgenteF = telefonoFormSet(request.POST)
+        print agenteF
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agente = agenteF.save(commit=False)
             pais = Pais.objects.get(nombre=pais)

@@ -72,8 +72,9 @@ def dynamic_query(model, fields, types, values, operator, order):
             elif order == 'tipo':
                 return model.objects.filter(q).order_by('tipo__nombre')
             elif order == 'zona':
-                print order
                 return model.objects.filter(q).order_by('zona__nombre')
+            elif order == 'metros':
+                return model.objects.filter(q).order_by('modulo__metros')
 
             return model.objects.filter(q)
         elif q:

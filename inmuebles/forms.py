@@ -138,6 +138,8 @@ class UserForm(forms.ModelForm):
 
 #Formulario para agentes
 class AgenteForm(forms.ModelForm):
+    correo2 = forms.CharField(required=False)
+
     class Meta:
         model = Agente
         widgets = {

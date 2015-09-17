@@ -74,7 +74,7 @@
 
 {% block js %}
 <!-- Mapa de google maps -->
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+<script src="{% static 'files/js/maps.js' %}"></script>
 <script src="{% static 'files/js/jquery.formset.js' %}"></script>
 <script src="{% static 'files/js/jquery-ui.min.js' %}"></script>
 <script>
@@ -95,7 +95,6 @@ function cargar_zonas(){
         elem_zonas.empty();
         elem_zonas.append('<option value="" selected="selected"> -----</option>');
         $.each(zonas[ciudad], function(i, zona){
-            console.log(zona);
             elem_zonas.append('<option value="'+ i +'">' + zona + '</option>')
         });
     } else {
@@ -123,8 +122,8 @@ function initialize() {
         clearMarkers();
         markers = [];
         placeMarker(event.latLng);
-        lat.val(event.latLng.G);
-        lon.val(event.latLng.K);
+        lat.val(event.latLng.H);
+        lon.val(event.latLng.L);
     });
 
     function clearMarkers() {
