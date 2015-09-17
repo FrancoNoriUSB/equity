@@ -175,7 +175,7 @@ def home(request, pais):
                 if habitaciones != '':
                     types_list.append('range')
 
-                if precio_min != '' and precio_max != '':    
+                if (precio_min != '' and precio_max != '') or (precio_min != 0 and precio_max != 0):    
                     types_list.append('range')
 
                 #Valores a buscar
@@ -191,7 +191,7 @@ def home(request, pais):
                 if habitaciones != '':
                     values_list.append((min_habitaciones, max_habitaciones))
 
-                if precio_min != '' and precio_max != '':
+                if (precio_min != '' and precio_max != '') or (precio_min != 0 and precio_max != 0):
                     values_list.append((precio_min, precio_max))
 
                 operator = 'and'
