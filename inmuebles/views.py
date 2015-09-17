@@ -124,6 +124,13 @@ def home(request, pais):
                         precio_min = precio_min
                         precio_max = precio_max
 
+                    #Verificacion de cumplimiento de limites
+                    if precio_max == 0:
+                        precio_max = -1
+                    if precio_min == 0:
+                        precio_min = 1
+                    print precio_min
+
             #Caso de busqueda por codigo
             if palabra != '':
                 slug = slugify(palabra)
@@ -159,7 +166,7 @@ def home(request, pais):
                 if habitaciones != '':
                     fields_list.append('modulo__dormitorios')
 
-                if (precio_min != '' and precio_max != '') or (precio_min != 0 and precio_max != 0):
+                if precio_min != '' and precio_max != '':
                     fields_list.append('modulo__precio')
 
                 #Comparadores para buscar
@@ -175,7 +182,7 @@ def home(request, pais):
                 if habitaciones != '':
                     types_list.append('range')
 
-                if (precio_min != '' and precio_max != '') or (precio_min != 0 and precio_max != 0):    
+                if precio_min != '' and precio_max != '':    
                     types_list.append('range')
 
                 #Valores a buscar
@@ -191,7 +198,7 @@ def home(request, pais):
                 if habitaciones != '':
                     values_list.append((min_habitaciones, max_habitaciones))
 
-                if (precio_min != '' and precio_max != '') or (precio_min != 0 and precio_max != 0):
+                if precio_min != '' and precio_max != '':
                     values_list.append((precio_min, precio_max))
 
                 operator = 'and'
