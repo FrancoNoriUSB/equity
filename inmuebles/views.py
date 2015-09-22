@@ -129,7 +129,6 @@ def home(request, pais):
                         precio_max = -1
                     if precio_min == 0:
                         precio_min = 1
-                    print precio_min
 
             #Caso de busqueda por codigo
             if palabra != '':
