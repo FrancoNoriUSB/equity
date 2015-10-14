@@ -85,8 +85,8 @@
 {% endblock content %}
 
 {% block js %}
-<!-- Mapa de google maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtxFup88MwcvKANoDAk5FzN-7pwqMfWxE"type="text/javascript"></script>
+<!-- Mapa de google maps -->&key=AIzaSyAtxFup88MwcvKANoDAk5FzN-7pwqMfWxE
+<script src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places"type="text/javascript"></script>
 <script src="{% static 'files/js/jquery.formset.js' %}"></script>
 <script src="{% static 'files/js/jquery-ui.min.js' %}"></script>
 <script type="text/javascript">
@@ -120,8 +120,8 @@ function initialize() {
         clearMarkers();
         markers = [];
         placeMarker(event.latLng);
-        lat.val(event.latLng.H);
-        lon.val(event.latLng.L);
+        lat.val(event.latLng.lat());
+        lon.val(event.latLng.lng());
     });
 
     function clearMarkers() {
@@ -145,13 +145,12 @@ function initialize() {
     /*Codigo de autocompletacion*/
     var input = /** @type {HTMLInputElement} */(
       document.getElementById('pac-input'));
-
     var types = document.getElementById('type-selector');
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
     var autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.bindTo('bounds', map);
+    autocomplete.setBounds(map.getBounds());
 
     var infowindow = new google.maps.InfoWindow();
     var marker = new google.maps.Marker({
