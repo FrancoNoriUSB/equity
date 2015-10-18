@@ -10,10 +10,10 @@
 	opacity:0.5;
 }
 
-#myCarousel > div > div > img{
+#myCarousel > div > div{
 	margin-right: auto;
 	margin-left: auto;
-	height: 400px;
+	height: 760px;
 }
 
 #slider-thumbs > ul > li{
@@ -25,6 +25,7 @@ body > div.contenido.container > div.row.info-base > div.col-lg-8.col-md-8.col-s
   margin-right: auto;
   display: block;
 }
+
 /*Estilos de info de inmueble*/
 body > div.contenido{
 	margin-top: 3.5%;
@@ -58,6 +59,11 @@ body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-s
 
 body > div.contenido.container > div.row.informacion > div > div{
 	padding: 2%
+}
+
+body > div.contenido.container > div.row.info-base > div.col-lg-1.col-md-1.col-sm-1 > a > span{
+	color: red;
+	font-size: 16pt;
 }
 
 /*Boostrap modificado*/

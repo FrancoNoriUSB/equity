@@ -120,12 +120,12 @@ body > header > div > div > a > img.logo{
 body > div.container-fluid > div.busqueda.row{
 	background-color: #0095d9;
 }	
-
+/*
 body > div.container >  div > div > p{
 	margin:0 0 0 0;
 	font-size: 3px;
 }
-
+*/
 body > div.container-fluid > div.busqueda.row > div{
 	padding: 4px;
 }
@@ -256,4 +256,38 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 
 .text-danger{
 	color: #D94442;
+}
+
+/* Fade transition for carousel items */
+.carousel-fade .carousel-inner .item {
+  -webkit-transition-property: opacity;
+          transition-property: opacity;
+}
+.carousel-fade .carousel-inner .item,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  opacity: 0;
+}
+.carousel-fade .carousel-inner .active,
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .next,
+.carousel-fade .carousel-inner .prev,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.carousel-fade .carousel-control {
+  z-index: 2;
+}
+html,
+body,
+.carousel,
+.carousel-inner,
+.carousel-inner .item {
+  height: 100%;
 }
