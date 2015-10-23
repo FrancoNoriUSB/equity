@@ -60,6 +60,10 @@ body > header > nav > div > div > div > div.navbar-header{
 	width: 8%;
 }
 
+body > header > nav > div > div > div > div.navbar-header > a > img{
+	width: 100%;
+}
+
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
 	width: 94%;
 }
