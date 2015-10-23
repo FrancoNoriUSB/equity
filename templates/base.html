@@ -51,18 +51,17 @@
                                         <span class="icon-bar"></span>
                                         <span class="icon-bar"></span>
                                 </button>
-                                <div class="navbar-brand">
-                                    <a href="http://revistaequity.jimdo.com/contacto/">
-                                        Contacto
-                                    </a>
-                                    |
-                                    <a href="http://equitymedia.la/">
-                                        Home
-                                    </a>
-                                </div>
+                                <a class="navbar-brand" href="/{{pais}}/">
+                                    <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-brand.png" alt="">
+                                </a>
                             </div>
                             <div class="collapse navbar-collapse navHeaderCollapse navheader">
                                 <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        <a href="http://www.expo-realestate.com/#!expo-eq/c1puh">
+                                            Home
+                                        </a>
+                                    </li>
                                     <li class="pais">
                                         <form role="form" id="paises" method="POST" class="navbar-form navbar-right paises" action="." name="paises">
                                             <div class="form-group">
@@ -72,16 +71,27 @@
                                         </form>
                                     </li>
                                     <li>
-                                        <a href="/{{pais}}/">Inicio</a>
+                                        <a href="/{{pais}}/">&Iacute;ndice</a>
                                     </li>
                                     <li>
-                                        <a href="http://revistaequity.jimdo.com/info-pa%C3%ADs/">Info Pa&iacute;s</a>
+                                        <a href="http://www.expo-realestate.com/#!info-pas/cho6">Info Pa&iacute;s</a>
                                     </li>
                                     <li>
-                                        <a href="http://revistaequity.jimdo.com/eq-news/">EQNews</a>
+                                        <a href="http://www.newsletter-eq.com/">EQNews</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://www.expo-realestate.com/#!en-blanco/c1b8x">Revista</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://www.expo-realestate.com/#!quienes-somos/c3vm">Qui&eacute;nes somos</a>
                                     </li>
                                     <li>
                                         <a href="/{{pais}}/favoritos/">Favoritos</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://www.expo-realestate.com/#!contact-center/cmse">
+                                            Contacto
+                                        </a>
                                     </li>
                                     <!--<li>
                                         <a href="/{{pais}}/admin/login/">Login</a>
@@ -106,7 +116,7 @@
                 </div>
             </nav>
             <!-- Sección interna de la página -->
-            <div class="container-fluid">
+            <!--<div class="container-fluid">
                 <div class="row-fluid">
                     <a href="/{{pais}}/">
                         <img class="text-center logo centering" src="{% static 'files/img/logo-blanco.png' %}" alt="">
@@ -115,7 +125,7 @@
                         <img class="text-center revista" src="{% static 'files/img/revista.png' %}" alt="">
                     </a>
                 </div>
-            </div>
+            </div>-->
         </header>
 
         {% endblock header %}

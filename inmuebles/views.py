@@ -57,9 +57,9 @@ def home(request, pais):
     inmuebles = []
     min_habitaciones = 0
     max_habitaciones = 0
-    inmuebles_pagina = 6
-    inmuebles_inf = 6
-    inmuebles_sup = 6
+    inmuebles_pagina = 12
+    inmuebles_inf = 12
+    inmuebles_sup = 12
     moneda_get = ''
     desde = ''
     hasta = ''
@@ -217,9 +217,9 @@ def home(request, pais):
 
 
     #Verificacion de cual de los filtros se uso
-    if inmuebles_inf != 6 and inmuebles_inf != '':
+    if inmuebles_inf != 12 and inmuebles_inf != '':
         inmuebles_pagina = inmuebles_inf
-    if inmuebles_sup != 6 and inmuebles_sup != '':
+    if inmuebles_sup != 12 and inmuebles_sup != '':
         inmuebles_pagina = inmuebles_sup
 
     #Busqueda de propiedades en el pais actual

@@ -237,9 +237,17 @@
                             <li>
                                 <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
                             </li>
+                            <li>
+                                <a href="">{{ inmuebles.previous_page_number }}</a>
+                            </li>
                         {% endif %}
-                            <li><a href="">{{ inmuebles.number }}</a></li>
+                            <li>
+                                <a href="">{{ inmuebles.number }}</a>
+                            </li>
                         {% if inmuebles.has_next %}
+                            <li>
+                                <a href="">{{ inmuebles.next_page_number }}</a>
+                            </li>
                             <li>
                                 <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
                             </li>
@@ -376,13 +384,13 @@ $('#id_orden').change(function(){
 
 /*Funcion para hacer submit en numero de inmuebles por pagina*/
 $('#id_inmuebles_inf').change(function(){
-    $('#id_inmuebles_sup').val(6);
+    $('#id_inmuebles_sup').val(12);
     $('#form').submit();
 });
 
 /*Funcion para hacer submit en numero de inmuebles por pagina*/
 $('#id_inmuebles_sup').change(function(){
-    $('#id_inmuebles_inf').val(6);
+    $('#id_inmuebles_inf').val(12);
     $('#form').submit();
 });
 
@@ -391,9 +399,9 @@ $( document ).ready(function() {
     var paginas_sup = $('#id_inmuebles_sup').val();
     var paginas_inf = $('#id_inmuebles_inf').val();
 
-    if (paginas_inf !=6){
+    if (paginas_inf !=12){
         $('#id_inmuebles_sup').val(paginas_inf);
-    }else if(paginas_sup !=6){
+    }else if(paginas_sup !=12){
         $('#id_inmuebles_inf').val(paginas_sup);
     }
 });

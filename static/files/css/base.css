@@ -26,6 +26,14 @@ body > header > div{
 	margin-top: 2.7%;
 }
 
+body > header > nav{
+	height: 100px;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
+	margin-top: -2%;
+}
+
 body > div.container-fluid > div > div > form > div{
 	margin-right: 5px;
 }
@@ -48,16 +56,16 @@ body > div.container-fluid > div > div > form > div > div > button > span{
 	color: #000000 !important;
 }
 
+body > header > nav > div > div > div > div.navbar-header{
+	width: 8%;
+}
+
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
-	width: 88%;
+	width: 94%;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(6){
-	width: 25%;
-}
-
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(6) > form > div > div{
-	width: 67%;
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(10){
+	width: 20%;
 }
 
 body > header > nav > div > div > div > div.navbar-header > div > a{
@@ -120,12 +128,7 @@ body > header > div > div > a > img.logo{
 body > div.container-fluid > div.busqueda.row{
 	background-color: #0095d9;
 }	
-/*
-body > div.container >  div > div > p{
-	margin:0 0 0 0;
-	font-size: 3px;
-}
-*/
+
 body > div.container-fluid > div.busqueda.row > div{
 	padding: 4px;
 }
@@ -134,6 +137,10 @@ body > div.container-fluid >  div.busqueda.row > div > form{
 	display: table;
 	margin-right: auto;
 	margin-left: auto;
+}
+
+#id_palabra{
+	width: 100%;
 }
 
 /*Estilos barra lateral de banners*/
@@ -239,7 +246,7 @@ footer > div.secundario > div > div{
 }
 
 /*Estilos de Bootstrap*/
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(6) > form > div > div > button{
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > form > div > div > button{
 	background-image: -webkit-linear-gradient(white 0%, white 100%)!important;
 	background-image: -o-linear-gradient(white 0%, white 100%)!important;
 	background-image: linear-gradient(white 0%, white 100%)!important;	
@@ -250,7 +257,7 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 	margin-left: -5px;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(6) > form > div > div > button > span{
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > form > div > div > button > span{
 	color: black;
 }
 

@@ -19,7 +19,7 @@ class LoginForm(forms.ModelForm):
 
 #Formulario para cambiar los paises en la pagina
 class PaisesForm(forms.Form):
-    
+
     paises_choices = []
 
     paises = Pais.objects.all().order_by('orden')
@@ -58,7 +58,7 @@ class BuscadorForm(forms.Form):
     )
 
     inmuebles = (
-        ('6', '6'),
+        # ('6', '6'),
         ('12','12'),
         ('24', '24'),
         ('48', '48'),

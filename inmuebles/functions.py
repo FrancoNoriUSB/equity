@@ -13,7 +13,8 @@ def contact_email(request, form, correo):
     #Informacion del usuario
     name = emailF.cleaned_data['nombre']
     emails.append(correo)
-    emails.append('equity@equitymedia.la')
+    emails.append('coordinacion@equityumedia.la')
+    emails.append('fernandoweber@equitymedia.la')
     telephone = emailF.cleaned_data['telefonos']
 
     #Verificacion de si posee telefono

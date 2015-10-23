@@ -21,16 +21,13 @@
 				<thead>
 					<tr>
 						<th class="">
-							Logo
+							Proyecto
 						</th>
 						<th class="">
 							Pa&iacute;s
 						</th>
 						<th class="">
 							Ciudad
-						</th>
-						<th class="">
-							Proyecto
 						</th>
 						<th class="">
 							Ver
@@ -43,16 +40,13 @@
 				<tfoot>
 					<tr>
 						<th class="">
-							Logo
+							Proyecto
 						</th>
 						<th class="">
 							Pa&iacute;s
 						</th>
 						<th class="">
 							Ciudad
-						</th>
-						<th class="">
-							Proyecto
 						</th>
 						<th class="">
 							Ver
@@ -66,16 +60,13 @@
 					{%for inmueble in inmuebles%}
 						<tr class="{% cycle 'active' 'info' %}">
 							<td>
-								<img src="{{inmueble.logo.url}}" alt="" height="100">
+								{{inmueble.titulo}}
 							</td>
 							<td>
 								{{inmueble.pais.nombre.name}}
 							</td>
 							<td>
 								{{inmueble.ciudad.nombre}}
-							</td>
-							<td>
-								{{inmueble.titulo}}
 							</td>
 							<td>
 								<a href="/{{inmueble.pais.nombre}}/inmuebles/{{inmueble.codigo}}/">
