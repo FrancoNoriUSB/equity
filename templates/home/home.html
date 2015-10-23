@@ -238,7 +238,7 @@
                                 <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
                             </li>
                             <li>
-                                <a href="">{{ inmuebles.previous_page_number }}</a>
+                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">{{ inmuebles.previous_page_number }}</a>
                             </li>
                         {% endif %}
                             <li>
@@ -246,7 +246,7 @@
                             </li>
                         {% if inmuebles.has_next %}
                             <li>
-                                <a href="">{{ inmuebles.next_page_number }}</a>
+                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">{{ inmuebles.next_page_number }}</a>
                             </li>
                             <li>
                                 <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
