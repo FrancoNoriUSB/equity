@@ -19,7 +19,7 @@
     <!-- Carrousel del header -->
     <div class="carrousel container">
         <!-- Primer banner -->
-        <div class="col-lg-3 col-md-3 col-sm-3">
+        <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
             {% if banners %}
                 <a class="banner-superior" href="{{ banners.0.url }}">
                     <img class="img-responsive" style="width: 100%;" src="{{ banners.0.imagen.url }}" alt="">
@@ -138,7 +138,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="banner row-fluid">
+                    <div class="banner row-fluid hidden-xs">
                         <a class="{{banner.nombre}}" href="http://{{banner.url}}">
                             <img class="img-responsive" style="width: 100%;" src="{{banner.imagen.url}}" alt="">
                         </a>
@@ -209,12 +209,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid banner">
+                <div class="row-fluid banner hidden-xs">
                     <a class="banner-medio" href="">
                         <img class="img-responsive" style="width: 100%;" src="{% static 'files/img/banner-medio.png' %}" alt="">
                     </a>
                 </div>
-                <div class="row-fluid banner">
+                <div class="row-fluid banner hidden-xs">
                     <a class="banner-inferior" href="">
                         <img class="img-responsive" style="width: 100%;" src="{% static 'files/img/banner-medio.png' %}" alt="">
                     </a>
@@ -222,7 +222,7 @@
             {%endfor%}
         </div>
         <!-- Contenido de la pagina -->
-        <div class="contenido col-lg-9 col-md-9">
+        <div class="contenido col-lg-9 col-md-9 col-sm-9 col-xs-9">
         	<div class="paginacion-superior row">
         		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
                         <div class="form-inline col-lg-6 col-md-3">

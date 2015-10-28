@@ -302,3 +302,154 @@ body,
 .carousel-inner .item {
   height: 100%;
 }
+
+
+/*Media queries para adaptar la pagina*/
+@media (min-width: 1500px){
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 12% !important;
+	}
+
+}
+@media (min-width: 1200px) and (max-width: 1500px){
+	body > div.header-home > div.container{
+		margin-top: 9% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 12% !important;
+	}
+
+	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(10){
+		width: 16%;
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1200px){
+	body > div.header-home > div.container{
+		margin-top: 11% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 14% !important;
+	}
+
+	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(10){
+		width: 16%;
+	}
+
+	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul {
+	    margin-top: -5.5%;
+	}
+}
+
+@media (min-width: 800px) and (max-width: 992px){
+	body > div.header-home > div.container{
+		margin-top: 13% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 16% !important;
+	}
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+	
+	body > div.header-home > div.container{
+		margin-top: 15% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 18% !important;
+	}
+
+	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
+		margin-top: 0% !important;
+	}
+
+}
+ 
+@media screen and (min-width: 568px) and (max-width: 768px) {
+	body > div.header-home > div.container{
+		margin-top: 18% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 22% !important;
+	}
+
+	body > header > nav > div > div > div > div.navbar-header {
+	    width: 55% !important;
+	}
+}
+
+@media screen and (min-width: 530px) and (max-width: 568px) {
+	body > div.header-home > div.container{
+		margin-top: 21% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 24% !important;
+	}
+
+	body > header > nav > div > div > div > div.navbar-header {
+	    width: 58% !important;
+	}
+}
+
+@media screen and (min-width: 465px) and (max-width: 530px) {
+	body > div.header-home > div.container{
+		margin-top: 22% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 26% !important;
+	}
+
+	body > header > nav > div > div > div > div.navbar-header {
+	    width: 60% !important;
+	}
+}
+
+@media screen and (min-width: 400px) and (max-width: 465px) {
+	body > div.header-home > div.container{
+		margin-top: 27% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 30% !important;
+	}
+
+	body > header > nav > div > div > div > div.navbar-header {
+	    width: 60% !important;
+	}
+}
+
+@media screen and (min-width: 350px) and (max-width: 400px) {
+	body > div.header-home > div.container{
+		margin-top: 30% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 34% !important;
+	}
+
+	body > header > nav > div > div > div > div.navbar-header {
+	    width: 60% !important;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	body > div.header-home > div.container{
+		margin-top: 33% !important;
+	}
+
+	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
+		margin-top: 40% !important;
+	}
+
+	body > header > nav > div > div > div > div.navbar-header {
+	    width: 60% !important;
+	}
+}
