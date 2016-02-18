@@ -59,7 +59,7 @@
                         <label for="changetype-geocode">Geocodigos</label>
 	                </div>
 	                <div class="form-group">
-	                    <label>Ubicación</label>
+	                    <label>Ubicaci&oacute;n</label>
 	                    <div class="mapa" id="map-canvas">
 	                    </div>
 	                    {{ InmuebleForm.latitud.as_hidden }}
@@ -68,6 +68,7 @@
                     {% bootstrap_field InmuebleForm.pagina %}
                     {% bootstrap_field InmuebleForm.video %}
                     {% bootstrap_field InmuebleForm.archivo %}
+                    {% bootstrap_field InmuebleForm.ficha_tecnica %}
 	                {% bootstrap_field InmuebleForm.fecha_entrega %}
 	                {% bootstrap_field InmuebleForm.tipo_obra %}
 	                {% bootstrap_field InmuebleForm.agente %}
@@ -85,8 +86,8 @@
 {% endblock content %}
 
 {% block js %}
-<!-- Mapa de google maps -->&key=AIzaSyAtxFup88MwcvKANoDAk5FzN-7pwqMfWxE
-<script src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places"type="text/javascript"></script>
+<!-- Mapa de google maps -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places&key=AIzaSyAtxFup88MwcvKANoDAk5FzN-7pwqMfWxE"type="text/javascript"></script>
 <script src="{% static 'files/js/jquery.formset.js' %}"></script>
 <script src="{% static 'files/js/jquery-ui.min.js' %}"></script>
 <script type="text/javascript">

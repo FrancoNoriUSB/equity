@@ -109,7 +109,7 @@ def home(request, pais):
                 metros_min = int(metros[0])
                 metros_max = int(metros[1])
 
-            #Revisa si el precio no es vacio
+            # Revisa si el precio no es vacio
             if desde != '' and hasta !='':
                 desde = int(re.sub('[,.]', '', desde.split('.')[0]))
                 hasta = int(re.sub('[,.]', '', hasta.split('.')[0]))
@@ -124,13 +124,13 @@ def home(request, pais):
                         precio_min = precio_min
                         precio_max = precio_max
 
-                    #Verificacion de cumplimiento de limites
+                    # Verificacion de cumplimiento de limites
                     if precio_max == 0:
                         precio_max = -1
                     if precio_min == 0:
                         precio_min = 1
 
-            #Caso de busqueda por codigo
+            # Caso de busqueda por codigo
             if palabra != '':
                 slug = slugify(palabra)
                 inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, slug__icontains=slug)
@@ -140,9 +140,9 @@ def home(request, pais):
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, agente__nombre=slug)
 
             # Caso demas
-            elif ciudad != None or zona != None or tipo != None or orden != '' or habitaciones != '' or (precio_min != '' and precio_max != '') or metros != '':
+            elif ciudad is not None or zona is not None or tipo is not None or orden != '' or habitaciones != '' or (precio_min != '' and precio_max != '') or metros != '':
 
-                #Verificacion de string vacio
+                # Verificacion de string vacio
                 if orden == '':
                     orden = None
 
@@ -152,7 +152,7 @@ def home(request, pais):
                 if metros != '':
                     orden = 'metros'
 
-                #Campos a buscar
+                # Campos a buscar
                 fields_list = []
                 fields_list.append('pais')
                 fields_list.append('ciudad')
@@ -168,8 +168,8 @@ def home(request, pais):
                 if precio_min != '' and precio_max != '':
                     fields_list.append('modulo__precio')
 
-                #Comparadores para buscar
-                types_list=[]
+                # Comparadores para buscar
+                types_list = []
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
@@ -181,11 +181,11 @@ def home(request, pais):
                 if habitaciones != '':
                     types_list.append('range')
 
-                if precio_min != '' and precio_max != '':    
+                if precio_min != '' and precio_max != '':
                     types_list.append('range')
 
-                #Valores a buscar
-                values_list=[]
+                # Valores a buscar
+                values_list = []
                 values_list.append(pais)
                 values_list.append(ciudad)
                 values_list.append(zona)
@@ -204,7 +204,7 @@ def home(request, pais):
 
                 inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden).distinct()
 
-                #Eliminando repetidos
+                # Eliminando repetidos
                 if orden == 'precio' or orden == 'metros':
                     for inmueble in inmuebles_list:
                         modulos = Modulo.objects.filter(inmueble=inmueble)
@@ -212,21 +212,20 @@ def home(request, pais):
                             if modulos:
                                 inmuebles.append(inmueble)
                             else:
-                                inmuebles.insert(0,inmueble)
+                                inmuebles.insert(0, inmueble)
                     inmuebles_list = inmuebles
 
-
-    #Verificacion de cual de los filtros se uso
+    # Verificacion de cual de los filtros se uso
     if inmuebles_inf != 12 and inmuebles_inf != '':
         inmuebles_pagina = inmuebles_inf
     if inmuebles_sup != 12 and inmuebles_sup != '':
         inmuebles_pagina = inmuebles_sup
 
-    #Busqueda de propiedades en el pais actual
+    # Busqueda de propiedades en el pais actual
     paginator = Paginator(inmuebles_list, inmuebles_pagina)
     page = request.GET.get('page')
-    
-    #Busqueda con paginacion
+
+    # Busqueda con paginacion
     query = request.GET.copy()
     if query.has_key('page'):
         del query['page']
@@ -246,59 +245,59 @@ def home(request, pais):
         zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
     zonas = json.dumps(zonas)
 
-    #Banners publicitarios de cada pais
+    # Banners publicitarios de cada pais
     banners = Banner.objects.filter(pais__nombre=pais).order_by('nombre')
 
     ctx = {
         'buscadorF': buscadorF,
         'paisesF': paisesF,
-        'moneda_get':moneda_get,
+        'moneda_get': moneda_get,
         'moneda': moneda,
         'pais': pais,
         'inmuebles': inmuebles,
-        'inmuebles_pagina':inmuebles_pagina,
+        'inmuebles_pagina': inmuebles_pagina,
         'imagenes': imagenes,
         'zonas': zonas,
-        'banners':banners,
-        'query':query,
+        'banners': banners,
+        'query': query,
     }
 
     return render_to_response('home/home.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista de cada inmueble
+# Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
     envio = False
 
-    #Buscador de inmuebles
+    # Buscador de inmuebles
     buscadorF = BuscadorForm()
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
-    #Inmueble
+    # Inmueble
     inmueble = get_object_or_404(Inmueble, codigo=codigo, pais__nombre=pais)
-    
-    #Modulos
+
+    # Modulos
     modulos = Modulo.objects.filter(inmueble=inmueble).order_by('id')
 
-    #Agente
+    # Agente
     agente = inmueble.agente
     telefonos = TelefonoAgente.objects.filter(agente=agente)
 
-    #Contacto con el agente
+    # Contacto con el agente
     contactoF = ContactoAgenteForm()
 
-    #Imagenes del inmueble
+    # Imagenes del inmueble
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('id')
 
-    #Moneda
+    # Moneda
     try:
         moneda = Moneda.objects.get(pais__nombre=pais)
     except:
         moneda = ''
 
-    #Banners del home
+    # Banners del home
     banners = Banner.objects.filter(pais__nombre=pais)
 
     if request.POST:
@@ -539,7 +538,7 @@ class DetalleInmueble(TemplateView):
         return context
 
 
-#Vista para publicar el inmueble
+# Vista para publicar el inmueble
 class Publicar(CreateView):
     template_name = 'admin/inmuebles/publicar.html'
     model = Inmueble
@@ -565,6 +564,7 @@ class Publicar(CreateView):
               'areas_comunes',
               'logo',
               'archivo',
+              'ficha_tecnica',
               'forma_pago']
 
     def get(self, request, *args, **kwargs):

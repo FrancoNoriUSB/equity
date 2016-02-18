@@ -25,10 +25,10 @@ class Pais(models.Model):
 
 # Ciudad que se relaciona con el pais
 class Ciudad(models.Model):
-    #Campos para la ciudad
+    # Campos para la ciudad
     nombre = models.CharField(max_length=80)
 
-    #Claves foraneas
+    # Claves foraneas
     pais = models.ForeignKey(Pais)
 
     class Meta:
@@ -40,12 +40,12 @@ class Ciudad(models.Model):
         return self.nombre
 
 
-#Zona que se relaciona con la ciudad
+# Zona que se relaciona con la ciudad
 class Zona(models.Model):
-    #Campos para la ciudad
+    # Campos para la ciudad
     nombre = models.CharField(max_length=80)
 
-    #Claves foraneas
+    # Claves foraneas
     ciudad = models.ForeignKey(Ciudad)
 
     class Meta:
@@ -57,14 +57,14 @@ class Zona(models.Model):
         return self.nombre
 
 
-#Imagen de los anuncios que se publican
+# Imagen de los anuncios que se publican
 class Imagen(models.Model):
     imagen = models.ImageField(upload_to='uploads/img/', null=True)
     thumbnail = models.ImageField(upload_to='uploads/img/thumbnails/', blank=True, null=True, editable=False)
     descripcion = models.CharField(max_length=140, null=True)
     principal = models.BooleanField(default=True, help_text='Marcado si desea que se muestre como imagen principal')
 
-    #Metodo para crear el thumbnail al momento de cear la imagen
+    # Metodo para crear el thumbnail al momento de cear la imagen
     def create_thumbnail(self):
         # If there is no image associated with this.
         # do not create thumbnail
@@ -74,7 +74,6 @@ class Imagen(models.Model):
         from PIL import Image
         from cStringIO import StringIO
         from django.core.files.uploadedfile import SimpleUploadedFile
-        import os
 
         # Set our max thumbnail size in a tuple (max width, max height)
         THUMBNAIL_SIZE = (200, 200)
@@ -114,7 +113,7 @@ class Imagen(models.Model):
         return self.descripcion
 
 
-#Modelo para el Agente inmobiliario
+# Modelo para el Agente inmobiliario
 class Agente(models.Model):
     nombre = models.CharField(max_length=30)
     correo = models.CharField(max_length=40)
@@ -122,7 +121,7 @@ class Agente(models.Model):
     pagina = models.CharField(max_length=100, default='', null=True)
     logo = models.ImageField(upload_to='agentes/')
 
-    #Claves foraneas
+    # Claves foraneas
     pais = models.ForeignKey(Pais)
 
     class Meta:
@@ -134,7 +133,7 @@ class Agente(models.Model):
         return self.nombre
 
 
-#Clase abstracta de Telefonos
+# Clase abstracta de Telefonos
 class Telefono(models.Model):
     numero = models.CharField(max_length=30)
 
@@ -150,7 +149,7 @@ class Telefono(models.Model):
 # Modelo para los telefonos del agente
 class TelefonoAgente(Telefono):
 
-    tipo = models.CharField(max_length=20, choices=(('Celular','Celular'),( u'Teléfono', u'Teléfono')))
+    tipo = models.CharField(max_length=20, choices=(('Celular', 'Celular'), (u'Teléfono', u'Teléfono')))
     agente = models.ForeignKey(Agente, related_name='telefonos')
 
     class Meta(Telefono.Meta):
@@ -177,7 +176,7 @@ class AreaComun(models.Model):
 
     class Meta:
         verbose_name = "Area Comun"
-        verbose_name_plural = "Area Comunes"
+        verbose_name_plural = "Areas Comunes"
 
     def __unicode__(self):
         return self.nombre
@@ -203,15 +202,16 @@ class Inmueble(models.Model):
     longitud = models.DecimalField(max_digits=20, decimal_places=17)
     logo = models.ImageField(upload_to='logos_inmuebles/')
     archivo = models.FileField(upload_to='archivos_inmuebles/', blank=True, null=True)
+    ficha_tecnica = models.FileField(upload_to='fichas_inmuebles/', blank=True, null=True)
     forma_pago = models.TextField(max_length=100, blank=True, null=True, verbose_name='Forma de pago')
     pagina = models.CharField(max_length=200, blank=True, null=True)
     video = models.CharField(max_length=200, blank=True, null=True)
     areas_comunes = models.TextField()
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
-    feche_actualizacion = models.DateTimeField(auto_now=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
     fecha_expiracion = models.DateTimeField()
-    
-    #Claves foraneas
+
+    # Claves foraneas
     pais = models.ForeignKey(Pais)
     ciudad = models.ForeignKey(Ciudad)
     zona = models.ForeignKey(Zona)
@@ -249,16 +249,16 @@ class Modulo(models.Model):
     precio = models.DecimalField(max_digits=25, decimal_places=2)
     plano = models.ImageField(upload_to='uploads/planos/', null=True)
 
-    #Claves foraneas
+    # Claves foraneas
     inmueble = models.ForeignKey(Inmueble)
 
     class Meta:
-        ordering = ('precio','metros',)
+        ordering = ('precio', 'metros',)
         verbose_name = "Modulo"
         verbose_name_plural = "Modulos"
 
     def __unicode__(self):
-        return u"%s" %(self.precio)
+        return u"%s" % (self.precio)
 
 
 # Modelo para las monedas
@@ -267,7 +267,7 @@ class Moneda(models.Model):
     simbolo = models.CharField(max_length=10)
     tasa = models.DecimalField(max_digits=20, decimal_places=2)
 
-    #Claves foraneas
+    # Claves foraneas
     pais = models.OneToOneField(Pais)
 
     class Meta:
@@ -289,7 +289,7 @@ class CampoTipoInmueble(models.Model):
     nombre = models.CharField(max_length=80)
     tipo = models.CharField(max_length=1, choices=TIPOS, default=TEXTO)
 
-    #Claves foraneas
+    # Claves foraneas
     tipo_inmueble = models.ForeignKey(TipoInmueble)
 
     class Meta:
@@ -304,7 +304,7 @@ class CampoTipoInmueble(models.Model):
 class ValorCampoTipoInmueble(models.Model):
     valor = models.CharField(max_length=150)
 
-    #Claves foraneas
+    # Claves foraneas
     campo = models.ForeignKey(CampoTipoInmueble)
     inmueble = models.ForeignKey(Inmueble)
 
@@ -339,7 +339,7 @@ class CampoInmueble(models.Model):
 class ValorCampoInmueble(models.Model):
     valor = models.CharField(max_length=150)
 
-    #Claves foraneas
+    # Claves foraneas
     campo = models.ForeignKey(CampoInmueble)
     inmueble = models.ForeignKey(Inmueble)
 
@@ -356,7 +356,7 @@ class Slide(models.Model):
     nombre = models.CharField(max_length=100)
     imagen = models.ImageField(upload_to='slide-home/')
 
-    #Claves foraneas
+    # Claves foraneas
     pais = models.ForeignKey(Pais)
 
     class Meta:
@@ -364,16 +364,16 @@ class Slide(models.Model):
         verbose_name_plural = "Slides"
 
     def __unicode__(self):
-        return u"%s - %s" %(self.nombre, self.pais.nombre.name)
+        return u"%s - %s" % (self.nombre, self.pais.nombre.name)
 
 
 # Modelo para los banners publicitarios
 class Banner(models.Model):
     posiciones = (
-        ('1','Superior'),
-        ('2','Medio-Superior'),
-        ('3','Medio-Inferior'),
-        ('4','Inferior'),
+        ('1', 'Superior'),
+        ('2', 'Medio-Superior'),
+        ('3', 'Medio-Inferior'),
+        ('4', 'Inferior'),
     )
 
     nombre = models.CharField(max_length=100, choices=posiciones)
@@ -382,7 +382,7 @@ class Banner(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    #Claves foraneas
+    # Claves foraneas
     pais = models.ForeignKey(Pais)
 
     class Meta:
@@ -390,10 +390,10 @@ class Banner(models.Model):
         verbose_name_plural = "Banners"
 
     def __unicode__(self):
-        return u"%s - %s" %(self.nombre, self.pais.nombre.name)
+        return u"%s - %s" % (self.nombre, self.pais.nombre.name)
 
 
-#Modelo para los links editables
+# Modelo para los links editables
 class Link(models.Model):
 
     nombre = models.CharField(max_length=100)
@@ -404,10 +404,10 @@ class Link(models.Model):
         verbose_name_plural = "Links"
 
     def __unicode__(self):
-        return u"%s - %s" %(self.nombre)
-    
+        return u"%s - %s" % (self.nombre)
 
-#Modelo para los telefonos de contacto
+
+# Modelo para los telefonos de contacto
 class Contacto(Telefono):
 
     ciudad = models.ForeignKey(Ciudad)
@@ -418,4 +418,4 @@ class Contacto(Telefono):
         verbose_name_plural = "Contactos"
 
     def __unicode__(self):
-        return u"%s - %s" %(self.pais)
+        return u"%s - %s" % (self.pais)

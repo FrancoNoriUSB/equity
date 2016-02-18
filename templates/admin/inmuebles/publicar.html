@@ -46,7 +46,7 @@
                       <label for="changetype-geocode">Geocodigos</label>
                     </div>
                      <div class="form-group">
-                        <label>Ubicación</label>
+                        <label>Ubicaci&oacute;n</label>
                         <div class="mapa" id="map-canvas">
                         </div>
                         {{ form.latitud.as_hidden }}
@@ -55,6 +55,7 @@
                     {% bootstrap_field form.pagina %}
                     {% bootstrap_field form.video %}
                     {% bootstrap_field form.archivo %}
+                    {% bootstrap_field form.ficha_tecnica %}
                     {% bootstrap_field form.fecha_entrega %}
                     {% bootstrap_field form.tipo_obra %}
                     {% bootstrap_field form.agente %}

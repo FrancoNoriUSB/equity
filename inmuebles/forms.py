@@ -5,19 +5,22 @@ from django.forms.extras.widgets import *
 from django.contrib.auth.forms import UserCreationForm
 from django_countries import countries
 from django.forms.models import inlineformset_factory
+from django.utils.translation import ugettext_lazy as _
 
-#Formulario para el login de usuario                
+
+# Formulario para el login de usuario
 class LoginForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username','password')
+        fields = ('username', 'password')
         widgets = {
-            'password': forms.PasswordInput(attrs={'class':"form-control", 'placeholder':"Contraseña"}),
-            'username': forms.TextInput(attrs={'class':"form-control", 'placeholder':"Usuario"}),
+            'password': forms.PasswordInput(attrs={'class': "form-control", 'placeholder': "Contraseña"}),
+            'username': forms.TextInput(attrs={'class': "form-control", 'placeholder': "Usuario"}),
         }
 
-#Formulario para cambiar los paises en la pagina
+
+# Formulario para cambiar los paises en la pagina
 class PaisesForm(forms.Form):
 
     paises_choices = []
@@ -31,7 +34,7 @@ class PaisesForm(forms.Form):
     pais = forms.ChoiceField(choices=paises_choices, required=True, widget=forms.Select(attrs={'class': "form-control"}))
 
 
-#Formulario de busqueda de inmuebles
+# Formulario de busqueda de inmuebles
 class BuscadorForm(forms.Form):
 
     ordenes = (
@@ -42,10 +45,10 @@ class BuscadorForm(forms.Form):
     )
 
     habitaciones = (
-        ('',' - Habitaciones - '),
-        ('0-1',' 0 - 1 '),
-        ('2-3',' 2 - 3'),
-        ('3-100',u' 3 o más '), 
+        ('', ' - Habitaciones - '),
+        ('0-1', ' 0 - 1 '),
+        ('2-3', ' 2 - 3'),
+        ('3-100', u' 3 o más '),
     )
 
     metros = (
@@ -59,15 +62,15 @@ class BuscadorForm(forms.Form):
 
     inmuebles = (
         # ('6', '6'),
-        ('12','12'),
+        ('12', '12'),
         ('24', '24'),
         ('48', '48'),
     )
 
     monedas = (
-        ('',' - Moneda - '),
-        ('nacional','Nacional'),
-        ('usd','USD'),
+        ('', ' - Moneda - '),
+        ('nacional', 'Nacional'),
+        ('usd', 'USD'),
     )
 
     ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all().order_by('nombre'), empty_label=' - Ciudad -', required=False)
@@ -84,16 +87,16 @@ class BuscadorForm(forms.Form):
     palabra = forms.CharField(max_length=20, required=False)
 
 
-#Formulario de contacto
+# Formulario de contacto
 class ContactoAgenteForm(forms.Form):
 
-    nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre y Apellido','class': "form-control"}))
-    correo = forms.CharField(max_length=50, widget=forms.EmailInput(attrs={'placeholder': 'Correo','class': "form-control"}))
-    telefonos = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Teléfonos','class': "form-control"}))
-    comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder': 'Comentarios','class': "form-control"}))
+    nombre = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Nombre y Apellido', 'class': "form-control"}))
+    correo = forms.CharField(max_length=50, widget=forms.EmailInput(attrs={'placeholder': 'Correo', 'class': "form-control"}))
+    telefonos = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'Teléfonos', 'class': "form-control"}))
+    comentario = forms.CharField(max_length=200, widget=forms.Textarea(attrs={'placeholder': 'Comentarios', 'class': "form-control"}))
 
 
-#Formulario para agregar inmuebles
+# Formulario para agregar inmuebles
 class InmuebleForm(forms.ModelForm):
     class Meta:
         model = Inmueble
@@ -103,13 +106,15 @@ class InmuebleForm(forms.ModelForm):
             'longitud': forms.HiddenInput(),
         }
         labels = {
-            'descripcion': 'Descripción',
-            'direccion': 'Dirección',
+            'pagina': _(u'Página'),
+            'descripcion': u'Descripción',
+            'direccion': u'Dirección',
+            'ficha_tecnina': u'Ficha Técnica',
         }
         exclude = ['tipo', 'pais', 'fecha_expiracion', 'slug']
 
 
-#Formulario de imagenes de inmuebles
+# Formulario de imagenes de inmuebles
 class ImagenInmuebleForm(forms.ModelForm):
     class Meta:
         model = ImagenInmueble
@@ -119,7 +124,7 @@ class ImagenInmuebleForm(forms.ModelForm):
         }
 
 
-#Formulario de registro simple de usuario
+# Formulario de registro simple de usuario
 class UserForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput(), label='Confirme Contraseña')
 
@@ -136,7 +141,7 @@ class UserForm(forms.ModelForm):
         }
 
 
-#Formulario para agentes
+# Formulario para agentes
 class AgenteForm(forms.ModelForm):
     correo2 = forms.CharField(required=False)
 
@@ -149,14 +154,14 @@ class AgenteForm(forms.ModelForm):
         exclude = ['pais']
 
 
-#Formulario para los telefonos de los agentes
+# Formulario para los telefonos de los agentes
 class TelefonoAgenteForm(forms.ModelForm):
     class Meta:
         model = TelefonoAgente
         exclude = ['agente']
-    
 
-#Formulario para ciudades
+
+# Formulario para ciudades
 class CiudadForm(forms.ModelForm):
     class Meta:
         model = Ciudad
@@ -166,7 +171,7 @@ class CiudadForm(forms.ModelForm):
         exclude = ['pais']
 
 
-#Formulario para zonas
+# Formulario para zonas
 class ZonaForm(forms.ModelForm):
     class Meta:
         model = Zona
@@ -174,10 +179,10 @@ class ZonaForm(forms.ModelForm):
             'nombre': forms.TextInput(),
             'ciudad': forms.TextInput(),
         }
-        exclude = ['pais',]
+        exclude = ['pais']
 
 
-#Formulario de monedas
+# Formulario de monedas
 class MonedaForm(forms.ModelForm):
     class Meta:
         model = Moneda
@@ -186,14 +191,15 @@ class MonedaForm(forms.ModelForm):
         }
         exclude = ['pais']
 
-#Formulario de areas comunes
+
+# Formulario de areas comunes
 class AreaComunForm(forms.ModelForm):
     class Meta:
         model = AreaComun
         widgets = {
             'nombre': forms.TextInput(),
         }
-        fields = ['nombre',]
+        fields = ['nombre']
         labels = {
             'nombre': 'Otra área común',
         }

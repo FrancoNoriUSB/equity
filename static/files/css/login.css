@@ -1,0 +1,10 @@
+/*Archivo de estilos para el login de la aplicacion
+  Colores:
+  Azul Claro:#0095d9;
+  Gris:#4f4e4e;
+  Azul Oscuro:#1a2e51;
+*/
+
+body > div.contenido.container > div{
+	margin-top: 10%;
+}
