@@ -30,7 +30,7 @@ import re
 # Vista del index o home
 def index(request):
 
-    #Formulario para los paises disponibles
+    # Formulario para los paises disponibles
     paisesF = PaisesForm()
 
     ctx = {
@@ -40,15 +40,15 @@ def index(request):
     return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista del home de cada pais
+# Vista del home de cada pais
 def home(request, pais):
 
-    #Buscador de inmuebles
+    # Buscador de inmuebles
     buscadorF = BuscadorForm()
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
-    #Formulario para los paises disponibles
+    # Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
         'pais': pais,
     })
@@ -66,13 +66,13 @@ def home(request, pais):
     precio_min = ''
     precio_max = ''
 
-    #Imagenes del slider
+    # Imagenes del slider
     imagenes = Slide.objects.filter(pais__nombre=pais)
 
-    #Lista inmuebles por pagina
-    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais).order_by('codigo')
+    # Lista inmuebles por pagina
+    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('codigo')
 
-    #Moneda nacional
+    # Moneda nacional
     try:
         moneda = Moneda.objects.get(pais__nombre=pais)
     except:
@@ -81,7 +81,7 @@ def home(request, pais):
     if request.GET:
         buscadorF = BuscadorForm(request.GET)
 
-        #Caso para el buscador de inmuebles
+        # Caso para el buscador de inmuebles
         if buscadorF.is_valid():
             ciudad = buscadorF.cleaned_data['ciudad']
             zona = buscadorF.cleaned_data['zona']
@@ -96,24 +96,23 @@ def home(request, pais):
             inmuebles_inf = buscadorF.cleaned_data['inmuebles_inf']
             inmuebles_sup = buscadorF.cleaned_data['inmuebles_sup']
 
-
-            #Revisa si las habitaciones no son vacias
+            # Revisa si las habitaciones no son vacias
             if habitaciones != '':
-                habitaciones = habitaciones.split('-',2)
+                habitaciones = habitaciones.split('-', 2)
                 min_habitaciones = int(habitaciones[0])
                 max_habitaciones = int(habitaciones[1])
 
-            #Revisa si los metros no son vacios
+            # Revisa si los metros no son vacios
             if metros != '':
-                metros = metros.split('-',2)
+                metros = metros.split('-', 2)
                 metros_min = int(metros[0])
                 metros_max = int(metros[1])
 
             # Revisa si el precio no es vacio
-            if desde != '' and hasta !='':
+            if (desde != '') and (hasta != ''):
                 desde = int(re.sub('[,.]', '', desde.split('.')[0]))
                 hasta = int(re.sub('[,.]', '', hasta.split('.')[0]))
-                
+
                 if desde <= hasta:
                     precio_min = desde
                     precio_max = hasta
@@ -133,14 +132,14 @@ def home(request, pais):
             # Caso de busqueda por codigo
             if palabra != '':
                 slug = slugify(palabra)
-                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, slug__icontains=slug)
+                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, slug__icontains=slug, visible=True)
                 if not inmuebles_list:
-                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra)
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra, visible=True)
                 if not inmuebles_list:
-                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, agente__nombre=slug)
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, agente__nombre=slug, visible=True)
 
             # Caso demas
-            elif ciudad is not None or zona is not None or tipo is not None or orden != '' or habitaciones != '' or (precio_min != '' and precio_max != '') or metros != '':
+            elif (ciudad is not None) or (zona is not None) or (tipo is not None) or (orden != '') or (habitaciones != '') or (precio_min != '' and precio_max != '') or (metros != ''):
 
                 # Verificacion de string vacio
                 if orden == '':
@@ -158,6 +157,7 @@ def home(request, pais):
                 fields_list.append('ciudad')
                 fields_list.append('zona')
                 fields_list.append('tipo')
+                fields_list.append('visible')
 
                 if metros != '':
                     fields_list.append('modulo__metros')
@@ -174,6 +174,7 @@ def home(request, pais):
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
+                types_list.append('exact')
 
                 if metros != '':
                     types_list.append('range')
@@ -190,6 +191,7 @@ def home(request, pais):
                 values_list.append(ciudad)
                 values_list.append(zona)
                 values_list.append(tipo)
+                values_list.append('True')
 
                 if metros != '':
                     values_list.append((metros_min, metros_max))
@@ -328,7 +330,7 @@ def inmueble(request, codigo, pais):
     return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista de inmuebles favoritos
+# Vista de inmuebles favoritos
 def favoritos_list(request, pais):
 
     inmuebles = []
@@ -336,18 +338,18 @@ def favoritos_list(request, pais):
     id_inmuebles = []
     id_modulos = []
 
-    #Buscador de inmuebles
+    # Buscador de inmuebles
     buscadorF = BuscadorForm()
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
-    #Moneda
+    # Moneda
     try:
         moneda = Moneda.objects.get(pais__nombre=pais)
     except:
         moneda = ''
 
-    #Formulario para los paises disponibles
+    # Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
         'pais': pais,
     })
@@ -368,14 +370,14 @@ def favoritos_list(request, pais):
         'buscadorF': buscadorF,
         'paisesF': paisesF,
         'pais': pais,
-        'inmuebles':inmuebles,
-        'modulos':modulos
+        'inmuebles': inmuebles,
+        'modulos': modulos
     }
 
     return render_to_response('favoritos/listar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar inmuebles favoritos
+# Vista para agregar inmuebles favoritos
 def favoritos_agregar(request, pais, id_inmueble):
 
     if request.session.get('inmuebles'):
@@ -389,7 +391,7 @@ def favoritos_agregar(request, pais, id_inmueble):
     return HttpResponseRedirect('/'+str(pais)+'/')
 
 
-#Vista para eliminar inmuebles favoritos
+# Vista para eliminar inmuebles favoritos
 def favoritos_eliminar(request, pais, id_inmueble):
     
     if request.session.get('inmuebles'):
@@ -401,7 +403,7 @@ def favoritos_eliminar(request, pais, id_inmueble):
     return HttpResponseRedirect('/'+str(pais)+'/favoritos/')
 
 
-#Vista para agregar modulos de inmuebles favoritos
+# Vista para agregar modulos de inmuebles favoritos
 def favoritos_modulo_agregar(request, pais, cod_inmueble, id_modulo):
 
     if request.session.get('modulos'):
@@ -415,9 +417,9 @@ def favoritos_modulo_agregar(request, pais, cod_inmueble, id_modulo):
     return HttpResponseRedirect('/'+str(pais)+'/inmuebles/'+str(cod_inmueble)+'/')
 
 
-#Vista para eliminar inmuebles favoritos
+# Vista para eliminar inmuebles favoritos
 def favoritos_modulo_eliminar(request, pais, cod_inmueble, id_modulo):
-    
+
     if request.session.get('modulos'):
         modulos = request.session['modulos']
         if int(id_modulo) in modulos:
@@ -427,7 +429,7 @@ def favoritos_modulo_eliminar(request, pais, cod_inmueble, id_modulo):
     return HttpResponseRedirect('/'+str(pais)+'/favoritos/')
 
 
-#Vista para el ingreso de los usuarios.
+# Vista para el ingreso de los usuarios.
 def login_admin(request, pais):
 
     username = ''
@@ -435,13 +437,12 @@ def login_admin(request, pais):
     buscadorF = BuscadorForm()
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
-   
-    
-    #Formularios basicos
+
+    # Formularios basicos
     loginF = LoginForm()
 
     if request.user.is_authenticated() and request.user:
-        
+
         return HttpResponseRedirect('/'+str(pais)+'/admin/perfil/')
 
     if request.method == "POST":
@@ -470,7 +471,7 @@ def login_admin(request, pais):
     return render_to_response('login/login.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para el ingreso de los usuarios.
+# Vista para el ingreso de los usuarios.
 @login_required
 def perfil_admin(request, pais):
 
@@ -486,29 +487,28 @@ def perfil_admin(request, pais):
     nombre_pais = dict(countries)[pais]
 
     ctx = {
-        'inmuebles':inmuebles,
-        'agentes':agentes,
-        'ciudades':ciudades,
-        'zonas':zonas,
-        'pais':pais,
-        'nombre_pais':nombre_pais,
+        'inmuebles': inmuebles,
+        'agentes': agentes,
+        'ciudades': ciudades,
+        'zonas': zonas,
+        'pais': pais,
+        'nombre_pais': nombre_pais,
     }
     return render_to_response('admin/perfil.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para listar los inmuebles de ese pais
+# Vista para listar los inmuebles de ese pais
 @login_required
 def inmuebles_list(request, pais):
-    
     inmuebles = Inmueble.objects.filter(pais__nombre=pais)
     nombre_pais = dict(countries)[pais]
 
     ctx = {
-        'inmuebles':inmuebles,
-        'pais':pais,
-        'nombre_pais':nombre_pais,
+        'inmuebles': inmuebles,
+        'pais': pais,
+        'nombre_pais': nombre_pais,
     }
-    
+
     return render_to_response('admin/inmuebles/inmuebles.html', ctx, context_instance=RequestContext(request))
 
 
@@ -563,6 +563,7 @@ class Publicar(CreateView):
               'longitud',
               'areas_comunes',
               'logo',
+              'visible',
               'archivo',
               'ficha_tecnica',
               'forma_pago']
@@ -632,7 +633,7 @@ class Publicar(CreateView):
             self.get_context_data(form=form, pais=pais, zonas=zonas))
 
 
-#Vista para publicar el inmueble
+# Vista para publicar el inmueble
 class AgregarModulo(CreateView):
     template_name = 'admin/inmuebles/agregar-modulo.html'
     model = Modulo
@@ -726,7 +727,7 @@ class EditarModulo(UpdateView):
                                   pais=pais))
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para eliminar los modulos
 @login_required
 def modulos_eliminar(request, pais, id_inmueble, id_modulo):
     modulo = get_object_or_404(Modulo, id=id_modulo).delete()
@@ -734,18 +735,18 @@ def modulos_eliminar(request, pais, id_inmueble, id_modulo):
     return redirect('inmuebles:detalle', pais=pais, id_inmueble=id_inmueble)
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para editar los inmuebles
 @login_required
 def inmuebles_editar(request, pais, id_inmueble):
-    
+
     editado = ''
     inmueble = Inmueble.objects.get(id=id_inmueble)
     inmuebleF = InmuebleForm(instance=inmueble)
     inmuebleF.fields['agente'] = forms.ModelChoiceField(Agente.objects.filter(pais__nombre=pais))
     inmuebleF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais))
     inmuebleF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais))
-    tiposF = BuscadorForm(initial={'tipo':inmueble.tipo})
-        
+    tiposF = BuscadorForm(initial={'tipo': inmueble.tipo})
+
     if request.POST:
         inmuebleF = InmuebleForm(request.POST, request.FILES, instance=inmueble)
         tiposF = BuscadorForm(request.POST)
@@ -758,22 +759,22 @@ def inmuebles_editar(request, pais, id_inmueble):
             editado = True
 
     ctx = {
-        'InmuebleForm':inmuebleF,
+        'InmuebleForm': inmuebleF,
         'TiposForm': tiposF,
-        'editado':editado,
-        'pais':pais,
+        'editado': editado,
+        'pais': pais,
     }
-    
+
     return render_to_response('admin/inmuebles/editar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar las imagenes del inmueble
+# Vista para agregar las imagenes del inmueble
 def inmuebles_imagenes(request, pais, id_inmueble):
 
     editado = ''
     inmueble = Inmueble.objects.get(id=id_inmueble)
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
-    #Formset de imagen
+    # Formset de imagen
     ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, form = ImagenInmuebleForm, can_delete=True, extra=1, max_num=len(imagenes)+2, fields=['imagen', 'descripcion'])
     inmuebleF = ImagenFormset(instance=inmueble, queryset=ImagenInmueble.objects.filter(inmueble=inmueble))
 
@@ -784,42 +785,42 @@ def inmuebles_imagenes(request, pais, id_inmueble):
 
     inmuebleF = ImagenFormset(instance=inmueble, queryset=ImagenInmueble.objects.filter(inmueble=inmueble))
     ctx = {
-        'InmuebleForm':inmuebleF,
-        'editado':editado,
-        'pais':pais,
+        'InmuebleForm': inmuebleF,
+        'editado': editado,
+        'pais': pais,
     }
 
     return render_to_response('admin/inmuebles/imagenes-inmueble.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para agregar los agentes de ese pais
 @login_required
 def inmuebles_eliminar(request, pais, id_inmueble):
-    
-    inmueble = get_object_or_404(Inmueble, id=id_inmueble).delete()
 
+    inmueble = get_object_or_404(Inmueble, id=id_inmueble).delete()
     return HttpResponseRedirect('/'+str(pais)+'/admin/inmuebles/')
 
-#Vista para listar los agentes de ese pais
+
+# Vista para listar los agentes de ese pais
 @login_required
 def agentes_list(request, pais):
-    
+
     agentes = Agente.objects.filter(pais__nombre=pais)
     nombre_pais = dict(countries)[pais]
 
     ctx = {
-        'agentes':agentes,
-        'pais':pais,
-        'nombre_pais':nombre_pais,
+        'agentes': agentes,
+        'pais': pais,
+        'nombre_pais': nombre_pais,
     }
-    
+
     return render_to_response('admin/agentes/agentes.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para agregar los agentes de ese pais
 @login_required
 def agentes_agregar(request, pais):
-    
+
     agenteF = AgenteForm()
     telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete = True)
     telefonoAgenteF = telefonoFormSet()
@@ -835,12 +836,12 @@ def agentes_agregar(request, pais):
             agente.pais = pais
             agente.save()
 
-            #Verificacion de telefonos del agente
+            # Verificacion de telefonos del agente
             for form in telefonoAgenteF:
 
-                #Verificar que se llenaron los numeros
+                # Verificar que se llenaron los numeros
                 try:
-                    numero  = form.cleaned_data['numero']
+                    numero = form.cleaned_data['numero']
                 except:
                     numero = ''
 
@@ -853,17 +854,17 @@ def agentes_agregar(request, pais):
 
     ctx = {
         'TelefonoAgenteForm': telefonoAgenteF,
-        'AgenteForm':agenteF,
-        'pais':pais,
+        'AgenteForm': agenteF,
+        'pais': pais,
     }
-    
+
     return render_to_response('admin/agentes/agregar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para agregar los agentes de ese pais
 @login_required
 def agentes_editar(request, pais, id_agente):
-    
+
     editado = ''
     agente = Agente.objects.get(id=id_agente)
     agenteF = AgenteForm(instance=agente)

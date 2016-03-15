@@ -201,6 +201,7 @@ class Inmueble(models.Model):
     latitud = models.DecimalField(max_digits=20, decimal_places=17)
     longitud = models.DecimalField(max_digits=20, decimal_places=17)
     logo = models.ImageField(upload_to='logos_inmuebles/')
+    visible = models.BooleanField(default=True)
     archivo = models.FileField(upload_to='archivos_inmuebles/', blank=True, null=True)
     ficha_tecnica = models.FileField(upload_to='fichas_inmuebles/', blank=True, null=True)
     forma_pago = models.TextField(max_length=100, blank=True, null=True, verbose_name='Forma de pago')
