@@ -290,6 +290,9 @@ def inmueble(request, codigo, pais):
     # Contacto con el agente
     contactoF = ContactoAgenteForm()
 
+    # Solicitar visita al inmueble
+    solicitarvF = SolicitarVisitaForm()
+
     # Imagenes del inmueble
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('id')
 
@@ -304,11 +307,15 @@ def inmueble(request, codigo, pais):
 
     if request.POST:
         contactoF = ContactoAgenteForm(request.POST)
+        solicitarvF = SolicitarVisitaForm(request.POST)
         if contactoF.is_valid():
             envio = contact_email(request, contactoF, agente.correo)
             contactoF = ContactoAgenteForm()
+        if solicitarvF.is_valid():
+            envio = visit_email(request, solicitarvF, inmueble)
+            solicitarvF = SolicitarVisitaForm()
 
-    #Formulario para los paises disponibles
+    # Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
         'pais': pais,
     })
@@ -318,8 +325,9 @@ def inmueble(request, codigo, pais):
         'modulos': modulos,
         'moneda': moneda,
         'buscadorF': buscadorF,
-        'telefonosAgente':telefonos,
+        'telefonosAgente': telefonos,
         'ContactoAgenteForm': contactoF,
+        'SolicitarVisitaForm': solicitarvF,
         'paisesF': paisesF,
         'imagenes': imagenes,
         'banners': banners,

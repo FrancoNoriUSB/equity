@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load staticfiles %}
+    {% load widget_tweaks %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami, Mexico, Ecuador, Costa Rica, Panama, Colombia">
+        <link rel="SHORTCUT ICON" href="{% static 'files/img/favicon.ico' %}"/>
+        <title>Equity</title>
+ 
+         <!-- Modernizr -->
+        <script src="{% static 'files/js/modernizr.custom.80055.js' %}"></script>
+
+        <!-- jQuery -->
+        <script src="{{STATIC_URL}}files/js/jquery-1.11.3.min.js"></script>
+
+        <!-- Numeral JS -->
+        <script src="{{STATIC_URL}}files/js/numeral.min.js"></script>
+
+        <!--Bootstrap Local-->
+        <!--CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+
+        <!--JavaScript -->
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+        <!--Estilos-->
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/base_inmueble.css' %}">
+
+        <!-- BLoque para cargar cualquier script en el header -->
+        {% block scripts %}
+            
+        {% endblock scripts %}
+    </head> 
+    <body>
+        <!-- Header de la página -->
+        {% block header %}
+        <header>
+            <nav class="navbar navbar-fixed-top navbar-default">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="navbar-header">
+                                <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand hidden-xs" href="http://www.expo-realestate.com/">
+                                    <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-brand.png" alt="">
+                                </a>
+                            </div>
+                            <div class="collapse navbar-collapse navHeaderCollapse navheader">
+                                <div class="row titulo">
+                                    <div class="col-lg-4 col-md-3 col-sm-4 col-xs-6">
+                                        <h3>
+                                            {{inmueble.titulo}}
+                                        </h3>
+                                        <h4>
+                                            {{inmueble.tipo}}
+                                        </h4>
+                                        <h5>
+                                            {{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}
+                                        </h5>
+                                    </div>
+                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                        <ul class="nav navbar-nav navbar-left">
+                                            <li class="buscador hidden-sm hidden-xs">
+                                                <form class="navbar-form navbar-left" role="form" action="/{{pais}}/" method="GET">
+                                                    {% csrf_token %}
+                                                    <div class="form-group inner-addon right-addon">
+                                                        <div class="input-group-btn">
+                                                        {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
+                                                            <button class="btn btn-primary">
+                                                                <span class="glyphicon glyphicon-search"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <a href="/{{pais}}/favoritos/">Ver Favoritos</a>
+                                            </li>
+                                            <li>
+                                                <a href="/{{pais}}/">Buscador</a>
+                                            </li>
+                                            <li>
+                                                <div class="dropdown">
+                                                        <button class="btn btn-default dropdown-toggle" type="button" id="info-pais" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                        &Iacute;ndice Pa&iacute;s
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="info-pais">
+                                                        <li>
+                                                            <a href="http://www.expo-realestate.com/#!colombia/xmtnt">Colombia</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="http://www.expo-realestate.com/#!costa-rica/wlkyn">Costa Rica</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="http://www.expo-realestate.com/#!ecuador/rwmlq">Ecuador</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="http://www.expo-realestate.com/#!eeuu/gdfeb">USA</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="http://www.expo-realestate.com/#!blank/c706e">Panam&aacute;</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="http://www.expo-realestate.com/#!venezuela/frqt6">Venezuela</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        {% endblock header %}
+        
+        <!-- Header del home -->
+        <div class="header-home">
+            {% block header_home %}
+            {% endblock header_home %}
+        </div>
+
+        <!-- Sección de titulo de la pagina -->
+        {% block header_title %}
+        {% endblock header_title %}
+
+        <!-- Sección interna de la página -->
+        <div class="contenido container-fluid">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <!-- Footer de la página -->
+        {% block footer %}
+        <footer>
+            <!--Footer principal-->
+            <div class="container-fluid primario">
+                <div class="row paises centering">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centering">
+                        <ul class="media-list">
+                            <li class="media">
+                                <a href="/CO/"><strong>Colombia, Bogot&aacute;</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/CR/"><strong>Costa Rica, San Jos&eacute;</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/US/"><strong>EE. UU., Miami</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/MX/"><strong>M&eacute;xico, DF.</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/PA/"><strong>Panam&aacute;, Ciudad de Panam&aacute;</strong></a>
+                            </li>
+                            <li class="media">
+                                <a href="/VE/"><strong>Venezuela, Caracas</strong></a>
+                            </li>
+                        </ul> 
+                        <ul class="media-list">
+                            <li class="media">
+                                <abbr title="Teléfono">(+57)-1-486.49.14</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">(+506)-40.00.19.67</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Phone">(+1)-305-770.61.42</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">(+52)-55-47.77.28.87</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">(+507)-833.69.96</abbr>
+                            </li>
+                            <li class="media">
+                                <abbr title="Teléfono">(+58)-212-710.21.34</abbr>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <ul class="media-list">
+                            <li class="media">
+                                <a href="http://revistaequity.jimdo.com/versi%C3%B3n-digital/">
+                                    <h4><strong>L&eacute;anos</strong></h4>
+                                    <img src="{% static 'files/img/leanos.png' %}" alt="">
+                                    
+                                </a>
+                            </li>
+                            <li class="media">
+                               <a href="">
+                                    <h4><strong>Cons&uacute;ltenos</strong></h4>
+                                    <img src="{% static 'files/img/consultenos.png' %}" alt="">
+                                </a>
+                            </li>
+                            <li class="media">
+                                <a href="">
+                                    <h4><strong>Ll&aacute;menos</strong></h4>
+                                    <img src="{% static 'files/img/llamenos.png' %}" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row redes">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-6 col-sm-offset-0 col-xs-offset-0 centering">
+                        <img class="correo" src="{% static 'files/img/correo.png' %}" alt="">
+                        <a href="https://www.facebook.com/RevistaEquity"><img class="fb" src="{% static 'files/img/fb.png' %}" alt=""></a>
+                        <a href="https://twitter.com/EquityLA"><img class="tw" src="{% static 'files/img/tw.png' %}" alt=""></a>
+                        <a href="https://plus.google.com/u/0/112322346471753138539/about"><img class="g+" src="{% static 'files/img/g+.png' %}" alt=""></a>
+                        <a href="https://www.youtube.com/channel/UCb2tj5241TiUEZKqY9XEYBA"><img class="yt" src="{% static 'files/img/yt.png' %}" alt=""></a>
+                        <a href="http://www.pinterest.com/EquityLA/"><img class="pn" src="{% static 'files/img/pn.png' %}" alt=""></a>
+                        <img class="in" src="{% static 'files/img/in.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+            <!--Footer secundario-->
+            <div class="container-fluid secundario">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <form class="form-inline" role="form" action="/{{pais}}/" method="POST">
+                        {%csrf_token%}
+                            <div class="form-group">
+                                <label for="form-control">
+                                    <h5>Suscr&iacute;base a nuestro Newsletter EQNEWS</h5>
+                                </label>
+                                <input class="form-control" type="text" placeholder="Email">
+                                <button class="btn btn-primary">Suscribirse</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        {% endblock footer %}
+    </body>
+
+<!-- Seccion donde se carga el JS -->
+<script>
+/*Funcion para cambiar de pais actual*/
+$('#id_pais').change(function(){
+    var pais = $(this).val();
+    window.location.replace("/"+pais+"/");
+});
+
+/*Funciones para darle formato a los campos de precios*/
+$('#id_desde').change(function(){
+    var valor = $(this).val();
+    if (valor != ''){
+        valor = numeral(valor).format('0,0.00');
+    }
+    $(this).val(valor);
+});
+
+$('#id_hasta').change(function(){
+    var valor = $(this).val();
+    if (valor != ''){
+        valor = numeral(valor).format('0,0.00');
+    }
+    $(this).val(valor);
+});
+</script>
+{%block js%}
+{%endblock js%}
+</html>

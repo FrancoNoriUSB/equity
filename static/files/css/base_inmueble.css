@@ -1,0 +1,471 @@
+/*Archivo de estilos para la base de la aplicacion
+  Colores:
+  Azul Claro:#0095d9;
+  Gris:#4f4e4e;
+  Azul Oscuro:#1a2e51;
+  Marron Oscuro:#33302e;
+  Marron Claro:#473d36;
+*/
+
+
+body{
+    background-color: #FFFFFF;
+}
+
+/*Estilos de la barra superior de la base*/
+header .navbar{
+    background: #4f4e4e;
+    margin-bottom:0px;
+}
+
+body > div.row.titulo{
+    color: #F6FFDE;
+    background: #25A1A1;
+}
+
+.navbar-default{
+    border-color: transparent;
+}
+
+header > div{
+    margin-top: 2.7%;
+}
+
+nav{
+    height: 100px;
+}
+
+div.container-fluid > div > div > form > div{
+    margin-right: 5px;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador > form > div > div > button{
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    margin-left: -34px !important;
+    background-image: linear-gradient(to bottom,#FFFFFF 0,#FFFFFF 100%);
+    border-width: 0px;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador > form > div > div > button:hover{
+    background-color: transparent;
+    background-image: linear-gradient(to bottom,#FFFFFF 0,#FFFFFF 100%);
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador > form > div > div > button > span{
+    color: #000000 !important;
+}
+
+nav > div > div > div > div.navbar-header{
+    width: 8%;
+}
+
+nav > div > div > div > div.navbar-header > a > img{
+    width: 100%;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul{
+    margin-top: 4.5%;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h1,
+nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h2,
+nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h3,
+nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h4,
+nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h5{
+    margin-bottom: 5px;
+    margin-top: 10px;
+    color: #FFFFFF;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador{
+    width: 34%;
+}
+
+nav > div > div > div > div.navbar-header > div > a{
+    font-size: 16px;
+    color: #FFF;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li > a:hover{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+header > div > div > div{
+    padding-bottom: 0.6%;
+    padding-top: 0.6%;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li > a, #info-pais{
+    color: #FFFFFF;
+}
+
+#info-pais{
+    background-image: linear-gradient(to bottom,#4f4e4e 0,#4f4e4e 100%);
+    border-color: transparent;
+    background-color: #4f4e4e;
+    border: 0px solid transparent;
+    text-shadow: 0 0px 0 transparent;
+    box-shadow: inset 0 0px 0 rgba(255,255,255,1),0 0px 0px rgba(0,0,0,1);
+    padding:15px 8px;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador > form > div > div > button:hover{
+    background-image: linear-gradient(to bottom,#4f4e4e 0,#4f4e4e 100%);
+    border-color: transparent;
+    background-color: #4f4e4e;
+    border: 0px solid transparent;
+    text-shadow: 0 0px 0 transparent;
+    box-shadow: inset 0 0px 0 rgba(255,255,255,1),0 0px 0px rgba(0,0,0,1);
+}
+
+header > div.container-fluid{
+    height: 100%;
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+    background-color:#0095d9;
+}
+
+header > div > div.row-fluid{
+    height: 100%;
+    display: table-cell;
+    width: 1170px;
+}
+
+header > div > div  > a > img.revista{
+    float:right;
+    margin-left: 40%;
+    margin-top: 14px;
+    position: absolute;
+}
+
+.centering {
+    float: none;
+    margin: 0 auto;
+}
+
+header > div > div > a > img.logo{
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+/*Estilos barra lateral de banners*/
+div.container > div > div.banners.col-lg-3 > a > img{
+    float: initial;
+    margin-bottom: 2%;
+}
+
+/*Estilos del contenido*/
+div.contenido{
+    margin-top: 0.5%;
+}
+
+
+/*Estilos de la barra inferior de la base*/
+footer > .primario{
+    background-color: #33302e;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+footer > .primario > div.row.paises{
+    padding-top: 4%;
+    padding-bottom: 1%;
+    border-bottom-color: white;
+    border-bottom-style: solid;
+    border-bottom-width: 4px;
+}
+
+footer > .primario > div.row.paises > div > ul > li > a > strong,
+footer > .primario > div.row.paises > div > ul > li > abbr{
+    color: white;
+}
+
+footer > .primario > div.row.paises > div > ul > li{
+    line-height: 0.7;
+}
+
+footer > .primario > div.row.paises > div:nth-child(1),
+footer > .primario > div.row.paises > div:nth-child(1) > ul:nth-child(1){
+    float: left;
+}
+
+footer > .primario > div.row.paises > div:nth-child(2) > ul > li > a > img{
+    float: right;
+}
+
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li > a > h4{
+    float: left;
+}
+
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(1) > a > h4{
+    margin-left: 44px;
+}
+
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(2) > a > h4{
+    margin-top:18px;
+}
+
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li:nth-child(3) > a > h4{
+    margin-left: 30px;
+}
+
+footer > div.primario > div.row.paises > div:nth-child(1) > ul:nth-child(2){
+    float: left;
+    margin-left: 15%;
+}
+
+footer > div.primario > div.row.paises > div:nth-child(2){
+    float: right;
+}
+
+footer > div.primario > div.row.paises > div:nth-child(2) > ul{
+    float: right;
+}
+
+footer > div.primario > div.row.paises > div:nth-child(2) > ul > li > a > h4 > strong{
+    color: white;
+}
+
+footer > div.primario > div.row.redes{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+footer > div.primario > div.row.redes > div{
+    text-align: center;
+}
+
+footer > div.secundario{
+    background-color: #473d36;
+}
+
+footer > div.secundario > div > div > form > div > label > h5{
+    color:white;
+}
+
+footer > div.secundario > div > div{
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+/*Estilos de Bootstrap*/
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador > form > div > div > button{
+    background-image: -webkit-linear-gradient(white 0%, white 100%)!important;
+    background-image: -o-linear-gradient(white 0%, white 100%)!important;
+    background-image: linear-gradient(white 0%, white 100%)!important;  
+    background-color: #fff !important;
+    border-color: #ccc !important;
+    border-left-color: #fff !important;
+    border-radius: 3px;
+    margin-left: -5px;
+}
+
+nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador > form > div > div > button > span{
+    color: black;
+}
+
+.text-danger{
+    color: #D94442;
+}
+
+.navbar-nav>li{
+    float: right;
+}
+
+/* Fade transition for carousel items */
+.carousel-fade .carousel-inner .item {
+  -webkit-transition-property: opacity;
+          transition-property: opacity;
+}
+.carousel-fade .carousel-inner .item,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  opacity: 0;
+}
+.carousel-fade .carousel-inner .active,
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .next,
+.carousel-fade .carousel-inner .prev,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.carousel-fade .carousel-control {
+  z-index: 2;
+}
+html,
+body,
+.carousel,
+.carousel-inner,
+.carousel-inner .item {
+  height: 100%;
+}
+
+
+/*Media queries para adaptar la pagina*/
+@media (min-width: 1500px){
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 6% !important;
+    }
+
+}
+@media (min-width: 1200px) and (max-width: 1500px){
+    body > div.header-home > div.container{
+        margin-top: 9% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 9% !important;
+    }
+
+    nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador{
+        width: 32%;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px){
+    body > div.header-home > div.container{
+        margin-top: 11% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 11% !important;
+    }
+
+    nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador{
+        width: 42%;
+    }
+
+    nav > div > div > div > div.collapse.navbar-collapse > div > div > ul {
+        margin-top: 3.5%;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 992px){
+    body > div.header-home > div.container{
+        margin-top: 13% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 15% !important;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    
+    body > div.header-home > div.container{
+        margin-top: 15% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 15% !important;
+    }
+
+    nav > div > div > div > div.collapse.navbar-collapse > div > div > ul{
+        margin-top: 3%;
+    }
+
+    nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.buscador{
+        width: 62%;
+    }
+
+}
+ 
+@media screen and (min-width: 568px) and (max-width: 768px) {
+    body > div.header-home > div.container{
+        margin-top: 18% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 22% !important;
+    }
+
+    nav > div > div > div > div.navbar-header {
+        width: 55% !important;
+    }
+}
+
+@media screen and (min-width: 530px) and (max-width: 568px) {
+    body > div.header-home > div.container{
+        margin-top: 21% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 24% !important;
+    }
+
+    nav > div > div > div > div.navbar-header {
+        width: 58% !important;
+    }
+}
+
+@media screen and (min-width: 465px) and (max-width: 530px) {
+    body > div.header-home > div.container{
+        margin-top: 22% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 26% !important;
+    }
+
+    nav > div > div > div > div.navbar-header {
+        width: 60% !important;
+    }
+}
+
+@media screen and (min-width: 400px) and (max-width: 465px) {
+    body > div.header-home > div.container{
+        margin-top: 27% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 30% !important;
+    }
+
+    nav > div > div > div > div.navbar-header {
+        width: 60% !important;
+    }
+}
+
+@media screen and (min-width: 350px) and (max-width: 400px) {
+    body > div.header-home > div.container{
+        margin-top: 30% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 34% !important;
+    }
+
+    nav > div > div > div > div.navbar-header {
+        width: 60% !important;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    body > div.header-home > div.container{
+        margin-top: 33% !important;
+    }
+
+    body > div.contenido > div.carrusel-inicio, body > div.contenido > div.contenido-favs{
+        margin-top: 40% !important;
+    }
+
+    nav > div > div > div > div.navbar-header {
+        width: 60% !important;
+    }
+}

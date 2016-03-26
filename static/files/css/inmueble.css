@@ -20,23 +20,34 @@
 	cursor: pointer;
 }
 
-body > div.contenido.container > div.row.info-base > div.col-lg-8.col-md-8.col-sm-12 > button.video{
-  margin-left: auto;
-  margin-right: auto;
+div.contenido > div.info-base > div.botones{
+	display: flex;
+}
+
+div.contenido > div.info-base > div > button.video{
   display: block;
+}
+
+div.contenido > div.info-base > div > button.video{
+	margin-right: 3%;
+}
+
+div.contenido > div.info-base > div.botones > a{
+	color: #FFFFFF;
 }
 
 #carousel > div > div > img{
 	margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
 }
 
 /*Estilos de info de inmueble*/
-body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-sm-12.links > p.text-right{
+div.contenido > div.info-base > div.links > p.text-right{
 	margin-bottom: 0px;
 }
 
-body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-sm-12.agente > img{
+div.contenido > div.info-base > div.agente > img{
 	height: 170px;
 	margin-left: auto;
 	margin-right: auto;
@@ -46,7 +57,7 @@ body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-s
 	width: 84px !important;
 }
 
-body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-sm-12.links > div.fb-share-button{
+div.contenido > div.info-base > div.links > div.fb-share-button{
 	float: right;
 }
 
@@ -58,23 +69,37 @@ body > div.contenido.container > div.row.info-base > div.col-lg-4.col-md-4.col-s
 	height: 500px;
 }
 
-body > div.contenido.container > div.row.informacion > div > div{
+div.contenido > div.informacion > div > div{
 	padding: 2%
 }
 
-body > div.contenido.container > div.row.info-base > div.col-lg-1.col-md-1.col-sm-1 > a > span{
+div.contenido > div.info-base > div > a.favoritos{
+	color:#000000;
+	font-size: 9pt;
+	border:solid 1px;
+}
+
+div.contenido > div.info-base > div > a.favoritos:hover{
+	text-decoration: none;
+}
+
+div.contenido > div.info-base > div > a.favoritos > span{
 	color: red;
-	font-size: 16pt;
+	font-size: 9pt;
 }
 
 /*Boostrap modificado*/
-body > div.contenido.container > div.row.informacion > div > ul{
+div.contenido > div.informacion > div > ul{
 	border-bottom: 0px;
 }
 
 .carousel-control.right,
 .carousel-control.left{
 	background-image: none;
+}
+
+div.modal-backdrop.fade.in{
+	z-index: 0 !important;
 }
 
 /*Video*/

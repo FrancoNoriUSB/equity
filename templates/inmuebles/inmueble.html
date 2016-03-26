@@ -1,5 +1,5 @@
 <!-- Archivo donde estan los bloques del home -->
-{% extends "base.html" %}
+{% extends "base_inmueble.html" %}
 {% load staticfiles %}
 {% load mathfilters %}
 {% load humanize %}
@@ -8,6 +8,9 @@
 
 <!-- Estilos del index -->
 <link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble.css' %}">
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/js/datetimepicker-master/jquery.datetimepicker.css"/ >
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css"/ >
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
 
 <!-- Boton de compartir de facebook -->
 <div id="fb-root"></div>
@@ -28,340 +31,391 @@
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
-	<div class="row info-base">
+    <div class="container-fluid carrusel-inicio">
 
-		<div class="col-lg-3 col-md-3 col-sm-3">
+        <!-- main slider carousel -->
+        <div class="row">
+            <div id="carousel-bounding-box">
+                <div id="carousel" class="carousel slide carousel-fade">
+                    <!-- main slider carousel items -->
+                    <div class="carousel-inner">
+                    {%for imagen in imagenes%}
+                        <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
+                            <img class="img-responsive" src="{{imagen.imagen.url}}" alt="" onclick="OpenModal('{{imagen.imagen.url}}')">
+                        </div>
+                    {%endfor%}
+                    </div>
+                    <!-- main slider carousel nav controls --> 
+                    <a class="carousel-control left" href="#carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+
+                    <a class="carousel-control right" href="#carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
+            </div>
+        </div>
+        <!--/main slider carousel-->
+    </div>
+    <br>
+    <div class="container info-base">
+        <div class="col-lg-12 col-md-12 col-sm-12">
             <img src="{{ inmueble.logo.url }}" class="img-responsive" />
-		</div>
-		<div class="col-lg-6 col-md-6 col-sm-6">
-            <!--<h3 class="text-left">
-                <strong>{{inmueble.titulo}}</strong>
-            </h3>-->
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
             <h4 class="text-left">
                 <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
             </h4>
-            <!--<span class="text-left text-danger">
-                <strong>C&oacute;digo: {{inmueble.codigo}}</strong>
-            </span>-->
-            <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}} <br>
-				{{inmueble.direccion}}<br>
-				Entrega estimada: {{ inmueble.fecha_entrega|date:"M Y" }}<br>
-			</p>
-		</div>
-		<div class="col-lg-2 col-md-2 col-sm-2 text-center">
-			{%if inmueble.video%}
-		    <br>
-		    <!-- Button trigger modal -->
-			<button type="button" class="text-center btn btn-primary btn-md video" data-toggle="modal" data-target="#videoModal">
-			  Video
-			</button>
+            <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}<br>
+                {{inmueble.direccion}}<br>
+                Entrega estimada: {{ inmueble.fecha_entrega|date:"M Y" }}<br>
+            </p>
+        </div>
 
-			<!-- Modal -->
-			<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">Video de la obra</h4>
-			      </div>
-			      <div class="modal-body">
-			        <div class="video-container">
-			        	<iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen=""></iframe>
-			        </div>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			{%endif%}
+        <div class="col-lg-5 col-md-5 col-sm-5 text-center botones">
+            {%if inmueble.video%}
+            <!-- Button trigger modal -->
+            <button type="button" class="text-center btn btn-primary btn-md video" data-toggle="modal" data-target="#videoModal">
+                Video
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Video de la obra
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="video-container">
+                                <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
+                                </iframe>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+            {%if inmueble.archivo%}
+                <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
+                    Brochure Digital
+                </a>
+            {%endif%}
+            {%if inmueble.ficha_tecnica%}
+                <a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">
+                    Ficha T&eacute;cnica
+                </a>
+            {%endif%}
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1 text-center">
+            <div class="g-plus" data-action="share" data-annotation="none"></div>
+            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Inmueble de Revista Equity: {{inmueble.titulo}}" data-count="none">
+                Tweet
+            </a>
+            <div class="fb-share-button" data-href="{{request.path}}" data-layout="button"></div>
+            <br>
+            <a class="favoritos text-center" href="/{{pais}}/favoritos/agregar/{{inmueble.id}}/">
+                Favorito <span class="glyphicon glyphicon-heart"></span>
+            </a>
+        </div>
+    </div>
+    <div class="container informacion">
+        <div class="tabpanel col-lg-12 col-md-12 col-sm-12">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#general" aria-controls="general" role="tab" data-toggle="tab">Informaci&oacute;n General</a>
+                </li>
+                <li role="presentation">
+                    <a href="#ubicacion" aria-controls="ubicacion" role="tab" data-toggle="tab">Ubicaci&oacute;n</a>
+                </li>
+                <li role="presentation">
+                    <a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar al constructor</a>
+                </li>
+                <li role="presentation">
+                    <a href="#visita" aria-controls="visita" role="tab" data-toggle="tab">Solicitar Visita</a>
+                </li>
+            </ul>
 
-			{%if inmueble.archivo%}
-				<br/>
-				<br/>
-				<a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">Brochure Digital</a>
-			{%endif%}
-			{%if inmueble.ficha_tecnica%}
-				<br/>
-				<br/>
-				<a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">Ficha T&eacute;cnica</a>
-			{%endif%}
-		</div>
-		<div class="col-lg-1 col-md-1 col-sm-1 text-center">
-				<a class="favoritos text-center" href="/{{pais}}/favoritos/agregar/{{inmueble.id}}/"><span class="glyphicon glyphicon-heart"></span></a>
-				<br>
-				<a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Inmueble de Revista Equity: {{inmueble.titulo}}" data-count="none">Tweet</a>
-				<div class="g-plus" data-action="share" data-annotation="none"></div>
-				<div class="fb-share-button" data-href="{{request.path}}" data-layout="button"></div>
-            	<!--<h4 class="text-left">
-                    <strong>Contacto:</strong>
-                </h4>
-                <p>
-                    {%if inmueble.pagina%}
-						Web del proyecto: <a href="http://{{ inmueble.pagina }}" target="new">{{inmueble.pagina}}</a>
-					{%endif%}
-					<br>
-                    {% for telefono in telefonosAgente %}
-                        {{ telefono.tipo }}: {{ telefono.numero }}<br>
-                    {% endfor %}
-                </p>-->
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		    <!-- main slider carousel -->
-		    <div class="row">
-		        <div class="col-lg-12 col-md-12" id="slider">
-	                <div class="col-md-12" id="carousel-bounding-box">
-	                    <div id="carousel" class="carousel slide carousel-fade">
-	                        <!-- main slider carousel items -->
-	                        <div class="carousel-inner">
-	                        	{%for imagen in imagenes%}
-	                            <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
-	                                <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
-	                            </div>
-	                            {%empty%}
-	                            <div class="item" data-slide-number="1">
-	                              <img src="http://placehold.it/1200x480/&amp;text=one" class="img-responsive">
-	                            </div>
-	                            <div class="item" data-slide-number="2">
-	                                <img src="http://placehold.it/1200x480&amp;text=two" class="img-responsive">
-	                            </div>
-	                            <div class="item" data-slide-number="3">
-	                                <img src="http://placehold.it/1200x480&amp;text=three" class="img-responsive">
-	                            </div>
-	                            {%endfor%}
-	                        </div>
-	                        <!-- main slider carousel nav controls --> 
-	                        <a class="carousel-control left" href="#carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+             <!-- Tab panels -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="general">
+                    <div class="tabla-info row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <table class="table table-bordered">
+                              <tr class="active">
+                                <td><p class="text-center">Mt&#178;</p></td>
+                                <td><p class="text-center">Dormitorios</p></td>
+                                <td><p class="text-center">Ba&ntilde;os</p></td>
+                                <td><p class="text-center">Estacionamiento</p></td>
+                                <td><p class="text-center">Moneda Nacional / USD</p></td>
+                                <td><p class="text-center">Plano</p></td>
+                                <td><p class="text-center">Favorito</p></td>
+                              </tr>
+                              {% for modulo in modulos %}
+                              <tr>
+                                <td class="text-center">{{modulo.metros}}</td>
+                                <td class="text-center">{{modulo.dormitorios}}</td>
+                                <td class="text-center">{{modulo.banos}}</td>
+                                <td class="text-center">{{modulo.estacionamientos}}</td>
+                                <td class="text-center">
+                                    {%if moneda.tasa != None%}
+                                        {{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                    {%else%}
+                                        Conversion no disponible
+                                    {%endif%} 
+                                    {{moneda.simbolo}} / {{modulo.precio|floatformat|intcomma}} USD
+                                </td>
+                                <td class="text-center">
+                                    <!-- Button trigger modal -->
+                                    <a href="" type="button" class="" data-toggle="modal" data-target="#{{modulo.tipo|slugify}}Modal">
+                                    Ver
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/{{pais}}/favoritos/modulos/agregar/{{inmueble.codigo}}/{{modulo.id}}/" class="" >
+                                    Favorito
+                                    </a>
+                                </td>
 
-	                        <a class="carousel-control right" href="#carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-	                    </div>
-	                </div>
-		        </div>
-		    </div>
-		    <!--/main slider carousel-->
-			<br>
-		</div>
-	</div>
-	<div class="row informacion">
-		<div class="tabpanel col-lg-12 col-md-12 col-sm-12">
-			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">Informaci&oacute;n General</a></li>
-				<li role="presentation"><a href="#ubicacion" aria-controls="ubicacion" role="tab" data-toggle="tab">Ubicaci&oacute;n</a></li>
-				<li role="presentation"><a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar al constructor</a></li>
-			</ul>
-
-			 <!-- Tab panels -->
-			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane fade in active" id="general">
-					<div class="tabla-info row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<table class="table table-bordered">
-							  <tr class="active">
-								<td><p class="text-center">Mt&#178;</p></td>
-								<td><p class="text-center">Dormitorios</p></td>
-								<td><p class="text-center">Ba&ntilde;os</p></td>
-								<td><p class="text-center">Estacionamiento</p></td>
-								<td><p class="text-center">Moneda Nacional / USD</p></td>
-								<td><p class="text-center">Plano</p></td>
-								<td><p class="text-center">Favorito</p></td>
-							  </tr>
-							  {% for modulo in modulos %}
-							  <tr>
-								<td class="text-center">{{modulo.metros}}</td>
-								<td class="text-center">{{modulo.dormitorios}}</td>
-								<td class="text-center">{{modulo.banos}}</td>
-								<td class="text-center">{{modulo.estacionamientos}}</td>
-								<td class="text-center">
-									{%if moneda.tasa != None%}
-										{{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-									{%else%}
-										Conversion no disponible
-									{%endif%} 
-									{{moneda.simbolo}} / {{modulo.precio|floatformat|intcomma}} USD
-								</td>
-								<td class="text-center">
-									<!-- Button trigger modal -->
-									<a href="" type="button" class="" data-toggle="modal" data-target="#{{modulo.tipo|slugify}}Modal">
-									Ver
-									</a>
-								</td>
-								<td class="text-center">
-									<a href="/{{pais}}/favoritos/modulos/agregar/{{inmueble.codigo}}/{{modulo.id}}/" class="" >
-									Favorito
-									</a>
-								</td>
-
-								<!-- Modal -->
-								<div class="modal fade" id="{{modulo.tipo|slugify}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{modulo.tipo|slugify}}ModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<h4 class="modal-title" id="{{modulo.tipo|slugify}}ModalLabel">Plano {{ modulo.tipo }}</h4>
-											</div>
-											<div class="modal-body">
-												<img src="{{ modulo.plano.url }}" alt="" class="img-responsive">
-												<a class="text-center" target="_blank" href="{{ modulo.plano.url }}">Ver grande</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							  </tr>
-							  {% empty %}
-							  <tr>
-							  	<td>No disponible</td>
-							  </tr>
-							  {% endfor %}
-							</table>
-						</div>
-					</div>
-					<div class="caracteristicas row">
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<strong>Descripci&oacute;n:</strong>
-							<p class="text-justify">
-							{{inmueble.descripcion}}
-							</p>
-						</div>
-						<div class="col-lg-12 col-md-12 col-sm-12">
-							<strong>&Aacute;reas Comunes:</strong>
-							<p class="text-justify">
-							{{inmueble.areas_comunes}}
-							</p>
-						</div>
-					</div>
-				</div>
-				<div role="tabpanel" class="tab-pane fade" id="ubicacion">
-					<div class="row">
-						<h4>Ubicaci&oacute;n: </h4>
-						<div class="col-lg-2 col-md-2 col-sm-2">
-						</div>
-						<div class="col-lg-8 col-md-8 col-sm-8">
-						
-							<!-- Mapa de google maps -->
-							<div class="mapa" id="mapa">
-								<input type="hidden" id="lat" value=''>
-								<input type="hidden" id="lng" value=''>
-						    </div>
-						</div>
-						<div class="col-lg-2 col-md-2 col-sm-2">
-						</div>
-					</div>
-				</div>
-				<div role="tabpanel" class="tab-pane fade" id="contactar">
-					<dir class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4">
-							<img class="img-responsive" src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
-							<p class="datos text-left">
-								<strong>Agente: {{inmueble.agente.nombre}}</strong><br>
-								<strong>Correo: {{inmueble.agente.correo}}</strong>
-								{% if inmueble.agente.correo2 %}
-									<br><strong>Correo 2: {{inmueble.agente.correo2}}</strong>
-								{%endif%}
-							</p>
-							<p class="telefonos text-left">
-								{%for telefono in telefonosAgente%}
-									<strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
-								{%endfor%}
-							</p>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-6">
-							<form action="" method="POST">	
-				                {%csrf_token%}
-								<div class="form-group">
-									{{ContactoAgenteForm.nombre}}<br>
-									{{ContactoAgenteForm.correo}}<br>
-									{{ContactoAgenteForm.telefonos}}<br>
-									{{ContactoAgenteForm.comentario}}<br>
-									<button type="submit" class="btn btn-primary">Enviar</button>
-								</div>
-							</form>
-						</div>
-					</dir>
-				</div>
-				<!-- <div role="tabpanel" class="tab-pane fade" id="plusvalia">Plusvalia</div> -->
-			</div>
-		</div>
-	</div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="{{modulo.tipo|slugify}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{modulo.tipo|slugify}}ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="{{modulo.tipo|slugify}}ModalLabel">Plano {{ modulo.tipo }}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img src="{{ modulo.plano.url }}" alt="" class="img-responsive">
+                                                <a class="text-center" target="_blank" href="{{ modulo.plano.url }}">Ver grande</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              </tr>
+                              {% empty %}
+                              <tr>
+                                <td>No disponible</td>
+                              </tr>
+                              {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="caracteristicas row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <strong>Descripci&oacute;n:</strong>
+                            <p class="text-justify">
+                            {{inmueble.descripcion}}
+                            </p>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <strong>&Aacute;reas Comunes:</strong>
+                            <p class="text-justify">
+                            {{inmueble.areas_comunes}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="ubicacion">
+                    <div class="row">
+                        <h4>Ubicaci&oacute;n</h4>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                        
+                            <!-- Mapa de google maps -->
+                            <div class="mapa" id="mapa">
+                                <input type="hidden" id="lat" value=''>
+                                <input type="hidden" id="lng" value=''>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="contactar">
+                    <dir class="row">
+                        <h4>Contactar al constructor</h4>
+                        {%if envio%}
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">
+                                    &times;
+                                </span>
+                            </button>
+                            <strong>Enviado</strong> con &eacute;xito!
+                        </div>
+                        {%endif%}
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <img class="img-responsive" src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
+                            <p class="datos text-left">
+                                <strong>Agente: {{inmueble.agente.nombre}}</strong><br>
+                                <strong>Correo: {{inmueble.agente.correo}}</strong>
+                                {% if inmueble.agente.correo2 %}
+                                    <br><strong>Correo 2: {{inmueble.agente.correo2}}</strong>
+                                {%endif%}
+                            </p>
+                            <p class="telefonos text-left">
+                                {%for telefono in telefonosAgente%}
+                                    <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
+                                {%endfor%}
+                            </p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <form action="" method="POST">  
+                                {%csrf_token%}
+                                <div class="form-group">
+                                    {{ContactoAgenteForm.nombre}}<br>
+                                    {{ContactoAgenteForm.correo}}<br>
+                                    {{ContactoAgenteForm.telefonos}}<br>
+                                    {{ContactoAgenteForm.comentario}}<br>
+                                    <button type="submit" class="btn btn-primary">  Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </dir>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="visita">
+                    <dir class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h4>Formulario para solicitar una visita al inmueble</h4>
+                            {%if envio%}
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">
+                                        &times;
+                                    </span>
+                                </button>
+                                <strong>Enviado</strong> con &eacute;xito!
+                            </div>
+                            {%endif%}
+                            <form action="" method="POST">  
+                                {%csrf_token%}
+                                <div class="form-group">
+                                    {{SolicitarVisitaForm.nombre}}<br>
+                                    {{SolicitarVisitaForm.correo}}<br>
+                                    {{SolicitarVisitaForm.telefonos}}<br>
+                                    {{SolicitarVisitaForm.fecha_cita}}<br>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </dir>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 <!-- Seccion donde se carga el JS -->
 {%block js%}
 
 <!-- Google Maps -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false">
-</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
 
 <script>
 var map;
 function initialize(){
-	/*Inicializacion de variables y toma de argumentos de latitud y longitud*/
-	var mapOptions = {
-		zoom: 13,
-		center: new google.maps.LatLng({{ inmueble.latitud|safe}}, {{ inmueble.longitud|safe}})
-	};
-	map = new google.maps.Map(document.getElementById('mapa'),
-	mapOptions);
-	
-  	var marker = new google.maps.Marker({
-	    position: map.getCenter(),
-	    map: map,
-	    title: 'Click para hacer zoom'
-	});
+    /*Inicializacion de variables y toma de argumentos de latitud y longitud*/
+    var mapOptions = {
+        zoom: 13,
+        center: new google.maps.LatLng({{ inmueble.latitud|safe}}, {{ inmueble.longitud|safe}})
+    };
+    map = new google.maps.Map(document.getElementById('mapa'),
+    mapOptions);
+    
+    var marker = new google.maps.Marker({
+        position: map.getCenter(),
+        map: map,
+        title: 'Click para hacer zoom'
+    });
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 $('a[href="#ubicacion"]').on('shown.bs.tab', function (e) {
-  	initialize();
+    initialize();
 });
 </script>
 
 <!-- Codigo para el carrousel -->
 <script>
 $('#carousel').carousel({
-	interval: 6000
+    interval: 6000
 });
 
 // handles the carousel thumbnails
 $('[id^=carousel-selector-]').click( function(){
-	var id_selector = $(this).attr("id");
-	var id = id_selector.substr(id_selector.length -1);
-	id = parseInt(id);
-	$('#carousel').carousel(id);
-	$('[id^=carousel-selector-]').removeClass('selected');
-	$(this).addClass('selected');
+    var id_selector = $(this).attr("id");
+    var id = id_selector.substr(id_selector.length -1);
+    id = parseInt(id);
+    $('#carousel').carousel(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $(this).addClass('selected');
 });
 
 // when the carousel slides, auto update
 $('#carousel').on('slid', function (e) {
-	var id = $('.item.active').data('slide-number');
-	id = parseInt(id);
-	$('[id^=carousel-selector-]').removeClass('selected');
-	$('[id=carousel-selector-'+id+']').addClass('selected');
+    var id = $('.item.active').data('slide-number');
+    id = parseInt(id);
+    $('[id^=carousel-selector-]').removeClass('selected');
+    $('[id=carousel-selector-'+id+']').addClass('selected');
 });
 </script>
 
 <!-- Codigo de twitter -->
 <script type="text/javascript">
-	window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+    window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
 </script>
 
 <!-- Codigo de facebook -->
 <div id="fb-root"></div>
 <script>
 (function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) return;
-	js = d.createElement(s); js.id = id;
-	js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=260585997287170&version=v2.0";
-	fjs.parentNode.insertBefore(js, fjs);
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=260585997287170&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
 
+
+<!-- DateTimepicker -->
+<script src="{{STATIC_URL}}files/js/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>
+
 <script>
-function Imprimir() {
-    window.print();
-}
+    jQuery.datetimepicker.setLocale('es');
+    jQuery('#id_fecha_cita').datetimepicker({
+        format:'d/m/Y H:i',
+        allowTimes:[
+            '9:00', '10:00', '11:00', '12:00', '13:00',
+            '14:00', '15:00', '16:00'
+        ]
+    });
 </script>
+
+<script>
+    function OpenModal(url)
+    {    
+        BootstrapDialog.show({
+            title: 'Imagen',
+            message: '<img class="img-responsive" src="'+url+'" alt="">',
+            buttons: [{
+                label: 'Cerrar',
+                action: function(dialog) {
+                    dialog.close();
+                }
+            }]
+        });
+    }
+</script>
+
 {%endblock js%}

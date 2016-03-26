@@ -2,29 +2,30 @@ from django.core.mail.message import EmailMessage
 from django.db.models import Count
 from django.db.models import Q
 
-#Set de funciones varias a utilizar en el frontend
+# Set de funciones varias a utilizar en el frontend
 
-#Funcion para los correos que se envian en Contact Us
+
+# Funcion para los correos que se envian en Contact Us
 def contact_email(request, form, correo):
 
     emailF = form
     emails = []
 
-    #Informacion del usuario
+    # Informacion del usuario
     name = emailF.cleaned_data['nombre']
     emails.append(correo)
     emails.append('coordinacion@equitymedia.la')
     emails.append('fernandoweber@equitymedia.la')
     telephone = emailF.cleaned_data['telefonos']
 
-    #Verificacion de si posee telefono
+    # Verificacion de si posee telefono
     if telephone == '':
         telephone = 'No posee telefono de contacto.'
 
-    #Mensaje a enviar
-    message = 'Correo de contacto del usuario: '+ str(name) +'. Con correo: ' + str(emailF.cleaned_data['correo']) +'<br>'
-    message += 'Mensaje: '+ str(emailF.cleaned_data['comentario']) + '<br>'
-    message += 'Telefono de contacto: '+ str(telephone)
+    # Mensaje a enviar
+    message = 'Correo de contacto del usuario: ' + str(name) + '. Con correo: ' + str(emailF.cleaned_data['correo']) + '<br>'
+    message += 'Mensaje: ' + str(emailF.cleaned_data['comentario']) + '<br>'
+    message += 'Telefono de contacto: ' + str(telephone)
 
     email = EmailMessage()
     email.subject = '[Equity International] Correo contacto'
@@ -32,10 +33,43 @@ def contact_email(request, form, correo):
     email.from_email = 'Usuario Equity <'+str(emailF.cleaned_data['correo'])+'>'
     email.to = emails
     email.content_subtype = "html"
-    enviado=email.send()
-    return True
+    enviado = email.send()
+    return enviado
 
-#Query dinamico extraido de un proyecto ajeno
+
+# Funcion para los correos que se envian en Contact Us
+def visit_email(request, form, inmueble):
+
+    emailF = form
+    emails = []
+
+    # Informacion del usuario
+    name = emailF.cleaned_data['nombre']
+    emails.append('contactcenter@equitymedia.la')
+    emails.append('fernandoweber@equitymedia.la')
+    telephone = emailF.cleaned_data['telefonos']
+
+    # Verificacion de si posee telefono
+    if telephone == '':
+        telephone = 'No posee telefono de contacto.'
+
+    # Mensaje a enviar
+    message = 'Correo de solicitud de visita del usuario: ' + str(name) + '. Con correo: ' + str(emailF.cleaned_data['correo']) + '<br>'
+    message += 'Inmueble: ' + inmueble.titulo
+    message += 'Fecha: ' + str(emailF.cleaned_data['fecha_cita']) + '<br>'
+    message += 'Telefono de contacto: ' + str(telephone)
+
+    email = EmailMessage()
+    email.subject = '[Equity International] Correo Visita'
+    email.body = message
+    email.from_email = 'Usuario Equity <'+str(emailF.cleaned_data['correo'])+'>'
+    email.to = emails
+    email.content_subtype = "html"
+    enviado = email.send()
+    return enviado
+
+
+# Query dinamico extraido de un proyecto ajeno
 def dynamic_query(model, fields, types, values, operator, order):
     """
      Takes arguments & constructs Qs for filter()
@@ -44,17 +78,17 @@ def dynamic_query(model, fields, types, values, operator, order):
      We return an empty dict if we have no filters so we can
         still return an empty response from the view
     """
-    
+
     queries = []
     for (f, t, v) in zip(fields, types, values):
         # We only want to build a Q with a value
-        if v != None: 
+        if v is not None:
             if t == 'range':
-                kwargs = {str('%s__%s' % (f,t)) : (v)}
+                kwargs = {str('%s__%s' % (f, t)): (v)}
             else:
-                kwargs = {str('%s__%s' % (f,t)) : str('%s' % v)}
+                kwargs = {str('%s__%s' % (f, t)): str('%s' % v)}
             queries.append(Q(**kwargs))
-    
+
     # Make sure we have a list of filters
     if len(queries) > 0:
         q = Q()
@@ -66,7 +100,7 @@ def dynamic_query(model, fields, types, values, operator, order):
                 q = q | query
             else:
                 q = None
-        if q and order != None:
+        if q and order is not None:
             # We have a Q object, return the QuerySet
             if order == 'precio':
                 return model.objects.filter(q).order_by('modulo')
