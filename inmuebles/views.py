@@ -281,7 +281,7 @@ def inmueble(request, codigo, pais):
     inmueble = get_object_or_404(Inmueble, codigo=codigo, pais__nombre=pais)
 
     # Modulos
-    modulos = Modulo.objects.filter(inmueble=inmueble).order_by('id')
+    modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
 
     # Agente
     agente = inmueble.agente
@@ -401,7 +401,7 @@ def favoritos_agregar(request, pais, id_inmueble):
 
 # Vista para eliminar inmuebles favoritos
 def favoritos_eliminar(request, pais, id_inmueble):
-    
+
     if request.session.get('inmuebles'):
         inmuebles = request.session['inmuebles']
         if int(id_inmueble) in inmuebles:

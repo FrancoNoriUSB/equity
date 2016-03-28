@@ -73,19 +73,18 @@ div.contenido > div.informacion > div > div{
 	padding: 2%
 }
 
-div.contenido > div.info-base > div > a.favoritos{
+div.contenido > div.info-base > div > div > a.favoritos{
 	color:#000000;
-	font-size: 9pt;
-	border:solid 1px;
+	font-size: 10pt;
 }
 
-div.contenido > div.info-base > div > a.favoritos:hover{
+div.contenido > div.info-base > div > div > a.favoritos:hover{
 	text-decoration: none;
 }
 
-div.contenido > div.info-base > div > a.favoritos > span{
+div.contenido > div.info-base > div > div > a.favoritos > span{
 	color: red;
-	font-size: 9pt;
+	font-size: 10pt;
 }
 
 /*Boostrap modificado*/
@@ -100,6 +99,11 @@ div.contenido > div.informacion > div > ul{
 
 div.modal-backdrop.fade.in{
 	z-index: 0 !important;
+}
+
+body .modal-dialog {
+    /* new custom width */
+    width: 90%;
 }
 
 /*Video*/

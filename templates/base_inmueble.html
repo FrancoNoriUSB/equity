@@ -57,18 +57,18 @@
                             </div>
                             <div class="collapse navbar-collapse navHeaderCollapse navheader">
                                 <div class="row titulo">
-                                    <div class="col-lg-4 col-md-3 col-sm-4 col-xs-6">
-                                        <h3>
+                                    <div class="col-lg-5 col-md-4 col-sm-4 col-xs-6">
+                                        <h3 class="titulo">
                                             {{inmueble.titulo}}
                                         </h3>
-                                        <h4>
+                                        <h4 class="tipo">
                                             {{inmueble.tipo}}
                                         </h4>
-                                        <h5>
+                                        <h5 class="direccion">
                                             {{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}
                                         </h5>
                                     </div>
-                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                    <div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
                                         <ul class="nav navbar-nav navbar-left">
                                             <li class="buscador hidden-sm hidden-xs">
                                                 <form class="navbar-form navbar-left" role="form" action="/{{pais}}/" method="GET">
@@ -85,9 +85,6 @@
                                             </li>
                                             <li>
                                                 <a href="/{{pais}}/favoritos/">Ver Favoritos</a>
-                                            </li>
-                                            <li>
-                                                <a href="/{{pais}}/">Buscador</a>
                                             </li>
                                             <li>
                                                 <div class="dropdown">
@@ -125,6 +122,7 @@
                     </div>
                 </div>
             </nav>
+            <div class="row"></div>
         </header>
 
         {% endblock header %}

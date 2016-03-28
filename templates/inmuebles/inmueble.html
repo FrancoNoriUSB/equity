@@ -32,99 +32,130 @@
 <!-- Boque del contenido de la pagina -->
 {% block content %}
     <div class="container-fluid carrusel-inicio">
-
-        <!-- main slider carousel -->
-        <div class="row">
-            <div id="carousel-bounding-box">
-                <div id="carousel" class="carousel slide carousel-fade">
-                    <!-- main slider carousel items -->
-                    <div class="carousel-inner">
-                    {%for imagen in imagenes%}
-                        <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
-                            <img class="img-responsive" src="{{imagen.imagen.url}}" alt="" onclick="OpenModal('{{imagen.imagen.url}}')">
+            <!-- main slider carousel -->
+            <div class="row">
+                <div id="carousel-bounding-box">
+                    <div id="carousel" class="carousel slide carousel-fade">
+                        <!-- main slider carousel items -->
+                        <div class="carousel-inner" data-toggle="modal" data-target="#myModal">
+                        {%for imagen in imagenes%}
+                            <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
+                                <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
+                            </div>
+                        {%endfor%}
                         </div>
-                    {%endfor%}
+                        <!-- main slider carousel nav controls --> 
+                        <a class="carousel-control left" href="#carousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a class="carousel-control right" href="#carousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
                     </div>
-                    <!-- main slider carousel nav controls --> 
-                    <a class="carousel-control left" href="#carousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-
-                    <a class="carousel-control right" href="#carousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
+            </div>
+            <!--/main slider carousel-->
+    </div>
+    <!-- Button trigger modal -->
+    
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="carousel-bounding-box" data-toggle="modal" data-target="#myModal">
+                        <div id="carousel" class="carousel slide carousel-fade">
+                            <!-- main slider carousel items -->
+                            <div class="carousel-inner">
+                            {%for imagen in imagenes%}
+                                <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
+                                    <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
+                                </div>
+                            {%endfor%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
-        <!--/main slider carousel-->
     </div>
     <br>
     <div class="container info-base">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <img src="{{ inmueble.logo.url }}" class="img-responsive" />
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <img src="{{ inmueble.logo.url }}" class="img-responsive" />
+            </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <h4 class="text-left">
+                    <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
+                </h4>
+                <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}<br>
+                    {{inmueble.direccion}}<br>
+                    Entrega estimada: {{ inmueble.fecha_entrega|date:"M Y" }}<br>
+                </p>
+            </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-6">
-            <h4 class="text-left">
-                <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
-            </h4>
-            <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}<br>
-                {{inmueble.direccion}}<br>
-                Entrega estimada: {{ inmueble.fecha_entrega|date:"M Y" }}<br>
-            </p>
-        </div>
-
-        <div class="col-lg-5 col-md-5 col-sm-5 text-center botones">
-            {%if inmueble.video%}
-            <!-- Button trigger modal -->
-            <button type="button" class="text-center btn btn-primary btn-md video" data-toggle="modal" data-target="#videoModal">
-                Video
-            </button>
-            
-            <!-- Modal -->
-            <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">
-                                Video de la obra
-                            </h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="video-container">
-                                <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
-                                </iframe>
+            <div class="col-lg-5 col-md-5 col-sm-5 text-center botones">
+                {%if inmueble.video%}
+                <!-- Button trigger modal -->
+                <button type="button" class="text-center btn btn-primary btn-md video" data-toggle="modal" data-target="#videoModal">
+                    Video
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Video de la obra
+                                </h4>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                Cerrar
-                            </button>
+                            <div class="modal-body">
+                                <div class="video-container">
+                                    <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
+                                    </iframe>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Cerrar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {%endif%}
+                {%if inmueble.archivo%}
+                    <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
+                        Brochure Digital
+                    </a>
+                {%endif%}
+                {%if inmueble.ficha_tecnica%}
+                    <a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">
+                        Ficha T&eacute;cnica
+                    </a>
+                {%endif%}
             </div>
-            {%endif%}
-            {%if inmueble.archivo%}
-                <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
-                    Brochure Digital
+            <div class="col-lg-1 col-md-1 col-sm-1 text-center">
+                <div class="g-plus" data-action="share" data-annotation="none"></div>
+                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Inmueble de Revista Equity: {{inmueble.titulo}}" data-count="none">
+                    Tweet
                 </a>
-            {%endif%}
-            {%if inmueble.ficha_tecnica%}
-                <a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">
-                    Ficha T&eacute;cnica
+                <div class="fb-share-button" data-href="{{request.path}}" data-layout="button"></div>
+                <br>
+                <a class="favoritos text-center" href="/{{pais}}/favoritos/agregar/{{inmueble.id}}/">
+                    Favorito <span class="glyphicon glyphicon-heart"></span>
                 </a>
-            {%endif%}
-        </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 text-center">
-            <div class="g-plus" data-action="share" data-annotation="none"></div>
-            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Inmueble de Revista Equity: {{inmueble.titulo}}" data-count="none">
-                Tweet
-            </a>
-            <div class="fb-share-button" data-href="{{request.path}}" data-layout="button"></div>
-            <br>
-            <a class="favoritos text-center" href="/{{pais}}/favoritos/agregar/{{inmueble.id}}/">
-                Favorito <span class="glyphicon glyphicon-heart"></span>
-            </a>
+            </div>
         </div>
     </div>
     <div class="container informacion">
@@ -400,22 +431,6 @@ $('#carousel').on('slid', function (e) {
             '14:00', '15:00', '16:00'
         ]
     });
-</script>
-
-<script>
-    function OpenModal(url)
-    {    
-        BootstrapDialog.show({
-            title: 'Imagen',
-            message: '<img class="img-responsive" src="'+url+'" alt="">',
-            buttons: [{
-                label: 'Cerrar',
-                action: function(dialog) {
-                    dialog.close();
-                }
-            }]
-        });
-    }
 </script>
 
 {%endblock js%}
