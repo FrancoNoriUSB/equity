@@ -36,7 +36,8 @@ div.contenido > div.info-base > div.botones > a{
 	color: #FFFFFF;
 }
 
-#carousel > div > div > img{
+#carousel > div > div > img,
+#carousel-modal > div > div > img{
 	margin-left: auto;
     margin-right: auto;
     cursor: pointer;
