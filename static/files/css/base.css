@@ -12,6 +12,9 @@ body{
 	background-color: #FFFFFF;
 }
 
+#wts1162798{
+    display: none;
+}
 
 /*Estilos de la barra superior de la base*/
 header .navbar{
