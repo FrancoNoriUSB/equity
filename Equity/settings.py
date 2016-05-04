@@ -20,7 +20,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # Parse database configuration from $DATABASE_URL
- 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -53,8 +52,9 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-DATE_INPUT_FORMATS = (
-    '%d/%m/%Y',
+DATE_INPUT_FORMATS = 
+    (
+        '%d/%m/%Y',
     )
 
 DATETIME_FORMAT = 'N j, Y, P'
