@@ -58,7 +58,7 @@
                             <div class="collapse navbar-collapse navHeaderCollapse navheader">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li>
-                                        <a href="http://www.expo-realestate.com/#!feria-inmobiliaria/iq0eh">
+                                        <a href="www.expo-realestate.com">
                                             Home
                                         </a>
                                     </li>
@@ -69,9 +69,6 @@
                                                 {{paisesF.pais}}
                                             </div>
                                         </form>
-                                    </li>
-                                    <li>
-                                        <a href="/{{pais}}/">&Iacute;ndice</a>
                                     </li>
                                     <li>
                                         <div class="dropdown">
@@ -102,25 +99,14 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="http://www.expo-realestate.com/#!inicio-eq-news/xjvef">EQNews</a>
+                                        <a href="http://www.expo-realestate.com/#!eq-news/bwl8p">EQNews</a>
                                     </li>
                                     <li>
-                                        <a href="http://www.expo-realestate.com/#!revista-digital/c1b8x">Revista</a>
+                                        <a href="http://www.expo-realestate.com/#!revista-digital/c1b8x">Revista EQ</a>
                                     </li>
                                     <li>
-                                        <a href="http://www.expo-realestate.com/#!equity-group/c3vm">Qui&eacute;nes somos</a>
+                                        <a href="/{{pais}}/favoritos/">Ver Favoritos</a>
                                     </li>
-                                    <li>
-                                        <a href="/{{pais}}/favoritos/">Favoritos</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://www.expo-realestate.com/#!contact-center/cmse">
-                                            Contacto
-                                        </a>
-                                    </li>
-                                    <!--<li>
-                                        <a href="/{{pais}}/admin/login/">Login</a>
-                                    </li>-->
                                     <li>
                                         <form class="navbar-form navbar-right" role="form" action="/{{pais}}/" method="GET">
                                             {% csrf_token %}
@@ -140,26 +126,12 @@
                     </div>
                 </div>
             </nav>
-            <!-- Sección interna de la página -->
-            <!--<div class="container-fluid">
-                <div class="row-fluid">
-                    <a href="/{{pais}}/">
-                        <img class="text-center logo centering" src="{% static 'files/img/logo-blanco.png' %}" alt="">
-                    </a>
-                    <a href="http://revistaequity.jimdo.com/versi%C3%B3n-digital/">
-                        <img class="text-center revista" src="{% static 'files/img/revista.png' %}" alt="">
-                    </a>
-                </div>
-            </div>-->
+            <div class="container-fluid">
+                
+            </div>
         </header>
 
         {% endblock header %}
-        
-        <!-- Header del home -->
-        <div class="header-home">
-            {% block header_home %}
-            {% endblock header_home %}
-        </div>
 
         <!-- Sección de titulo de la pagina -->
         {% block header_title %}

@@ -66,8 +66,8 @@ def home(request, pais):
     precio_min = ''
     precio_max = ''
 
-    # Imagenes del slider
-    imagenes = Slide.objects.filter(pais__nombre=pais)
+    # Imagen del banner
+    imagen_banner = Slide.objects.filter(pais__nombre=pais)[:1]
 
     # Lista inmuebles por pagina
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('codigo')
@@ -90,7 +90,6 @@ def home(request, pais):
             orden = buscadorF.cleaned_data['orden']
             metros = buscadorF.cleaned_data['metros']
             moneda_get = buscadorF.cleaned_data['moneda']
-            desde = str(buscadorF.cleaned_data['desde'])
             hasta = str(buscadorF.cleaned_data['hasta'])
             palabra = buscadorF.cleaned_data['palabra']
             inmuebles_inf = buscadorF.cleaned_data['inmuebles_inf']
@@ -109,19 +108,13 @@ def home(request, pais):
                 metros_max = int(metros[1])
 
             # Revisa si el precio no es vacio
-            if (desde != '') and (hasta != ''):
-                desde = int(re.sub('[,.]', '', desde.split('.')[0]))
-                hasta = int(re.sub('[,.]', '', hasta.split('.')[0]))
+            if (hasta != ''):
+                precio_max = int(re.sub('[,.]', '', hasta.split('.')[0]))
 
-                if desde <= hasta:
-                    precio_min = desde
-                    precio_max = hasta
-                    if moneda_get == 'nacional':
-                        precio_min = precio_min/int(moneda.tasa)
-                        precio_max = precio_max/int(moneda.tasa)
-                    elif moneda_get == 'usd':
-                        precio_min = precio_min
-                        precio_max = precio_max
+                if moneda_get == 'nacional':
+                    precio_max = precio_max / int(moneda.tasa)
+                elif moneda_get == 'usd':
+                    precio_max = precio_max
 
                     # Verificacion de cumplimiento de limites
                     if precio_max == 0:
@@ -139,13 +132,13 @@ def home(request, pais):
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, agente__nombre=slug, visible=True)
 
             # Caso demas
-            elif (ciudad is not None) or (zona is not None) or (tipo is not None) or (orden != '') or (habitaciones != '') or (precio_min != '' and precio_max != '') or (metros != ''):
+            elif (ciudad is not None) or (zona is not None) or (tipo is not None) or (orden != '') or (habitaciones != '') or (precio_max != '') or (metros != ''):
 
                 # Verificacion de string vacio
                 if orden == '':
                     orden = None
 
-                if precio_min != '' and precio_max != '':
+                if precio_max != '':
                     orden = 'precio'
 
                 if metros != '':
@@ -165,7 +158,7 @@ def home(request, pais):
                 if habitaciones != '':
                     fields_list.append('modulo__dormitorios')
 
-                if precio_min != '' and precio_max != '':
+                if precio_max != '':
                     fields_list.append('modulo__precio')
 
                 # Comparadores para buscar
@@ -182,7 +175,7 @@ def home(request, pais):
                 if habitaciones != '':
                     types_list.append('range')
 
-                if precio_min != '' and precio_max != '':
+                if precio_max != '':
                     types_list.append('range')
 
                 # Valores a buscar
@@ -199,8 +192,8 @@ def home(request, pais):
                 if habitaciones != '':
                     values_list.append((min_habitaciones, max_habitaciones))
 
-                if precio_min != '' and precio_max != '':
-                    values_list.append((precio_min, precio_max))
+                if precio_max != '':
+                    values_list.append((0, precio_max))
 
                 operator = 'and'
 
@@ -258,7 +251,7 @@ def home(request, pais):
         'pais': pais,
         'inmuebles': inmuebles,
         'inmuebles_pagina': inmuebles_pagina,
-        'imagenes': imagenes,
+        'imagen_banner': imagen_banner,
         'zonas': zonas,
         'banners': banners,
         'query': query,

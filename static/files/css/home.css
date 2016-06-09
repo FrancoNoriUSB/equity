@@ -5,56 +5,38 @@
   Azul Oscuro:#1a2e51;
 */
 
-/*Estilos del carrousel*/
-body > div.header-home > div > div.carrousel.container{
-	margin-top: 0.5%;
+
+/*Estilos de propiedades*/
+body > div > div > div.contenido > div.propiedades > div > div > div > div > a{
+	text-decoration: none;
+	color:white;
 }
 
-body > div.header-home > div.container{
-	margin-top: 7%;
+body > div > div > div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h5.ciudad,
+body > div > div > div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h6.datos{
+	display: inline;
 }
 
-#carousel-example-generic > div > div.item.active > img{
-	margin-right:auto;
-	margin-left:auto;
-}
-
-#carousel-example-generic > a.left.carousel-control,
-#carousel-example-generic > a.right.carousel-control{
-	background-image: none;
-}
-
-#carousel-example-generic > a.right.carousel-control > span.glyphicon.glyphicon-chevron-right,
-#carousel-example-generic > a.left.carousel-control > span.glyphicon.glyphicon-chevron-left{
-	color: #000;
-}
-
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.varios.col-lg-3.col-lg-offset-1 > img{
-	height: 80px;
-	float:right;
-}
-
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.varios.col-lg-3.col-lg-offset-1 > p{
-	float: right;
-	color: #000;
-	font-size: 15px;
-}
-
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.varios.col-lg-3.col-lg-offset-1 > p > a.comparar,
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.varios.col-lg-3.col-lg-offset-1 > p > a.favoritos{
-	color: #000;
-	font-size: 15px;
+body > div > div > div.contenido > div.propiedades.row > div > div > div > div > a > div.inmueble > div.datos-inmueble{
+	background-color: rgba(26, 46, 81, 0.5);
+	position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 3%;
 }
 
 /*Estilos de filtro*/
-#id_desde{
+#id_moneda{
 	display: inline-block;
-	width: 48%
+	width: 56%
 }
 
 #id_hasta{
 	display: inline-block;
-	width: 48%
+	width: 42%
 }
 
 /*Estilos contenido*/
@@ -74,8 +56,7 @@ body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-i
 body > div.contenido.container > div > div.banners.col-lg-3 > div > div{
 	padding:3%;
 	background-color: #d6e5f0;
-	margin-top: 5%;
-	margin-bottom: 5%;
+	margin-bottom: 3%;
 }
 
 body > div.contenido.container > div > div.banners.col-lg-3 > div.banner {
@@ -88,7 +69,8 @@ body > div.contenido.container > div > div.banners.col-lg-3 > div > div > div > 
 }
 
 body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row{
-	margin-top: 4%;
+	margin-top: 3%;
+	margin-bottom: 3%;
 }
 
 body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a{

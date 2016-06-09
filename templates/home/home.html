@@ -13,60 +13,6 @@
 
 {% endblock scripts %}
 
-<!-- Header del home-->
-{% block header_home %}
-<div class="container">
-    <!-- Carrousel del header -->
-    <div class="carrousel container">
-        <!-- Primer banner -->
-        <div class="col-lg-3 col-md-3 col-sm-3 hidden-xs">
-            {% if banners %}
-                <a class="banner-superior" href="{{ banners.0.url }}">
-                    <img class="img-responsive" style="width: 100%;" src="{{ banners.0.imagen.url }}" alt="">
-                </a>
-            {% else %}
-                <a class="banner-superior" href="">
-                    <img class="img-responsive" style="width: 100%;" src="{% static 'files/img/banner-superior.png' %}" alt="">
-                </a>
-            {% endif %}
-        </div>
-        <div class="col-lg-9 col-md-9 col-sm-9">
-            <div id="carousel-example-generic" class="carousel slide carousel-fade" data-ride="carousel">
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    {%for imagen in imagenes%}
-                        <div class="item {%if forloop.counter == 1%}active{%endif%}">
-                            <img src="{{imagen.imagen.url}}" alt="">
-                            <div class="carousel-caption">
-                                <p>{{imagen.nombre}}</p>
-                            </div>
-                        </div>
-                    {%empty%}
-                        <div class="item active">
-                            <img src="{% static 'files/img/imagen-carrousel.png' %}" alt="">
-                            <div class="carousel-caption">
-                                <p></p>
-                            </div>
-                        </div>
-                    {%endfor%}
-                </div>
-
-                <!-- Controls -->
-                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock header_home%}
-
 <!-- Boque del contenido de la pagina -->
 {% block content %}
     <div class="container">
@@ -101,9 +47,6 @@
                                         <h5><strong>Filtrar</strong></h5>
                                     </div>
                                     <div class="form-group">
-                                        <h5>Superficie m&sup2;:</h5>
-                                    </div>
-                                    <div class="form-group">
                                         {% render_field buscadorF.metros class="form-control"%}
                                     </div>
                                     <div class="form-group">
@@ -122,9 +65,6 @@
                                         <div class="form-group">
                                             {% render_field buscadorF.moneda class="form-control"%}
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <h5>Habitaciones:</h5>
                                     </div>
                                     <div class="form-group">
                                         {% render_field buscadorF.habitaciones class="form-control"%}
@@ -173,37 +113,26 @@
                                     <h5><strong>Filtrar</strong></h5>
                                 </div>
                                 <div class="form-group">
-                                    <h5>Superficie m&sup2;:</h5>
+                                    {% render_field buscadorF.metros class="form-control"%}
                                 </div>
                                 <div class="form-group">
-                                    {% render_field buscadorF.metros class="form-control"%}
+                                    {% render_field buscadorF.habitaciones class="form-control"%}
                                 </div>
                                 <div class="form-group">
                                     <h5>Precio:</h5>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-group">
-                                        {% render_field buscadorF.desde class="form-control desde" placeholder="Desde"%}
                                         {% render_field buscadorF.hasta class="form-control hasta" placeholder="Hasta"%}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Moneda:</h5>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group">
                                         {% render_field buscadorF.moneda class="form-control"%}
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <h5>Habitaciones:</h5>
-                                </div>
-                                <div class="form-group">
-                                    {% render_field buscadorF.habitaciones class="form-control"%}
+                                    <div class="form-group">
+                                    </div>
                                 </div>
                                 <button class="btn btn-primary">
                                     Filtrar
                                 </button>
+                                &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
                                 <br>
                                 <br>
                         </div>
@@ -223,6 +152,18 @@
         </div>
         <!-- Contenido de la pagina -->
         <div class="contenido col-lg-9 col-md-9 col-sm-9 col-xs-9">
+            <div class="row">
+                {%for imagen in imagen_banner%}
+                    <div class="imagen-banner">
+                        <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
+                    </div>
+                {%empty%}
+                    <div class="imagen-banner">
+                        <img class="img-responsive" src="{% static 'files/img/imagen-carrousel.png' %}" alt="">
+                    </div>
+                {%endfor%}
+            </div>
+            <br>
         	<div class="paginacion-superior row">
         		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
                         <div class="form-inline col-lg-6 col-md-3">
@@ -259,61 +200,51 @@
 
             <!-- Propiedades -->
         	<div class="propiedades row">
-        		<div class="col-lg-11 col-md-11 col-sm-11">
-        			{% for inmueble in inmuebles %}
-            			<div class="propiedad row">
-            				<div class="foto col-lg-3">
-                                {%for imagen in inmueble.imagenes.all|slice:":1"%}
-                                    {%if forloop.counter == 1%}
-                					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
-                                        <img class="img-responsive" src="{{imagen.thumbnail.url}}" alt="">
-                                    </a>
-                                    {%endif%}
-                                {%endfor%}
-            				</div>
-            				<div class="descripcion col-lg-5">
-            					<strong>
-            						<a class="text-uppercase" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
-            							{{inmueble.titulo}}
-            						</a>
-            					</strong>
-            					<p>
-            						{{inmueble.tipo.nombre}}
-                                    <br/>
-                                    {{inmueble.ciudad.nombre}}
-                                    <br/>
-                                    {{inmueble.zona.nombre}}
-            						<br/>
-                                    <br/>
-            						<p class="text-danger"><strong>C&oacute;digo: {{inmueble.codigo}}</strong></p>
-                                    <br>
-                                    {%for modulo in inmueble.modulo_set.all|slice:":1"%}
-                                        Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
-                                        {%if modulo.precio != 0%}
-                                            {%if moneda_get == 'nacional'%}
-                                                {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-                                            {%elif moneda_get == 'usd'%}
-                                                {{modulo.precio|floatformat|intcomma}} USD
-                                            {%else%}
-                                                {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
-                                            {%endif%}
+        		<div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="row">
+            			{% for inmueble in inmuebles %}
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    			<div class="propiedad row">
+                                    {%for imagen in inmueble.imagenes.all|slice:":1"%}
+                                        {%if forloop.counter == 1%}
+                        					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
+                                                <div class="inmueble">
+                                                    <img class="img-responsive imagen" src="{{imagen.imagen.url}}" alt="">
+                                                    <div class="datos-inmueble">
+                                                        <h5 class="text-left titulo">
+                                                            {{inmueble.titulo}}
+                                                            <span class="glyphicon glyphicon-arrow-right text-right"></span>
+                                                        </h5>
+                                                        <h5 class="text-left ciudad">
+                                                            {{inmueble.ciudad.nombre}}
+                                                        </h5>
+                                                        /
+                                                        <h6 class="text-right datos">
+                                                        {%for modulo in inmueble.modulo_set.all|slice:":1"%}
+                                                            Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
+                                                            {%if modulo.precio != 0%}
+                                                                {%if moneda_get == 'nacional'%}
+                                                                    {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                                {%elif moneda_get == 'usd'%}
+                                                                    {{modulo.precio|floatformat|intcomma}} USD
+                                                                {%else%}
+                                                                    {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
+                                                                {%endif%}
+                                                            {%endif%}
+                                                        {%endfor%}
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         {%endif%}
                                     {%endfor%}
-            					</p>
-            				</div>
-            				<div class="varios col-lg-3">
-            					<img class="img-responsive" src="{{inmueble.logo.url}}" alt="">
-                                <p class="text-right"><u>{{inmueble.tipo_obra}}</u></p>
-                                <p class="text-right">
-                					<a class="ver" href="/{{pais}}/inmuebles/{{inmueble.codigo}}">Ver</a> &nbsp;&nbsp;
-                					<a class="favoritos" href="/{{pais}}/favoritos/agregar/{{inmueble.id}}/">Favorito</a>
-                                </p>
-            				</div>
-            			</div>
-                    {%empty%}
-                        <img class="img-responsive" src="{{STATIC_URL}}files/img/error-de-busqueda.jpg" alt="">
-                        <br>
-                    {% endfor %}
+                    			</div>
+                            </div>
+                        {%empty%}
+                            <img class="img-responsive" src="{{STATIC_URL}}files/img/error-de-busqueda.jpg" alt="">
+                            <br>
+                        {% endfor %}
+                    </div>
         		</div>
         	</div>
         	
