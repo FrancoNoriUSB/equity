@@ -33,39 +33,37 @@
 <!-- Boque del contenido de la pagina -->
 {% block content %}
     <div class="container-fluid carrusel-inicio">
-            <!-- main slider carousel -->
-            <div class="row">
-                <div id="carousel-bounding-box">
-                    <div id="carousel" class="carousel slide carousel-fade">
-                        <!-- main slider carousel items -->
-                        <div class="carousel-inner">
-                        {%for imagen in imagenes%}
-                            <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
-                                <img class="img-responsive" src="{{imagen.imagen.url}}" alt="" id="carousel-image">
-                            </div>
-                        {%endfor%}
+        <!-- main slider carousel -->
+        <div class="row">
+            <div id="carousel-bounding-box">
+                <div id="carousel" class="carousel slide carousel-fade">
+                    <!-- main slider carousel items -->
+                    <div class="carousel-inner">
+                    {%for imagen in imagenes%}
+                        <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
+                            <img class="img-responsive" src="{{imagen.imagen.url}}" alt="" id="carousel-image">
                         </div>
-                        <!-- main slider carousel nav controls --> 
-                        <a class="carousel-control left" href="#carousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="carousel-control right" href="#carousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
+                    {%endfor%}
                     </div>
+                    <!-- main slider carousel nav controls --> 
+                    <a class="carousel-control left" href="#carousel" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="carousel-control right" href="#carousel" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
                 </div>
             </div>
-            <!--/main slider carousel-->
+        </div>
+        <!--/main slider carousel-->
     </div>
     <br>
     <div class="container info-base">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-4">
                 <img src="{{ inmueble.logo.url }}" class="img-responsive" />
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-4 col-sm-4">
                 <h4 class="text-left">
                     <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
                 </h4>
@@ -74,69 +72,12 @@
                     Entrega estimada: {{ inmueble.fecha_entrega|date:"M Y" }}<br>
                 </p>
             </div>
-
-            <div class="col-lg-5 col-md-5 col-sm-5 text-center botones">
-                {%if inmueble.video%}
-                <!-- Button trigger modal -->
-                <button type="button" class="text-center btn btn-primary btn-md video" data-toggle="modal" data-target="#videoModal">
-                    Video
-                </button>
-                
-                <!-- Modal -->
-                <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content col-lg-8 col-md-8 col-sm-12 col-xs-12 centering">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">
-                                    Video de la obra
-                                </h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="video-container">
-                                    <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
-                                    </iframe>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    Cerrar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {%endif%}
-                {%if inmueble.archivo%}
-                    <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
-                        Brochure Digital
-                    </a>
-                {%endif%}
-                {%if inmueble.ficha_tecnica%}
-                    <a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">
-                        Ficha T&eacute;cnica
-                    </a>
-                {%endif%}
-            </div>
-            <div class="col-lg-1 col-md-1 col-sm-1 text-center">
-                <div class="g-plus" data-action="share" data-annotation="none"></div>
-                <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Inmueble de Revista Equity: {{inmueble.titulo}}" data-count="none">
-                    Tweet
-                </a>
-                <div class="fb-share-button" data-href="{{request.path}}" data-layout="button"></div>
-                <br>
-                <a class="favoritos text-center" href="/{{pais}}/favoritos/agregar/{{inmueble.id}}/">
-                    Favorito <span class="glyphicon glyphicon-heart"></span>
-                </a>
-            </div>
         </div>
     </div>
     <div class="container informacion">
         <div class="tabpanel col-lg-12 col-md-12 col-sm-12">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active">
+                <li role="presentation">
                     <a href="#general" aria-controls="general" role="tab" data-toggle="tab">Informaci&oacute;n General</a>
                 </li>
                 <li role="presentation">
@@ -148,11 +89,17 @@
                 <li role="presentation">
                     <a href="#visita" aria-controls="visita" role="tab" data-toggle="tab">Solicitar Visita</a>
                 </li>
+                <li role="presentation">
+                    <a href="#brochure" aria-controls="brochure" role="tab" data-toggle="tab">Brochure</a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="#video" aria-controls="video" role="tab" data-toggle="tab">Video</a>
+                </li>
             </ul>
 
              <!-- Tab panels -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="general">
+                <div role="tabpanel" class="tab-pane fade" id="general">
                     <div class="tabla-info row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <table class="table table-bordered">
@@ -265,13 +212,6 @@
                         {%endif%}
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <img class="img-responsive" src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
-                            <p class="datos text-left">
-                                <strong>Agente: {{inmueble.agente.nombre}}</strong><br>
-                                <strong>Correo: {{inmueble.agente.correo}}</strong>
-                                {% if inmueble.agente.correo2 %}
-                                    <br><strong>Correo 2: {{inmueble.agente.correo2}}</strong>
-                                {%endif%}
-                            </p>
                             <p class="telefonos text-left">
                                 {%for telefono in telefonosAgente%}
                                     <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
@@ -286,7 +226,7 @@
                                     {{ContactoAgenteForm.correo}}<br>
                                     {{ContactoAgenteForm.telefonos}}<br>
                                     {{ContactoAgenteForm.comentario}}<br>
-                                    <button type="submit" class="btn btn-primary">  Enviar</button>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
                                 </div>
                             </form>
                         </div>
@@ -318,6 +258,42 @@
                             </form>
                         </div>
                     </dir>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="brochure">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {%if inmueble.archivo%}
+                                <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
+                                    Brochure Digital
+                                </a>
+                            {%endif%}
+                            {%if inmueble.ficha_tecnica%}
+                                <a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">
+                                    Ficha T&eacute;cnica
+                                </a>
+                            {%endif%}
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade in active" id="video">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            {%if inmueble.video%}
+                                <div class="video-container">
+                                    <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
+                                    </iframe>
+                                </div>
+                            {%endif%}
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

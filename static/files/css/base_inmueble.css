@@ -16,10 +16,24 @@ body{
     display: none;
 }
 
+
 /*Estilos de la barra superior de la base*/
 header .navbar{
-    background: #4f4e4e;
+    background: rgba(82, 87, 107, 0.5);
     margin-bottom:0px;
+}
+
+body > header > nav > div > div > div > div > div > div > h3,
+body > header > nav > div > div > div > div > div > div > h4{
+    display: inline;
+}
+
+body > header > nav > div > div > div > div > div > div > h4{
+    margin-top: 0px;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > div.titulo{
+    margin-top: 2%;
 }
 
 body > div.row.titulo{
@@ -29,10 +43,6 @@ body > div.row.titulo{
 
 .navbar-default{
     border-color: transparent;
-}
-
-header > div{
-    margin-top: 100px;
 }
 
 nav{
@@ -75,11 +85,7 @@ nav > div > div > div > div.navbar-header{
 }
 
 nav > div > div > div > div.navbar-header > a > img{
-    width: 85%;
-}
-
-nav > div > div > div > div.collapse.navbar-collapse > div > div > ul{
-    margin-top: 2.5%;
+    width: 100%;
 }
 
 nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h1,

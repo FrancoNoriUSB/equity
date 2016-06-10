@@ -71,7 +71,7 @@ div.contenido > div.info-base > div.links > div.fb-share-button{
 }
 
 div.contenido > div.informacion > div > div{
-	padding: 2%
+	padding: 2%;
 }
 
 div.contenido > div.info-base > div > div > a.favoritos{
@@ -90,7 +90,9 @@ div.contenido > div.info-base > div > div > a.favoritos > span{
 
 /*Boostrap modificado*/
 div.contenido > div.informacion > div > ul{
-	border-bottom: 0px;
+	border-bottom: 5px;
+    border-bottom-style: groove;
+    border-bottom-color: #4f4e4e;
 }
 
 .carousel-control.right,
@@ -105,6 +107,10 @@ div.modal-backdrop.fade.in{
 body .modal-dialog {
     /* new custom width */
     width: 90%;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+    border: 0px !important;
 }
 
 /*Video*/
