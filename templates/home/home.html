@@ -205,41 +205,44 @@
             			{% for inmueble in inmuebles %}
                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     			<div class="propiedad row">
-                                    {%for imagen in inmueble.imagenes.all|slice:":1"%}
-                                        {%if forloop.counter == 1%}
-                        					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
-                                                <div class="inmueble">
-                                                    <img class="img-responsive imagen" src="{{imagen.imagen.url}}" alt="">
-                                                    <div class="datos-inmueble">
-                                                        <h5 class="text-left titulo">
-                                                            {{inmueble.titulo}}
-                                                            <span class="glyphicon glyphicon-arrow-right text-right"></span>
-                                                        </h5>
-                                                        <h5 class="text-left ciudad">
-                                                            {{inmueble.ciudad.nombre}}
-                                                        </h5>
+                					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
+                                        <div class="inmueble">
+                                            {%for imagen in inmueble.imagenes.all|slice:":1"%}
+                                                <img class="img-responsive imagen" src="{{imagen.imagen.url}}" alt="">
+                                            {%endfor%}
+                                            <div class="datos-inmueble">
+                                                <h5 class="text-left titulo">
+                                                    {{inmueble.titulo}}
+                                                    <span class="glyphicon glyphicon-arrow-right text-right"></span>
+                                                </h5>
+                                                <h5 class="text-left ciudad">
+                                                    {{inmueble.ciudad.nombre}}
+                                                </h5>
+                                                <h6 class="text-right datos">
+                                                {%for modulo in inmueble.modulo_set.all|slice:":1"%}
+                                                    Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%}
+                                                    {%if modulo.precio != 0%}
                                                         /
-                                                        <h6 class="text-right datos">
-                                                        {%for modulo in inmueble.modulo_set.all|slice:":1"%}
-                                                            Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%};<br>
-                                                            {%if modulo.precio != 0%}
-                                                                {%if moneda_get == 'nacional'%}
-                                                                    {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-                                                                {%elif moneda_get == 'usd'%}
-                                                                    {{modulo.precio|floatformat|intcomma}} USD
-                                                                {%else%}
-                                                                    {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}} / {{modulo.precio|floatformat|intcomma}} USD
-                                                                {%endif%}
-                                                            {%endif%}
-                                                        {%endfor%}
-                                                        </h6>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        {%endif%}
-                                    {%endfor%}
+                                                        {%if moneda_get == 'nacional'%}
+                                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                        {%elif moneda_get == 'usd'%}
+                                                            {{modulo.precio|floatformat|intcomma}} USD
+                                                        {%else%}
+                                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                        {%endif%}
+                                                    {%endif%}
+                                                {%endfor%}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </a>
                     			</div>
                             </div>
+                            {% if forloop.counter|divisibleby:3 %}
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <br>
+                                </div>
+                            {% endif %}
                         {%empty%}
                             <img class="img-responsive" src="{{STATIC_URL}}files/img/error-de-busqueda.jpg" alt="">
                             <br>

@@ -7,6 +7,15 @@
 
 
 /*Estilos de propiedades*/
+
+body > div > div > div.contenido > div.propiedades > div > div > div{
+	padding-right: 3%;
+}
+
+body > div > div > div.contenido > div.propiedades > div > div.row > div > div.propiedad {
+	max-height: 200px;
+}
+
 body > div > div > div.contenido > div.propiedades > div > div > div > div > a{
 	text-decoration: none;
 	color:white;
@@ -22,7 +31,7 @@ body > div > div > div.contenido > div.propiedades.row > div > div > div > div >
 	position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 96%;
     padding-left: 2%;
     padding-right: 2%;
     padding-bottom: 3%;
