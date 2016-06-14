@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.conf import global_settings
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 ADMINS = (
@@ -22,7 +23,7 @@ MANAGERS = ADMINS
 # Parse database configuration from $DATABASE_URL
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'equity',                      # Or path to database file if using sqlite3.
         'USER': 'postgres',
         'PASSWORD': 'postgres',
@@ -113,16 +114,14 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-#Directorio de los templates
-TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),
-)
+# Directorio de los templates
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 
 MEDIA_URL = '/uploads/'
 
 # For Sidebar Menu (List of apps and models) (RECOMMENDED)
-from django.conf import global_settings
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
 )
@@ -133,7 +132,7 @@ FIXTURE_DIRS = (
     os.path.join(BASE_DIR, '../static/fixtures'),
 )
 
-#Configuracion de envio de correos
+# Configuracion de envio de correos
 EMAIL_HOST = 'smtp.webfaction.com'
 EMAIL_HOST_USER = 'equity_mail'
 EMAIL_HOST_PASSWORD = 'G*7j5$8'

@@ -1,5 +1,4 @@
 from django.core.mail.message import EmailMessage
-from django.db.models import Count
 from django.db.models import Q
 
 # Set de funciones varias a utilizar en el frontend
@@ -16,6 +15,7 @@ def contact_email(request, form, correo):
     emails.append(correo)
     emails.append('coordinacion@equitymedia.la')
     emails.append('fernandoweber@equitymedia.la')
+    emails.append('enlace@equitymedia.la')
     telephone = emailF.cleaned_data['telefonos']
 
     # Verificacion de si posee telefono
@@ -30,7 +30,7 @@ def contact_email(request, form, correo):
     email = EmailMessage()
     email.subject = '[Equity International] Correo contacto'
     email.body = message
-    email.from_email = 'Usuario Equity <'+str(emailF.cleaned_data['correo'])+'>'
+    email.from_email = 'Usuario Equity <' + str(emailF.cleaned_data['correo']) + '>'
     email.to = emails
     email.content_subtype = "html"
     enviado = email.send()
@@ -47,6 +47,7 @@ def visit_email(request, form, inmueble):
     name = emailF.cleaned_data['nombre']
     emails.append('contactcenter@equitymedia.la')
     emails.append('fernandoweber@equitymedia.la')
+    emails.append('enlace@equitymedia.la')
     telephone = emailF.cleaned_data['telefonos']
 
     # Verificacion de si posee telefono
@@ -62,7 +63,7 @@ def visit_email(request, form, inmueble):
     email = EmailMessage()
     email.subject = '[Equity International] Correo Visita'
     email.body = message
-    email.from_email = 'Usuario Equity <'+str(emailF.cleaned_data['correo'])+'>'
+    email.from_email = 'Usuario Equity <' + str(emailF.cleaned_data['correo']) + '>'
     email.to = emails
     email.content_subtype = "html"
     enviado = email.send()
