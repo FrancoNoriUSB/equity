@@ -17,15 +17,22 @@ body{
 }
 
 
+@font-face{
+    font-family: "Neutra";
+    src: url(../fonts/NeutraText-BookAlt.ttf) format("truetype");
+}
+
+
 /*Estilos de la barra superior de la base*/
 header .navbar{
-    background: rgba(82, 87, 107, 0.5);
+    background: rgba(4, 15, 194, 0.15);
     margin-bottom:0px;
 }
 
 body > header > nav > div > div > div > div > div > div > h3,
 body > header > nav > div > div > div > div > div > div > h4{
     display: inline;
+    font-family: "Neutra";
 }
 
 body > header > nav > div > div > div > div > div > div > h4{
@@ -33,7 +40,7 @@ body > header > nav > div > div > div > div > div > div > h4{
 }
 
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > div.titulo{
-    margin-top: 2%;
+    margin-top: 2.5%;
 }
 
 body > div.row.titulo{
@@ -83,9 +90,20 @@ nav > div > div > div > div.collapse.navbar-collapse > div > div > ul > li.busca
 nav > div > div > div > div.navbar-header{
     width: 8%;
 }
+body > header > nav > div > div > div > div.navheader > div > div.col-lg-5.col-md-6.col-sm-6.col-xs-12 > ul{
+    margin-top: -6px;
+}
 
 nav > div > div > div > div.navbar-header > a > img{
-    width: 100%;
+    width: 75%;
+}
+
+body > header > nav > div > div > div > div.navheader > div > div > ul > li > h4 > a{
+    color: #ffffff;
+}
+
+body > header > nav > div > div > div > div.navheader > div > div > ul > li > h4 > a:hover{
+    text-decoration: none;
 }
 
 nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h1,
@@ -99,11 +117,11 @@ nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h5{
 }
 
 nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h3.titulo{
-    font-size: 22px;
+    font-size: 25px;
 }
 
 nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h4{
-    font-size: 18px;
+    font-size: 20px;
 }
 
 nav > div > div > div > div.collapse.navbar-collapse > div.titulo > div > h5{

@@ -147,11 +147,12 @@
                 </div>
             {%endfor%}
         </div>
+
         <!-- Contenido de la pagina -->
         <div class="contenido col-lg-9 col-md-9 col-sm-9 col-xs-9">
-            <div class="row">
+            <div class="row banner">
                 {%for imagen in imagen_banner%}
-                    <div class="imagen-banner">
+                    <div class="imagen-banner col-lg-12">
                         <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
                     </div>
                 {%empty%}
@@ -210,7 +211,6 @@
                                             <div class="datos-inmueble">
                                                 <h5 class="text-left titulo">
                                                     {{inmueble.titulo}}
-                                                    <span class="glyphicon glyphicon-arrow-right text-right"></span>
                                                 </h5>
                                                 <h5 class="text-left ciudad">
                                                     {{inmueble.ciudad.nombre}}

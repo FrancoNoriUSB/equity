@@ -5,15 +5,13 @@
   Azul Oscuro:#1a2e51;
 */
 
-
 /*Estilos de propiedades*/
-
 body > div > div > div.contenido > div.propiedades > div > div > div{
 	padding-right: 3%;
 }
 
 body > div > div > div.contenido > div.propiedades > div > div.row > div > div.propiedad {
-	max-height: 200px;
+	max-height: 270px;
 }
 
 body > div > div > div.contenido > div.propiedades > div > div > div > div > a{
