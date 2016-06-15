@@ -216,6 +216,9 @@
                                 {%for telefono in telefonosAgente%}
                                     <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
                                 {%endfor%}
+                                {%if inmueble.agente.pagina%}
+                                    P&aacute;gina Web: <a href="http://{{inmueble.agente.pagina}}">{{inmueble.agente.pagina}}</a>
+                                {%endif%}
                             </p>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
