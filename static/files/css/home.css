@@ -6,25 +6,25 @@
 */
 
 /*Estilos de propiedades*/
-body > div > div > div.contenido > div.propiedades > div > div > div{
+body > div > div > form > div.contenido > div.propiedades > div > div > div{
 	padding-right: 3%;
 }
 
-body > div > div > div.contenido > div.propiedades > div > div.row > div > div.propiedad {
+body > div > div > form > div.contenido > div.propiedades > div > div.row > div > div.propiedad {
 	max-height: 270px;
 }
 
-body > div > div > div.contenido > div.propiedades > div > div > div > div > a{
+body > div > div > form > div.contenido > div.propiedades > div > div > div > div > a{
 	text-decoration: none;
 	color:white;
 }
 
-body > div > div > div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h5.ciudad,
-body > div > div > div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h6.datos{
+body > div > div > form > div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h5.ciudad,
+body > div > div > form > div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h6.datos{
 	display: inline;
 }
 
-body > div > div > div.contenido > div.propiedades.row > div > div > div > div > a > div.inmueble > div.datos-inmueble{
+body > div > div > form > div.contenido > div.propiedades.row > div > div > div > div > a > div.inmueble > div.datos-inmueble{
 	background-color: rgba(26, 46, 81, 0.5);
 	position: absolute;
     bottom: 0;
