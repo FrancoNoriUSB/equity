@@ -47,51 +47,51 @@ body > div > div > div.contenido > div.propiedades.row > div > div > div > div >
 }
 
 /*Estilos contenido*/
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-superior.row > div > form{
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > form{
 	float: left;
 }
 
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-superior.row > div > nav{
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > nav{
 	float: right;
 }
 
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-superior.row > div > nav > ul,
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.paginacion-inferior.row > div > nav > ul{
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > nav > ul,
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.paginacion-inferior.row > div > div > nav > ul{
 	margin: 0px 0;
 }
 
-body > div.contenido.container > div > div.banners.col-lg-3 > div > div{
+body > div.contenido.container > div > form > div.banners.col-lg-3 > div > div{
 	padding:3%;
 	background-color: #d6e5f0;
 	margin-bottom: 3%;
 }
 
-body > div.contenido.container > div > div.banners.col-lg-3 > div.banner {
+body > div.contenido.container > div > form > div.banners.col-lg-3 > div.banner {
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-body > div.contenido.container > div > div.banners.col-lg-3 > div > div > div > form > div.form-group{
+body > div.contenido.container > div > form > div.banners.col-lg-3 > form > div > div > div  > div.form-group{
 	margin-top: 2%;
 }
 
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row{
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row{
 	margin-top: 3%;
 	margin-bottom: 3%;
-}
+} form >
 
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a{
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a{
 	color: #000;
 	font-size: 16px;
 }
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a:hover{
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a:hover{
 	text-decoration: none;
 }
 
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > p{
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > p{
 	font-size: 15px;
 }
-body > div.contenido.container > div > div.contenido.col-lg-9 > div.propiedades.row > div > div.propiedad{
+body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row > div > div.propiedad{
 	margin-bottom: 4%;
 	border-bottom-style: solid;
 	border-bottom-width: 2px;

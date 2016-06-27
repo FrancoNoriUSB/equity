@@ -61,7 +61,6 @@ def home(request, pais):
     inmuebles_inf = 12
     inmuebles_sup = 12
     moneda_get = ''
-    desde = ''
     hasta = ''
     precio_min = ''
     precio_max = ''
@@ -94,6 +93,9 @@ def home(request, pais):
             palabra = buscadorF.cleaned_data['palabra']
             inmuebles_inf = buscadorF.cleaned_data['inmuebles_inf']
             inmuebles_sup = buscadorF.cleaned_data['inmuebles_sup']
+            print buscadorF.cleaned_data['orden']
+            print buscadorF.cleaned_data['inmuebles_inf']
+            print buscadorF.cleaned_data['inmuebles_sup']
 
             # Revisa si las habitaciones no son vacias
             if habitaciones != '':
@@ -501,7 +503,7 @@ def perfil_admin(request, pais):
 # Vista para listar los inmuebles de ese pais
 @login_required
 def inmuebles_list(request, pais):
-    inmuebles = Inmueble.objects.filter(pais__nombre=pais)
+    inmuebles = Inmueble.objects.filter(pais__nombre=pais).order_by('titulo')
     nombre_pais = dict(countries)[pais]
 
     ctx = {
@@ -680,7 +682,7 @@ class AgregarModulo(CreateView):
                                   pais=pais))
 
 
-#Vista para publicar el inmueble
+# Vista para publicar el inmueble
 class EditarModulo(UpdateView):
     template_name = 'admin/inmuebles/agregar-modulo.html'
     model = Modulo

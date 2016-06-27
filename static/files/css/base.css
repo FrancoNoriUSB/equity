@@ -43,6 +43,10 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 	margin-top: -2%;
 }
 
+body > header > nav > div > div > div > div.navbar-header > a > p{
+	color: white;
+}
+
 body > div.container-fluid > div > div > form > div{
 	margin-right: 5px;
 }
@@ -66,7 +70,8 @@ body > div.container-fluid > div > div > form > div > div > button > span{
 }
 
 body > header > nav > div > div > div > div.navbar-header{
-	width: 8%;
+    width: 10%;
+	padding-left: 2%;
 }
 
 body > header > nav > div > div > div > div.navbar-header > a > img{
@@ -75,10 +80,17 @@ body > header > nav > div > div > div > div.navbar-header > a > img{
 
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
 	width: 94%;
+	padding-left: 3.5%;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(7){
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li.pais{
+	margin-right: 2.5%;
+}
+
+body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li.buscador{
 	width: 20%;
+    float: right;
+    margin-right: 4.8%;
 }
 
 body > header > nav > div > div > div > div.navbar-header > div > a{

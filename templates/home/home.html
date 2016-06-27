@@ -16,15 +16,75 @@
 <!-- Boque del contenido de la pagina -->
 {% block content %}
     <div class="container">
-        <div class="banners col-lg-3 col-md-3 col-sm-3">
-            {%for banner in banners%}
-                {%if forloop.counter == 1%}
+        <form id="form" class="form" role="form" action="/{{pais}}/" method="GET">
+            <div class="banners col-lg-3 col-md-3 col-sm-3">
+                {%for banner in banners%}
+                    {%if forloop.counter == 1%}
+                            {% csrf_token %}
+                            <!-- Barra de busqueda -->
+                            <div class="container-fluid">
+                                <div class="busqueda row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <h5><strong>Buscar Inmuebles</strong></h5>
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field buscadorF.ciudad class="form-control"%}
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field buscadorF.zona class="form-control"%}
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field buscadorF.tipo class="form-control"%}
+                                        </div>
+                                        <button class="btn btn-primary">
+                                            Buscar
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
+                                        <br>
+                                        <br>
+                                        <div class="form-group">
+                                            <h5><strong>Filtrar</strong></h5>
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field buscadorF.metros class="form-control"%}
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field buscadorF.habitaciones class="form-control"%}
+                                        </div>
+                                        <div class="form-group">
+                                            <h5>Precio:</h5>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                {% render_field buscadorF.hasta class="form-control hasta" placeholder="Hasta"%}
+                                                {% render_field buscadorF.moneda class="form-control"%}
+                                            </div>
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary">
+                                            Filtrar
+                                        </button>
+                                        &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                    {% else %}
+                        <div class="banner row-fluid hidden-xs">
+                            <a class="{{banner.nombre}}" href="http://{{banner.url}}">
+                                <img class="img-responsive" style="width: 100%;" src="{{banner.imagen.url}}" alt="">
+                            </a>
+                        </div>
+                    {% endif %}
+                {%empty%}
+                    {% csrf_token %}
                     <!-- Barra de busqueda -->
                     <div class="container-fluid">
                         <div class="busqueda row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                <form id="form" class="form" role="form" action="/{{pais}}/" method="GET">
-                                {% csrf_token %}
                                 <div class="form-group">
                                     <h5><strong>Buscar Inmuebles</strong></h5>
                                 </div>
@@ -69,218 +129,156 @@
                                 &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
                                 <br>
                                 <br>
-                            </form>
                             </div>
                         </div>
                     </div>
-                {% else %}
-                    <div class="banner row-fluid hidden-xs">
-                        <a class="{{banner.nombre}}" href="http://{{banner.url}}">
-                            <img class="img-responsive" style="width: 100%;" src="{{banner.imagen.url}}" alt="">
+                    <div class="row-fluid banner hidden-xs">
+                        <a class="banner-medio" href="">
+                            <img class="img-responsive" style="width: 100%;" src="{% static 'files/img/banner-medio.png' %}" alt="">
                         </a>
                     </div>
-                {% endif %}
-            {%empty%}
-                <!-- Barra de busqueda -->
-                <div class="container-fluid">
-                    <div class="busqueda row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <form id="form" class="form" role="form" action="/{{pais}}/" method="GET">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <h5><strong>Buscar Inmuebles</strong></h5>
-                                </div>
-                                <div class="form-group">
-                                    {% render_field buscadorF.ciudad class="form-control"%}
-                                </div>
-                                <div class="form-group">
-                                    {% render_field buscadorF.zona class="form-control"%}
-                                </div>
-                                <div class="form-group">
-                                    {% render_field buscadorF.tipo class="form-control"%}
-                                </div>
-                                <button class="btn btn-primary">
-                                    Buscar
-                                </button>
-                                &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
-                                <br>
-                                <br>
-                                <div class="form-group">
-                                    <h5><strong>Filtrar</strong></h5>
-                                </div>
-                                <div class="form-group">
-                                    {% render_field buscadorF.metros class="form-control"%}
-                                </div>
-                                <div class="form-group">
-                                    {% render_field buscadorF.habitaciones class="form-control"%}
-                                </div>
-                                <div class="form-group">
-                                    <h5>Precio:</h5>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        {% render_field buscadorF.hasta class="form-control hasta" placeholder="Hasta"%}
-                                        {% render_field buscadorF.moneda class="form-control"%}
-                                    </div>
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary">
-                                    Filtrar
-                                </button>
-                                &nbsp;&nbsp;&nbsp;<a class="btn btn-primary" href="/{{pais}}/">Limpiar</a>
-                                <br>
-                                <br>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="row-fluid banner hidden-xs">
-                    <a class="banner-medio" href="">
-                        <img class="img-responsive" style="width: 100%;" src="{% static 'files/img/banner-medio.png' %}" alt="">
-                    </a>
-                </div>
-                <div class="row-fluid banner hidden-xs">
-                    <a class="banner-inferior" href="">
-                        <img class="img-responsive" style="width: 100%;" src="{% static 'files/img/banner-medio.png' %}" alt="">
-                    </a>
-                </div>
-            {%endfor%}
-        </div>
-
-        <!-- Contenido de la pagina -->
-        <div class="contenido col-lg-9 col-md-9 col-sm-9 col-xs-9">
-            <div class="row banner">
-                {%for imagen in imagen_banner%}
-                    <div class="imagen-banner col-lg-12">
-                        <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
-                    </div>
-                {%empty%}
-                    <div class="imagen-banner">
-                        <img class="img-responsive" src="{% static 'files/img/imagen-carrousel.png' %}" alt="">
+                    <div class="row-fluid banner hidden-xs">
+                        <a class="banner-inferior" href="">
+                            <img class="img-responsive" style="width: 100%;" src="{% static 'files/img/banner-medio.png' %}" alt="">
+                        </a>
                     </div>
                 {%endfor%}
             </div>
-            <br>
-        	<div class="paginacion-superior row">
-        		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
-                        <div class="form-inline col-lg-6 col-md-3">
-                            <label for="id_inmuebles">Mostrar:  {% render_field buscadorF.inmuebles_sup class="form-control"%} resultados por p&aacute;gina.</label>
-                        </div>
-                    <div class="form-group col-lg-3 col-md-3">
-                        {% render_field buscadorF.orden class="form-control"%}
-                    </div>
-        			<nav>
-        			  <ul class="pagination">
-                        {% if inmuebles.has_previous %}
-                            <li>
-                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
-                            </li>
-                            <li>
-                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">{{ inmuebles.previous_page_number }}</a>
-                            </li>
-                        {% endif %}
-                            <li>
-                                <a href="">{{ inmuebles.number }}</a>
-                            </li>
-                        {% if inmuebles.has_next %}
-                            <li>
-                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">{{ inmuebles.next_page_number }}</a>
-                            </li>
-                            <li>
-                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
-                            </li>
-                        {% endif %}
-        			  </ul>
-        			</nav>
-        		</div>
-        	</div>
 
-            <!-- Propiedades -->
-        	<div class="propiedades row">
-        		<div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="row">
-            			{% for inmueble in inmuebles %}
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    			<div class="propiedad row">
-                					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
-                                        <div class="inmueble">
-                                            {%for imagen in inmueble.imagenes.all|slice:":1"%}
-                                                <img class="img-responsive imagen" src="{{imagen.imagen.url}}" alt="">
-                                            {%endfor%}
-                                            <div class="datos-inmueble">
-                                                <h5 class="text-left titulo">
-                                                    {{inmueble.titulo}}
-                                                </h5>
-                                                <h5 class="text-left ciudad">
-                                                    {{inmueble.ciudad.nombre}}
-                                                </h5>
-                                                <h6 class="text-right datos">
-                                                {%for modulo in inmueble.modulo_set.all|slice:":1"%}
-                                                    Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%}
-                                                    {%if modulo.precio != 0%}
-                                                        /
-                                                        {%if moneda_get == 'nacional'%}
-                                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-                                                        {%elif moneda_get == 'usd'%}
-                                                            {{modulo.precio|floatformat|intcomma}} USD
-                                                        {%else%}
-                                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-                                                        {%endif%}
-                                                    {%endif%}
-                                                {%endfor%}
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                    			</div>
-                            </div>
-                            {% if forloop.counter|divisibleby:3 %}
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <br>
-                                </div>
-                            {% endif %}
-                        {%empty%}
-                            <img class="img-responsive" src="{{STATIC_URL}}files/img/error-de-busqueda.jpg" alt="">
-                            <br>
-                        {% endfor %}
-                    </div>
-        		</div>
-        	</div>
-        	
-        	<div class="paginacion-inferior row">
-        		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
-                        <div class="form-inline col-lg-6 col-md-3">
-                            <label for="id_inmuebles">
-                            Mostrar:  {% render_field buscadorF.inmuebles_inf class="form-control"%} resultados por p&aacute;gina.
-                            </label>
+            <!-- Contenido de la pagina -->
+            <div class="contenido col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <div class="row banner">
+                    {%for imagen in imagen_banner%}
+                        <div class="imagen-banner col-lg-12">
+                            <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
                         </div>
-                    </form>
-                    <nav class="text-right">
-                      <ul class="pagination">
-                        {% if inmuebles.has_previous %}
-                            <li>
-                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
-                            </li>
-                        {% endif %}
-                            <li>
-                                <a href="">{{ inmuebles.number }}</a>
-                            </li>
-                        {% if inmuebles.has_next %}
-                            <li>
-                                <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
-                            </li>
-                        {% endif %}
-                      </ul>
-                    </nav>
+                    {%empty%}
+                        <div class="imagen-banner">
+                            <img class="img-responsive" src="{% static 'files/img/imagen-carrousel.png' %}" alt="">
+                        </div>
+                    {%endfor%}
                 </div>
-        	</div>
-        	<div class="logos-camara row">
-        		<div class="col-lg-12 col-md-12 col-sm-12">
-        			<img src="" alt="">
-        		</div>
-        	</div>
-        </div>
+                <br>
+            	<div class="paginacion-superior row">
+            		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
+                        <div class="row">
+                            <div class="form-inline col-lg-6 col-md-3">
+                                <label for="id_inmuebles">Mostrar:  {% render_field buscadorF.inmuebles_sup class="form-control"%} resultados por p&aacute;gina.</label>
+                            </div>
+                            <div class="form-group col-lg-3 col-md-3">
+                                {% render_field buscadorF.orden class="form-control"%}
+                            </div>
+                            <nav>
+                                <ul class="pagination">
+                                    {% if inmuebles.has_previous %}
+                                    <li>
+                                        <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
+                                    </li>
+                                    <li>
+                                        <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">{{ inmuebles.previous_page_number }}</a>
+                                    </li>
+                                    {% endif %}
+                                    <li>
+                                        <a href="">{{ inmuebles.number }}</a>
+                                    </li>
+                                    {% if inmuebles.has_next %}
+                                    <li>
+                                        <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">{{ inmuebles.next_page_number }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+            		</div>
+            	</div>
+
+                <!-- Propiedades -->
+            	<div class="propiedades row">
+            		<div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="row">
+                			{% for inmueble in inmuebles %}
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        			<div class="propiedad row">
+                    					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
+                                            <div class="inmueble">
+                                                {%for imagen in inmueble.imagenes.all|slice:":1"%}
+                                                    <img class="img-responsive imagen" src="{{imagen.thumbnail.url}}" alt="">
+                                                {%endfor%}
+                                                <div class="datos-inmueble">
+                                                    <h5 class="text-left titulo">
+                                                        <b>{{inmueble.titulo}}</b> - {{inmueble.ciudad.nombre}}
+                                                    </h5>
+                                                    <h6 class="text-right datos">
+                                                    {%for modulo in inmueble.modulo_set.all|slice:":1"%}
+                                                        Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%}
+                                                        {%if modulo.precio != 0%}
+                                                            /
+                                                            {%if moneda_get == 'nacional'%}
+                                                                {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                            {%elif moneda_get == 'usd'%}
+                                                                {{modulo.precio|floatformat|intcomma}} USD
+                                                            {%else%}
+                                                                {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                            {%endif%}
+                                                        {%endif%}
+                                                    {%endfor%}
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                        			</div>
+                                </div>
+                                {% if forloop.counter|divisibleby:3 %}
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <br>
+                                    </div>
+                                {% endif %}
+                            {%empty%}
+                                <img class="img-responsive" src="{{STATIC_URL}}files/img/error-de-busqueda.jpg" alt="">
+                                <br>
+                            {% endfor %}
+                        </div>
+            		</div>
+            	</div>
+            	
+            	<div class="paginacion-inferior row">
+            		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
+                        <div class="row">
+                            <div class="form-inline col-lg-6 col-md-3">
+                                <label for="id_inmuebles">
+                                Mostrar:  {% render_field buscadorF.inmuebles_inf class="form-control"%} resultados por p&aacute;gina.
+                                </label>
+                            </div>
+                            <nav class="text-right">
+                              <ul class="pagination">
+                                {% if inmuebles.has_previous %}
+                                    <li>
+                                        <a href="?{{query.urlencode}}&amp;page={{ inmuebles.previous_page_number }}">&laquo;</a>
+                                    </li>
+                                {% endif %}
+                                    <li>
+                                        <a href="">{{ inmuebles.number }}</a>
+                                    </li>
+                                {% if inmuebles.has_next %}
+                                    <li>
+                                        <a href="?{{query.urlencode}}&amp;page={{ inmuebles.next_page_number }}">&raquo;</a>
+                                    </li>
+                                {% endif %}
+                              </ul>
+                            </nav>
+                        </div>
+                    </div>
+            	</div>
+            	<div class="logos-camara row">
+            		<div class="col-lg-12 col-md-12 col-sm-12">
+            			<img src="" alt="">
+            		</div>
+            	</div>
+            </div>
+        </form>
     </div>
 {% endblock content %}
 
@@ -295,13 +293,16 @@ function cargar_zonas(){
 
     ciudad = ciudad.val();
 
-    if (ciudad != ""){
+    if (ciudad != "")
+    {
         elem_zonas.empty();
         elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
         $.each(zonas[ciudad], function(i, zona){
             elem_zonas.append('<option value="'+ i +'">' + zona + '</option>')
         });
-    } else {
+    } 
+    else 
+    {
         elem_zonas.empty();
         elem_zonas.append('<option value="" selected="selected"> - Zona -</option>');
     }
@@ -330,9 +331,12 @@ $( document ).ready(function() {
     var paginas_sup = $('#id_inmuebles_sup').val();
     var paginas_inf = $('#id_inmuebles_inf').val();
 
-    if (paginas_inf !=12){
+    if (paginas_inf != 12)
+    {
         $('#id_inmuebles_sup').val(paginas_inf);
-    }else if(paginas_sup !=12){
+    }
+    else if(paginas_sup != 12)
+    {
         $('#id_inmuebles_inf').val(paginas_sup);
     }
 });

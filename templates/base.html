@@ -52,16 +52,12 @@
                                         <span class="icon-bar"></span>
                                 </button>
                                 <a class="navbar-brand hidden-xs" href="http://www.expo-realestate.com/">
-                                    <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-brand.png" alt="">
+                                    <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-eq-brand.png" alt="">
+                                    <p class="text-center">Home</p>
                                 </a>
                             </div>
                             <div class="collapse navbar-collapse navHeaderCollapse navheader">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li>
-                                        <a href="http://www.expo-realestate.com">
-                                            Home
-                                        </a>
-                                    </li>
                                     <li class="pais">
                                         <form role="form" id="paises" method="POST" class="navbar-form navbar-right paises" action="." name="paises">
                                             <div class="form-group">
@@ -107,7 +103,7 @@
                                     <li>
                                         <a href="/{{pais}}/favoritos/">Ver Favoritos</a>
                                     </li>
-                                    <li>
+                                    <li class="buscador">
                                         <form class="navbar-form navbar-right" role="form" action="/{{pais}}/" method="GET">
                                             {% csrf_token %}
                                             <div class="form-group inner-addon right-addon">
