@@ -76,7 +76,7 @@ class Imagen(models.Model):
         from django.core.files.uploadedfile import SimpleUploadedFile
 
         # Set our max thumbnail size in a tuple (max width, max height)
-        THUMBNAIL_SIZE = (300, 300)
+        THUMBNAIL_SIZE = (400, 400)
 
         # Open original photo which we want to thumbnail using PIL's Image
         imagen = Image.open(StringIO(self.imagen.read()))

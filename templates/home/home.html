@@ -213,7 +213,7 @@
                                                     </h5>
                                                     <h6 class="text-left datos">
                                                     {%for modulo in inmueble.modulo_set.all|slice:":1"%}
-                                                        Desde: {{modulo.metros|floatformat|intcomma}} m&#178;{%if modulo.dormitorios != '0'%} ({{modulo.dormitorios}} dormitorios){%endif%}
+                                                        Desde: {{modulo.metros|floatformat|intcomma}} m&#178;
                                                         {%if modulo.precio != 0%}
                                                             /
                                                             {%if moneda_get == 'nacional'%}

@@ -85,12 +85,13 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li.pais{
 	margin-right: 2.5%;
+	width: 16%;
 }
 
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li.buscador{
 	width: 20%;
     float: right;
-    margin-right: 4.8%;
+    margin-right: 3.5%;
 }
 
 body > header > nav > div > div > div > div.navbar-header > div > a{
