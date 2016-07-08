@@ -204,9 +204,15 @@
                         			<div class="propiedad row">
                     					<a href="/{{pais}}/inmuebles/{{inmueble.codigo}}">
                                             <div class="inmueble">
-                                                {%for imagen in inmueble.imagenes.all|slice:":1"%}
-                                                    <img class="img-responsive imagen" src="{{imagen.thumbnail.url}}" alt="">
-                                                {%endfor%}
+                                                {%if inmueble.thumbnails.all%}
+                                                    {%for thumb in inmueble.thumbnails.all|slice:":1"%}
+                                                        <img class="img-responsive imagen" src="{{thumb.imagen.url}}" alt="">
+                                                    {%endfor%}
+                                                {%else%}
+                                                    {%for imagen in inmueble.imagenes.all|slice:":1"%}
+                                                        <img class="img-responsive imagen" src="{{imagen.thumbnail.url}}" alt="">
+                                                    {%endfor%}
+                                                {%endif%}
                                                 <div class="datos-inmueble">
                                                     <h5 class="text-left titulo">
                                                         <b>{{inmueble.titulo}}</b> - {{inmueble.ciudad.nombre}}

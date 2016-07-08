@@ -93,9 +93,6 @@ def home(request, pais):
             palabra = buscadorF.cleaned_data['palabra']
             inmuebles_inf = buscadorF.cleaned_data['inmuebles_inf']
             inmuebles_sup = buscadorF.cleaned_data['inmuebles_sup']
-            print buscadorF.cleaned_data['orden']
-            print buscadorF.cleaned_data['inmuebles_inf']
-            print buscadorF.cleaned_data['inmuebles_sup']
 
             # Revisa si las habitaciones no son vacias
             if habitaciones != '':
@@ -631,7 +628,6 @@ class Publicar(CreateView):
         return redirect('inmuebles:listar_inmuebles', pais=pais)
 
     def form_invalid(self, form, zonas, pais):
-        print form
         return self.render_to_response(
             self.get_context_data(form=form, pais=pais, zonas=zonas))
 
@@ -863,7 +859,7 @@ def agentes_agregar(request, pais):
         agenteF = AgenteForm(request.POST, request.FILES)
         telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete = True)
         telefonoAgenteF = telefonoFormSet(request.POST)
-        print agenteF
+        
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agente = agenteF.save(commit=False)
             pais = Pais.objects.get(nombre=pais)
