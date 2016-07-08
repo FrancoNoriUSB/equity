@@ -316,13 +316,13 @@ $('#id_orden').change(function(){
 
 /*Funcion para hacer submit en numero de inmuebles por pagina*/
 $('#id_inmuebles_inf').change(function(){
-    $('#id_inmuebles_sup').val(12);
+    $('#id_inmuebles_sup').val(24);
     $('#form').submit();
 });
 
 /*Funcion para hacer submit en numero de inmuebles por pagina*/
 $('#id_inmuebles_sup').change(function(){
-    $('#id_inmuebles_inf').val(12);
+    $('#id_inmuebles_inf').val(24);
     $('#form').submit();
 });
 
@@ -331,11 +331,11 @@ $( document ).ready(function() {
     var paginas_sup = $('#id_inmuebles_sup').val();
     var paginas_inf = $('#id_inmuebles_inf').val();
 
-    if (paginas_inf != 12)
+    if (paginas_inf != 24)
     {
         $('#id_inmuebles_sup').val(paginas_inf);
     }
-    else if(paginas_sup != 12)
+    else if(paginas_sup != 24)
     {
         $('#id_inmuebles_inf').val(paginas_sup);
     }

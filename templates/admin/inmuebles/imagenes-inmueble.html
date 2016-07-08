@@ -9,7 +9,19 @@
             <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
           </div>
           <div class="panel-body">
-            Im&aacute;genes:
+            <h3>Thumbnail:</h3>
+            <ul class="list-group">
+                <form id="form" role="form" enctype="multipart/form-data" method="post" action="/{{pais}}/admin/inmuebles/thumbnail/{{id_inmueble}}/">
+                {% csrf_token %}
+                {% bootstrap_form ThumbForm %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-success">
+                        Guardar
+                    </button>
+                {% endbuttons %}
+                </form>
+            </ul>
+            <h3>Im&aacute;genes:</h3>
             <ul class="list-group">
                 <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
                 {% csrf_token %}
@@ -24,13 +36,12 @@
             </ul>
           </div>
         </div>
-        <a href="/VE/admin/inmuebles/" class="btn btn-warning">
+        <a href="/{{pais}}/admin/inmuebles/" class="btn btn-warning">
             Volver
         </a>
     </div>
 {% endblock content %}
 
 {% block js %}
-<script>
-</script>
+
 {% endblock js %}

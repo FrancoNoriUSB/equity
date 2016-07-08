@@ -239,6 +239,14 @@ class ImagenInmueble(Imagen):
         return self.descripcion
 
 
+# Modelo para imágenes de un inmueble publicado
+class ThumbInmueble(Imagen):
+    inmueble = models.ForeignKey(Inmueble, related_name='thumbnails')
+
+    def __unicode__(self):
+        return self.descripcion
+
+
 # Modelo para los modulos de cada inmueble
 class Modulo(models.Model):
 

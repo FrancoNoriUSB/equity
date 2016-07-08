@@ -57,9 +57,9 @@ def home(request, pais):
     inmuebles = []
     min_habitaciones = 0
     max_habitaciones = 0
-    inmuebles_pagina = 12
-    inmuebles_inf = 12
-    inmuebles_sup = 12
+    inmuebles_pagina = 24
+    inmuebles_inf = 24
+    inmuebles_sup = 24
     moneda_get = ''
     hasta = ''
     precio_min = ''
@@ -213,9 +213,9 @@ def home(request, pais):
                     inmuebles_list = inmuebles
 
     # Verificacion de cual de los filtros se uso
-    if inmuebles_inf != 12 and inmuebles_inf != '':
+    if inmuebles_inf != 24 and inmuebles_inf != '':
         inmuebles_pagina = inmuebles_inf
-    if inmuebles_sup != 12 and inmuebles_sup != '':
+    if inmuebles_sup != 24 and inmuebles_sup != '':
         inmuebles_pagina = inmuebles_sup
 
     # Busqueda de propiedades en el pais actual
@@ -776,10 +776,18 @@ def inmuebles_imagenes(request, pais, id_inmueble):
 
     editado = ''
     inmueble = Inmueble.objects.get(id=id_inmueble)
+    thumb = ThumbInmueble.objects.filter(inmueble=inmueble)
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
+
     # Formset de imagen
-    ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, form = ImagenInmuebleForm, can_delete=True, extra=1, max_num=len(imagenes)+2, fields=['imagen', 'descripcion'])
+    ImagenFormset = inlineformset_factory(Inmueble, ImagenInmueble, form = ImagenInmuebleForm, can_delete=True, extra=1, max_num=len(imagenes) + 2, fields=['imagen', 'descripcion'])
     inmuebleF = ImagenFormset(instance=inmueble, queryset=ImagenInmueble.objects.filter(inmueble=inmueble))
+
+    # Form del thumbnail del inmueble
+    if thumb:
+        thumbF = ThumbInmuebleForm(instance=thumb[0])
+    else:
+        thumbF = ThumbInmuebleForm()
 
     if request.POST:
         inmuebleF = ImagenFormset(request.POST, request.FILES, instance=inmueble)
@@ -787,8 +795,11 @@ def inmuebles_imagenes(request, pais, id_inmueble):
             inmuebleF.save()
 
     inmuebleF = ImagenFormset(instance=inmueble, queryset=ImagenInmueble.objects.filter(inmueble=inmueble))
+
     ctx = {
+        'ThumbForm': thumbF,
         'InmuebleForm': inmuebleF,
+        'id_inmueble': id_inmueble,
         'editado': editado,
         'pais': pais,
     }
@@ -796,12 +807,32 @@ def inmuebles_imagenes(request, pais, id_inmueble):
     return render_to_response('admin/inmuebles/imagenes-inmueble.html', ctx, context_instance=RequestContext(request))
 
 
+# Vista para agregar las imagenes del inmueble
+def inmuebles_thumbnail(request, pais, id_inmueble):
+    inmueble = Inmueble.objects.get(id=id_inmueble)
+    thumb = ThumbInmueble.objects.filter(inmueble=inmueble)
+
+    if request.POST:
+        if thumb:
+            thumbF = ThumbInmuebleForm(request.POST, request.FILES, instance=thumb[0])
+        else:
+            thumbF = ThumbInmuebleForm(request.POST, request.FILES)
+
+        if thumbF.is_valid():
+            thumb_new = thumbF.save(commit=False)
+            thumb_new.principal = False
+            thumb_new.inmueble = inmueble
+            thumbF.save()
+
+    return HttpResponseRedirect('/' + str(pais) + '/admin/inmuebles/imagenes/' + id_inmueble + '/')
+
+
 # Vista para agregar los agentes de ese pais
 @login_required
 def inmuebles_eliminar(request, pais, id_inmueble):
 
     inmueble = get_object_or_404(Inmueble, id=id_inmueble).delete()
-    return HttpResponseRedirect('/'+str(pais)+'/admin/inmuebles/')
+    return HttpResponseRedirect('/' + str(pais) + '/admin/inmuebles/')
 
 
 # Vista para listar los agentes de ese pais

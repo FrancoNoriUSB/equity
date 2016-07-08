@@ -133,6 +133,13 @@ class ImagenInmuebleForm(forms.ModelForm):
         }
 
 
+# Formulario del thumbnail del inmueble
+class ThumbInmuebleForm(forms.ModelForm):
+    class Meta:
+        model = ThumbInmueble
+        exclude = ['inmueble', 'descripcion', 'principal']
+
+
 # Formulario de registro simple de usuario
 class UserForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput(), label='Confirme Contraseña')
