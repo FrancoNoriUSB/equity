@@ -24,6 +24,11 @@ body{
 
 
 /*Estilos de la barra superior de la base*/
+header{
+    z-index: 100;
+    position: relative;
+}
+
 header .navbar{
     background: rgba(4, 15, 194, 0.15);
     margin-bottom:0px;
@@ -205,6 +210,10 @@ header > div > div > a > img.logo{
 }
 
 /*Estilos del contenido*/
+div.contenido.container-fluid{
+    margin-top: -100px;
+}
+
 div.contenido.container-fluid > div.container-fluid.carrusel-inicio{
     padding-right: 0px;
     padding-left: 0px;

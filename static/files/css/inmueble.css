@@ -83,6 +83,7 @@ div.contenido > div.info-base > div > div > a.favoritos:hover{
 	text-decoration: none;
 }
 
+#general > div.tabla-info.row > div > p > small,
 div.contenido > div.info-base > div > div > a.favoritos > span{
 	color: red;
 	font-size: 10pt;

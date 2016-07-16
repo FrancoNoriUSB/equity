@@ -16,7 +16,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Project root vars
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -47,9 +47,9 @@ SECRET_KEY = '$^ynby2*+w$(8@xmctv2sj18$gcj=*=x$c!fpz)b&xi)t5em6o'
 
 
 ALLOWED_HOSTS = [
-                'www.equity-international.com',
-                'equity-international.com'
-                ]
+    'www.equity-international.com',
+    'equity-international.com'
+]
 
 # Application definition
 INSTALLED_APPS = (

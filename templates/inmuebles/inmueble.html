@@ -229,6 +229,17 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <img class="img-responsive" src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
                             <p class="telefonos text-left">
+                                <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
+                                <div id="SkypeButton_Call_equity.media_1">
+                                    <script type="text/javascript">
+                                    Skype.ui({
+                                    "name": "call",
+                                    "element": "SkypeButton_Call_equity.media_1",
+                                    "participants": ["equity.media"],
+                                    "imageSize": 24
+                                    });
+                                    </script>
+                                </div>
                                 {%for telefono in telefonosAgente%}
                                     <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
                                 {%endfor%}
