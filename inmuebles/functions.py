@@ -30,7 +30,7 @@ def contact_email(request, form, correo):
     email = EmailMessage()
     email.subject = '[Equity International] Correo contacto'
     email.body = message
-    email.from_email = 'Usuario Equity <' + str(emailF.cleaned_data['correo']) + '>'
+    email.from_email = 'contacto@equity-international.com'
     email.to = emails
     email.content_subtype = "html"
     enviado = email.send()
@@ -63,7 +63,7 @@ def visit_email(request, form, inmueble):
     email = EmailMessage()
     email.subject = '[Equity International] Correo Visita'
     email.body = message
-    email.from_email = 'Usuario Equity <' + str(emailF.cleaned_data['correo']) + '>'
+    email.from_email = 'contacto@equity-international.com'
     email.to = emails
     email.content_subtype = "html"
     enviado = email.send()
