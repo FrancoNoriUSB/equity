@@ -54,14 +54,6 @@ div.contenido > div.info-base > div.agente > img{
 	margin-right: auto;
 }
 
-#twitter-widget-0{
-	width: 84px !important;
-}
-
-div.contenido > div.info-base > div.links > div.fb-share-button{
-	float: right;
-}
-
 #ubicacion > div > div > #mapa{
 	position:inherit !important;
 	margin-right: auto;
@@ -87,6 +79,11 @@ div.contenido > div.info-base > div > div > a.favoritos:hover{
 div.contenido > div.info-base > div > div > a.favoritos > span{
 	color: red;
 	font-size: 10pt;
+}
+
+.skype-equity > p.mensaje{
+    padding-top: 4%;
+    border-top: solid 2px;
 }
 
 /*Boostrap modificado*/

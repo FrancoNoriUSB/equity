@@ -262,7 +262,9 @@ def home(request, pais):
 # Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
-    envio = False
+    envio_contacto = False
+    envio_visita = False
+    fecha_entrega = ''
 
     # Buscador de inmuebles
     buscadorF = BuscadorForm()
@@ -288,6 +290,9 @@ def inmueble(request, codigo, pais):
     # Imagenes del inmueble
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('id')
 
+    fecha_entrega = inmueble.fecha_entrega[3:]
+    fecha_entrega = datetime.strptime(fecha_entrega, "%m/%Y")
+
     # Moneda
     try:
         moneda = Moneda.objects.get(pais__nombre=pais)
@@ -299,13 +304,17 @@ def inmueble(request, codigo, pais):
 
     if request.POST:
         contactoF = ContactoAgenteForm(request.POST)
-        solicitarvF = SolicitarVisitaForm(request.POST)
+
         if contactoF.is_valid():
-            envio = contact_email(request, contactoF, agente.correo)
+            envio_contacto = contact_email(request, contactoF, agente.correo)
             contactoF = ContactoAgenteForm()
-        if solicitarvF.is_valid():
-            envio = visit_email(request, solicitarvF, inmueble)
-            solicitarvF = SolicitarVisitaForm()
+        else:
+            solicitarvF = SolicitarVisitaForm(request.POST)
+
+            if solicitarvF.is_valid():
+                envio_visita = visit_email(request, solicitarvF, inmueble)
+                solicitarvF = SolicitarVisitaForm()
+                contactoF = ContactoAgenteForm()
 
     # Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
@@ -324,7 +333,9 @@ def inmueble(request, codigo, pais):
         'imagenes': imagenes,
         'banners': banners,
         'pais': pais,
-        'envio': envio,
+        'envio_contacto': envio_contacto,
+        'envio_visita': envio_visita,
+        'fecha_entrega': fecha_entrega,
     }
 
     return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))

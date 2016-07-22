@@ -69,7 +69,7 @@
                 </h4>
                 <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}<br>
                     {{inmueble.direccion}}<br>
-                    Entrega estimada: {{ inmueble.fecha_entrega }}<br>
+                    Entrega estimada: {{ fecha_entrega|date:"M Y" }}<br>
                 </p>
             </div>
         </div>
@@ -215,22 +215,30 @@
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="contactar">
                     <dir class="row">
-                        <h4>Contactar al constructor</h4>
-                        {%if envio%}
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">
-                                    &times;
-                                </span>
-                            </button>
-                            <strong>Enviado</strong> con &eacute;xito!
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h4>Contactar al constructor</h4>
+                            {%if envio_contacto%}
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">
+                                        &times;
+                                    </span>
+                                </button>
+                                <strong>Enviado</strong> con &eacute;xito!
+                            </div>
+                            {%endif%}
                         </div>
-                        {%endif%}
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <img class="img-responsive" src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
                             <p class="telefonos text-left">
+                                {%for telefono in telefonosAgente%}
+                                    <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
+                                {%endfor%}
                                 <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
-                                <div id="SkypeButton_Call_equity.media_1">
+                                <div id="SkypeButton_Call_equity.media_1" class="skype-equity">
+                                    <p class="mensaje">
+                                        Contáctenos de manera gratuita desde su computador
+                                    </p>
                                     <script type="text/javascript">
                                     Skype.ui({
                                     "name": "call",
@@ -240,9 +248,6 @@
                                     });
                                     </script>
                                 </div>
-                                {%for telefono in telefonosAgente%}
-                                    <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
-                                {%endfor%}
                                 {%if inmueble.agente.pagina%}
                                     P&aacute;gina Web: <a href="http://{{inmueble.agente.pagina}}">{{inmueble.agente.pagina}}</a>
                                 {%endif%}
@@ -266,7 +271,7 @@
                     <dir class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <h4>Formulario para solicitar una visita al inmueble</h4>
-                            {%if envio%}
+                            {%if envio_visita%}
                             <div class="alert alert-success alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">
