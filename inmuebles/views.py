@@ -290,7 +290,7 @@ def inmueble(request, codigo, pais):
     # Imagenes del inmueble
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('id')
 
-    fecha_entrega = inmueble.fecha_entrega[3:]
+    fecha_entrega = inmueble.fecha_entrega[:2] + inmueble.fecha_entrega[5:]
     fecha_entrega = datetime.strptime(fecha_entrega, "%m/%Y")
 
     # Moneda
