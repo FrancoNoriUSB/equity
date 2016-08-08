@@ -4,9 +4,74 @@ from Equity.settings import *
 from django.utils.translation import gettext as _
 from django.db import models
 from django_countries.fields import CountryField
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.template import defaultfilters
-from django.template.defaultfilters import slugify
+
+
+# Manager del modelo de usuario
+class UserManager(BaseUserManager):
+
+    def create_user(self, username, nombre, apellido, correo, telefono, password, ciudad, nacionalidad, cedula, afiliado):
+        if not email:
+            raise ValueError("Por favor ingrese un correo válido.")
+
+        user = self.model(
+            email=self.normalize_email(correo),
+            username=username,
+            nombre=nombre,
+            apellido=apellido,
+            telefono=telefono,
+            ciudad=ciudad,
+            cedula=cedula,
+            is_afiliado=afiliado,
+        )
+        user.set_password(password)
+        user.save()
+        return user
+
+    def create_superuser(self, nombre, apellido, email, telefono, password, ciudad, nacionalidad, cedula):
+        user = self.model(
+            email=self.normalize_email(email),
+            username=username,
+            nombre=nombre,
+            apellido=apellido,
+            telefono=telefono,
+            ciudad=ciudad,
+            cedula=cedula,
+            is_afiliado=True,
+        )
+        user.set_password(password)
+        user.is_staff = True
+        user.save()
+        return user
+
+
+# Definicion del usuario
+class User(AbstractBaseUser):
+
+    username = models.CharField(max_length=40)
+    nombre = models.CharField(max_length=40)
+    apellido = models.CharField(max_length=40)
+    email = models.EmailField(unique=True)
+    ciudad = models.CharField(max_length=40)
+    telefono = models.IntegerField(max_length=20)
+    cedula = models.IntegerField(max_length=10)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ['nombre', 'apellido', 'password', 'telefono', 'ciudad', 'cedula']
+
+    objects = UserManager()
+
+    def get_full_name(self):
+        return self.email
+
+    def get_short_name(self):
+        return self.email
+
+    def __str__(self):
+        return self.email
 
 
 # Pais al cual pertenece el usuario de Perfil
@@ -362,7 +427,9 @@ class ValorCampoInmueble(models.Model):
 
 # Modelo para las imagenes de los Slides del home
 class Slide(models.Model):
+
     nombre = models.CharField(max_length=100)
+    url = models.CharField(max_length=200)
     imagen = models.ImageField(upload_to='slide-home/')
 
     # Claves foraneas

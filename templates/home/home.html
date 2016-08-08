@@ -150,7 +150,13 @@
                 <div class="row banner">
                     {%for imagen in imagen_banner%}
                         <div class="imagen-banner col-lg-12">
-                            <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
+                            {%if imagen.url%}
+                                <a href="{{imagen.url}}">
+                            {%endif%}
+                                <img class="img-responsive" src="{{imagen.imagen.url}}" alt="">
+                            {%if imagen.url%}
+                                </a>
+                            {%endif%}
                         </div>
                     {%empty%}
                         <div class="imagen-banner">
