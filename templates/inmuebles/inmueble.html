@@ -72,6 +72,14 @@
                     Entrega estimada: {{ fecha_entrega|date:"M Y" }}<br>
                 </p>
             </div>
+            <div class="col-lg-6 col-md-4 col-sm-4">
+                {%if inmueble.video%}
+                    <div class="video-container">
+                        <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
+                        </iframe>
+                    </div>
+                {%endif%}
+            </div>
         </div>
     </div>
     <div class="container informacion">
@@ -234,6 +242,12 @@
                                 {%for telefono in telefonosAgente%}
                                     <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
                                 {%endfor%}
+                                {%if inmueble.agente.pagina%}
+                                    P&aacute;gina Web: 
+                                    <a href="http://{{inmueble.agente.pagina}}" id="web_page">
+                                        {{inmueble.agente.pagina}}
+                                    </a>
+                                {%endif%}
                                 <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
                                 <div id="SkypeButton_Call_equity.media_1" class="skype-equity">
                                     <p class="mensaje">
@@ -248,9 +262,6 @@
                                     });
                                     </script>
                                 </div>
-                                {%if inmueble.agente.pagina%}
-                                    P&aacute;gina Web: <a href="http://{{inmueble.agente.pagina}}">{{inmueble.agente.pagina}}</a>
-                                {%endif%}
                             </p>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -338,9 +349,17 @@
 <!-- Seccion donde se carga el JS -->
 {%block js%}
 
+<!-- Codigo para tomar el click del link de agentes -->
+<script>
+    $('#web_page').click(
+        function(e){
+            e.preventDefault();
+            window.location.replace("/{{pais|safe}}/inmuebles/link/{{inmueble.codigo|safe}}/");
+    });
+</script>
+
 <!-- Google Maps -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
 
 <script>
 var map;
@@ -386,24 +405,6 @@ $('#carousel').on('slid', function (e) {
         $('#carousel').fullscreen();
     });
 </script>
-
-<!-- Codigo de twitter -->
-<script type="text/javascript">
-    window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
-</script>
-
-<!-- Codigo de facebook -->
-<div id="fb-root"></div>
-<script>
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&appId=260585997287170&version=v2.0";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-
 
 <!-- DateTimepicker -->
 <script src="{{STATIC_URL}}files/js/datetimepicker-master/build/jquery.datetimepicker.full.min.js"></script>

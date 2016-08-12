@@ -11,33 +11,27 @@ from django.template import defaultfilters
 # Manager del modelo de usuario
 class UserManager(BaseUserManager):
 
-    def create_user(self, username, nombre, apellido, correo, telefono, password, ciudad, nacionalidad, cedula, afiliado):
+    def create_user(self, username, nombre, apellido, email, password):
         if not email:
             raise ValueError("Por favor ingrese un correo válido.")
 
         user = self.model(
-            email=self.normalize_email(correo),
+            email=self.normalize_email(email),
             username=username,
             nombre=nombre,
             apellido=apellido,
-            telefono=telefono,
-            ciudad=ciudad,
-            cedula=cedula,
             is_afiliado=afiliado,
         )
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, nombre, apellido, email, telefono, password, ciudad, nacionalidad, cedula):
+    def create_superuser(self, username, nombre, apellido, email, password):
         user = self.model(
             email=self.normalize_email(email),
             username=username,
             nombre=nombre,
             apellido=apellido,
-            telefono=telefono,
-            ciudad=ciudad,
-            cedula=cedula,
             is_afiliado=True,
         )
         user.set_password(password)
@@ -53,14 +47,11 @@ class User(AbstractBaseUser):
     nombre = models.CharField(max_length=40)
     apellido = models.CharField(max_length=40)
     email = models.EmailField(unique=True)
-    ciudad = models.CharField(max_length=40)
-    telefono = models.IntegerField(max_length=20)
-    cedula = models.IntegerField(max_length=10)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ['nombre', 'apellido', 'password', 'telefono', 'ciudad', 'cedula']
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ['email', 'nombre', 'apellido', 'password']
 
     objects = UserManager()
 
@@ -269,7 +260,7 @@ class Inmueble(models.Model):
     visible = models.BooleanField(default=True)
     archivo = models.FileField(upload_to='archivos_inmuebles/', blank=True, null=True)
     ficha_tecnica = models.FileField(upload_to='fichas_inmuebles/', blank=True, null=True)
-    forma_pago = models.TextField(max_length=100, blank=True, null=True, verbose_name='Forma de pago')
+    forma_pago = models.TextField(max_length=300, blank=True, null=True, verbose_name='Forma de pago')
     pagina = models.CharField(max_length=200, blank=True, null=True)
     video = models.CharField(max_length=200, blank=True, null=True)
     areas_comunes = models.TextField()
@@ -469,20 +460,6 @@ class Banner(models.Model):
         return u"%s - %s" % (self.nombre, self.pais.nombre.name)
 
 
-# Modelo para los links editables
-class Link(models.Model):
-
-    nombre = models.CharField(max_length=100)
-    url = models.CharField(max_length=200)
-
-    class Meta:
-        verbose_name = "Link"
-        verbose_name_plural = "Links"
-
-    def __unicode__(self):
-        return u"%s - %s" % (self.nombre)
-
-
 # Modelo para los telefonos de contacto
 class Contacto(Telefono):
 
@@ -495,3 +472,51 @@ class Contacto(Telefono):
 
     def __unicode__(self):
         return u"%s - %s" % (self.pais)
+
+
+# Modelo para los inmuebles favoritos de los usuarios
+class InmuebleFavorito(models.Model):
+
+    # Claves foraneas
+    inmueble = models.ForeignKey(Inmueble)
+    usuario = models.ForeignKey(User)
+
+    class Meta:
+        verbose_name = "InmuebleFavorito"
+        verbose_name_plural = "InmueblesFavoritos"
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.inmueble.titulo)
+
+
+# Modelo para los views de los inmuebles
+class InmuebleView(models.Model):
+
+    cantidad = models.IntegerField(max_length=20, default=0)
+
+    # Claves foraneas
+    inmueble = models.ForeignKey(Inmueble)
+
+    class Meta:
+        verbose_name = "InmuebleView"
+        verbose_name_plural = "InmueblesViews"
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.inmueble.titulo)
+
+
+# Modelo para los clicks de los inmuebles
+class InmuebleConstructorClick(models.Model):
+
+    cantidad = models.IntegerField(max_length=20, default=0)
+
+    # Claves foraneas
+    agente = models.ForeignKey(Agente)
+    inmueble = models.ForeignKey(Inmueble)
+
+    class Meta:
+        verbose_name = "InmuebleClick"
+        verbose_name_plural = "InmueblesClicks"
+
+    def __unicode__(self):
+        return u"%s - %s" % (self.inmueble.titulo)

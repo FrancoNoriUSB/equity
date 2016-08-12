@@ -302,11 +302,24 @@ def inmueble(request, codigo, pais):
     # Banners del home
     banners = Banner.objects.filter(pais__nombre=pais)
 
+    # Vista del inmueble por parte del usuario
+    visto = inmueble_vista_count(request, inmueble.id)
+
+    if not visto:
+        # Crear una vista nueva o actualizar la cantidad
+        try:
+            vista = InmuebleView.objects.get(inmueble=inmueble)
+            vista.cantidad += 1
+            vista.save()
+        except:
+            vista = InmuebleView(cantidad=1, inmueble=inmueble)
+            vista.save()
+
     if request.POST:
         contactoF = ContactoAgenteForm(request.POST)
 
         if contactoF.is_valid():
-            envio_contacto = contact_email(request, contactoF, agente.correo)
+            envio_contacto = contact_email(request, contactoF, agente.correo, inmueble)
             contactoF = ContactoAgenteForm()
         else:
             solicitarvF = SolicitarVisitaForm(request.POST)
@@ -399,7 +412,7 @@ def favoritos_agregar(request, pais, id_inmueble):
     else:
         request.session['inmuebles'] = [int(id_inmueble)]
 
-    return HttpResponseRedirect('/'+str(pais)+'/')
+    return HttpResponseRedirect('/' + str(pais) + '/')
 
 
 # Vista para eliminar inmuebles favoritos
@@ -411,7 +424,7 @@ def favoritos_eliminar(request, pais, id_inmueble):
             inmuebles.remove(int(id_inmueble))
             request.session['inmuebles'] = inmuebles
 
-    return HttpResponseRedirect('/'+str(pais)+'/favoritos/')
+    return HttpResponseRedirect('/' + str(pais) + '/favoritos/')
 
 
 # Vista para agregar modulos de inmuebles favoritos
@@ -425,7 +438,7 @@ def favoritos_modulo_agregar(request, pais, cod_inmueble, id_modulo):
     else:
         request.session['modulos'] = [int(id_modulo)]
 
-    return HttpResponseRedirect('/'+str(pais)+'/inmuebles/'+str(cod_inmueble)+'/')
+    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + str(cod_inmueble) + '/')
 
 
 # Vista para eliminar inmuebles favoritos
@@ -437,7 +450,57 @@ def favoritos_modulo_eliminar(request, pais, cod_inmueble, id_modulo):
             modulos.remove(int(id_modulo))
             request.session['modulos'] = modulos
 
-    return HttpResponseRedirect('/'+str(pais)+'/favoritos/')
+    return HttpResponseRedirect('/' + str(pais) + '/favoritos/')
+
+
+# Vista para contar las vistas de un inmueble por los diferentes usuarios
+def inmueble_vista_count(request, id_inmueble):
+    visto = False
+
+    if request.session.get('vistas'):
+        inmuebles = request.session['vistas']
+        if int(id_inmueble) not in inmuebles:
+            inmuebles.append(int(id_inmueble))
+            request.session['vistas'] = inmuebles
+            visto = True
+    else:
+        request.session['vistas'] = [int(id_inmueble)]
+        visto = True
+
+    return visto
+
+
+# Vista para contar los clicks de los usuarios a los links de los agentes
+def inmueble_link_agente(request, pais, id_inmueble):
+
+    inmueble = Inmueble.objects.get(codigo=id_inmueble)
+
+    try:
+        click = InmuebleConstructorClick.objects.get(inmueble=inmueble)
+        click.cantidad += 1
+        click.save()
+    except:
+        click = InmuebleConstructorClick(cantidad=1, agente=inmueble.agente, inmueble=inmueble)
+        click.save()
+
+    return HttpResponseRedirect('http://' + inmueble.agente.pagina)
+
+
+# Vista para contar los clicks de los usuarios a los links de los agentes
+def inmueble_click_count(request, id_inmueble):
+    clickeo = False
+
+    if request.session.get('clicks'):
+        inmuebles = request.session['clicks']
+        if int(id_inmueble) not in inmuebles:
+            inmuebles.append(int(id_inmueble))
+            request.session['clicks'] = inmuebles
+            clickeo = True
+    else:
+        request.session['clicks'] = [int(id_inmueble)]
+        clickeo = True
+
+    return clickeo
 
 
 # Vista para el ingreso de los usuarios.
@@ -453,11 +516,9 @@ def login_admin(request, pais):
     loginF = LoginForm()
 
     if request.user.is_authenticated() and request.user:
-
-        return HttpResponseRedirect('/'+str(pais)+'/admin/perfil/')
+        return HttpResponseRedirect('/' + str(pais) + '/admin/perfil/')
 
     if request.method == "POST":
-
         loginF = LoginForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
@@ -467,7 +528,7 @@ def login_admin(request, pais):
                 # Caso del usuario activo
                 if usuario.is_active:
                     login(request, usuario)
-                    return HttpResponseRedirect('/'+str(pais)+'/admin/perfil/')
+                    return HttpResponseRedirect('/' + str(pais) + '/admin/perfil/')
                 else:
                     return "Tu cuenta esta bloqueada"
         else:
@@ -545,6 +606,8 @@ class DetalleInmueble(TemplateView):
         context = super(DetalleInmueble, self).get_context_data(**kwargs)
         context['inmueble'] = get_object_or_404(Inmueble, id=kwargs['id_inmueble'])
         context['modulos'] = Modulo.objects.filter(inmueble=context['inmueble'])
+        context['vistas'] = InmuebleView.objects.filter(inmueble=context['inmueble'])
+        context['clicks'] = InmuebleConstructorClick.objects.filter(inmueble=context['inmueble'])
         context['pais'] = kwargs['pais']
         return context
 
@@ -1100,20 +1163,20 @@ def monedas_list(request, pais):
     nombre_pais = dict(countries)[pais]
 
     ctx = {
-        'moneda':moneda,
-        'pais':pais,
-        'nombre_pais':nombre_pais,
+        'moneda': moneda,
+        'pais': pais,
+        'nombre_pais': nombre_pais,
     }
-    
+
     return render_to_response('admin/monedas/monedas.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar las ciudades de ese pais
+# Vista para agregar las ciudades de ese pais
 @login_required
 def monedas_agregar(request, pais):
-    
+
     monedaF = MonedaForm()
-    
+
     if request.POST:
         monedaF = MonedaForm(request.POST)
         if monedaF.is_valid():
@@ -1122,24 +1185,24 @@ def monedas_agregar(request, pais):
             moneda.pais = pais
             moneda.save()
 
-            return HttpResponseRedirect('/'+str(pais)+'/admin/monedas/')
+            return HttpResponseRedirect('/' + str(pais) + '/admin/monedas/')
 
     ctx = {
-        'MonedaForm':monedaF,
-        'pais':pais,
+        'MonedaForm': monedaF,
+        'pais': pais,
     }
-    
+
     return render_to_response('admin/monedas/agregar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar las ciudades de ese pais
+# Vista para agregar las ciudades de ese pais
 @login_required
 def monedas_editar(request, pais, id_moneda):
-    
+
     editado = ''
     moneda = Moneda.objects.get(pais__nombre=pais, id=id_moneda)
     monedaF = MonedaForm(instance=moneda)
-    
+
     if request.POST:
         monedaF = MonedaForm(request.POST, instance=moneda)
         if monedaF.is_valid():
@@ -1147,27 +1210,26 @@ def monedas_editar(request, pais, id_moneda):
             editado = True
 
     ctx = {
-        'MonedaForm':monedaF,
-        'editado':editado,
-        'pais':pais,
+        'MonedaForm': monedaF,
+        'editado': editado,
+        'pais': pais,
     }
-    
+
     return render_to_response('admin/monedas/editar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para agregar los agentes de ese pais
 @login_required
 def monedas_eliminar(request, pais, id_moneda):
-    
-    moneda = get_object_or_404(Moneda, id=id_moneda).delete()
 
-    return HttpResponseRedirect('/'+str(pais)+'/admin/monedas/')
+    get_object_or_404(Moneda, id=id_moneda).delete()
+
+    return HttpResponseRedirect('/' + str(pais) + '/admin/monedas/')
 
 
-
-#Vista para cerrar la sesion
+# Vista para cerrar la sesion
 @login_required
 def logout_admin(request, pais):
 
     logout(request)
-    return HttpResponseRedirect('/'+str(pais)+'/')
+    return HttpResponseRedirect('/' + str(pais) + '/')

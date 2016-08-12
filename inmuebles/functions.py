@@ -5,7 +5,7 @@ from django.db.models import Q
 
 
 # Funcion para los correos que se envian en Contact Us
-def contact_email(request, form, correo):
+def contact_email(request, form, correo, inmueble):
 
     emailF = form
     emails = []
@@ -24,6 +24,7 @@ def contact_email(request, form, correo):
 
     # Mensaje a enviar
     message = 'Correo de contacto del usuario: ' + str(name) + '. Con correo: ' + str(emailF.cleaned_data['correo']) + '<br>'
+    message += 'Inmueble: ' + inmueble.titulo + '<br>'
     message += 'Mensaje: ' + str(emailF.cleaned_data['comentario']) + '<br>'
     message += 'Telefono de contacto: ' + str(telephone)
 
