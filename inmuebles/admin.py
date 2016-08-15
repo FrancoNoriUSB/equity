@@ -1,6 +1,7 @@
 from django.contrib import admin
 from inmuebles.models import *
 
+
 class ImagenInmuebleInLine(admin.StackedInline):
     model = ImagenInmueble
     extra = 0
@@ -59,11 +60,15 @@ class TelefonoAgenteAdmin(admin.ModelAdmin):
 
 admin.site.register(Inmueble, InmuebleAdmin)
 admin.site.register(Agente, AgenteAdmin)
+admin.site.register(Ciudad, CiudadAdmin)
 admin.site.register(ImagenInmueble, ImagenInmuebleAdmin)
 admin.site.register(Pais)
 admin.site.register(TelefonoAgente, TelefonoAgenteAdmin)
 admin.site.register(TipoInmueble, TipoInmuebleAdmin)
-admin.site.register(Ciudad, CiudadAdmin)
+admin.site.register(InmuebleConstructorClick)
+admin.site.register(InmuebleSkypeClick)
+admin.site.register(InmuebleFavorito)
+admin.site.register(InmuebleView)
 admin.site.register(Zona, ZonaAdmin)
 admin.site.register(Moneda)
 admin.site.register(Modulo)

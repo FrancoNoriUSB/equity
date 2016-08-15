@@ -19,8 +19,9 @@
                 <strong>Zona:</strong> {{ inmueble.zona }}<br />
                 <strong>Dirección:</strong> {{ inmueble.direccion }}<br />
                 <strong>Agente:</strong> {{ inmueble.agente }}<br />
-                <strong>Clicks Página:</strong> {{ clicks|length }}<br />
-                <strong>Vistas:</strong> {{ vistas|length }}<br />
+                <strong>Clicks Página:</strong> {{ clicks.cantidad }}<br />
+                <strong>Vistas:</strong> {{ vistas.cantidad }}<br />
+                <strong>Clicks Skype:</strong> {{ skype.cantidad }}<br />
                 <h4>Módulos</h4>
                 <a href="{% url 'inmuebles:agregar_modulo' pais inmueble.id %}" class="btn btn-sm btn-primary">
                     Agregar módulo

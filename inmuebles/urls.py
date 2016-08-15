@@ -7,6 +7,7 @@ urlpatterns = patterns('inmuebles.views',
             url(r'^(?P<pais>[A-Z][A-Z])/$', 'home', name='home_pais'),
             url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/(?P<codigo>[0-9A-Za-z]+)/$', 'inmueble', name='inmueble'),
             url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/link/(?P<id_inmueble>\d*)/$', 'inmueble_link_agente', name='inmueble_link_agente'),
+            url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/link-skype/(?P<id_inmueble>\d*)/$', 'inmueble_call_agente', name='inmueble_call_agente'),
 
             # Favoritos
             url(r'^(?P<pais>[A-Z][A-Z])/favoritos/$', 'favoritos_list', name='listar_favoritos'),

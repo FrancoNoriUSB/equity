@@ -249,14 +249,14 @@
                                     </a>
                                 {%endif%}
                                 <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
-                                <div id="SkypeButton_Call_equity.media_1" class="skype-equity">
+                                <div id="SkypeButton_Call_equity" class="skype-equity">
                                     <p class="mensaje">
                                         Contáctenos de manera gratuita desde su computador
                                     </p>
                                     <script type="text/javascript">
                                     Skype.ui({
                                     "name": "call",
-                                    "element": "SkypeButton_Call_equity.media_1",
+                                    "element": "SkypeButton_Call_equity",
                                     "participants": ["equity.media"],
                                     "imageSize": 24
                                     });
@@ -356,6 +356,12 @@
             e.preventDefault();
             window.location.replace("/{{pais|safe}}/inmuebles/link/{{inmueble.codigo|safe}}/");
     });
+    
+    $('#SkypeButton_Call_equity a').click(
+        function(e){
+            window.location.replace("/{{pais|safe}}/inmuebles/link-skype/{{inmueble.codigo|safe}}/");
+    });
+    
 </script>
 
 <!-- Google Maps -->

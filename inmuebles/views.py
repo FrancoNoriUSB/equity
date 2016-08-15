@@ -462,10 +462,10 @@ def inmueble_vista_count(request, id_inmueble):
         if int(id_inmueble) not in inmuebles:
             inmuebles.append(int(id_inmueble))
             request.session['vistas'] = inmuebles
+        else:
             visto = True
     else:
         request.session['vistas'] = [int(id_inmueble)]
-        visto = True
 
     return visto
 
@@ -475,15 +475,34 @@ def inmueble_link_agente(request, pais, id_inmueble):
 
     inmueble = Inmueble.objects.get(codigo=id_inmueble)
 
+    click = inmueble_click_count(request, id_inmueble)
+
+    if not click:
+        try:
+            click = InmuebleConstructorClick.objects.get(inmueble=inmueble)
+            click.cantidad += 1
+            click.save()
+        except:
+            click = InmuebleConstructorClick(cantidad=1, agente=inmueble.agente, inmueble=inmueble)
+            click.save()
+
+    return HttpResponseRedirect('http://' + inmueble.agente.pagina)
+
+
+# Vista para contar los clicks de los usuarios a los links de skype los agentes
+def inmueble_call_agente(request, pais, id_inmueble):
+
+    inmueble = Inmueble.objects.get(codigo=id_inmueble)
+
     try:
-        click = InmuebleConstructorClick.objects.get(inmueble=inmueble)
+        click = InmuebleSkypeClick.objects.get(inmueble=inmueble)
         click.cantidad += 1
         click.save()
     except:
-        click = InmuebleConstructorClick(cantidad=1, agente=inmueble.agente, inmueble=inmueble)
+        click = InmuebleSkypeClick(cantidad=1, agente=inmueble.agente, inmueble=inmueble)
         click.save()
 
-    return HttpResponseRedirect('http://' + inmueble.agente.pagina)
+    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + str(id_inmueble))
 
 
 # Vista para contar los clicks de los usuarios a los links de los agentes
@@ -495,10 +514,27 @@ def inmueble_click_count(request, id_inmueble):
         if int(id_inmueble) not in inmuebles:
             inmuebles.append(int(id_inmueble))
             request.session['clicks'] = inmuebles
+        else:
             clickeo = True
     else:
         request.session['clicks'] = [int(id_inmueble)]
-        clickeo = True
+
+    return clickeo
+
+
+# Vista para contar los clicks de los usuarios a los links de skype de agentes
+def inmueble_click_skype_count(request, id_inmueble):
+    clickeo = False
+
+    if request.session.get('skype'):
+        inmuebles = request.session['skype']
+        if int(id_inmueble) not in inmuebles:
+            inmuebles.append(int(id_inmueble))
+            request.session['skype'] = inmuebles
+        else:
+            clickeo = True
+    else:
+        request.session['skype'] = [int(id_inmueble)]
 
     return clickeo
 
@@ -606,8 +642,9 @@ class DetalleInmueble(TemplateView):
         context = super(DetalleInmueble, self).get_context_data(**kwargs)
         context['inmueble'] = get_object_or_404(Inmueble, id=kwargs['id_inmueble'])
         context['modulos'] = Modulo.objects.filter(inmueble=context['inmueble'])
-        context['vistas'] = InmuebleView.objects.filter(inmueble=context['inmueble'])
-        context['clicks'] = InmuebleConstructorClick.objects.filter(inmueble=context['inmueble'])
+        context['vistas'] = InmuebleView.objects.get(inmueble=context['inmueble'])
+        context['clicks'] = InmuebleConstructorClick.objects.get(inmueble=context['inmueble'])
+        context['skype'] = InmuebleSkypeClick.objects.get(inmueble=context['inmueble'])
         context['pais'] = kwargs['pais']
         return context
 

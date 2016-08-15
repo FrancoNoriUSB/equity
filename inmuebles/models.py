@@ -471,7 +471,7 @@ class Contacto(Telefono):
         verbose_name_plural = "Contactos"
 
     def __unicode__(self):
-        return u"%s - %s" % (self.pais)
+        return u"%s" % (self.pais)
 
 
 # Modelo para los inmuebles favoritos de los usuarios
@@ -486,7 +486,7 @@ class InmuebleFavorito(models.Model):
         verbose_name_plural = "InmueblesFavoritos"
 
     def __unicode__(self):
-        return u"%s - %s" % (self.inmueble.titulo)
+        return u"%s" % (self.inmueble.titulo)
 
 
 # Modelo para los views de los inmuebles
@@ -498,11 +498,11 @@ class InmuebleView(models.Model):
     inmueble = models.ForeignKey(Inmueble)
 
     class Meta:
-        verbose_name = "InmuebleView"
-        verbose_name_plural = "InmueblesViews"
+        verbose_name = "Inmueble View"
+        verbose_name_plural = "Inmuebles Views"
 
     def __unicode__(self):
-        return u"%s - %s" % (self.inmueble.titulo)
+        return u"%s" % (self.inmueble.titulo)
 
 
 # Modelo para los clicks de los inmuebles
@@ -515,8 +515,25 @@ class InmuebleConstructorClick(models.Model):
     inmueble = models.ForeignKey(Inmueble)
 
     class Meta:
-        verbose_name = "InmuebleClick"
-        verbose_name_plural = "InmueblesClicks"
+        verbose_name = "Inmueble Click"
+        verbose_name_plural = "Inmuebles Clicks"
 
     def __unicode__(self):
-        return u"%s - %s" % (self.inmueble.titulo)
+        return u"%s" % (self.inmueble.titulo)
+
+
+# Modelo para los clicks de llamadas de los inmuebles
+class InmuebleSkypeClick(models.Model):
+
+    cantidad = models.IntegerField(max_length=20, default=0)
+
+    # Claves foraneas
+    agente = models.ForeignKey(Agente)
+    inmueble = models.ForeignKey(Inmueble)
+
+    class Meta:
+        verbose_name = "Inmueble Skype Click"
+        verbose_name_plural = "Inmuebles Skype Clicks"
+
+    def __unicode__(self):
+        return u"%s" % (self.inmueble.titulo)
