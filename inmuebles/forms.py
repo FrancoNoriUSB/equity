@@ -2,7 +2,6 @@
 from django import forms
 from models import *
 from django.forms.extras.widgets import *
-from django.contrib.auth.forms import UserCreationForm
 from django_countries import countries
 from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
@@ -61,7 +60,6 @@ class BuscadorForm(forms.Form):
     )
 
     inmuebles = (
-        # ('6', '6'),
         ('12', '12'),
         ('24', '24'),
         ('48', '48'),
@@ -142,19 +140,35 @@ class ThumbInmuebleForm(forms.ModelForm):
 
 # Formulario de registro simple de usuario
 class UserForm(forms.ModelForm):
-    confirm_password = forms.CharField(widget=forms.PasswordInput(), label='Confirme Contraseña')
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Repetir contraseña', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'password',)
+        fields = ('first_name', 'email', 'username',)
         widgets = {
             'email': forms.EmailInput(),
-            'password': forms.PasswordInput(),
         }
+
         labels = {
+            'first_name': 'Nombre',
             'email': 'Correo Electrónico',
-            'password': 'Contraseña',
+            'username': 'Nombre de Usuario',
         }
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Las contraseñas no coinciden")
+        return password2
+
+    def save(self, commit=True):
+        user = super(UserForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
 
 
 # Formulario para agentes
@@ -215,6 +229,7 @@ class AreaComunForm(forms.ModelForm):
         widgets = {
             'nombre': forms.TextInput(),
         }
+
         fields = ['nombre']
         labels = {
             'nombre': 'Otra área común',

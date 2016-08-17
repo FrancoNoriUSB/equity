@@ -342,20 +342,9 @@ body,
 
 
 /*Media queries para adaptar la pagina*/
-@media (min-width: 1500px){
-
-	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
-		margin-top: 12% !important;
-	}
-
-}
 @media (min-width: 1200px) and (max-width: 1500px){
 	body > div.header-home > div.container{
 		margin-top: 9% !important;
-	}
-
-	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
-		margin-top: 12% !important;
 	}
 
 	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(10){
@@ -366,10 +355,6 @@ body,
 @media (min-width: 992px) and (max-width: 1200px){
 	body > div.header-home > div.container{
 		margin-top: 11% !important;
-	}
-
-	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
-		margin-top: 14% !important;
 	}
 
 	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(10){
@@ -385,20 +370,12 @@ body,
 	body > div.header-home > div.container{
 		margin-top: 13% !important;
 	}
-
-	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
-		margin-top: 16% !important;
-	}
 }
 
 @media screen and (min-width: 768px) and (max-width: 992px){
 	
 	body > div.header-home > div.container{
 		margin-top: 15% !important;
-	}
-
-	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
-		margin-top: 18% !important;
 	}
 
 	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
@@ -413,7 +390,7 @@ body,
 	}
 
 	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
-		margin-top: 22% !important;
+		margin-top: 12% !important;
 	}
 
 	body > header > nav > div > div > div > div.navbar-header {
@@ -427,7 +404,7 @@ body,
 	}
 
 	body > div.contenido > div.info-base, body > div.contenido > div.contenido-favs{
-		margin-top: 24% !important;
+		margin-top: 16% !important;
 	}
 
 	body > header > nav > div > div > div > div.navbar-header {

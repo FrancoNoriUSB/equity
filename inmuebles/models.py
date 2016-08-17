@@ -3,66 +3,9 @@ import os
 from Equity.settings import *
 from django.utils.translation import gettext as _
 from django.db import models
+from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.template import defaultfilters
-
-
-# Manager del modelo de usuario
-class UserManager(BaseUserManager):
-
-    def create_user(self, username, nombre, apellido, email, password):
-        if not email:
-            raise ValueError("Por favor ingrese un correo válido.")
-
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-            nombre=nombre,
-            apellido=apellido,
-            is_afiliado=afiliado,
-        )
-        user.set_password(password)
-        user.save()
-        return user
-
-    def create_superuser(self, username, nombre, apellido, email, password):
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-            nombre=nombre,
-            apellido=apellido,
-            is_afiliado=True,
-        )
-        user.set_password(password)
-        user.is_staff = True
-        user.save()
-        return user
-
-
-# Definicion del usuario
-class User(AbstractBaseUser):
-
-    username = models.CharField(max_length=40)
-    nombre = models.CharField(max_length=40)
-    apellido = models.CharField(max_length=40)
-    email = models.EmailField(unique=True)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-
-    USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ['email', 'nombre', 'apellido', 'password']
-
-    objects = UserManager()
-
-    def get_full_name(self):
-        return self.email
-
-    def get_short_name(self):
-        return self.email
-
-    def __str__(self):
-        return self.email
 
 
 # Pais al cual pertenece el usuario de Perfil
@@ -482,11 +425,26 @@ class InmuebleFavorito(models.Model):
     usuario = models.ForeignKey(User)
 
     class Meta:
-        verbose_name = "InmuebleFavorito"
-        verbose_name_plural = "InmueblesFavoritos"
+        verbose_name = "Inmueble Favorito"
+        verbose_name_plural = "Inmuebles Favoritos"
 
     def __unicode__(self):
         return u"%s" % (self.inmueble.titulo)
+
+
+# Modelo para los inmuebles favoritos de los usuarios
+class ModuloFavorito(models.Model):
+
+    # Claves foraneas
+    modulo = models.ForeignKey(Modulo)
+    usuario = models.ForeignKey(User)
+
+    class Meta:
+        verbose_name = "Modulo Favorito"
+        verbose_name_plural = "Modulos Favoritos"
+
+    def __unicode__(self):
+        return u"%s" % (self.modulo)
 
 
 # Modelo para los views de los inmuebles

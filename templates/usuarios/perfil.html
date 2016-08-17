@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block scripts %}
+    
+<!-- Estilos de la pagina-->
+<link href="{{STATIC_URL}}files/css/perfil.css"	 rel="stylesheet" type="text/css" />
+
+{% endblock scripts %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3>
+						Datos de usuario
+					</h3>
+				</div>
+				<div class="panel-body">
+					<p class="text-left">
+						Nombre: {{request.user.first_name}}
+						<br>
+						Usuario: {{request.user.username}}
+						<br>
+						Email: {{request.user.email}}
+						<br>
+					</p>
+					<br>
+					<a href="/{{pais}}/favoritos/" title="" class="btn btn-primary">
+						Ver Favoritos
+					</a>
+					<a href="/{{pais}}/favoritos/enviar/" title="" class="btn btn-success">
+						Enviar Favoritos
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

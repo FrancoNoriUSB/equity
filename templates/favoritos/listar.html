@@ -60,24 +60,24 @@
 					</tr>
 				</tfoot>
 				<tbody>
-					{%for inmueble in inmuebles%}
+					{%for inmuebleF in inmueblesFavoritos%}
 						<tr class="{% cycle 'active' 'info' %}">
 							<td>
-								{{inmueble.titulo}}
+								{{inmuebleF.inmueble.titulo}}
 							</td>
 							<td>
-								{{inmueble.pais.nombre.name}}
+								{{inmuebleF.inmueble.pais.nombre.name}}
 							</td>
 							<td>
-								{{inmueble.ciudad.nombre}}
+								{{inmuebleF.inmueble.ciudad.nombre}}
 							</td>
 							<td>
-								<a href="/{{inmueble.pais.nombre}}/inmuebles/{{inmueble.codigo}}/">
+								<a href="/{{inmuebleF.inmueble.pais.nombre}}/inmuebles/{{inmuebleF.inmueble.codigo}}/">
 									Ver
 								</a>
 							</td>
 							<td>
-								<a href="/{{pais}}/favoritos/eliminar/{{inmueble.id}}/">
+								<a href="/{{pais}}/favoritos/eliminar/{{inmuebleF.inmueble.id}}/">
 									Eliminar
 								</a>
 							</td>
@@ -154,22 +154,22 @@
 					</tr>
 				</tfoot>
 				<tbody>
-					{%for modulo in modulos%}
+					{%for moduloF in modulosFavoritos%}
 						<tr class="{% cycle 'active' 'info' %}">
 							<td>
-								{{modulo.inmueble.titulo}}
+								{{moduloF.modulo.inmueble.titulo}}
 							</td>
 							<td>
-								{{modulo.inmueble.pais.nombre.name}}
+								{{moduloF.modulo.inmueble.pais.nombre.name}}
 							</td>
 							<td>
-								{{modulo.inmueble.ciudad.nombre}}
+								{{moduloF.modulo.inmueble.ciudad.nombre}}
 							</td>
 							<td>
-								{{modulo.metros}}
+								{{moduloF.modulo.metros}}
 							</td>
 							<td>
-								{{modulo.dormitorios}}
+								{{moduloF.modulo.dormitorios}}
 							</td>
 							<td>
 								{{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
@@ -178,12 +178,12 @@
 								{{modulo.precio|floatformat|intcomma}} USD
 							</td>
 							<td>
-								<a href="/{{pais}}/inmuebles/{{modulo.inmueble.codigo}}/">
+								<a href="/{{pais}}/inmuebles/{{moduloF.modulo.inmueble.codigo}}/">
 									Ver
 								</a>
 							</td>
 							<td>
-								<a href="/{{pais}}/favoritos/modulos/eliminar/{{modulo.inmueble.codigo}}/{{modulo.id}}/">
+								<a href="/{{pais}}/favoritos/modulos/eliminar/{{moduloF.modulo.id}}/">
 									Eliminar
 								</a>
 							</td>

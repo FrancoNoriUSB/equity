@@ -82,6 +82,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -124,6 +125,7 @@ MEDIA_URL = '/uploads/'
 # For Sidebar Menu (List of apps and models) (RECOMMENDED)
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
+    'inmuebles.context_processor.context_busqueda',
 )
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True

@@ -103,6 +103,18 @@
                                     <li>
                                         <a href="/{{pais}}/favoritos/">Ver Favoritos</a>
                                     </li>
+                                    {%if user.is_authenticated%}
+                                    <li>
+                                        <a href="/{{pais}}/perfil/">Perfil</a>
+                                    </li>
+                                    <li>
+                                        <a href="/{{pais}}/logout/">Salir</a>
+                                    </li>
+                                    {%else%}
+                                    <li>
+                                        <a href="/{{pais}}/ingreso-registro/">Ingresar</a>
+                                    </li>
+                                    {%endif%}
                                     <li class="buscador">
                                         <form class="navbar-form navbar-right" role="form" action="/{{pais}}/" method="GET">
                                             {% csrf_token %}

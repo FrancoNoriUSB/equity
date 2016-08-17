@@ -5,6 +5,15 @@
   Azul Oscuro:#1a2e51;
 */
 
-body > div.contenido.container > div{
-	margin-top: 10%;
+.container-fluid {
+    height: 100%;
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.centering {
+    float: none;
+    margin: 0 auto;
 }

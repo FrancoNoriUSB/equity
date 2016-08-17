@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.template.loader import get_template
+from django.core.urlresolvers import reverse_lazy
 from django.template import Context
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
@@ -266,11 +267,6 @@ def inmueble(request, codigo, pais):
     envio_visita = False
     fecha_entrega = ''
 
-    # Buscador de inmuebles
-    buscadorF = BuscadorForm()
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
-
     # Inmueble
     inmueble = get_object_or_404(Inmueble, codigo=codigo, pais__nombre=pais)
 
@@ -329,20 +325,13 @@ def inmueble(request, codigo, pais):
                 solicitarvF = SolicitarVisitaForm()
                 contactoF = ContactoAgenteForm()
 
-    # Formulario para los paises disponibles
-    paisesF = PaisesForm(initial={
-        'pais': pais,
-    })
-
     ctx = {
         'inmueble': inmueble,
         'modulos': modulos,
         'moneda': moneda,
-        'buscadorF': buscadorF,
         'telefonosAgente': telefonos,
         'ContactoAgenteForm': contactoF,
         'SolicitarVisitaForm': solicitarvF,
-        'paisesF': paisesF,
         'imagenes': imagenes,
         'banners': banners,
         'pais': pais,
@@ -359,43 +348,32 @@ def favoritos_list(request, pais):
 
     inmuebles = []
     modulos = []
-    id_inmuebles = []
-    id_modulos = []
+    user = request.user
 
-    # Buscador de inmuebles
-    buscadorF = BuscadorForm()
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
+    if user.is_authenticated() and request.user:
 
-    # Moneda
-    try:
-        moneda = Moneda.objects.get(pais__nombre=pais)
-    except:
-        moneda = ''
+        # Moneda
+        try:
+            moneda = Moneda.objects.get(pais__nombre=pais)
+        except:
+            moneda = ''
 
-    # Formulario para los paises disponibles
-    paisesF = PaisesForm(initial={
-        'pais': pais,
-    })
-    try:
-        id_inmuebles = request.session['inmuebles']
-    except:
-        id_inmuebles = []
+        # Formulario para los paises disponibles
+        paisesF = PaisesForm(initial={
+            'pais': pais,
+        })
 
-    try:
-        id_modulos = request.session['modulos']
-    except:
-        id_modulos = []
+        inmuebles = InmuebleFavorito.objects.filter(usuario=request.user).order_by('inmueble__pais__nombre')
+        modulos = ModuloFavorito.objects.filter(usuario=request.user).order_by('modulo__inmueble__pais__nombre')
+    else:
+        return HttpResponseRedirect('/' + str(pais) + '/ingreso-registro/')
 
-    inmuebles = Inmueble.objects.filter(id__in=id_inmuebles).order_by('pais__nombre')
-    modulos = Modulo.objects.filter(id__in=id_modulos).order_by('inmueble__pais__nombre')
     ctx = {
         'moneda': moneda,
-        'buscadorF': buscadorF,
         'paisesF': paisesF,
         'pais': pais,
-        'inmuebles': inmuebles,
-        'modulos': modulos
+        'inmueblesFavoritos': inmuebles,
+        'modulosFavoritos': modulos
     }
 
     return render_to_response('favoritos/listar.html', ctx, context_instance=RequestContext(request))
@@ -404,53 +382,86 @@ def favoritos_list(request, pais):
 # Vista para agregar inmuebles favoritos
 def favoritos_agregar(request, pais, id_inmueble):
 
-    if request.session.get('inmuebles'):
-        inmuebles = request.session['inmuebles']
-        if int(id_inmueble) not in inmuebles:
-            inmuebles.append(int(id_inmueble))
-            request.session['inmuebles'] = inmuebles
-    else:
-        request.session['inmuebles'] = [int(id_inmueble)]
+    user = request.user
+    url = '/'
 
-    return HttpResponseRedirect('/' + str(pais) + '/')
+    if user.is_authenticated() and request.user:
+        try:
+            inmueble = InmuebleFavorito.objects.get(inmueble__id=id_inmueble, usuario=user)
+        except:
+            url = '/' + str(pais) + '/favoritos/'
+
+        if inmueble:
+            favorito = InmuebleFavorito(inmueble=inmueble, usuario=user)
+            favorito.save()
+            url = '/' + str(pais) + '/favoritos/'
+    else:
+        url = '/' + str(pais) + '/ingreso-registro/'
+
+    return HttpResponseRedirect(url)
 
 
 # Vista para eliminar inmuebles favoritos
 def favoritos_eliminar(request, pais, id_inmueble):
+    user = request.user
+    url = '/'
 
-    if request.session.get('inmuebles'):
-        inmuebles = request.session['inmuebles']
-        if int(id_inmueble) in inmuebles:
-            inmuebles.remove(int(id_inmueble))
-            request.session['inmuebles'] = inmuebles
+    if user.is_authenticated() and request.user:
+        try:
+            inmueble = InmuebleFavorito.objects.get(inmueble__id=id_inmueble, usuario=user)
+            inmueble.delete()
+        except:
+            url = '/'
 
-    return HttpResponseRedirect('/' + str(pais) + '/favoritos/')
+        url = '/' + str(pais) + '/favoritos/'
+    else:
+        url = '/' + str(pais) + '/ingreso-registro/'
+
+    return HttpResponseRedirect(url)
 
 
 # Vista para agregar modulos de inmuebles favoritos
-def favoritos_modulo_agregar(request, pais, cod_inmueble, id_modulo):
+def favoritos_modulo_agregar(request, pais, id_modulo):
 
-    if request.session.get('modulos'):
-        modulos = request.session['modulos']
-        if int(id_modulo) not in modulos:
-            modulos.append(int(id_modulo))
-            request.session['modulos'] = modulos
+    modulo = None
+    user = request.user
+    url = '/'
+
+    if user.is_authenticated() and user:
+        try:
+            modulo = ModuloFavorito.objects.get(modulo__id=id_modulo, usuario=user)
+        except:
+            url = '/' + str(pais) + '/favoritos/'
+
+        if not modulo:
+            favorito = ModuloFavorito(modulo_id=id_modulo, usuario=user)
+            favorito.save()
+            url = '/' + str(pais) + '/favoritos/'
     else:
-        request.session['modulos'] = [int(id_modulo)]
+        url = '/' + str(pais) + '/ingreso-registro/'
 
-    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + str(cod_inmueble) + '/')
+    return HttpResponseRedirect(url)
 
 
 # Vista para eliminar inmuebles favoritos
-def favoritos_modulo_eliminar(request, pais, cod_inmueble, id_modulo):
+def favoritos_modulo_eliminar(request, pais, id_modulo):
 
-    if request.session.get('modulos'):
-        modulos = request.session['modulos']
-        if int(id_modulo) in modulos:
-            modulos.remove(int(id_modulo))
-            request.session['modulos'] = modulos
+    modulo = None
+    user = request.user
+    url = '/'
 
-    return HttpResponseRedirect('/' + str(pais) + '/favoritos/')
+    if user.is_authenticated() and user:
+        try:
+            modulo = ModuloFavorito.objects.get(modulo__id=id_modulo, usuario=user)
+            modulo.delete()
+        except:
+            url = '/'
+
+        url = '/' + str(pais) + '/favoritos/'
+    else:
+        url = '/' + str(pais) + '/ingreso-registro/'
+
+    return HttpResponseRedirect(url)
 
 
 # Vista para contar las vistas de un inmueble por los diferentes usuarios
@@ -474,7 +485,6 @@ def inmueble_vista_count(request, id_inmueble):
 def inmueble_link_agente(request, pais, id_inmueble):
 
     inmueble = Inmueble.objects.get(codigo=id_inmueble)
-
     click = inmueble_click_count(request, id_inmueble)
 
     if not click:
@@ -539,7 +549,85 @@ def inmueble_click_skype_count(request, id_inmueble):
     return clickeo
 
 
-# Vista para el ingreso de los usuarios.
+# Vista para el ingreso y registro de los usuarios.
+def login_register_user(request, pais):
+
+    username = ''
+    password = ''
+    usuario = ''
+
+    # Formularios basicos
+    loginF = LoginForm()
+    registroF = UserForm()
+
+    # Formulario para los paises disponibles
+    paisesF = PaisesForm(initial={
+        'pais': pais,
+    })
+
+    if request.user.is_authenticated() and request.user:
+        return HttpResponseRedirect('/' + str(pais) + '/perfil/')
+
+    if request.POST:
+        registroF = UserForm(request.POST)
+        if registroF.is_valid():
+            registroF.save()
+        else:
+            loginF = LoginForm(request.POST)
+            try:
+                username = request.POST['username']
+                password = request.POST['password']
+                usuario = authenticate(username=username, password=password)
+            except:
+                print 'kasdl'
+
+            if usuario:
+                # Caso del usuario activo
+                if usuario.is_active:
+                    login(request, usuario)
+                    return HttpResponseRedirect('/' + str(pais) + '/perfil/')
+                else:
+                    return "Tu cuenta esta bloqueada"
+            else:
+                # Usuario invalido o no existe!
+                print "Invalid login details: {0}, {1}".format(username, password)
+            registroF = UserForm()
+
+    ctx = {
+        'pais': pais,
+        'login': loginF,
+        'registro': registroF,
+        'paisesF': paisesF,
+    }
+
+    return render_to_response('usuarios/login-registro.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para el perfil de usuarios comunes.
+@login_required
+def perfil_user(request, pais):
+
+    # Formulario para los paises disponibles
+    paisesF = PaisesForm(initial={
+        'pais': pais,
+    })
+
+    ctx = {
+        'pais': pais,
+        'paisesF': paisesF,
+    }
+    return render_to_response('usuarios/perfil.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para cerrar la sesion de usuario comun
+@login_required
+def perfil_logout(request, pais):
+
+    logout(request)
+    return HttpResponseRedirect('/' + str(pais) + '/')
+
+
+# Vista para el ingreso de los usuarios administradores.
 def login_admin(request, pais):
 
     username = ''
@@ -576,10 +664,11 @@ def login_admin(request, pais):
         'login': loginF,
         'buscadorF': buscadorF,
     }
+
     return render_to_response('login/login.html', ctx, context_instance=RequestContext(request))
 
 
-# Vista para el ingreso de los usuarios.
+# Vista para el perfil de usuarios del admin
 @login_required
 def perfil_admin(request, pais):
 
@@ -840,7 +929,7 @@ class EditarModulo(UpdateView):
 # Vista para eliminar los modulos
 @login_required
 def modulos_eliminar(request, pais, id_inmueble, id_modulo):
-    modulo = get_object_or_404(Modulo, id=id_modulo).delete()
+    get_object_or_404(Modulo, id=id_modulo).delete()
 
     return redirect('inmuebles:detalle', pais=pais, id_inmueble=id_inmueble)
 
@@ -938,7 +1027,7 @@ def inmuebles_thumbnail(request, pais, id_inmueble):
 @login_required
 def inmuebles_eliminar(request, pais, id_inmueble):
 
-    inmueble = get_object_or_404(Inmueble, id=id_inmueble).delete()
+    get_object_or_404(Inmueble, id=id_inmueble).delete()
     return HttpResponseRedirect('/' + str(pais) + '/admin/inmuebles/')
 
 
@@ -963,14 +1052,14 @@ def agentes_list(request, pais):
 def agentes_agregar(request, pais):
 
     agenteF = AgenteForm()
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete = True)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete=True)
     telefonoAgenteF = telefonoFormSet()
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES)
-        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete = True)
+        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete=True)
         telefonoAgenteF = telefonoFormSet(request.POST)
-        
+
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agente = agenteF.save(commit=False)
             pais = Pais.objects.get(nombre=pais)
@@ -991,7 +1080,7 @@ def agentes_agregar(request, pais):
                     telefono.agente = agente
                     telefono.save()
 
-            return HttpResponseRedirect('/'+str(pais)+'/admin/agentes/')
+            return HttpResponseRedirect('/' + str(pais) + '/admin/agentes/')
 
     ctx = {
         'TelefonoAgenteForm': telefonoAgenteF,
@@ -1009,60 +1098,60 @@ def agentes_editar(request, pais, id_agente):
     editado = ''
     agente = Agente.objects.get(id=id_agente)
     agenteF = AgenteForm(instance=agente)
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form = TelefonoAgenteForm, can_delete = True)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete=True)
     telefonoAgenteF = telefonoFormSet(instance=agente)
 
     if request.POST:
         agenteF = AgenteForm(request.POST, request.FILES, instance=agente)
-        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form = TelefonoAgenteForm, can_delete = True)
+        telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete=True)
         telefonoAgenteF = telefonoFormSet(request.POST, instance=agente)
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agenteF.save()
             telefonoAgenteF.save()
             editado = True
 
-    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form = TelefonoAgenteForm, can_delete = True)
+    telefonoFormSet = inlineformset_factory(Agente, TelefonoAgente, extra=6, max_num=6, form=TelefonoAgenteForm, can_delete=True)
     telefonoAgenteF = telefonoFormSet(instance=agente)
 
     ctx = {
-        'AgenteForm':agenteF,
+        'AgenteForm': agenteF,
         'TelefonoAgenteForm': telefonoAgenteF,
-        'editado':editado,
-        'pais':pais,
+        'editado': editado,
+        'pais': pais,
     }
-    
+
     return render_to_response('admin/agentes/editar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para agregar los agentes de ese pais
 @login_required
 def agentes_eliminar(request, pais, id_agente):
-    
-    agente = get_object_or_404(Agente, id=id_agente).delete()
 
-    return HttpResponseRedirect('/'+str(pais)+'/admin/agentes/')
+    get_object_or_404(Agente, id=id_agente).delete()
+
+    return HttpResponseRedirect('/' + str(pais) + '/admin/agentes/')
 
 
-#Vista para listar las ciudades de ese pais
+# Vista para listar las ciudades de ese pais
 @login_required
 def ciudades_list(request, pais):
-    
+
     ciudades = Ciudad.objects.filter(pais__nombre=pais)
     nombre_pais = dict(countries)[pais]
 
     ctx = {
-        'ciudades':ciudades,
-        'pais':pais,
-        'nombre_pais':nombre_pais,
+        'ciudades': ciudades,
+        'pais': pais,
+        'nombre_pais': nombre_pais,
     }
-    
+
     return render_to_response('admin/ciudades/ciudades.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar las ciudades de ese pais
+# Vista para agregar las ciudades de ese pais
 @login_required
 def ciudades_agregar(request, pais):
-    
+
     ciudadF = CiudadForm()
 
     if request.POST:
@@ -1073,20 +1162,20 @@ def ciudades_agregar(request, pais):
             ciudad.pais = pais
             ciudad.save()
 
-            return HttpResponseRedirect('/'+str(pais)+'/admin/ciudades/')
+            return HttpResponseRedirect('/' + str(pais) + '/admin/ciudades/')
 
     ctx = {
-        'CiudadForm':ciudadF,
-        'pais':pais,
+        'CiudadForm': ciudadF,
+        'pais': pais,
     }
 
     return render_to_response('admin/ciudades/agregar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar las ciudades de ese pais
+# Vista para agregar las ciudades de ese pais
 @login_required
 def ciudades_editar(request, pais, id_ciudad):
-    
+
     editado = ''
     ciudad = Ciudad.objects.get(id=id_ciudad)
     ciudadF = CiudadForm(instance=ciudad)
@@ -1098,70 +1187,70 @@ def ciudades_editar(request, pais, id_ciudad):
             editado = True
 
     ctx = {
-        'CiudadForm':ciudadF,
-        'editado':editado,
-        'pais':pais,
+        'CiudadForm': ciudadF,
+        'editado': editado,
+        'pais': pais,
     }
 
     return render_to_response('admin/ciudades/editar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para agregar los agentes de ese pais
 @login_required
 def ciudades_eliminar(request, pais, id_ciudad):
-    
-    ciudad = get_object_or_404(Ciudad, id=id_ciudad).delete()
 
-    return HttpResponseRedirect('/'+str(pais)+'/admin/ciudades/')
+    get_object_or_404(Ciudad, id=id_ciudad).delete()
+
+    return HttpResponseRedirect('/' + str(pais) + '/admin/ciudades/')
 
 
-#Vista para listar las ciudades de ese pais
+# Vista para listar las ciudades de ese pais
 @login_required
 def zonas_list(request, pais):
-    
+
     zonas = Zona.objects.filter(ciudad__pais__nombre=pais)
     nombre_pais = dict(countries)[pais]
 
     ctx = {
-        'zonas':zonas,
-        'pais':pais,
-        'nombre_pais':nombre_pais,
+        'zonas': zonas,
+        'pais': pais,
+        'nombre_pais': nombre_pais,
     }
-    
+
     return render_to_response('admin/zonas/zonas.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar las ciudades de ese pais
+# Vista para agregar las ciudades de ese pais
 @login_required
 def zonas_agregar(request, pais):
-    
+
     zonaF = ZonaForm()
-    
+
     if request.POST:
         zonaF = ZonaForm(request.POST)
         if zonaF.is_valid():
             zonaF.save()
 
-            return HttpResponseRedirect('/'+str(pais)+'/admin/zonas/')
+            return HttpResponseRedirect('/' + str(pais) + '/admin/zonas/')
 
     zonaF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
 
     ctx = {
-        'ZonaForm':zonaF,
-        'pais':pais,
+        'ZonaForm': zonaF,
+        'pais': pais,
     }
-    
+
     return render_to_response('admin/zonas/agregar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar las ciudades de ese pais
+# Vista para agregar las ciudades de ese pais
 @login_required
 def zonas_editar(request, pais, id_zona):
-    
+
     editado = ''
     zona = Zona.objects.get(id=id_zona)
     zonaF = ZonaForm(instance=zona)
-    
+
     if request.POST:
         zonaF = ZonaForm(request.POST, instance=zona)
         if zonaF.is_valid():
@@ -1171,27 +1260,27 @@ def zonas_editar(request, pais, id_zona):
     zonaF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
 
     ctx = {
-        'ZonaForm':zonaF,
-        'editado':editado,
-        'pais':pais,
+        'ZonaForm': zonaF,
+        'editado': editado,
+        'pais': pais,
     }
-    
+
     return render_to_response('admin/zonas/editar.html', ctx, context_instance=RequestContext(request))
 
 
-#Vista para agregar los agentes de ese pais
+# Vista para agregar los agentes de ese pais
 @login_required
 def zonas_eliminar(request, pais, id_zona):
-    
-    zona = get_object_or_404(Zona, id=id_zona).delete()
 
-    return HttpResponseRedirect('/'+str(pais)+'/admin/zonas/')
+    get_object_or_404(Zona, id=id_zona).delete()
+
+    return HttpResponseRedirect('/' + str(pais) + '/admin/zonas/')
 
 
-#Vista para listar las ciudades de ese pais
+# Vista para listar las ciudades de ese pais
 @login_required
 def monedas_list(request, pais):
-    
+
     try:
         moneda = Moneda.objects.get(pais__nombre=pais)
     except:
