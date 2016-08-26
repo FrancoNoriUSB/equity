@@ -8,3 +8,6 @@ bootstrap-admin
 django-widget-tweaks
 django-bootstrap3
 django-mathfilters
+django-easy-pdf
+xhtml2pdf>=0.0.6
+reportlab>=2.7,<3

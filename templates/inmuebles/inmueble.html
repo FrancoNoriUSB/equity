@@ -60,10 +60,8 @@
     <br>
     <div class="container info-base">
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-4">
+            <div class="col-lg-6 col-md-6 col-sm-6">
                 <img src="{{ inmueble.logo.url }}" class="img-responsive" />
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-4">
                 <h4 class="text-left">
                     <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
                 </h4>
@@ -71,6 +69,16 @@
                     {{inmueble.direccion}}<br>
                     Entrega estimada: {{ fecha_entrega|date:"M Y" }}<br>
                 </p>
+                {%if inmueble.archivo%}
+                    <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
+                        Brochure Digital
+                    </a>
+                {%endif%}
+                {%if inmueble.ficha_tecnica%}
+                    <a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">
+                        Ficha T&eacute;cnica
+                    </a>
+                {%endif%}
             </div>
             <div class="col-lg-6 col-md-4 col-sm-4">
                 {%if inmueble.video%}

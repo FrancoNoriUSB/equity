@@ -190,7 +190,7 @@ def home(request, pais):
                     values_list.append((metros_min, metros_max))
 
                 if habitaciones != '':
-                    values_list.append((min_habitaciones, max_habitaciones))
+                    values_list.append((Skypemin_habitaciones, max_habitaciones))
 
                 if precio_max != '':
                     values_list.append((0, precio_max))
@@ -731,9 +731,21 @@ class DetalleInmueble(TemplateView):
         context = super(DetalleInmueble, self).get_context_data(**kwargs)
         context['inmueble'] = get_object_or_404(Inmueble, id=kwargs['id_inmueble'])
         context['modulos'] = Modulo.objects.filter(inmueble=context['inmueble'])
-        context['vistas'] = InmuebleView.objects.get(inmueble=context['inmueble'])
-        context['clicks'] = InmuebleConstructorClick.objects.get(inmueble=context['inmueble'])
-        context['skype'] = InmuebleSkypeClick.objects.get(inmueble=context['inmueble'])
+        try:
+            context['vistas'] = InmuebleView.objects.get(inmueble=context['inmueble'])
+        except:
+            context['vistas'] = ''
+
+        try:
+            context['clicks'] = InmuebleConstructorClick.objects.get(inmueble=context['inmueble'])
+        except:
+            context['clicks'] = ''
+
+        try:
+            context['skype'] = InmuebleSkypeClick.objects.get(inmueble=context['inmueble'])[:1]
+        except:
+            context['skype'] = ''
+
         context['pais'] = kwargs['pais']
         return context
 

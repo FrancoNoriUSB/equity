@@ -20,7 +20,6 @@ ADMINS = (
 MANAGERS = ADMINS
 
 # Parse database configuration from $DATABASE_URL
- 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -30,14 +29,6 @@ DATABASES = {
         'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '5432',                      # Set to empty string for default.
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'equity',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'postgres',
-    #     'HOST': '127.0.0.1',
-    #     'PORT': '3306',
-    # }
 }
 
 # Quick-start development settings - unsuitable for production
@@ -55,7 +46,7 @@ ALLOWED_HOSTS = []
 
 DATE_INPUT_FORMATS = (
     '%d/%m/%Y',
-    )
+)
 
 DATETIME_FORMAT = 'N j, Y, P'
 
