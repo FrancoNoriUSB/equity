@@ -66,7 +66,8 @@ INSTALLED_APPS = (
     'bootstrap3',
     'inmuebles',
     'noticias',
-    'mathfilters'
+    'mathfilters',
+    'wkhtmltopdf'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,9 +80,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'Equity.urls'
+ROOT_URLCONF = 'equity.urls'
 
-WSGI_APPLICATION = 'Equity.wsgi.application'
+WSGI_APPLICATION = 'equity.wsgi.application'
 
 LOGIN_URL = '/admin/login/'
 

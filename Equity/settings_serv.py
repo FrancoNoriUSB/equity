@@ -78,9 +78,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'Equity.urls'
+ROOT_URLCONF = 'equity.urls'
 
-WSGI_APPLICATION = 'Equity.wsgi.application'
+WSGI_APPLICATION = 'equity.wsgi.application'
 
 # # Database
 # # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

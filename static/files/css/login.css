@@ -17,3 +17,13 @@
     float: none;
     margin: 0 auto;
 }
+
+
+body > div > div > div > div > div.registro{
+    border-left-style: solid;
+    padding-left: 7%;
+}
+
+body > div > div > div > div > div.ingreso{
+    padding-right: 7%;
+}

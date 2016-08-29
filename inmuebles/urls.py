@@ -1,6 +1,7 @@
 from django.conf.urls import *
 from inmuebles.views import ElegirTipo, Publicar, DetalleInmueble, AgregarModulo, EditarModulo
 from django.contrib.auth.decorators import login_required
+from wkhtmltopdf.views import PDFTemplateView
 
 # Urls para los views del frontend del usuario visitante
 urlpatterns = patterns(
