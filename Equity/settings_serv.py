@@ -139,6 +139,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # For Sidebar Menu (List of apps and models) (RECOMMENDED)
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
+    'inmuebles.context_processor.context_busqueda',
 )
 
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
