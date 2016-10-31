@@ -44,6 +44,11 @@ div.contenido > div.info-base > div.botones > a{
 }
 
 /*Estilos de info de inmueble*/
+#corazon_favorito{
+	font-size: 16px;
+	color: red;
+}
+
 div.contenido > div.info-base > div.links > p.text-right{
 	margin-bottom: 0px;
 }

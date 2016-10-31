@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block scripts %}
+    
+<!-- Estilos de la pagina-->
+<link href="{{STATIC_URL}}files/css/perfil.css"  rel="stylesheet" type="text/css" />
+
+{% endblock scripts %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3>
+                        Editar datos de usuario
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" action="." method="POST">
+                        <div class="form-group">
+                            {%csrf_token%}
+                            {%  bootstrap_field userF.first_name %}
+                            {%  bootstrap_field userF.email %}
+                        </div>
+                        {% buttons %}
+                            <br>
+                            <button type="submit" class="btn btn-success">
+                                Guardar
+                            </button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

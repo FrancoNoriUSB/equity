@@ -9,6 +9,7 @@ urlpatterns = patterns(
     url(r'^(?P<pais>[A-Z][A-Z])/$', 'home', name='home_pais'),
     url(r'^(?P<pais>[A-Z][A-Z])/ingreso-registro/$', 'login_register_user', name='login_register_user'),
     url(r'^(?P<pais>[A-Z][A-Z])/perfil/$', 'perfil_user', name='perfil_user'),
+    url(r'^(?P<pais>[A-Z][A-Z])/perfil/editar/$', 'perfil_editar_user', name='perfil_editar_user'),
     url(r'^(?P<pais>[A-Z][A-Z])/logout/$', 'perfil_logout', name='perfil_logout'),
     url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/(?P<codigo>[0-9A-Za-z]+)/$', 'inmueble', name='inmueble'),
     url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/link/(?P<id_inmueble>\d*)/$', 'inmueble_link_agente', name='inmueble_link_agente'),
@@ -62,4 +63,8 @@ urlpatterns = patterns(
     url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/agregar/$', 'monedas_agregar', name='agregar_monedas'),
     url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/editar/(?P<id_moneda>[0-9A-Za-z]+)/$', 'monedas_editar', name='editar_monedas'),
     url(r'^(?P<pais>[A-Z][A-Z])/admin/monedas/eliminar/(?P<id_moneda>[0-9A-Za-z]+)/$', 'monedas_eliminar', name='eliminar_monedas'),
+
+    # Estadisticas
+    url(r'^(?P<pais>[A-Z][A-Z])/admin/estadisticas/$', 'estadisticas_list', name='listar_estadisticas'),
+
 )

@@ -221,7 +221,9 @@
                                                 {%endif%}
                                                 <div class="datos-inmueble">
                                                     <h5 class="text-left titulo">
-                                                        <b>{{inmueble.titulo}}</b> - {{inmueble.ciudad.nombre}}
+                                                        <b>{{inmueble.titulo}}</b>
+                                                        <br>
+                                                        {{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}
                                                     </h5>
                                                     <h6 class="text-left datos">
                                                     {%for modulo in inmueble.modulo_set.all|slice:":1"%}

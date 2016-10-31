@@ -26,12 +26,13 @@ class Pais(models.Model):
 class Ciudad(models.Model):
     # Campos para la ciudad
     nombre = models.CharField(max_length=80)
+    prioridad = models.IntegerField(default=0, max_length=2)
 
     # Claves foraneas
     pais = models.ForeignKey(Pais)
 
     class Meta:
-        ordering = ('nombre',)
+        ordering = ('prioridad',)
         verbose_name = "Ciudad"
         verbose_name_plural = "Ciudades"
 
@@ -147,7 +148,6 @@ class Telefono(models.Model):
 
 # Modelo para los telefonos del agente
 class TelefonoAgente(Telefono):
-
     tipo = models.CharField(max_length=20, choices=(('Celular', 'Celular'), (u'Teléfono', u'Teléfono')))
     agente = models.ForeignKey(Agente, related_name='telefonos')
 

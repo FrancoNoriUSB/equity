@@ -1,0 +1,134 @@
+{% extends "base_admin.html" %}
+
+<!-- Bloque para scripts que se cargan en la plantilla base -->
+{% block scripts %}
+    <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}files/css/jquery.dataTables.css">
+    <link href="{{MEDIA_URL}}files/css/login.css"    rel="stylesheet" type="text/css" />
+    {% endblock scripts %}
+
+{% block content %}
+
+<!-- Estilos de la pagina-->
+    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title ">
+                    <a href="/{{pais}}/admin/perfil">Administrador</a>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <h2>
+                    Resumen de estad&iacute;sticas de inmuebles de {{pais.nombre.name}}
+                </h2>
+                <table id="content-estadisticas" class="display dataTable table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Inmueble
+                            </th>
+                            <th>
+                                Clics
+                            </th>
+                            <th>
+                                Skype
+                            </th>
+                            <th>
+                                Vistas
+                            </th>
+                            <th>
+                                Ver
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for inmueble in estadisticas%}
+                            <tr>
+                                <td>
+                                    {{inmueble.0.titulo}}
+                                </td>
+                                <td>
+                                    {{inmueble.1.cantidad}}
+                                </td>
+                                <td>
+                                    {{inmueble.2.cantidad}}
+                                </td>
+                                <td>
+                                    {{inmueble.3.cantidad}}
+                                </td>
+                                <td>
+                                    <a href="/{{pais}}/inmuebles/{{inmueble.0.codigo}}/" target="_new">
+                                        Ver
+                                    </a>
+                                </td>
+                            </tr>
+                        {%endfor%}
+                        <tr>
+                            <td>
+                                Total general:
+                            </td>
+                            <td>
+                                {{clics_total}}
+                            </td>
+                            <td>
+                                {{skypes_total}}
+                            </td>
+                            <td>
+                                {{vistas_total}}
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>
+                                Inmueble
+                            </th>
+                            <th>
+                                Clics
+                            </th>
+                            <th>
+                                Skype
+                            </th>
+                            <th>
+                                Vistas
+                            </th>
+                            <th>
+                                Ver
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+<!-- Seccion donde se carga el JS -->
+{% block js %}
+<script src="{{STATIC_URL}}files/js/jquery.dataTables.js"></script>
+<script src="{{STATIC_URL}}files/js/dataTables.bootstrap.js"></script>
+<script>
+$(document).ready(function() {
+    $('#content-estadisticas').dataTable( {
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ cantidad por página",
+            "zeroRecords": "Disculpe, no se han encontrado resultados",
+            "info": "Mostrando _PAGE_ página(s) de _PAGES_",
+            "infoEmpty": "No hay datos introducidos",
+            "infoFiltered": "(Filtrados de _MAX_ en total)",
+            "search": "Buscar: ",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "previous": "Anterior",
+                "next": "Siguiente"
+            }
+        }
+    } );
+} );
+</script>
+{% endblock js %}

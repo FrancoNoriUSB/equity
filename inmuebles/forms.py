@@ -171,6 +171,22 @@ class UserForm(forms.ModelForm):
         return user
 
 
+# Formulario de registro simple de usuario
+class EditUserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'email',)
+        widgets = {
+            'email': forms.EmailInput(),
+        }
+
+        labels = {
+            'first_name': 'Nombre',
+            'email': 'Correo Electrónico',
+        }
+
+
 # Formulario para agentes
 class AgenteForm(forms.ModelForm):
     correo2 = forms.CharField(required=False)

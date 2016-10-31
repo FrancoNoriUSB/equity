@@ -2,28 +2,28 @@
 {% block content %}
 
 <!-- Estilos de la pagina-->
-<link href="{{MEDIA_URL}}files/css/login.css"	 rel="stylesheet" type="text/css" />
-	<div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
-		<div class="panel panel-primary">
-		  <div class="panel-heading">
-		    <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
-		  </div>
-		  <div class="panel-body">
-		    Agentes
-			<ul class="list-group">
-				{%for agente in agentes%}
-					<li class="list-group-item">
-						<a href="">Nombre: {{agente.nombre}}</a>
-						<a href="eliminar/{{agente.id}}/" class="eliminar">
-							Eliminar<span class="glyphicon glyphicon-trash"></span>
-						</a>
-						<a href="editar/{{agente.id}}/" class="editar">
-							Editar<span class="glyphicon glyphicon-pencil"></span>
-						</a>
-					</li>
-				{%endfor%}
-			</ul>
-		  </div>
-		</div>
-	</div>
+<link href="{{MEDIA_URL}}files/css/login.css"    rel="stylesheet" type="text/css" />
+    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
+          </div>
+          <div class="panel-body">
+            Agentes
+            <ul class="list-group">
+                {%for agente in agentes%}
+                    <li class="list-group-item">
+                        <a href="">Nombre: {{agente.nombre}}</a>
+                        <a href="eliminar/{{agente.id}}/" class="eliminar">
+                            Eliminar<span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                        <a href="editar/{{agente.id}}/" class="editar">
+                            Editar<span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </li>
+                {%endfor%}
+            </ul>
+          </div>
+        </div>
+    </div>
 {% endblock content %}

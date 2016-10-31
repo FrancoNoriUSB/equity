@@ -70,7 +70,7 @@ def home(request, pais):
     imagen_banner = Slide.objects.filter(pais__nombre=pais)[:1]
 
     # Lista inmuebles por pagina
-    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('codigo')
+    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('ciudad')
 
     # Moneda nacional
     try:
@@ -266,12 +266,18 @@ def inmueble(request, codigo, pais):
     envio_contacto = False
     envio_visita = False
     fecha_entrega = ''
+    modulos_favs = []
+    user = request.user
 
     # Inmueble
     inmueble = get_object_or_404(Inmueble, codigo=codigo, pais__nombre=pais)
 
     # Modulos
     modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
+    try:
+        modulos_favs = ModuloFavorito.objects.filter(usuario=user, modulo__in=modulos).values_list('modulo', flat=True)
+    except:
+        modulos_favs = []
 
     # Agente
     agente = inmueble.agente
@@ -328,6 +334,7 @@ def inmueble(request, codigo, pais):
     ctx = {
         'inmueble': inmueble,
         'modulos': modulos,
+        'modulos_favs': modulos_favs,
         'moneda': moneda,
         'telefonosAgente': telefonos,
         'ContactoAgenteForm': contactoF,
@@ -468,15 +475,18 @@ def favoritos_modulo_eliminar(request, pais, id_modulo):
 def inmueble_vista_count(request, id_inmueble):
     visto = False
 
-    if request.session.get('vistas'):
-        inmuebles = request.session['vistas']
-        if int(id_inmueble) not in inmuebles:
-            inmuebles.append(int(id_inmueble))
-            request.session['vistas'] = inmuebles
+    if not request.user.is_superuser:
+        if request.session.get('vistas'):
+            inmuebles = request.session['vistas']
+            if int(id_inmueble) not in inmuebles:
+                inmuebles.append(int(id_inmueble))
+                request.session['vistas'] = inmuebles
+            else:
+                visto = True
         else:
-            visto = True
+            request.session['vistas'] = [int(id_inmueble)]
     else:
-        request.session['vistas'] = [int(id_inmueble)]
+        visto = True
 
     return visto
 
@@ -579,13 +589,13 @@ def login_register_user(request, pais):
                 password = request.POST['password']
                 usuario = authenticate(username=username, password=password)
             except:
-                print 'kasdl'
+                print 'Error Validating User'
 
             if usuario:
                 # Caso del usuario activo
                 if usuario.is_active:
                     login(request, usuario)
-                    return HttpResponseRedirect('/' + str(pais) + '/perfil/')
+                    return HttpResponseRedirect('/' + str(pais) + '/favoritos/')
                 else:
                     return "Tu cuenta esta bloqueada"
             else:
@@ -617,6 +627,32 @@ def perfil_user(request, pais):
         'paisesF': paisesF,
     }
     return render_to_response('usuarios/perfil.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para editar el perfil de usuarios comunes.
+@login_required
+def perfil_editar_user(request, pais):
+    user = request.user
+
+    # Formulario para los paises disponibles
+    paisesF = PaisesForm(initial={
+        'pais': pais,
+    })
+
+    userF = EditUserForm(instance=user)
+
+    if(request.POST):
+        userF = EditUserForm(request.POST, instance=user)
+        print userF
+        if userF.is_valid():
+            userF.save()
+
+    ctx = {
+        'pais': pais,
+        'paisesF': paisesF,
+        'userF': userF,
+    }
+    return render_to_response('usuarios/editar.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para cerrar la sesion de usuario comun
@@ -1363,6 +1399,57 @@ def monedas_eliminar(request, pais, id_moneda):
     get_object_or_404(Moneda, id=id_moneda).delete()
 
     return HttpResponseRedirect('/' + str(pais) + '/admin/monedas/')
+
+
+# Vista de resumen de estadisticas
+def estadisticas_list(request, pais):
+
+    vistas_total = 0
+    clics_total = 0
+    skypes_total = 0
+    estadisticas = []
+    pais = Pais.objects.get(nombre=pais)
+    inmuebles = Inmueble.objects.filter(pais__nombre=pais)
+
+    # Estadisticas de cada inmueble
+    for inmueble in inmuebles:
+        try:
+            vistas = InmuebleView.objects.get(inmueble=inmueble)
+        except:
+            vistas = []
+
+        try:
+            clics = InmuebleConstructorClick.objects.get(inmueble=inmueble)
+        except:
+            clics = []
+
+        try:
+            skypes = InmuebleSkypeClick.objects.get(inmueble=inmueble)
+        except:
+            skypes = []
+
+        if (vistas != []) or (clics != []) or (skypes != []):
+            estadisticas.append((inmueble, clics, skypes, vistas))
+
+            if (vistas != []):
+                vistas_total += vistas.cantidad
+
+            if (clics != []):
+                clics_total += clics.cantidad
+
+            if (skypes != []):
+                skypes_total += skypes.cantidad
+
+    ctx = {
+        'estadisticas': estadisticas,
+        'clics_total': clics_total,
+        'skypes_total': skypes_total,
+        'vistas_total': vistas_total,
+        'inmuebles': inmuebles,
+        'pais': pais,
+    }
+
+    return render_to_response('admin/estadisticas/estadisticas_listar.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para cerrar la sesion

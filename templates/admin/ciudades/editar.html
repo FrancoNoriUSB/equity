@@ -21,6 +21,7 @@
 				<form id="form" role="form" enctype="multipart/form-data" method="post" action="">
 				{% csrf_token %}
 					{% bootstrap_field CiudadForm.nombre %}
+					{% bootstrap_field CiudadForm.prioridad %}
 					{% buttons %}
                         <button type="submit" class="btn btn-primary">
                             Guardar

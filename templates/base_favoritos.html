@@ -30,6 +30,7 @@
 
         <!--Estilos-->
         <link rel="stylesheet" type="text/css" href="{% static 'files/css/base.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/base_favoritos.css' %}">
 
         <!-- Bloque para cargar cualquier script en el header -->
         {% block scripts %}
@@ -51,9 +52,8 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand hidden-xs" href="http://www.expo-realestate.com/">
-                                    <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-eq-brand.png" alt="">
-                                    <p class="text-center">Home</p>
+                                <a class="navbar-brand hidden-xs" href="javascript:window.history.back();">
+                                    <img class="img-responsive" src="{{STATIC_URL}}files/img/eq-volver.png" alt="">
                                 </a>
                             </div>
                             <div class="collapse navbar-collapse navHeaderCollapse navheader">
@@ -103,11 +103,7 @@
                                     <li>
                                         <a href="/{{pais}}/favoritos/">Ver Favoritos</a>
                                     </li>
-                                    {%if user.is_authenticated%}
-                                    <li>
-                                        <a href="/{{pais}}/logout/">Salir</a>
-                                    </li>
-                                    {%else%}
+                                    {%if not user.is_authenticated%}
                                     <li>
                                         <a href="/{{pais}}/ingreso-registro/">Ingresar</a>
                                     </li>

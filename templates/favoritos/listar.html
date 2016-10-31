@@ -1,5 +1,5 @@
 <!-- Archivo donde estan los bloques del home -->
-{% extends "base.html" %}
+{% extends "base_favoritos.html" %}
 {% load staticfiles %}
 {% load mathfilters %}
 {% load humanize %}
@@ -11,119 +11,131 @@
     <script src="{{STATIC_URL}}files/js/jquery.dataTables.js"></script>
     <script src="{{STATIC_URL}}files/js/dataTables.bootstrap.js"></script>
     
-	<!-- Estilos del index -->
-	<link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble.css' %}">
+    <!-- Estilos del index -->
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble.css' %}">
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
 <div class="row contenido-favs">
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-			<h2>M&oacute;dulos favoritos:</h2>
-			<table id="content-modulos" class="display dataTable table">
-				<thead>
-					<tr>
-						<th class="">
-							Inmueble
-						</th>
-						<th class="">
-							Pa&iacute;s
-						</th>
-						<th class="">
-							Ciudad
-						</th>
-						<th class="">
-							M2
-						</th>
-						<th class="">
-							Hab
-						</th>
-						<th class="">
-							Precio (MN)
-						</th>
-						<th class="">
-							Precio (USD)
-						</th>
-						<th class="">
-							Ver
-						</th>
-						<th class="">
-							Eliminar
-						</th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th class="">
-							Inmueble
-						</th>
-						<th class="">
-							Pa&iacute;s
-						</th>
-						<th class="">
-							Ciudad
-						</th>
-						<th class="">
-							M2
-						</th>
-						<th class="">
-							Hab
-						</th>
-						<th class="">
-							Precio (MN)
-						</th>
-						<th class="">
-							Precio (USD)
-						</th>
-						<th class="">
-							Ver
-						</th>
-						<th class="">
-							Eliminar
-						</th>
-					</tr>
-				</tfoot>
-				<tbody>
-					{%for moduloF in modulosFavoritos%}
-						<tr class="{% cycle 'active' 'info' %}">
-							<td>
-								{{moduloF.modulo.inmueble.titulo}}
-							</td>
-							<td>
-								{{moduloF.modulo.inmueble.pais.nombre.name}}
-							</td>
-							<td>
-								{{moduloF.modulo.inmueble.ciudad.nombre}}
-							</td>
-							<td>
-								{{moduloF.modulo.metros}}
-							</td>
-							<td>
-								{{moduloF.modulo.dormitorios}}
-							</td>
-							<td>
-								{{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-							</td>
-							<td>
-								{{modulo.precio|floatformat|intcomma}} USD
-							</td>
-							<td>
-								<a href="/{{pais}}/inmuebles/{{moduloF.modulo.inmueble.codigo}}/">
-									Ver
-								</a>
-							</td>
-							<td>
-								<a href="/{{pais}}/favoritos/modulos/eliminar/{{moduloF.modulo.id}}/">
-									Eliminar
-								</a>
-							</td>
-						</tr>
-					{%endfor%}
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <h2>Enlaces r&aacute;pidos:</h2>
+                <div class="list-group">
+                    <a href="/{{pais}}/perfil/" class="list-group-item">Perfil</a>
+                    <a href="#" class="list-group-item">Enviar Favoritos</a>
+                    <a href="#" class="list-group-item">Solicitar Reporte</a>
+                    <a href="#" class="list-group-item">Guardar</a>
+                    <a href="/{{pais}}/logout/" class="list-group-item">Salir</a>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                <h2>M&oacute;dulos favoritos:</h2>
+                <table id="content-modulos" class="display dataTable table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="">
+                                Inmueble
+                            </th>
+                            <th class="">
+                                Pa&iacute;s
+                            </th>
+                            <th class="">
+                                Ciudad
+                            </th>
+                            <th class="">
+                                M2
+                            </th>
+                            <th class="">
+                                Hab
+                            </th>
+                            <th class="">
+                                Precio (MN)
+                            </th>
+                            <th class="">
+                                Precio (USD)
+                            </th>
+                            <th class="">
+                                Ver
+                            </th>
+                            <th class="">
+                                Eliminar
+                            </th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th class="">
+                                Inmueble
+                            </th>
+                            <th class="">
+                                Pa&iacute;s
+                            </th>
+                            <th class="">
+                                Ciudad
+                            </th>
+                            <th class="">
+                                M2
+                            </th>
+                            <th class="">
+                                Hab
+                            </th>
+                            <th class="">
+                                Precio (MN)
+                            </th>
+                            <th class="">
+                                Precio (USD)
+                            </th>
+                            <th class="">
+                                Ver
+                            </th>
+                            <th class="">
+                                Eliminar
+                            </th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {%for moduloF in modulosFavoritos%}
+                            <tr>
+                                <td>
+                                    {{moduloF.modulo.inmueble.titulo}}
+                                </td>
+                                <td>
+                                    {{moduloF.modulo.inmueble.pais.nombre.name}}
+                                </td>
+                                <td>
+                                    {{moduloF.modulo.inmueble.ciudad.nombre}}
+                                </td>
+                                <td>
+                                    {{moduloF.modulo.metros}}
+                                </td>
+                                <td>
+                                    {{moduloF.modulo.dormitorios}}
+                                </td>
+                                <td>
+                                    {{moneda.simbolo}} {{moduloF.modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                </td>
+                                <td>
+                                    {{moduloF.modulo.precio|floatformat|intcomma}} USD
+                                </td>
+                                <td>
+                                    <a href="/{{pais}}/inmuebles/{{moduloF.modulo.inmueble.codigo}}/">
+                                        Ver
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/{{pais}}/favoritos/modulos/eliminar/{{moduloF.modulo.id}}/">
+                                        Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        {%endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}
 

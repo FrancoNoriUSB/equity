@@ -11,7 +11,7 @@ body > div > div > form > div.contenido > div.propiedades > div > div > div{
 }
 
 body > div > div > form > div.contenido > div.propiedades > div > div.row > div > div.propiedad {
-	max-height: 270px;
+	max-height: 295px;
 }
 
 body > div > div > form > div.contenido > div.propiedades > div > div > div > div > a{
@@ -24,6 +24,10 @@ body > div > div > form > div.contenido > div.propiedades > div > div > div > di
 	display: inline;
 }
 
+#form > div.contenido.col-lg-9.col-md-9.col-sm-9.col-xs-9 > div.propiedades.row > div > div > div > div > a > div > div > h5.titulo{
+	margin-bottom: 0px;
+}
+
 body > div > div > form > div.contenido > div.propiedades.row > div > div > div > div > a > div.inmueble > div.datos-inmueble{
 	background-color: rgba(26, 46, 81, 0.5);
 	position: absolute;
@@ -32,7 +36,7 @@ body > div > div > form > div.contenido > div.propiedades.row > div > div > div 
     width: 96%;
     padding-left: 2%;
     padding-right: 2%;
-    padding-bottom: 3%;
+    padding-bottom: 2%;
 }
 
 /*Estilos de filtro*/
