@@ -82,7 +82,7 @@ class BuscadorForm(forms.Form):
     orden = forms.ChoiceField(choices=ordenes, required=False)
     inmuebles_inf = forms.ChoiceField(choices=inmuebles, required=False)
     inmuebles_sup = forms.ChoiceField(choices=inmuebles, required=False)
-    palabra = forms.CharField(max_length=20, required=False)
+    palabra = forms.CharField(max_length=20, required=False, widget=forms.TextInput(attrs={'placeholder': 'Búsqueda'}))
 
 
 # Formulario de contacto

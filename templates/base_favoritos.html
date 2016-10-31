@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     {% load staticfiles %}
+    {% load bootstrap3 %}
     {% load widget_tweaks %}
     <head>
         <meta charset="utf-8">
@@ -113,7 +114,7 @@
                                             {% csrf_token %}
                                             <div class="form-group inner-addon right-addon">
                                                 <div class="input-group-btn">
-                                                {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
+                                                {% bootstrap_field buscadorF.palabra %}
                                                     <button class="btn btn-primary" id="">
                                                         <span class="glyphicon glyphicon-search"></span>
                                                     </button>
