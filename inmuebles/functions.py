@@ -15,7 +15,7 @@ def contact_email(request, form, correo, inmueble):
     emails.append(correo)
     emails.append('coordinacion@equitymedia.la')
     emails.append('fernandoweber@equitymedia.la')
-    emails.append('enlace@equitymedia.la')
+    emails.append('info@equitymedia.la')
     telephone = emailF.cleaned_data['telefonos']
 
     # Verificacion de si posee telefono
@@ -47,7 +47,7 @@ def visit_email(request, form, inmueble):
     name = emailF.cleaned_data['nombre']
     emails.append('contactcenter@equitymedia.la')
     emails.append('fernandoweber@equitymedia.la')
-    emails.append('enlace@equitymedia.la')
+    emails.append('info@equitymedia.la')
     telephone = emailF.cleaned_data['telefonos']
 
     # Verificacion de si posee telefono

@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.template.loader import get_template
 from django.core.urlresolvers import reverse_lazy
 from django.template import Context
@@ -18,12 +16,12 @@ from inmuebles.models import *
 from inmuebles.forms import *
 from noticias.models import *
 from functions import *
-from django.core.mail.message import EmailMessage
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 from django import forms
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
+from easy_pdf.views import PDFTemplateView
 import json
 import re
 
@@ -471,6 +469,29 @@ def favoritos_modulo_eliminar(request, pais, id_modulo):
     return HttpResponseRedirect(url)
 
 
+# Vista para generar pdfs
+class FavoritosPdfList(PDFTemplateView):
+    template_name = "favoritos/pdf_template.html"
+
+    def get_context_data(self, **kwargs):
+        moneda = ''
+
+        context = super(FavoritosPdfList, self).get_context_data(**kwargs)
+
+        modulos = ModuloFavorito.objects.filter(usuario=self.request.user).order_by('modulo__inmueble__pais__nombre')
+        context['modulosFavoritos'] = modulos
+
+        # Moneda
+        try:
+            moneda = Moneda.objects.get(pais__nombre=context['pais'])
+        except:
+            moneda = ''
+
+        context['moneda'] = moneda
+
+        return context
+
+
 # Vista para contar las vistas de un inmueble por los diferentes usuarios
 def inmueble_vista_count(request, id_inmueble):
     visto = False
@@ -580,6 +601,7 @@ def login_register_user(request, pais):
 
     if request.POST:
         registroF = UserForm(request.POST)
+
         if registroF.is_valid():
             registroF.save()
         else:

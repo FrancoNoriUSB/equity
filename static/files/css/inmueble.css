@@ -7,21 +7,21 @@
 
 /*Estilos del Slider*/
 .selected img {
-	opacity:0.5;
+    opacity:0.5;
 }
 
 #myCarousel > div > div{
-	margin-right: auto;
-	margin-left: auto;
-	height: 760px;
+    margin-right: auto;
+    margin-left: auto;
+    height: 760px;
 }
 
 #slider-thumbs > ul > li{
-	cursor: pointer;
+    cursor: pointer;
 }
 
 div.contenido > div.info-base > div.botones{
-	display: flex;
+    display: flex;
 }
 
 div.contenido > div.info-base > div > button.video{
@@ -29,61 +29,61 @@ div.contenido > div.info-base > div > button.video{
 }
 
 div.contenido > div.info-base > div > button.video{
-	margin-right: 3%;
+    margin-right: 3%;
 }
 
 div.contenido > div.info-base > div.botones > a{
-	color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 #carousel > div > div > img,
 #carousel-modal > div > div > img{
-	margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
     cursor: pointer;
 }
 
 /*Estilos de info de inmueble*/
 #corazon_favorito{
-	font-size: 16px;
-	color: red;
+    font-size: 16px;
+    color: blue;
 }
 
 div.contenido > div.info-base > div.links > p.text-right{
-	margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 div.contenido > div.info-base > div.agente > img{
-	height: 170px;
-	margin-left: auto;
-	margin-right: auto;
+    height: 170px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #ubicacion > div > div > #mapa{
-	position:inherit !important;
-	margin-right: auto;
-	margin-left: auto;
-	width: 100%;
-	height: 500px;
+    position:inherit !important;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    height: 500px;
 }
 
 div.contenido > div.informacion > div > div{
-	padding: 2%;
+    padding: 2%;
 }
 
 div.contenido > div.info-base > div > div > a.favoritos{
-	color:#000000;
-	font-size: 10pt;
+    color:#000000;
+    font-size: 10pt;
 }
 
 div.contenido > div.info-base > div > div > a.favoritos:hover{
-	text-decoration: none;
+    text-decoration: none;
 }
 
 #general > div.tabla-info.row > div > p > small,
 div.contenido > div.info-base > div > div > a.favoritos > span{
-	color: red;
-	font-size: 10pt;
+    color: red;
+    font-size: 10pt;
 }
 
 .skype-equity > p.mensaje{
@@ -93,18 +93,18 @@ div.contenido > div.info-base > div > div > a.favoritos > span{
 
 /*Boostrap modificado*/
 div.contenido > div.informacion > div > ul{
-	border-bottom: 5px;
+    border-bottom: 5px;
     border-bottom-style: groove;
     border-bottom-color: #4f4e4e;
 }
 
 .carousel-control.right,
 .carousel-control.left{
-	background-image: none;
+    background-image: none;
 }
 
 div.modal-backdrop.fade.in{
-	z-index: 0 !important;
+    z-index: 0 !important;
 }
 
 body .modal-dialog {
@@ -118,17 +118,17 @@ body .modal-dialog {
 
 /*Video*/
 .video-container {
-	position:relative;
-	padding-bottom:56.25%;
-	padding-top:30px;
-	height:0;
-	overflow:hidden;
+    position:relative;
+    padding-bottom:56.25%;
+    padding-top:30px;
+    height:0;
+    overflow:hidden;
 }
 
 .video-container iframe, .video-container object, .video-container embed {
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
 }

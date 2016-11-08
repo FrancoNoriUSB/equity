@@ -1,7 +1,6 @@
 from django.conf.urls import *
-from inmuebles.views import ElegirTipo, Publicar, DetalleInmueble, AgregarModulo, EditarModulo
+from inmuebles.views import ElegirTipo, Publicar, DetalleInmueble, AgregarModulo, EditarModulo, FavoritosPdfList
 from django.contrib.auth.decorators import login_required
-from wkhtmltopdf.views import PDFTemplateView
 
 # Urls para los views del frontend del usuario visitante
 urlpatterns = patterns(
@@ -17,6 +16,7 @@ urlpatterns = patterns(
 
     # Favoritos
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/$', 'favoritos_list', name='listar_favoritos'),
+    url(r'^(?P<pais>[A-Z][A-Z])/favoritos/pdf/$', FavoritosPdfList.as_view(), name='pdf_favoritos'),
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/agregar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_agregar', name='agregar_favoritos'),
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/eliminar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_eliminar', name='eliminar_favoritos'),
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/modulos/agregar/(?P<id_modulo>[0-9A-Za-z]+)/$', 'favoritos_modulo_agregar', name='agregar_modulo_favoritos'),

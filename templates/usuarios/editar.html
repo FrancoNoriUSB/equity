@@ -13,13 +13,21 @@
 <div class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3>
-                        Editar datos de usuario
-                    </h3>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    <h2>Enlaces r&aacute;pidos:</h2>
+                    <div class="list-group">
+                        <a href="/{{pais}}/perfil/" class="list-group-item">Perfil</a>
+                        <a href="#" class="list-group-item">Enviar Favoritos</a>
+                        <a href="#" class="list-group-item">Solicitar Reporte</a>
+                        <a href="#" class="list-group-item">Guardar</a>
+                        <a href="/{{pais}}/logout/" class="list-group-item">Salir</a>
+                    </div>
                 </div>
-                <div class="panel-body">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                    <h2>
+                        Editar datos de usuario:
+                    </h2>
                     <form role="form" action="." method="POST">
                         <div class="form-group">
                             {%csrf_token%}

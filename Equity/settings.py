@@ -67,7 +67,7 @@ INSTALLED_APPS = (
     'inmuebles',
     'noticias',
     'mathfilters',
-    'wkhtmltopdf'
+    'easy_pdf',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -88,7 +88,6 @@ LOGIN_URL = '/admin/login/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
-
 LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'

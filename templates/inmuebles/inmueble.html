@@ -93,23 +93,26 @@
     <div class="container informacion">
         <div class="tabpanel col-lg-12 col-md-12 col-sm-12">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active">
+                <li role="presentation" {%if not visita and not contacto%} class="active" {%endif%} >
                     <a href="#general" aria-controls="general" role="tab" data-toggle="tab">Informaci&oacute;n General</a>
                 </li>
                 <li role="presentation">
                     <a href="#ubicacion" aria-controls="ubicacion" role="tab" data-toggle="tab">Ubicaci&oacute;n</a>
                 </li>
-                <li role="presentation">
+                <li role="presentation" {%if contacto%} class="active" {%endif%}>
                     <a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar al constructor</a>
                 </li>
-                <li role="presentation">
+                <li role="presentation" {%if visita%} class="active" {%endif%}>
                     <a href="#visita" aria-controls="visita" role="tab" data-toggle="tab">Solicitar Visita</a>
+                </li>
+                <li role="presentation">
+                    <a href="/{{pais}}/favoritos/" aria-controls="visita" >Ver Favoritos</a>
                 </li>
             </ul>
 
              <!-- Tab panels -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="general">
+                <div role="tabpanel" class="tab-pane fade {%if not envio_visita and not envio_contacto%} in active {%endif%}" id="general">
                     <div class="tabla-info row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <table class="table table-bordered">
@@ -243,89 +246,85 @@
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="contactar">
-                    <dir class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <h4>Contactar al constructor</h4>
-                            {%if envio_contacto%}
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">
-                                        &times;
-                                    </span>
-                                </button>
-                                <strong>Enviado</strong> con &eacute;xito!
-                            </div>
+                <div role="tabpanel" class="tab-pane fade {%if envio_contacto%} in active {%endif%}" id="contactar">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h4>Contactar al constructor</h4>
+                        {%if envio_contacto%}
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">
+                                    &times;
+                                </span>
+                            </button>
+                            <strong>Enviado</strong> con &eacute;xito!
+                        </div>
+                        {%endif%}
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img class="img-responsive" src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
+                        <p class="telefonos text-left">
+                            {%for telefono in telefonosAgente%}
+                                <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
+                            {%endfor%}
+                            {%if inmueble.agente.pagina%}
+                                P&aacute;gina Web: 
+                                <a href="http://{{inmueble.agente.pagina}}" id="web_page">
+                                    {{inmueble.agente.pagina}}
+                                </a>
                             {%endif%}
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <img class="img-responsive" src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
-                            <p class="telefonos text-left">
-                                {%for telefono in telefonosAgente%}
-                                    <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
-                                {%endfor%}
-                                {%if inmueble.agente.pagina%}
-                                    P&aacute;gina Web: 
-                                    <a href="http://{{inmueble.agente.pagina}}" id="web_page">
-                                        {{inmueble.agente.pagina}}
-                                    </a>
-                                {%endif%}
-                                <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
-                                <div id="SkypeButton_Call_equity" class="skype-equity">
-                                    <p class="mensaje">
-                                        Contáctenos de manera gratuita desde su computador
-                                    </p>
-                                    <script type="text/javascript">
-                                    Skype.ui({
-                                    "name": "call",
-                                    "element": "SkypeButton_Call_equity",
-                                    "participants": ["equity.media"],
-                                    "imageSize": 24
-                                    });
-                                    </script>
-                                </div>
-                            </p>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <form action="" method="POST">  
-                                {%csrf_token%}
-                                <div class="form-group">
-                                    {{ContactoAgenteForm.nombre}}<br>
-                                    {{ContactoAgenteForm.correo}}<br>
-                                    {{ContactoAgenteForm.telefonos}}<br>
-                                    {{ContactoAgenteForm.comentario}}<br>
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
-                                </div>
-                            </form>
-                        </div>
-                    </dir>
+                            <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
+                            <div id="SkypeButton_Call_equity" class="skype-equity">
+                                <p class="mensaje">
+                                    Contáctenos de manera gratuita desde su computador
+                                </p>
+                                <script type="text/javascript">
+                                Skype.ui({
+                                "name": "call",
+                                "element": "SkypeButton_Call_equity",
+                                "participants": ["equity.media"],
+                                "imageSize": 24
+                                });
+                                </script>
+                            </div>
+                        </p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <form action="" method="POST">  
+                            {%csrf_token%}
+                            <div class="form-group">
+                                {{ContactoAgenteForm.nombre}}<br>
+                                {{ContactoAgenteForm.correo}}<br>
+                                {{ContactoAgenteForm.telefonos}}<br>
+                                {{ContactoAgenteForm.comentario}}<br>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="visita">
-                    <dir class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <h4>Formulario para solicitar una visita al inmueble</h4>
-                            {%if envio_visita%}
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">
-                                        &times;
-                                    </span>
-                                </button>
-                                <strong>Enviado</strong> con &eacute;xito!
-                            </div>
-                            {%endif%}
-                            <form action="" method="POST">  
-                                {%csrf_token%}
-                                <div class="form-group">
-                                    {{SolicitarVisitaForm.nombre}}<br>
-                                    {{SolicitarVisitaForm.correo}}<br>
-                                    {{SolicitarVisitaForm.telefonos}}<br>
-                                    {{SolicitarVisitaForm.fecha_cita}}<br>
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
-                                </div>
-                            </form>
+                <div role="tabpanel" class="tab-pane fade {%if envio_visita%} in active {%endif%}" id="visita">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <h4>Formulario para solicitar una visita al inmueble</h4>
+                        {%if envio_visita%}
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">
+                                    &times;
+                                </span>
+                            </button>
+                            <strong>Enviado</strong> con &eacute;xito!
                         </div>
-                    </dir>
+                        {%endif%}
+                        <form action="" method="POST">  
+                            {%csrf_token%}
+                            <div class="form-group">
+                                {{SolicitarVisitaForm.nombre}}<br>
+                                {{SolicitarVisitaForm.correo}}<br>
+                                {{SolicitarVisitaForm.telefonos}}<br>
+                                {{SolicitarVisitaForm.fecha_cita}}<br>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

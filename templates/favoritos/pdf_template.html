@@ -1,0 +1,120 @@
+{% load staticfiles %}
+{% load mathfilters %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block extra_style %}
+
+    
+{% endblock %}
+
+<!-- Boque del contenido de la pagina -->
+{% block content %}
+<div class="row contenido-favs">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2>Resumen de favoritos Equity:</h2>
+            <table id="content-modulos" class="table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Inmueble
+                        </th>
+                        <th>
+                            Pa&iacute;s
+                        </th>
+                        <th>
+                            Ciudad
+                        </th>
+                        <th>
+                            M2
+                        </th>
+                        <th>
+                            Hab
+                        </th>
+                        <th>
+                            Precio (MN)
+                        </th>
+                        <th>
+                            Precio (USD)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for moduloF in modulosFavoritos%}
+                        <tr>
+                            <td>
+                                {{moduloF.modulo.inmueble.titulo}}
+                            </td>
+                            <td>
+                                {{moduloF.modulo.inmueble.pais.nombre.name}}
+                            </td>
+                            <td>
+                                {{moduloF.modulo.inmueble.ciudad.nombre}}
+                            </td>
+                            <td>
+                                {{moduloF.modulo.metros}}
+                            </td>
+                            <td>
+                                {{moduloF.modulo.dormitorios}}
+                            </td>
+                            <td>
+                                {{moneda.simbolo}} {{moduloF.modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                            </td>
+                            <td>
+                                {{moduloF.modulo.precio|floatformat|intcomma}} USD
+                            </td>
+                        </tr>
+                    {%endfor%}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            Inmueble
+                        </th>
+                        <th>
+                            Pa&iacute;s
+                        </th>
+                        <th>
+                            Ciudad
+                        </th>
+                        <th>
+                            M2
+                        </th>
+                        <th>
+                            Hab
+                        </th>
+                        <th>
+                            Precio (MN)
+                        </th>
+                        <th>
+                            Precio (USD)
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Seccion donde se carga el JS -->
+<script>
+$(document).ready(function() {
+    $('#content-modulos').dataTable( {
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ cantidad por página",
+            "zeroRecords": "Disculpe, no se han encontrado resultados",
+            "info": "Mostrando _PAGE_ página(s) de _PAGES_",
+            "infoEmpty": "No hay datos introducidos",
+            "infoFiltered": "(Filtrados de _MAX_ en total)",
+            "search": "Buscar: ",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "previous": "Anterior",
+                "next": "Siguiente"
+            }
+        }
+    } );
+} );
+</script>
+{% endblock content %}

@@ -3,20 +3,13 @@ from django import forms
 from models import *
 from django.forms.extras.widgets import *
 from django_countries import countries
-from django.forms.models import inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
 
 # Formulario para el login de usuario
-class LoginForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-        fields = ('username', 'password')
-        widgets = {
-            'password': forms.PasswordInput(attrs={'class': "form-control", 'placeholder': "Contraseña"}),
-            'username': forms.TextInput(attrs={'class': "form-control", 'placeholder': "Usuario"}),
-        }
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Nombre de usuario', widget=forms.TextInput(attrs={'placeholder': 'Nombre de usuario'}))
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'placeholder': "Contraseña"}))
 
 
 # Formulario para cambiar los paises en la pagina
@@ -151,7 +144,7 @@ class UserForm(forms.ModelForm):
         }
 
         labels = {
-            'first_name': 'Nombre',
+            'first_name': 'Nombre y Apellido',
             'email': 'Correo Electrónico',
             'username': 'Nombre de Usuario',
         }

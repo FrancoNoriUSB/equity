@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load bootstrap3 %}
+{% load widget_tweaks %}
 {% load staticfiles %}
 
 {% block scripts %}
@@ -18,9 +19,14 @@
                 <h3>Ya soy usuario</h3>
                 <br>
                 <form role="form" action="." method="POST">
+                    {%csrf_token%}
                     <div class="form-group">
-                        {%csrf_token%}
-                        {% bootstrap_form login %}
+                        <label for="username">Nombre de usuario</label>
+                        {% render_field login.username class="form-control" %}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contrase&ntilde;a</label>
+                        {% render_field login.password class="form-control" %}
                     </div>
                     <button type="submit" class="btn btn-primary">Ingresar</button>
                 </form>
