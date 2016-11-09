@@ -47,6 +47,8 @@ div.contenido > div.info-base > div.botones > a{
 #corazon_favorito{
     font-size: 16px;
     color: blue;
+    background-color: transparent;
+    border: none;
 }
 
 div.contenido > div.info-base > div.links > p.text-right{

@@ -165,13 +165,13 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" class="corazon_favorito" id="corazon_favorito">
+                                            <button value="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" class="corazon_favorito" id="corazon_favorito">
                                                 {%if modulo.id in modulos_favs%}
                                                     <span class="glyphicon glyphicon-heart"></span>
                                                 {%else%}
                                                     <span class="glyphicon glyphicon-heart-empty"></span>
                                                 {%endif%}
-                                            </a>
+                                            </button>
                                         </td>
 
                                         <!-- Modal -->
@@ -344,9 +344,9 @@
     
     $('#SkypeButton_Call_equity a').click(
         function(e){
+            e.preventDefault();
             window.location.replace("/{{pais|safe}}/inmuebles/link-skype/{{inmueble.codigo|safe}}/");
     });
-    
 </script>
 
 <!-- Google Maps -->
@@ -415,7 +415,7 @@ $('#carousel').on('slid', function (e) {
 <script>
     $('#corazon_favorito').click(function(e){
         e.preventDefault();
-        var link = this.href;
+        var link = this.value;
 
         $.ajax({
           method: "GET",
