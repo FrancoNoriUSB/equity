@@ -165,7 +165,7 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <button value="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" class="corazon_favorito" id="corazon_favorito">
+                                            <button value="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" onclick="favorito('/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/')" id="corazon_favorito">
                                                 {%if modulo.id in modulos_favs%}
                                                     <span class="glyphicon glyphicon-heart"></span>
                                                 {%else%}
@@ -413,10 +413,7 @@ $('#carousel').on('slid', function (e) {
 
 <!-- Favoritos -->
 <script>
-    $('.corazon_favorito').click(function(e){
-        e.preventDefault();
-        var link = this.value;
-
+    function favorito(link){
         $.ajax({
           method: "GET",
           url: link
@@ -424,7 +421,7 @@ $('#carousel').on('slid', function (e) {
 
         $('#corazon_favorito').children().removeClass('glyphicon-heart-empty');
         $('#corazon_favorito').children().addClass('glyphicon-heart');
-    });
+    }
 </script>
 
 {%endblock js%}
