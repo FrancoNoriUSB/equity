@@ -415,10 +415,12 @@ $('#carousel').on('slid', function (e) {
 <script>
     $('#corazon_favorito').click(function(e){
         e.preventDefault();
-        var xhttp = new XMLHttpRequest();
         var link = this.href;
-        xhttp.open("GET", link, true);
-        xhttp.send();
+
+        $.ajax({
+          method: "GET",
+          url: link
+        });
 
         $('#corazon_favorito').children().removeClass('glyphicon-heart-empty');
         $('#corazon_favorito').children().addClass('glyphicon-heart');
