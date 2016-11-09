@@ -402,8 +402,7 @@ def favoritos_agregar(request, pais, id_inmueble):
             url = '/' + str(pais) + '/favoritos/'
     else:
         url = '/' + str(pais) + '/ingreso-registro/'
-
-    return HttpResponseRedirect(url)
+        return HttpResponseRedirect(url)
 
 
 # Vista para eliminar inmuebles favoritos
@@ -428,24 +427,24 @@ def favoritos_eliminar(request, pais, id_inmueble):
 # Vista para agregar modulos de inmuebles favoritos
 def favoritos_modulo_agregar(request, pais, id_modulo):
 
-    modulo = None
+    registrado = False
+    moduloF = None
     user = request.user
-    url = '/'
 
     if user.is_authenticated() and user:
         try:
-            modulo = ModuloFavorito.objects.get(modulo__id=id_modulo, usuario=user)
+            moduloF = ModuloFavorito.objects.get(modulo__id=id_modulo, usuario=user)
         except:
-            url = '/' + str(pais) + '/favoritos/'
+            registrado = False
 
-        if not modulo:
+        if not moduloF:
             favorito = ModuloFavorito(modulo_id=id_modulo, usuario=user)
             favorito.save()
-            url = '/' + str(pais) + '/favoritos/'
+            registrado = True
     else:
-        url = '/' + str(pais) + '/ingreso-registro/'
+        registrado = False
 
-    return HttpResponseRedirect(url)
+    return registrado
 
 
 # Vista para eliminar inmuebles favoritos
