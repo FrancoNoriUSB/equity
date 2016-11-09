@@ -13,21 +13,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
 <script src="{{STATIC_URL}}files/js/jquery.fullscreen.min.js"></script>
 
-<!-- Boton de compartir de facebook -->
-<div id="fb-root"></div>
-<script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.3&appId=260585997287170";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-
-<script src="https://apis.google.com/js/platform.js" async defer>
-  {lang: 'es'}
-</script>
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
@@ -165,7 +150,7 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <button value="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" onclick="favorito('/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/')" id="corazon_favorito">
+                                            <button value="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" onclick="favorito('/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/', 'corazon_favorito{{modulo.id}}')" id="corazon_favorito{{modulo.id}}" class="corazon_favorito">
                                                 {%if modulo.id in modulos_favs%}
                                                     <span class="glyphicon glyphicon-heart"></span>
                                                 {%else%}
@@ -413,14 +398,14 @@ $('#carousel').on('slid', function (e) {
 
 <!-- Favoritos -->
 <script>
-    function favorito(link){
+    function favorito(link, id){
         $.ajax({
           method: "GET",
           url: link
         });
-
-        $('#corazon_favorito').children().removeClass('glyphicon-heart-empty');
-        $('#corazon_favorito').children().addClass('glyphicon-heart');
+        
+        $('#'+id).children().removeClass('glyphicon-heart-empty');
+        $('#'+id).children().addClass('glyphicon-heart');
     }
 </script>
 

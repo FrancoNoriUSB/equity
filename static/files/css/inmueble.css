@@ -44,7 +44,7 @@ div.contenido > div.info-base > div.botones > a{
 }
 
 /*Estilos de info de inmueble*/
-#corazon_favorito{
+.corazon_favorito{
     font-size: 16px;
     color: blue;
     background-color: transparent;
