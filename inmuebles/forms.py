@@ -11,6 +11,17 @@ class LoginForm(forms.Form):
     username = forms.CharField(label='Nombre de usuario', widget=forms.TextInput(attrs={'placeholder': 'Nombre de usuario'}))
     password = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'placeholder': "Contraseña"}))
 
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        username = self.data['username']
+
+        usuario = User.objects.filter(username=username)
+
+        if not usuario:
+            raise forms.ValidationError("Usuario inválido. ¡Introduzca un usuario existente!")
+        else:
+            return cleaned_data
+
 
 # Formulario para cambiar los paises en la pagina
 class PaisesForm(forms.Form):

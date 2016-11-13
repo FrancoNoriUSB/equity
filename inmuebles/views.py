@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -586,6 +587,7 @@ def login_register_user(request, pais):
     username = ''
     password = ''
     usuario = ''
+    error_login = ''
 
     # Formularios basicos
     loginF = LoginForm()
@@ -601,28 +603,32 @@ def login_register_user(request, pais):
 
     if request.POST:
         registroF = UserForm(request.POST)
+        print registroF
 
         if registroF.is_valid():
             registroF.save()
         else:
             loginF = LoginForm(request.POST)
-            try:
-                username = request.POST['username']
-                password = request.POST['password']
-                usuario = authenticate(username=username, password=password)
-            except:
-                print 'Error Validating User'
 
-            if usuario:
-                # Caso del usuario activo
-                if usuario.is_active:
-                    login(request, usuario)
-                    return HttpResponseRedirect('/' + str(pais) + '/favoritos/')
+            if loginF.is_valid():
+                try:
+                    username = request.POST['username']
+                    password = request.POST['password']
+                    usuario = authenticate(username=username, password=password)
+                except:
+                    print 'Error Validating User'
+
+                if usuario:
+                    # Caso del usuario activo
+                    if usuario.is_active:
+                        login(request, usuario)
+                        return HttpResponseRedirect('/' + str(pais) + '/favoritos/')
+                    else:
+                        return "Tu cuenta esta bloqueada"
                 else:
-                    return "Tu cuenta esta bloqueada"
-            else:
-                # Usuario invalido o no existe!
-                print "Invalid login details: {0}, {1}".format(username, password)
+                    # Usuario invalido o no existe!
+                    print "Invalid login details: {0}, {1}".format(username, password)
+                    error_login = '¡Contraseña invalida!'
             registroF = UserForm()
 
     ctx = {
@@ -630,6 +636,7 @@ def login_register_user(request, pais):
         'login': loginF,
         'registro': registroF,
         'paisesF': paisesF,
+        'error_login': error_login,
     }
 
     return render_to_response('usuarios/login-registro.html', ctx, context_instance=RequestContext(request))
@@ -654,6 +661,7 @@ def perfil_user(request, pais):
 # Vista para editar el perfil de usuarios comunes.
 @login_required
 def perfil_editar_user(request, pais):
+    exito = False
     user = request.user
 
     # Formulario para los paises disponibles
@@ -665,14 +673,16 @@ def perfil_editar_user(request, pais):
 
     if(request.POST):
         userF = EditUserForm(request.POST, instance=user)
-        print userF
+
         if userF.is_valid():
             userF.save()
+            exito = True
 
     ctx = {
         'pais': pais,
         'paisesF': paisesF,
         'userF': userF,
+        'exito': exito,
     }
     return render_to_response('usuarios/editar.html', ctx, context_instance=RequestContext(request))
 

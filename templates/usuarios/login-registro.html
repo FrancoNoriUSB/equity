@@ -20,11 +20,42 @@
                 <br>
                 <form role="form" action="." method="POST">
                     {%csrf_token%}
+                    {% if login.non_field_errors %}
+                        {% for error in login.non_field_errors %}
+                            {%if error != ''%}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                            {%endif%}
+                        {% endfor %}
+                    {%endif%}
                     <div class="form-group">
+                        {% if login.username.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in login.username.errors %}
+                                    {%if error != ''%}
+                                        <strong>{{ error|escape }}</strong>
+                                        <br>
+                                    {%endif%}
+                                {% endfor %}
+                            </div>
+                        {%endif%}
                         <label for="username">Nombre de usuario</label>
                         {% render_field login.username class="form-control" %}
                     </div>
                     <div class="form-group">
+                        {%if error_login != ''%}
+                            <div class="alert alert-danger">
+                                <strong>{{ error_login|escape }}</strong>
+                            </div>
+                        {%endif%}
+                        {% if login.password.errors %}
+                            {% for error in login.password.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {%endif%}
                         <label for="password">Contrase&ntilde;a</label>
                         {% render_field login.password class="form-control" %}
                     </div>
