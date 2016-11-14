@@ -18,7 +18,7 @@ body{
 
 /*Estilos de la barra superior de la base*/
 header .navbar{
-	background: #4f4e4e;
+	background: #FFFFFF;
 	margin-bottom:0px;
 }
 
@@ -74,10 +74,6 @@ body > header > nav > div > div > div > div.navbar-header{
 	padding-left: 2%;
 }
 
-body > header > nav > div > div > div > div.navbar-header > a > img{
-	width: 100%;
-}
-
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
 	width: 94%;
 	padding-left: 3.5%;
@@ -111,26 +107,22 @@ body > header > div > div > div{
 
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
 #info-pais{
-	color: #FFFFFF;
+	color: #000000;
 }
 
 #info-pais{
-	background-image: linear-gradient(to bottom,#4f4e4e 0,#4f4e4e 100%);
 	border-color: transparent;
-	background-color: #4f4e4e;
+	background-color: transparent;
 	border: 0px solid transparent;
 	text-shadow: 0 0px 0 transparent;
-	box-shadow: inset 0 0px 0 rgba(255,255,255,1),0 0px 0px rgba(0,0,0,1);
 	padding:15px 8px;
 }
 
 body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button:hover{
-	background-image: linear-gradient(to bottom,#4f4e4e 0,#4f4e4e 100%);
 	border-color: transparent;
-	background-color: #4f4e4e;
+	background-color: transparent;
 	border: 0px solid transparent;
 	text-shadow: 0 0px 0 transparent;
-	box-shadow: inset 0 0px 0 rgba(255,255,255,1),0 0px 0px rgba(0,0,0,1);
 }
 
 body > header > div.container-fluid{
