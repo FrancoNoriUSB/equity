@@ -31,27 +31,27 @@ body > div.row.titulo{
 	border-color: transparent;
 }
 
-body > header > div{
+header > div{
 	margin-top: 2.7%;
 }
 
-body > header > nav{
+header > nav{
 	height: 100px;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
+header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
 	margin-top: -2%;
 }
 
-body > header > nav > div > div > div > div.navbar-header > a > p{
+header > nav > div > div > div > div.navbar-header > a > p{
 	color: white;
 }
 
-body > div.container-fluid > div > div > form > div{
+div.container-fluid > div > div > form > div{
 	margin-right: 5px;
 }
 
-body > div.container-fluid > div > div > form > div > div > button{
+div.container-fluid > div > div > form > div > div > button{
 	width: 32px;
 	height: 32px;
 	padding: 0;
@@ -60,52 +60,51 @@ body > div.container-fluid > div > div > form > div > div > button{
 	border-width: 0px;
 }
 
-body > div.container-fluid > div > div > form > div > div > button:hover{
+div.container-fluid > div > div > form > div > div > button:hover{
 	background-color: transparent;
 	background-image: linear-gradient(to bottom,#FFFFFF 0,#FFFFFF 100%);
 }
 
-body > div.container-fluid > div > div > form > div > div > button > span{
+div.container-fluid > div > div > form > div > div > button > span{
 	color: #000000 !important;
 }
 
-body > header > nav > div > div > div > div.navbar-header{
+header > nav > div > div > div > div.navbar-header{
     width: 10%;
 	padding-left: 2%;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
+header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul{
 	width: 94%;
 	padding-left: 3.5%;
+	padding-top: 10px;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li.pais{
-	margin-right: 2.5%;
-	width: 16%;
+header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a{
+	padding-top: 9px;
+	padding-bottom: 6px;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li.buscador{
-	width: 20%;
-    float: right;
-    margin-right: 3.5%;
+header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button{
+	background-color: transparent;
 }
 
-body > header > nav > div > div > div > div.navbar-header > div > a{
+header > nav > div > div > div > div.navbar-header > div > a{
 	font-size: 16px;
 	color: #FFF;
 }
 
-body > header > nav > div > div > div > div.navbar-header > div > a:hover{
+header > nav > div > div > div > div.navbar-header > div > a:hover{
 	text-decoration: none;
 }
 
-body > header > div > div > div{
+header > div > div > div{
 	padding-bottom: 0.6%;
 	padding-top: 0.6%;
 }
 
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
+header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > a,
 #info-pais{
 	color: #000000;
 }
@@ -118,27 +117,27 @@ body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCo
 	padding:15px 8px;
 }
 
-body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button:hover{
+header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li > div > button:hover{
 	border-color: transparent;
 	background-color: transparent;
 	border: 0px solid transparent;
 	text-shadow: 0 0px 0 transparent;
 }
 
-body > header > div.container-fluid{
+header > div.container-fluid{
     height: 50px;
     display: table;
     padding-right: 0;
     padding-left: 0;
 }
 
-body > header > div > div.row-fluid{
+header > div > div.row-fluid{
     height: 100%;
     display: table-cell;
     width: 1170px;
 }
 
-body > header > div > div  > a > img.revista{
+header > div > div  > a > img.revista{
 	float:right;
 	margin-left: 40%;
 	margin-top: 14px;
@@ -150,40 +149,21 @@ body > header > div > div  > a > img.revista{
     margin: 0 auto;
 }
 
-body > header > div > div > a > img.logo{
+header > div > div > a > img.logo{
 	padding-top: 1%;
 	padding-bottom: 1%;
 	padding-right: 0;
 	padding-left: 0;
 }
 
-/*Estilos del header de busqueda*/
-body > div.container-fluid > div.busqueda.row{
-	background-color: #0095d9;
-}	
-
-body > div.container-fluid > div.busqueda.row > div{
-	padding: 4px;
-}
-
-body > div.container-fluid >  div.busqueda.row > div > form{
-	display: table;
-	margin-right: auto;
-	margin-left: auto;
-}
-
-#id_palabra{
-	width: 100%;
-}
-
 /*Estilos barra lateral de banners*/
-body > div.container > div > div.banners.col-lg-3 > a > img{
+div.container > div > div.banners.col-lg-3 > a > img{
 	float: initial;
 	margin-bottom: 2%;
 }
 
 /*Estilos del contenido*/
-body > div.contenido{
+div.contenido{
 	margin-top: 0.5%;
 }
 

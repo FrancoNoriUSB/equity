@@ -55,40 +55,95 @@
                                     <img class="img-responsive" src="{{STATIC_URL}}files/img/eq-home.png" alt="">
                                 </a>
                             </div>
+                            <h4 class="text-danger">Conozca los proyectos inmobiliarios en:</h4>
                             <div class="collapse navbar-collapse navHeaderCollapse navheader">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="pais">
-                                        <form role="form" id="paises" method="POST" class="navbar-form navbar-right paises" action="." name="paises">
-                                            <div class="form-group">
-                                                {%csrf_token%}
-                                                {{paisesF.pais}}
-                                            </div>
-                                        </form>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" id="info-colombia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Colombia
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="info-colombia">
+                                                <li>
+                                                    <a href="/CO/">Proyectos en Colombia</a>
+                                                </li>
+                                                <li>
+                                                    <a href="http://www.expo-realestate.com/#!colombia/xmtnt">Info Pa&iacute;s Colombia</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </li>
                                     <li>
                                         <div class="dropdown">
-                                                <button class="btn dropdown-toggle" type="button" id="info-pais" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Info Pa&iacute;s
-                                                <span class="caret"></span>
+                                            <button class="btn dropdown-toggle" type="button" id="info-costa-rica" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Costa Rica
                                             </button>
-                                            <ul class="dropdown-menu" aria-labelledby="info-pais">
+                                            <ul class="dropdown-menu" aria-labelledby="info-costa-rica">
                                                 <li>
-                                                    <a href="http://www.expo-realestate.com/#!colombia/xmtnt">Colombia</a>
+                                                    <a href="/CR/">Proyectos en Costa Rica</a>
                                                 </li>
                                                 <li>
-                                                    <a href="http://www.expo-realestate.com/#!costa-rica/wlkyn">Costa Rica</a>
+                                                    <a href="http://www.expo-realestate.com/#!costa-rica/wlkyn">Info Pa&iacute;s Costa Rica</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" id="info-ecuador" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Ecuador
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="info-ecuador">
+                                                <li>
+                                                    <a href="/EC/">Proyectos en Ecuador</a>
                                                 </li>
                                                 <li>
-                                                    <a href="http://www.expo-realestate.com/#!ecuador/rwmlq">Ecuador</a>
+                                                    <a href="http://www.expo-realestate.com/#!ecuador/rwmlq">Info Pa&iacute;s Ecuador</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" id="info-eeuu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                EEUU
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="info-eeuu">
+                                                <li>
+                                                    <a href="/US/">Proyectos en EEUU</a>
                                                 </li>
                                                 <li>
-                                                    <a href="http://www.expo-realestate.com/#!eeuu/gdfeb">USA</a>
+                                                    <a href="http://www.expo-realestate.com/#!eeuu/gdfeb">Info Pa&iacute;s EEUU</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" id="info-panama" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Panam&aacute;
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="info-panama">
+                                                <li>
+                                                    <a href="/PA/">Proyectos en Panam&aacute;
                                                 </li>
                                                 <li>
-                                                    <a href="http://www.expo-realestate.com/#!blank/c706e">Panam&aacute;</a>
+                                                    <a href="http://www.expo-realestate.com/#!blank/c706e">Info Pa&iacute;s Panam&aacute;</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle" type="button" id="info-venezuela" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Venezuela
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="info-venezuela">
+                                                <li>
+                                                    <a href="/VE/">Proyectos en Venezuela</a>
                                                 </li>
                                                 <li>
-                                                    <a href="http://www.expo-realestate.com/#!venezuela/frqt6">Venezuela</a>
+                                                    <a href="http://www.expo-realestate.com/#!venezuela/frqt6">Info Pa&iacute;s Venezuela</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -100,29 +155,10 @@
                                         <a href="http://www.expo-realestate.com/#!eq-news/bwl8p">Noticias</a>
                                     </li>
                                     <li>
-                                        <a href="/{{pais}}/favoritos/">Ver Favoritos</a>
+                                        <a href="http://www.expo-realestate.com/contact-center">Contacto</a>
                                     </li>
-                                    {%if user.is_authenticated%}
                                     <li>
-                                        <a href="/{{pais}}/logout/">Salir</a>
-                                    </li>
-                                    {%else%}
-                                    <li>
-                                        <a href="/{{pais}}/ingreso-registro/">Ingresar</a>
-                                    </li>
-                                    {%endif%}
-                                    <li class="buscador">
-                                        <form class="navbar-form navbar-right" role="form" action="/{{pais}}/" method="GET">
-                                            {% csrf_token %}
-                                            <div class="form-group inner-addon right-addon">
-                                                <div class="input-group-btn">
-                                                {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
-                                                    <button class="btn btn-primary" id="">
-                                                        <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        <a href="http://www.expo-realestate.com/fondos">Fondos Inmobiliarios</a>
                                     </li>
                                 </ul>
                             </div>

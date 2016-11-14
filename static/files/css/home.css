@@ -6,29 +6,29 @@
 */
 
 /*Estilos de propiedades*/
-body > div > div > form > div.contenido > div.propiedades > div > div > div{
+div.contenido > div.propiedades > div > div > div{
 	padding-right: 3%;
 }
 
-body > div > div > form > div.contenido > div.propiedades > div > div.row > div > div.propiedad {
+div.contenido > div.propiedades > div > div.row > div > div.propiedad {
 	max-height: 295px;
 }
 
-body > div > div > form > div.contenido > div.propiedades > div > div > div > div > a{
+div.contenido > div.propiedades > div > div > div > div > a{
 	text-decoration: none;
 	color:white;
 }
 
-body > div > div > form > div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h5.ciudad,
-body > div > div > form > div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h6.datos{
+div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h5.ciudad,
+div.contenido > div.propiedades > div > div > div > div > a > div.inmueble > div > h6.datos{
 	display: inline;
 }
 
-#form > div.contenido.col-lg-9.col-md-9.col-sm-9.col-xs-9 > div.propiedades.row > div > div > div > div > a > div > div > h5.titulo{
+div.contenido.col-lg-9.col-md-9.col-sm-9.col-xs-9 > div.propiedades.row > div > div > div > div > a > div > div > h5.titulo{
 	margin-bottom: 0px;
 }
 
-body > div > div > form > div.contenido > div.propiedades.row > div > div > div > div > a > div.inmueble > div.datos-inmueble{
+div.contenido > div.propiedades.row > div > div > div > div > a > div.inmueble > div.datos-inmueble{
 	background-color: rgba(26, 46, 81, 0.5);
 	position: absolute;
     bottom: 0;
@@ -50,52 +50,80 @@ body > div > div > form > div.contenido > div.propiedades.row > div > div > div 
 	width: 42%
 }
 
+.pagination {
+    margin: 4px 0;
+    float: right;
+}
+
+/*Estilos del header de busqueda*/
+.buscador{
+	display: table;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.buscador div button{
+	background-image: -webkit-linear-gradient(white 0%, white 100%)!important;
+	background-image: -o-linear-gradient(white 0%, white 100%)!important;
+	background-image: linear-gradient(white 0%, white 100%)!important;	
+	background-color: #fff !important;
+	border-color: #ccc !important;
+	border-left-color: #fff !important;
+	border-radius: 3px !important;
+	margin-left: -5px !important;
+}
+
+#id_palabra{
+	width: 100%;
+}
+
 /*Estilos contenido*/
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > form{
+div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > form{
 	float: left;
 }
 
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > nav{
+div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > nav{
 	float: right;
 }
 
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > nav > ul,
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.paginacion-inferior.row > div > div > nav > ul{
+div.contenido.col-lg-9 > div.paginacion-superior.row > div > div > nav > ul,
+div.contenido.col-lg-9 > div.paginacion-inferior.row > div > div > nav > ul{
 	margin: 0px 0;
 }
 
-body > div.contenido.container > div > form > div.banners.col-lg-3 > div > div{
+div.banners.col-lg-3 > form > div > div{
 	padding:3%;
 	background-color: #d6e5f0;
 	margin-bottom: 3%;
 }
 
-body > div.contenido.container > div > form > div.banners.col-lg-3 > div.banner {
+div.banners.col-lg-3 > div.banner {
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-body > div.contenido.container > div > form > div.banners.col-lg-3 > form > div > div > div  > div.form-group{
+div.banners.col-lg-3 > form > div > div > div  > div.form-group{
 	margin-top: 2%;
 }
 
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row{
+div.contenido.col-lg-9 > div.propiedades.row{
 	margin-top: 3%;
 	margin-bottom: 3%;
-} form >
+}
 
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a{
+div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a{
 	color: #000;
 	font-size: 16px;
 }
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a:hover{
+
+div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > strong > a:hover{
 	text-decoration: none;
 }
 
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > p{
+div.contenido.col-lg-9 > div.propiedades.row > div > div > div.descripcion.col-lg-4 > p{
 	font-size: 15px;
 }
-body > div.contenido.container > div > form > div.contenido.col-lg-9 > div.propiedades.row > div > div.propiedad{
+div.contenido.col-lg-9 > div.propiedades.row > div > div.propiedad{
 	margin-bottom: 4%;
 	border-bottom-style: solid;
 	border-bottom-width: 2px;
