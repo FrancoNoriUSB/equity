@@ -1,6 +1,7 @@
 <!-- Archivo donde estan los bloques del home -->
 {% extends "base_inmueble.html" %}
 {% load staticfiles %}
+{% load bootstrap3%}
 {% load mathfilters %}
 {% load humanize %}
 <!-- Bloque para scripts que se cargan en la plantilla base -->
@@ -79,13 +80,13 @@
     <div class="container informacion">
         <div class="tabpanel col-lg-12 col-md-12 col-sm-12">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" {%if not visita and not contacto%} class="active" {%endif%} >
+                <li role="presentation" {%if not visita and not constructor%} class="active" {%endif%} >
                     <a href="#general" aria-controls="general" role="tab" data-toggle="tab">Informaci&oacute;n General</a>
                 </li>
                 <li role="presentation">
                     <a href="#ubicacion" aria-controls="ubicacion" role="tab" data-toggle="tab">Ubicaci&oacute;n</a>
                 </li>
-                <li role="presentation" {%if contacto%} class="active" {%endif%}>
+                <li role="presentation" {%if constructor%} class="active" {%endif%}>
                     <a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar al constructor</a>
                 </li>
                 <li role="presentation" {%if visita%} class="active" {%endif%}>
@@ -98,7 +99,7 @@
 
              <!-- Tab panels -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade {%if not envio_visita and not envio_contacto%} in active {%endif%}" id="general">
+                <div role="tabpanel" class="tab-pane fade {%if not visita and not constructor%} in active {%endif%}" id="general">
                     <div class="tabla-info row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <table class="table table-bordered">
@@ -125,7 +126,7 @@
                                         <p class="text-center">Plano</p>
                                     </td>
                                     <td>
-                                        <p class="text-center">Favorito</p>
+                                        <p class="text-center"><a href="/{{pais}}/favoritos/">Favorito</a></p>
                                     </td>
                                 </tr>
                                 {% for modulo in modulos %}
@@ -151,13 +152,21 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            <button value="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" onclick="favorito('/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/', 'corazon_favorito{{modulo.id}}')" id="corazon_favorito{{modulo.id}}" class="corazon_favorito">
+                                            {%if user.is_authenticated%}
+                                                <button value="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" onclick="favorito('/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/', 'corazon_favorito{{modulo.id}}')" id="corazon_favorito{{modulo.id}}" class="corazon_favorito">
+                                            {%else%}
+                                            <a href="/{{pais}}/ingreso-registro/" class="corazon_favorito">
+                                            {%endif%}
                                                 {%if modulo.id in modulos_favs%}
                                                     <span class="glyphicon glyphicon-heart"></span>
                                                 {%else%}
                                                     <span class="glyphicon glyphicon-heart-empty"></span>
                                                 {%endif%}
-                                            </button>
+                                            {%if user.is_authenticated%}
+                                                </button>
+                                            {%else%}
+                                                </a>
+                                            {%endif%}
                                         </td>
 
                                         <!-- Modal -->
@@ -232,7 +241,7 @@
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade {%if envio_contacto%} in active {%endif%}" id="contactar">
+                <div role="tabpanel" class="tab-pane fade {%if constructor%} in active {%endif%}" id="contactar">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <h4>Contactar al constructor</h4>
                         {%if envio_contacto%}
@@ -278,16 +287,13 @@
                         <form action="" method="POST">  
                             {%csrf_token%}
                             <div class="form-group">
-                                {{ContactoAgenteForm.nombre}}<br>
-                                {{ContactoAgenteForm.correo}}<br>
-                                {{ContactoAgenteForm.telefonos}}<br>
-                                {{ContactoAgenteForm.comentario}}<br>
-                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                {%bootstrap_form ContactoAgenteForm%}
+                                <button type="submit" class="btn btn-primary" name="constructor">Enviar</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade {%if envio_visita%} in active {%endif%}" id="visita">
+                <div role="tabpanel" class="tab-pane fade {%if visita%} in active {%endif%}" id="visita">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <h4>Formulario para solicitar una visita al inmueble</h4>
                         {%if envio_visita%}
@@ -303,11 +309,8 @@
                         <form action="" method="POST">  
                             {%csrf_token%}
                             <div class="form-group">
-                                {{SolicitarVisitaForm.nombre}}<br>
-                                {{SolicitarVisitaForm.correo}}<br>
-                                {{SolicitarVisitaForm.telefonos}}<br>
-                                {{SolicitarVisitaForm.fecha_cita}}<br>
-                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                {%bootstrap_form SolicitarVisitaForm%}
+                                <button type="submit" class="btn btn-primary" name="visita">Enviar</button>
                             </div>
                         </form>
                     </div>

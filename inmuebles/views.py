@@ -262,6 +262,8 @@ def home(request, pais):
 # Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
+    constructor = False
+    visita = False
     envio_contacto = False
     envio_visita = False
     fecha_entrega = ''
@@ -273,6 +275,7 @@ def inmueble(request, codigo, pais):
 
     # Modulos
     modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
+
     try:
         modulos_favs = ModuloFavorito.objects.filter(usuario=user, modulo__in=modulos).values_list('modulo', flat=True)
     except:
@@ -317,17 +320,20 @@ def inmueble(request, codigo, pais):
             vista.save()
 
     if request.POST:
-        contactoF = ContactoAgenteForm(request.POST)
+        if 'constructor' in request.POST:
+            constructor = True
+            contactoF = ContactoAgenteForm(request.POST)
 
-        if contactoF.is_valid():
-            envio_contacto = contact_email(request, contactoF, agente.correo, inmueble)
-            contactoF = ContactoAgenteForm()
-        else:
+            if contactoF.is_valid():
+                envio_contacto = contact_email(request, contactoF, agente.correo, inmueble)
+                solicitarvF = SolicitarVisitaForm()
+
+        elif 'visita' in request.POST:
+            visita = True
             solicitarvF = SolicitarVisitaForm(request.POST)
 
             if solicitarvF.is_valid():
                 envio_visita = visit_email(request, solicitarvF, inmueble)
-                solicitarvF = SolicitarVisitaForm()
                 contactoF = ContactoAgenteForm()
 
     ctx = {
@@ -341,7 +347,9 @@ def inmueble(request, codigo, pais):
         'imagenes': imagenes,
         'banners': banners,
         'pais': pais,
+        'constructor': constructor,
         'envio_contacto': envio_contacto,
+        'visita': visita,
         'envio_visita': envio_visita,
         'fecha_entrega': fecha_entrega,
     }
