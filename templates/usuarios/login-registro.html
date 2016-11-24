@@ -30,9 +30,9 @@
                         {% endfor %}
                     {%endif%}
                     <div class="form-group">
-                        {% if login.username.errors %}
+                        {% if login.user_name.errors %}
                             <div class="alert alert-danger">
-                                {% for error in login.username.errors %}
+                                {% for error in login.user_name.errors %}
                                     {%if error != ''%}
                                         <strong>{{ error|escape }}</strong>
                                         <br>
@@ -40,8 +40,8 @@
                                 {% endfor %}
                             </div>
                         {%endif%}
-                        <label for="username">Nombre de usuario</label>
-                        {% render_field login.username class="form-control" %}
+                        <label for="user_name">Nombre de usuario</label>
+                        {% render_field login.user_name class="form-control" %}
                     </div>
                     <div class="form-group">
                         {%if error_login != ''%}
@@ -59,7 +59,9 @@
                         <label for="password">Contrase&ntilde;a</label>
                         {% render_field login.password class="form-control" %}
                     </div>
-                    <button type="submit" class="btn btn-primary">Ingresar</button>
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary" name="login">Ingresar</button>
+                    {% endbuttons %}
                 </form>
                 <br>
                 <br>
@@ -68,13 +70,18 @@
                 <h3>Crear una cuenta</h3>
                 <br>
                 <form role="form" action="." method="POST">
+                    {%if registrado%}
+                    <div class="alert alert-success">
+                        <strong>Usuario registrado con &eacute;xito!</strong>
+                        <br>
+                    </div>
+                    {%endif%}
                     <div class="form-group">
                         {%csrf_token%}
                         {%  bootstrap_form registro %}
                     </div>
                     {% buttons %}
-                        <br>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success" name="registro">
                             Registrarse
                         </button>
                     {% endbuttons %}

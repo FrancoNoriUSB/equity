@@ -8,14 +8,16 @@ from django.utils.translation import ugettext_lazy as _
 
 # Formulario para el login de usuario
 class LoginForm(forms.Form):
-    username = forms.CharField(label='Nombre de usuario', widget=forms.TextInput(attrs={'placeholder': 'Nombre de usuario'}))
+    user_name = forms.CharField(label='Nombre de usuario', widget=forms.TextInput(attrs={'placeholder': 'Nombre de usuario'}))
     password = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'placeholder': "Contraseña"}))
 
     def clean(self):
         cleaned_data = self.cleaned_data
-        username = self.data['username']
-
-        usuario = User.objects.filter(username=username)
+        try:
+            user_name = self.data['user_name']
+            usuario = User.objects.filter(user_name=user_name)
+        except:
+            return False
 
         if not usuario:
             raise forms.ValidationError("Usuario inválido. ¡Introduzca un usuario existente!")
@@ -163,6 +165,7 @@ class UserForm(forms.ModelForm):
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
+
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Las contraseñas no coinciden")
         return password2

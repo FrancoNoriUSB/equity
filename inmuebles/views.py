@@ -588,6 +588,7 @@ def login_register_user(request, pais):
     password = ''
     usuario = ''
     error_login = ''
+    registrado = False
 
     # Formularios basicos
     loginF = LoginForm()
@@ -602,17 +603,18 @@ def login_register_user(request, pais):
         return HttpResponseRedirect('/' + str(pais) + '/perfil/')
 
     if request.POST:
-        registroF = UserForm(request.POST)
-        print registroF
+        if 'registro' in request.POST:
+            registroF = UserForm(request.POST)
 
-        if registroF.is_valid():
-            registroF.save()
-        else:
+            if registroF.is_valid():
+                registroF.save()
+                registrado = True
+        elif 'login' in request.POST:
             loginF = LoginForm(request.POST)
 
             if loginF.is_valid():
                 try:
-                    username = request.POST['username']
+                    username = request.POST['user_name']
                     password = request.POST['password']
                     usuario = authenticate(username=username, password=password)
                 except:
@@ -629,9 +631,9 @@ def login_register_user(request, pais):
                     # Usuario invalido o no existe!
                     print "Invalid login details: {0}, {1}".format(username, password)
                     error_login = '¡Contraseña invalida!'
-            registroF = UserForm()
 
     ctx = {
+        'registrado': registrado,
         'pais': pais,
         'login': loginF,
         'registro': registroF,
