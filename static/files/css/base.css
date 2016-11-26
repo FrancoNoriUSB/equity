@@ -47,6 +47,28 @@ header > nav > div > div > div > div.navbar-header > a > p{
 	color: white;
 }
 
+header > nav > div > div > div > div > ul > .linea-divisoria-fondos{
+	left: 628px;
+    width: 61px;
+    position: relative;
+    transform: rotate(90deg) translateZ(0px);
+    top: 17px;
+    border-bottom: 2px solid rgba(224, 224, 224, 1);
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
+header > nav > div > div > div > div > ul > .linea-divisoria-contacto{
+	left: 895px;
+    width: 61px;
+    position: relative;
+    transform: rotate(90deg) translateZ(0px);
+    top: 17px;
+    border-bottom: 2px solid rgba(224, 224, 224, 1);
+    height: 0 !important;
+    min-height: 0 !important;
+}
+
 div.container-fluid > div > div > form > div{
 	margin-right: 5px;
 }
