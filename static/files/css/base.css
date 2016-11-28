@@ -342,21 +342,21 @@ body,
 	}
 
 	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(10){
-		width: 16%;
+		
 	}
 }
 
 @media (min-width: 992px) and (max-width: 1200px){
 	body > div.header-home > div.container{
-		margin-top: 11% !important;
+		
 	}
 
 	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul > li:nth-child(10){
-		width: 16%;
+		
 	}
 
 	body > header > nav > div > div > div > div.collapse.navbar-collapse.navHeaderCollapse.navheader > ul {
-	    margin-top: -5.5%;
+	    
 	}
 }
 
