@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{%load bootstrap3%}
 {% block content %}
 
 <!-- Estilos de la pagina-->
@@ -18,7 +19,7 @@
 		  		<form role="form" action="." method="POST">
 		  			<div class="form-group">
 						{%csrf_token%}
-						{{ login.as_p }}
+						{% bootstrap_form login %}
 					</div>
 					<button type="submit" class="btn btn-primary">Ingresar</button>
 				</form>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load staticfiles %}
+    {% load widget_tweaks %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami, Mexico, Ecuador, Costa Rica, Panama, Colombia">
+        <link rel="SHORTCUT ICON" href="{% static 'files/img/favicon.ico' %}"/>
+        <title>Equity</title>
+ 
+         <!-- Modernizr -->
+        <script src="{% static 'files/js/modernizr.custom.80055.js' %}"></script>
+
+        <!-- jQuery -->
+        <script src="{{STATIC_URL}}files/js/jquery-1.11.3.min.js"></script>
+
+        <!--Bootstrap Local-->
+        <!--CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+
+        <!--JavaScript -->
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+        <!-- BLoque para cargar cualquier script en el header -->
+        {% block scripts %}
+            
+        {% endblock scripts %}
+    </head> 
+    <body>
+        <!-- Sección interna de la página -->
+        <div class="contenido container-fluid">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
+{%block js%}
+
+{%endblock js%}
+</html>

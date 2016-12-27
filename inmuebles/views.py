@@ -722,7 +722,7 @@ def login_admin(request, pais):
 
     if request.method == "POST":
         loginF = LoginForm(request.POST)
-        username = request.POST['username']
+        username = request.POST['user_name']
         password = request.POST['password']
         usuario = authenticate(username=username, password=password)
 
@@ -1434,7 +1434,7 @@ def monedas_editar(request, pais, id_moneda):
     return render_to_response('admin/monedas/editar.html', ctx, context_instance=RequestContext(request))
 
 
-# Vista para agregar los agentes de ese pais
+# Vista para eliminar monedas de un pais
 @login_required
 def monedas_eliminar(request, pais, id_moneda):
 
@@ -1444,6 +1444,7 @@ def monedas_eliminar(request, pais, id_moneda):
 
 
 # Vista de resumen de estadisticas
+@login_required
 def estadisticas_list(request, pais):
 
     vistas_total = 0
@@ -1492,6 +1493,94 @@ def estadisticas_list(request, pais):
     }
 
     return render_to_response('admin/estadisticas/estadisticas_listar.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para listar los enlaces comerciales
+@login_required
+def enlaces_list(request, pais):
+
+    enlaces = EnlaceComercial.objects.all()
+
+    ctx = {
+        'enlaces': enlaces,
+        'pais': pais,
+    }
+
+    return render_to_response('admin/enlaces/enlaces.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para agregar los enlaces comerciales
+@login_required
+def enlaces_agregar(request, pais):
+
+    agregado = False
+    enlaceF = EnlaceForm()
+    if request.POST:
+        enlaceF = EnlaceForm(request.POST)
+        if enlaceF.is_valid():
+            enlaceF.save()
+            agregado = True
+
+    ctx = {
+        'EnlaceForm': enlaceF,
+        'agregado': agregado,
+        'pais': pais,
+    }
+
+    return render_to_response('admin/enlaces/agregar.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para editar los enlaces comerciales
+@login_required
+def enlaces_editar(request, pais, id_enlace):
+
+    editado = False
+    enlace = EnlaceComercial.objects.get(id=id_enlace)
+    enlaceF = EnlaceForm(instance=enlace)
+
+    if request.POST:
+        enlaceF = EnlaceForm(request.POST, instance=enlace)
+        if enlaceF.is_valid():
+            enlaceF.save()
+            editado = True
+
+    ctx = {
+        'EnlaceForm': enlaceF,
+        'editado': editado,
+        'pais': pais,
+    }
+
+    return render_to_response('admin/enlaces/editar.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para eliminar enlaces
+@login_required
+def enlaces_eliminar(request, pais, id_enlace):
+
+    get_object_or_404(EnlaceComercial, id=id_enlace).delete()
+
+    return HttpResponseRedirect('/' + str(pais) + '/admin/enlaces/')
+
+
+# Vista para los inmuebles móviles
+def inmueble_movil(request, codigo):
+
+    inmueble = get_object_or_404(Inmueble, codigo=codigo)
+    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble)
+    solicitarvF = SolicitarVisitaForm()
+
+    if request.POST:
+        solicitarvF = SolicitarVisitaForm(request.POST)
+
+        if solicitarvF.is_valid():
+            print 'Yay!'
+    ctx = {
+        'inmueble': inmueble,
+        'imagenes': imagenes,
+        'SolicitarVisitaForm': solicitarvF,
+    }
+
+    return render_to_response('inmuebles/inmueble_movil.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para cerrar la sesion

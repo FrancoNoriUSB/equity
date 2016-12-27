@@ -69,6 +69,30 @@ def visit_email(request, form, inmueble):
     return enviado
 
 
+# Funcion para los correos que se envian en Contact Us
+def movil_email(request, form, inmueble):
+
+    emailF = form
+    emails = []
+
+    # Informacion del usuario
+    emails.append('contactcenter@equitymedia.la')
+    emails.append('fernandoweber@equitymedia.la')
+    emails.append('info@equitymedia.la')
+
+    # Mensaje a enviar
+    message = 'Correo de solicitud de visita de usuario con correo: ' + str(emailF.cleaned_data['correo']) + '<br>'
+    message += 'Inmueble: ' + inmueble.titulo
+
+    email = EmailMessage()
+    email.subject = '[Equity International] Correo Visita'
+    email.body = message
+    email.to = emails
+    email.content_subtype = "html"
+    enviado = email.send()
+    return enviado
+
+
 # Query dinamico extraido de un proyecto ajeno
 def dynamic_query(model, fields, types, values, operator, order):
     """

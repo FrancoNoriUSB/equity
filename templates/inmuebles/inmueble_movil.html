@@ -1,0 +1,78 @@
+<!-- Archivo donde estan los bloques del home -->
+{% extends "base_inmueble_movil.html" %}
+{% load staticfiles %}
+{% load bootstrap3%}
+{% load mathfilters %}
+{% load humanize %}
+<!-- Bloque para scripts que se cargan en la plantilla base -->
+{% block scripts %}
+
+<!-- Estilos del index -->
+<link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble_movil.css' %}">
+
+{% endblock scripts %}
+
+<!-- Boque del contenido de la pagina -->
+{% block content %}
+    <div class="container-fluid">
+        <!-- Logo e info -->
+        <div class="container">
+            <div class="row">
+                <h3>
+                    <img src="{{inmueble.logo.url}}" alt="" class="img-responsive">
+                    {{inmueble.ciudad.nombre}} / {{inmueble.zona.nombre}}
+                </h3>
+            </div>
+        </div>
+        <!-- Galeria -->
+        <div class="container">
+            <div class="row">
+                <div id="carousel-bounding-box">
+                    <div id="carousel" class="carousel slide carousel-fade">
+                        <!-- main slider carousel items -->
+                        <div class="carousel-inner">
+                        {%for imagen in imagenes%}
+                            <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
+                                <img class="img-responsive" src="{{imagen.imagen.url}}" alt="" id="carousel-image">
+                            </div>
+                        {%endfor%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Video -->
+        <div class="container">
+            <div class="row">
+                {%if inmueble.video%}
+                    <div class="video-container">
+                        <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
+                        </iframe>
+                    </div>
+                {%endif%}
+            </div>
+        </div>
+        <!-- Formulario email -->
+        <div class="container">
+            <div class="row">
+                <h4>
+                    Si desea conocer m&aacute;s informaci&oacute;n de acerca de este inmueble, env&iacute;enos t&uacute; email:
+                </h4>
+                <form action="." method="POST">  
+                    {%csrf_token%}
+                    <div class="form-group">
+                        {%bootstrap_field SolicitarVisitaForm.correo%}
+                        <button type="submit" class="btn btn-primary" name="visita">
+                            Enviar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+<!-- Seccion donde se carga el JS -->
+{%block js%}
+
+{%endblock js%}

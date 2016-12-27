@@ -67,4 +67,13 @@ urlpatterns = patterns(
     # Estadisticas
     url(r'^(?P<pais>[A-Z][A-Z])/admin/estadisticas/$', 'estadisticas_list', name='listar_estadisticas'),
 
+    # Enlaces
+    url(r'^(?P<pais>[A-Z][A-Z])/admin/enlaces/$', 'enlaces_list', name='listar_enlaces'),
+    url(r'^(?P<pais>[A-Z][A-Z])/admin/enlaces/agregar/$', 'enlaces_agregar', name='agregar_enlaces'),
+    url(r'^(?P<pais>[A-Z][A-Z])/admin/enlaces/editar/(?P<id_enlace>[0-9A-Za-z]+)/$', 'enlaces_editar', name='editar_enlaces'),
+    url(r'^(?P<pais>[A-Z][A-Z])/admin/enlaces/eliminar/(?P<id_enlace>[0-9A-Za-z]+)/$', 'enlaces_eliminar', name='eliminar_enlaces'),
+
+    # Vistas para aplicacion movil
+    url(r'^movil/(?P<codigo>[0-9A-Za-z]+)/$', 'inmueble_movil', name='movil_inmueble'),
+
 )

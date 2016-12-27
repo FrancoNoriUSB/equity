@@ -11,18 +11,18 @@
                 <h3 class="panel-title "><a href="/{{pais}}/admin/perfil">Administrador</a></h3>
             </div>
             <div class="panel-body">
-                <h4>Editar Moneda:</h4>
+                <h4>Editar Enlace:</h4>
                 {%if editado%}
                     <div class="alert alert-success alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <strong>Editado!</strong> Se edit&oacute; el enlace con &eacute;xito!
+                        <strong>Editado!</strong> Se edit&oacute; la moneda con &eacute;xito!
                     </div>
                 {%endif%}
                 <form id="form" role="form" enctype="multipart/form-data" method="post" action="">
                 {% csrf_token %}
-                    {% bootstrap_field MonedaForm.nombre %}
-                    {% bootstrap_field MonedaForm.simbolo %}
-                    {% bootstrap_field MonedaForm.tasa %}
+                    {% bootstrap_field EnlaceForm.titulo %}
+                    {% bootstrap_field EnlaceForm.enlace %}
+                    {% bootstrap_field EnlaceForm.codigo %}
                     {% buttons %}
                         <button type="submit" class="btn btn-primary">
                             Guardar

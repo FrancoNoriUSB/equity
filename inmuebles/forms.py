@@ -257,3 +257,14 @@ class AreaComunForm(forms.ModelForm):
         labels = {
             'nombre': 'Otra área común',
         }
+
+
+# Formulario de areas comunes
+class EnlaceForm(forms.ModelForm):
+    class Meta:
+        model = EnlaceComercial
+        widgets = {
+            'titulo': forms.TextInput(),
+        }
+
+        fields = ['titulo', 'enlace', 'codigo']
