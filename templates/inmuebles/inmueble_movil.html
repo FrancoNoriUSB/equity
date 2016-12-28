@@ -2,8 +2,6 @@
 {% extends "base_inmueble_movil.html" %}
 {% load staticfiles %}
 {% load bootstrap3%}
-{% load mathfilters %}
-{% load humanize %}
 <!-- Bloque para scripts que se cargan en la plantilla base -->
 {% block scripts %}
 
@@ -18,10 +16,10 @@
         <!-- Logo e info -->
         <div class="container">
             <div class="row">
-                <h3>
+                <h4 class="text-center">
                     <img src="{{inmueble.logo.url}}" alt="" class="img-responsive">
                     {{inmueble.ciudad.nombre}} / {{inmueble.zona.nombre}}
-                </h3>
+                </h4>
             </div>
         </div>
         <!-- Galeria -->
@@ -41,6 +39,7 @@
                 </div>
             </div>
         </div>
+        <br>
         <!-- Video -->
         <div class="container">
             <div class="row">
@@ -55,9 +54,9 @@
         <!-- Formulario email -->
         <div class="container">
             <div class="row">
-                <h4>
-                    Si desea conocer m&aacute;s informaci&oacute;n de acerca de este inmueble, env&iacute;enos t&uacute; email:
-                </h4>
+                <h5>
+                    Si desea obtener m&aacute;s informaci&oacute;n sobre   este inmueble ($, m2, etc.), as&iacute; como un brochure digital del proyecto,  env&iacute;enos su email:
+                </h5>
                 <form action="." method="POST">  
                     {%csrf_token%}
                     <div class="form-group">
