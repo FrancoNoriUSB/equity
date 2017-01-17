@@ -74,4 +74,18 @@
 <!-- Seccion donde se carga el JS -->
 {%block js%}
 
+    <!-- Codigo para el carrousel -->
+    <script>
+    $('#carousel').carousel({
+        interval: 6000
+    });
+
+    // when the carousel slides, auto update
+    $('#carousel').on('slid', function (e) {
+        var id = $('.item.active').data('slide-number');
+        id = parseInt(id);
+        $('[id^=carousel-selector-]').removeClass('selected');
+        $('[id=carousel-selector-'+id+']').addClass('selected');
+    });
+    </script>
 {%endblock js%}
