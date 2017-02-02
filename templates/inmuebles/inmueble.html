@@ -14,6 +14,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
 <script src="{{STATIC_URL}}files/js/jquery.fullscreen.min.js"></script>
 
+
+<!-- Favoritos -->
+<script>
+    function favorito(link, id){
+        $.ajax({
+          method: "GET",
+          url: link
+        });
+        
+        $('#'+id).children().removeClass('glyphicon-heart-empty');
+        $('#'+id).children().addClass('glyphicon-heart');
+    }
+</script>
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
@@ -51,10 +64,28 @@
                 <h4 class="text-left">
                     <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
                 </h4>
-                <p>{{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}<br>
-                    {{inmueble.direccion}}<br>
-                    Entrega estimada: {{ fecha_entrega|date:"M Y" }}<br>
+                <p>
+                    {{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}
+                    <br>
+                    {{inmueble.direccion}}
+                    <br>
+                    Entrega estimada: {{ fecha_entrega|date:"M Y" }}
+                    <br>
                 </p>
+                <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
+                <div id="SkypeButton_Call_equity" class="skype-equity">
+                    <h3 class="text-inline skype">
+                        Contáctenos de manera directa
+                        <script type="text/javascript">
+                        Skype.ui({
+                            "name": "call",
+                            "element": "SkypeButton_Call_equity",
+                            "participants": ["equity.media"],
+                            "imageSize": 32
+                        });
+                        </script>
+                    </h3>
+                </div>
                 {%if inmueble.archivo%}
                     <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
                         Brochure Digital
@@ -267,20 +298,6 @@
                                     {{inmueble.agente.pagina}}
                                 </a>
                             {%endif%}
-                            <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
-                            <div id="SkypeButton_Call_equity" class="skype-equity">
-                                <p class="mensaje">
-                                    Contáctenos de manera gratuita desde su computador
-                                </p>
-                                <script type="text/javascript">
-                                Skype.ui({
-                                "name": "call",
-                                "element": "SkypeButton_Call_equity",
-                                "participants": ["equity.media"],
-                                "imageSize": 24
-                                });
-                                </script>
-                            </div>
                         </p>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
@@ -398,19 +415,6 @@ $('#carousel').on('slid', function (e) {
             '14:00', '15:00', '16:00'
         ]
     });
-</script>
-
-<!-- Favoritos -->
-<script>
-    function favorito(link, id){
-        $.ajax({
-          method: "GET",
-          url: link
-        });
-        
-        $('#'+id).children().removeClass('glyphicon-heart-empty');
-        $('#'+id).children().addClass('glyphicon-heart');
-    }
 </script>
 
 {%endblock js%}

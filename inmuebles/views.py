@@ -1575,7 +1575,6 @@ def inmueble_movil(request, codigo):
         if solicitarvF.is_valid():
             print 'Yay!'
 
-
     ctx = {
         'inmueble': inmueble,
         'imagenes': imagenes,

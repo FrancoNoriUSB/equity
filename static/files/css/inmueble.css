@@ -88,9 +88,17 @@ div.contenido > div.info-base > div > div > a.favoritos > span{
     font-size: 10pt;
 }
 
-.skype-equity > p.mensaje{
-    padding-top: 4%;
-    border-top: solid 2px;
+.skype-equity{
+    display: inline-block;
+}
+
+.skype-equity .skype{
+    margin-bottom: 0px !important;
+    color: #00AFF0;
+}
+
+.skype-equity img{
+    margin: 0px !important;
 }
 
 /*Boostrap modificado*/
