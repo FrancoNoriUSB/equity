@@ -74,7 +74,7 @@
                 </p>
                 <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
                 <div id="SkypeButton_Call_equity" class="skype-equity">
-                    <h3 class="text-inline skype">
+                    <h4 class="text-inline skype">
                         Contáctenos de manera directa
                         <script type="text/javascript">
                         Skype.ui({
@@ -84,14 +84,17 @@
                             "imageSize": 32
                         });
                         </script>
-                    </h3>
+                    </h4>
                 </div>
+                <br>
                 {%if inmueble.archivo%}
+                    <br>
                     <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
                         Brochure Digital
                     </a>
                 {%endif%}
                 {%if inmueble.ficha_tecnica%}
+                    <br>
                     <a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">
                         Ficha T&eacute;cnica
                     </a>
@@ -298,6 +301,19 @@
                                     {{inmueble.agente.pagina}}
                                 </a>
                             {%endif%}
+                            <div id="SkypeButton_Call_equity" class="skype-equity">
+                                <h4 class="text-inline skype">
+                                    Contáctenos de manera directa
+                                    <script type="text/javascript">
+                                    Skype.ui({
+                                        "name": "call",
+                                        "element": "SkypeButton_Call_equity",
+                                        "participants": ["equity.media"],
+                                        "imageSize": 32
+                                    });
+                                    </script>
+                                </h4>
+                            </div>
                         </p>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">

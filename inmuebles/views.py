@@ -69,7 +69,7 @@ def home(request, pais):
     imagen_banner = Slide.objects.filter(pais__nombre=pais)[:1]
 
     # Lista inmuebles por pagina
-    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('ciudad')
+    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('ciudad__nombre', 'tipo__nombre', 'zona__nombre')
 
     # Moneda nacional
     try:
@@ -86,7 +86,7 @@ def home(request, pais):
             zona = buscadorF.cleaned_data['zona']
             tipo = buscadorF.cleaned_data['tipo']
             habitaciones = buscadorF.cleaned_data['habitaciones']
-            orden = buscadorF.cleaned_data['orden']
+            # orden = buscadorF.cleaned_data['orden']
             metros = buscadorF.cleaned_data['metros']
             moneda_get = buscadorF.cleaned_data['moneda']
             hasta = str(buscadorF.cleaned_data['hasta'])
@@ -131,17 +131,17 @@ def home(request, pais):
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, agente__nombre=slug, visible=True)
 
             # Caso demas
-            elif (ciudad is not None) or (zona is not None) or (tipo is not None) or (orden != '') or (habitaciones != '') or (precio_max != '') or (metros != ''):
+            elif (ciudad is not None) or (zona is not None) or (tipo is not None) or (habitaciones != '') or (precio_max != '') or (metros != ''):
 
                 # Verificacion de string vacio
-                if orden == '':
-                    orden = None
+                # if orden == '':
+                #     orden = None
 
-                if precio_max != '':
-                    orden = 'precio'
+                # if precio_max != '':
+                #     orden = 'precio'
 
-                if metros != '':
-                    orden = 'metros'
+                # if metros != '':
+                #     orden = 'metros'
 
                 # Campos a buscar
                 fields_list = []
@@ -196,18 +196,18 @@ def home(request, pais):
 
                 operator = 'and'
 
-                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator, orden).distinct()
+                inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator).distinct()
 
                 # Eliminando repetidos
-                if orden == 'precio' or orden == 'metros':
-                    for inmueble in inmuebles_list:
-                        modulos = Modulo.objects.filter(inmueble=inmueble)
-                        if inmueble not in inmuebles:
-                            if modulos:
-                                inmuebles.append(inmueble)
-                            else:
-                                inmuebles.insert(0, inmueble)
-                    inmuebles_list = inmuebles
+                # if orden == 'precio' or orden == 'metros':
+                #     for inmueble in inmuebles_list:
+                #         modulos = Modulo.objects.filter(inmueble=inmueble)
+                #         if inmueble not in inmuebles:
+                #             if modulos:
+                #                 inmuebles.append(inmueble)
+                #             else:
+                #                 inmuebles.insert(0, inmueble)
+                #     inmuebles_list = inmuebles
 
     # Verificacion de cual de los filtros se uso
     if inmuebles_inf != 24 and inmuebles_inf != '':

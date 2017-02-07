@@ -180,25 +180,14 @@
                                 </label>
                             </form>
                         </div>
+                        <!--
                         <div class="form-group col-lg-3 col-md-3">
                             <form id="form-orden" class="form" role="form" action="/{{pais}}/" method="GET">
                                 {% render_field buscadorF.orden class="form-control"%}
                             </form>
                         </div>
-                        <div class="form-group col-lg-3 col-md-3">
-                            <form class="form-inline buscador" role="form" action="/{{pais}}/" method="GET">
-                                {% csrf_token %}
-                                <div class="form-group inner-addon right-addon">
-                                    <div class="input-group-btn">
-                                        {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
-                                        <button class="btn" id="">
-                                            <span class="glyphicon glyphicon-search"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="form-group col-lg-2 col-md-2">
+                        -->
+                        <div class="form-group col-lg-2 col-md-2 pull-right">
                             <nav>
                                 <ul class="pagination">
                                     {% if inmuebles.has_previous %}
@@ -222,6 +211,19 @@
                                     {% endif %}
                                 </ul>
                             </nav>
+                        </div>
+                        <div class="form-group col-lg-3 col-md-3 pull-right">
+                            <form class="form-inline buscador" role="form" action="/{{pais}}/" method="GET">
+                                {% csrf_token %}
+                                <div class="form-group inner-addon right-addon">
+                                    <div class="input-group-btn">
+                                        {% render_field buscadorF.palabra class="form-control" placeholder="Búsqueda"%}
+                                        <button class="btn" id="">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
         		</div>

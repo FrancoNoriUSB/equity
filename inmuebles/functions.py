@@ -94,7 +94,7 @@ def movil_email(request, form, inmueble):
 
 
 # Query dinamico extraido de un proyecto ajeno
-def dynamic_query(model, fields, types, values, operator, order):
+def dynamic_query(model, fields, types, values, operator):
     """
      Takes arguments & constructs Qs for filter()
      We make sure we don't construct empty filters that would
@@ -124,21 +124,9 @@ def dynamic_query(model, fields, types, values, operator, order):
                 q = q | query
             else:
                 q = None
-        if q and order is not None:
-            # We have a Q object, return the QuerySet
-            if order == 'precio':
-                return model.objects.filter(q).order_by('modulo')
-            elif order == 'tipo':
-                return model.objects.filter(q).order_by('tipo__nombre')
-            elif order == 'zona':
-                return model.objects.filter(q).order_by('zona__nombre')
-            elif order == 'metros':
-                return model.objects.filter(q).order_by('modulo__metros')
-
+        if q:
             return model.objects.filter(q)
-        elif q:
             # We have a Q object, return the QuerySet
-            return model.objects.filter(q)
     else:
         # Return an empty result
         return {}
