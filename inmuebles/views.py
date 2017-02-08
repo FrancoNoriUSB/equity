@@ -478,7 +478,7 @@ def favoritos_enviar(request, pais):
         return_val = False
 
     if return_val:
-        return_val = favoritos_email(request, user, favoritos)
+        return_val = favoritos_email(request, user, favoritos, pais)
 
     return HttpResponseRedirect(url)
 

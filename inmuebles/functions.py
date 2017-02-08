@@ -71,7 +71,7 @@ def visit_email(request, form, inmueble):
 
 
 # Funcion para enviar favoritos del usuario via correo
-def favoritos_email(request, user, favoritos):
+def favoritos_email(request, user, favoritos, pais):
 
     emails = []
     emails.append(user.email)
@@ -80,7 +80,7 @@ def favoritos_email(request, user, favoritos):
     message += '<table><thead><tr><th>País</th><th>Ciudad</th><th>Inmueble</th><th>M2</th><th>Hab</th></tr></thead>'
 
     for favorito in favoritos:
-        message += '<tr><td>' + str(favorito.modulo.inmueble.pais.nombre.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.inmueble.ciudad.nombre.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.inmueble.titulo.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.metros.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.dormitorios.encode('UTF-8', 'strict')) + '</td></tr>'
+        message += '<tr><td>' + str(pais.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.inmueble.ciudad.nombre.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.inmueble.titulo.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.metros.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.dormitorios.encode('UTF-8', 'strict')) + '</td></tr>'
 
     message += '</table>'
 
