@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.core.mail.message import EmailMessage
 from django.db.models import Q
 
@@ -62,6 +63,29 @@ def visit_email(request, form, inmueble):
 
     email = EmailMessage()
     email.subject = '[Equity International] Correo Visita'
+    email.body = message
+    email.to = emails
+    email.content_subtype = "html"
+    enviado = email.send()
+    return enviado
+
+
+# Funcion para enviar favoritos del usuario via correo
+def favoritos_email(request, user, favoritos):
+
+    emails = []
+    emails.append(user.email)
+
+    message = '<h3>Resumen de inmuebles favoritos Equity International</h3><br><br>'
+    message += '<table><thead><tr><th>País</th><th>Ciudad</th><th>Inmueble</th><th>M2</th><th>Hab</th></tr></thead>'
+
+    for favorito in favoritos:
+        message += '<tr><td>'+str(favorito.modulo.inmueble.pais.nombre)+'</td><td>'+str(favorito.modulo.inmueble.ciudad.nombre)+'</td><td>'+str(favorito.modulo.inmueble.titulo)+'</td><td>'+str(favorito.modulo.metros)+'</td><td>'+str(favorito.modulo.dormitorios)+'</td></tr>'
+
+    message += '</table>'
+    
+    email = EmailMessage()
+    email.subject = '[Equity International] Resumen Favoritos'
     email.body = message
     email.to = emails
     email.content_subtype = "html"

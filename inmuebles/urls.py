@@ -21,6 +21,8 @@ urlpatterns = patterns(
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/eliminar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_eliminar', name='eliminar_favoritos'),
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/modulos/agregar/(?P<id_modulo>[0-9A-Za-z]+)/$', 'favoritos_modulo_agregar', name='agregar_modulo_favoritos'),
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/modulos/eliminar/(?P<id_modulo>[0-9A-Za-z]+)/$', 'favoritos_modulo_eliminar', name='eliminar_modulo_favoritos'),
+    url(r'^(?P<pais>[A-Z][A-Z])/favoritos/enviar/$', 'favoritos_enviar', name='enviar_favoritos'),
+
 
     # Vistas del admin de equity
     url(r'^(?P<pais>[A-Z][A-Z])/admin/login/$', 'login_admin', name='login_admin'),

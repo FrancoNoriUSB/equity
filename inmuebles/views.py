@@ -364,11 +364,6 @@ def favoritos_list(request, pais):
         except:
             moneda = ''
 
-        # Formulario para los paises disponibles
-        paisesF = PaisesForm(initial={
-            'pais': pais,
-        })
-
         inmuebles = InmuebleFavorito.objects.filter(usuario=request.user).order_by('inmueble__pais__nombre')
         modulos = ModuloFavorito.objects.filter(usuario=request.user).order_by('modulo__inmueble__pais__nombre')
     else:
@@ -376,7 +371,6 @@ def favoritos_list(request, pais):
 
     ctx = {
         'moneda': moneda,
-        'paisesF': paisesF,
         'pais': pais,
         'inmueblesFavoritos': inmuebles,
         'modulosFavoritos': modulos
@@ -466,6 +460,25 @@ def favoritos_modulo_eliminar(request, pais, id_modulo):
         url = '/' + str(pais) + '/favoritos/'
     else:
         url = '/' + str(pais) + '/ingreso-registro/'
+
+    return HttpResponseRedirect(url)
+
+
+# Vista para enviar los favoritos al usuario
+def favoritos_enviar(request, pais):
+
+    return_val = True
+    user = request.user
+    favoritos = []
+    url = '/' + str(pais) + '/favoritos/'
+
+    try:
+        favoritos = ModuloFavorito.objects.filter(usuario=user)
+    except:
+        return_val = False
+
+    if return_val:
+        return_val = favoritos_email(request, user, favoritos)
 
     return HttpResponseRedirect(url)
 
