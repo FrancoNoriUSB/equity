@@ -30,11 +30,8 @@ import re
 # Vista del index o home
 def index(request):
 
-    # Formulario para los paises disponibles
-    paisesF = PaisesForm()
-
     ctx = {
-        'PaisesForm': paisesF,
+
     }
 
     return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
@@ -45,13 +42,9 @@ def home(request, pais):
 
     # Buscador de inmuebles
     buscadorF = BuscadorForm()
+    buscadorF.fields['pais'] = forms.ModelChoiceField(Pais.objects.filter(nombre=pais), empty_label=u' - País -')
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
-
-    # Formulario para los paises disponibles
-    paisesF = PaisesForm(initial={
-        'pais': pais,
-    })
 
     zonas = {}
     inmuebles = []
@@ -69,7 +62,7 @@ def home(request, pais):
     imagen_banner = Slide.objects.filter(pais__nombre=pais)[:1]
 
     # Lista inmuebles por pagina
-    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('ciudad__nombre', 'tipo__nombre', 'zona__nombre')
+    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('ciudad__nombre', 'zona__nombre', 'tipo__nombre')
 
     # Moneda nacional
     try:
@@ -244,7 +237,6 @@ def home(request, pais):
 
     ctx = {
         'buscadorF': buscadorF,
-        'paisesF': paisesF,
         'moneda_get': moneda_get,
         'moneda': moneda,
         'pais': pais,

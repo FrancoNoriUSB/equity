@@ -77,6 +77,7 @@ class BuscadorForm(forms.Form):
         ('usd', 'USD'),
     )
 
+    pais = forms.ModelChoiceField(queryset=Pais.objects.all().order_by('nombre'), empty_label=u' - País -', required=False)
     ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all().order_by('nombre'), empty_label=' - Ciudad -', required=False)
     zona = forms.ModelChoiceField(queryset=Zona.objects.all().order_by('nombre'), empty_label=' - Zona -', required=False)
     tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all().order_by('nombre'), empty_label=' - Tipo -', required=False)
