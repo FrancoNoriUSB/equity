@@ -80,10 +80,10 @@ def favoritos_email(request, user, favoritos):
     message += '<table><thead><tr><th>País</th><th>Ciudad</th><th>Inmueble</th><th>M2</th><th>Hab</th></tr></thead>'
 
     for favorito in favoritos:
-        message += '<tr><td>'+str(favorito.modulo.inmueble.pais.nombre).encode('utf-8')+'</td><td>'+str(favorito.modulo.inmueble.ciudad.nombre).encode('utf-8')+'</td><td>'+str(favorito.modulo.inmueble.titulo).encode('utf-8')+'</td><td>'+str(favorito.modulo.metros).encode('utf-8')+'</td><td>'+str(favorito.modulo.dormitorios).encode('utf-8')+'</td></tr>'
+        message += '<tr><td>' + str(favorito.modulo.inmueble.pais.nombre.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.inmueble.ciudad.nombre.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.inmueble.titulo.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.metros.encode('UTF-8', 'strict')) + '</td><td>' + str(favorito.modulo.dormitorios.encode('UTF-8', 'strict')) + '</td></tr>'
 
     message += '</table>'
-    
+
     email = EmailMessage()
     email.subject = '[Equity International] Resumen Favoritos'
     email.body = message
