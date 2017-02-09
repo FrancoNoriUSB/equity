@@ -30,8 +30,13 @@ import re
 # Vista del index o home
 def index(request):
 
-    ctx = {
+    # Formulario para los paises disponibles
+    paisesF = PaisesForm(initial={
+        'pais': pais,
+    })
 
+    ctx = {
+        'paisesF': paisesF,
     }
 
     return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
@@ -214,7 +219,7 @@ def home(request, pais):
 
     # Busqueda con paginacion
     query = request.GET.copy()
-    if query.has_key('page'):
+    if 'page' in query:
         del query['page']
     try:
         inmuebles = paginator.page(page)
@@ -347,6 +352,23 @@ def inmueble(request, codigo, pais):
     }
 
     return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para enviar reporte de mercado de usuarios
+def inmueble_reporte_mercado(request, pais, id_inmueble):
+
+    user = request.user
+    url = '/' + str(pais) + '/favoritos/'
+
+    inmueble = []
+    try:
+        inmueble = Inmueble.objects.get(id=id_inmueble)
+    except:
+        inmueble = None
+
+    reporte_email(request, user, pais, inmueble)
+
+    return HttpResponseRedirect(url)
 
 
 # Vista de inmuebles favoritos

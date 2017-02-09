@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(r'^(?P<pais>[A-Z][A-Z])/perfil/editar/$', 'perfil_editar_user', name='perfil_editar_user'),
     url(r'^(?P<pais>[A-Z][A-Z])/logout/$', 'perfil_logout', name='perfil_logout'),
     url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/(?P<codigo>[0-9A-Za-z]+)/$', 'inmueble', name='inmueble'),
+    url(r'^(?P<pais>[A-Z][A-Z])/(?P<id_inmueble>\d*)/reporte-mercado/$', 'inmueble_reporte_mercado', name='reporte_mercado_inmueble'),
     url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/link/(?P<id_inmueble>\d*)/$', 'inmueble_link_agente', name='inmueble_link_agente'),
     url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/link-skype/(?P<id_inmueble>\d*)/$', 'inmueble_call_agente', name='inmueble_call_agente'),
 

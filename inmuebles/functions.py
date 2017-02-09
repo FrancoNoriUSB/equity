@@ -93,6 +93,28 @@ def favoritos_email(request, user, favoritos, pais):
     return enviado
 
 
+# Funcion para enviar correo de reporte de mercado
+def reporte_email(request, user, pais, inmueble):
+
+    emails = []
+    emails.append('contactcenter@equitymedia.la')
+    emails.append('fernandoweber@equitymedia.la')
+    emails.append('info@equitymedia.la')
+
+    message = '<p>Email de reporte de mercado de usuario' + user.email + '</p>'
+
+    if inmueble:
+        message += '<a href="http://www.equity-international.com/' + pais + '/inmuebles/' + inmueble.codigo + '/" >' + inmueble.titulo + '</a>'
+
+    email = EmailMessage()
+    email.subject = '[Equity International] Reporte de Mercado'
+    email.body = message
+    email.to = emails
+    email.content_subtype = "html"
+    enviado = email.send()
+    return enviado
+
+
 # Funcion para los correos que se envian en Contact Us
 def movil_email(request, form, inmueble):
 
@@ -149,7 +171,7 @@ def dynamic_query(model, fields, types, values, operator):
             else:
                 q = None
         if q:
-            return model.objects.filter(q)
+            return model.objects.filter(q).order_by('ciudad__nombre', 'zona__nombre', 'tipo__nombre')
             # We have a Q object, return the QuerySet
     else:
         # Return an empty result
