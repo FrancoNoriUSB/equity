@@ -101,6 +101,10 @@ div.contenido > div.info-base > div > div > a.favoritos > span{
     margin: 0px !important;
 }
 
+.skype-equity p{
+    margin-top: -30px !important;
+}
+
 /*Boostrap modificado*/
 div.contenido > div.informacion > div > ul{
     border-bottom: 5px;

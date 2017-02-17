@@ -32,7 +32,7 @@ def index(request):
 
     # Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
-        'pais': pais,
+
     })
 
     ctx = {
@@ -47,10 +47,12 @@ def home(request, pais):
 
     # Buscador de inmuebles
     buscadorF = BuscadorForm()
+
     buscadorF.fields['pais'] = forms.ModelChoiceField(Pais.objects.filter(nombre=pais), empty_label=u' - País -')
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
+    ciudades = {}
     zonas = {}
     inmuebles = []
     min_habitaciones = 0
@@ -80,6 +82,7 @@ def home(request, pais):
 
         # Caso para el buscador de inmuebles
         if buscadorF.is_valid():
+            pais = buscadorF.cleaned_data['pais']
             ciudad = buscadorF.cleaned_data['ciudad']
             zona = buscadorF.cleaned_data['zona']
             tipo = buscadorF.cleaned_data['tipo']
@@ -121,15 +124,17 @@ def home(request, pais):
 
             # Caso de busqueda por codigo
             if palabra != '':
+
                 slug = slugify(palabra)
                 inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, slug__icontains=slug, visible=True)
+
                 if not inmuebles_list:
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra, visible=True)
                 if not inmuebles_list:
                     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, agente__nombre=slug, visible=True)
 
             # Caso demas
-            elif (ciudad is not None) or (zona is not None) or (tipo is not None) or (habitaciones != '') or (precio_max != '') or (metros != ''):
+            elif (pais is not None) or (ciudad is not None) or (zona is not None) or (tipo is not None) or (habitaciones != '') or (precio_max != '') or (metros != ''):
 
                 # Verificacion de string vacio
                 # if orden == '':
@@ -187,7 +192,7 @@ def home(request, pais):
                     values_list.append((metros_min, metros_max))
 
                 if habitaciones != '':
-                    values_list.append((Skypemin_habitaciones, max_habitaciones))
+                    values_list.append((min_habitaciones, max_habitaciones))
 
                 if precio_max != '':
                     values_list.append((0, precio_max))
@@ -206,6 +211,8 @@ def home(request, pais):
                 #             else:
                 #                 inmuebles.insert(0, inmueble)
                 #     inmuebles_list = inmuebles
+    else:
+        pais = Pais.objects.get(nombre=pais)
 
     # Verificacion de cual de los filtros se uso
     if inmuebles_inf != 24 and inmuebles_inf != '':
@@ -233,6 +240,10 @@ def home(request, pais):
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
+    for pais in Pais.objects.filter(nombre=pais):
+        ciudades[pais.id] = dict(Ciudad.objects.filter(pais=pais).values_list('id', 'nombre'))
+    ciudades = json.dumps(ciudades)
+
     for ciudad in Ciudad.objects.filter(pais__nombre=pais):
         zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
     zonas = json.dumps(zonas)
@@ -248,6 +259,7 @@ def home(request, pais):
         'inmuebles': inmuebles,
         'inmuebles_pagina': inmuebles_pagina,
         'imagen_banner': imagen_banner,
+        'ciudades': ciudades,
         'zonas': zonas,
         'banners': banners,
         'query': query,
