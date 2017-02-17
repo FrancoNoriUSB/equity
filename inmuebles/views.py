@@ -32,7 +32,7 @@ def index(request):
 
     # Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
- 
+
     })
 
     ctx = {
@@ -275,6 +275,7 @@ def inmueble(request, codigo, pais):
     visita = False
     envio_contacto = False
     envio_visita = False
+    envio_financiamiento = False
     fecha_entrega = ''
     modulos_favs = []
     user = request.user
@@ -299,6 +300,9 @@ def inmueble(request, codigo, pais):
 
     # Solicitar visita al inmueble
     solicitarvF = SolicitarVisitaForm()
+
+    # Solicitar financiamiento
+    financiamientoF = SolicitarFinanciamientoForm()
 
     # Imagenes del inmueble
     imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('id')
@@ -335,6 +339,7 @@ def inmueble(request, codigo, pais):
 
             if contactoF.is_valid():
                 envio_contacto = contact_email(request, contactoF, agente.correo, inmueble)
+                financiamientoF = SolicitarFinanciamientoForm()
                 solicitarvF = SolicitarVisitaForm()
 
         elif 'visita' in request.POST:
@@ -343,6 +348,16 @@ def inmueble(request, codigo, pais):
 
             if solicitarvF.is_valid():
                 envio_visita = visit_email(request, solicitarvF, inmueble)
+                financiamientoF = SolicitarFinanciamientoForm()
+                contactoF = ContactoAgenteForm()
+
+        elif 'financiamiento' in request.POST:
+            visita = True
+            financiamientoF = SolicitarFinanciamientoForm(request.POST)
+
+            if financiamientoF.is_valid():
+                envio_financiamiento = financiamiento_email(request, pais, financiamientoF, inmueble)
+                solicitarvF = SolicitarVisitaForm()
                 contactoF = ContactoAgenteForm()
 
     ctx = {
@@ -353,6 +368,7 @@ def inmueble(request, codigo, pais):
         'telefonosAgente': telefonos,
         'ContactoAgenteForm': contactoF,
         'SolicitarVisitaForm': solicitarvF,
+        'SolicitarFinanciamientoForm': financiamientoF,
         'imagenes': imagenes,
         'banners': banners,
         'pais': pais,
@@ -360,6 +376,7 @@ def inmueble(request, codigo, pais):
         'envio_contacto': envio_contacto,
         'visita': visita,
         'envio_visita': envio_visita,
+        'envio_financiamiento': envio_financiamiento,
         'fecha_entrega': fecha_entrega,
     }
 

@@ -4,6 +4,7 @@
 {% load bootstrap3%}
 {% load mathfilters %}
 {% load humanize %}
+{% load widget_tweaks %}
 <!-- Bloque para scripts que se cargan en la plantilla base -->
 {% block scripts %}
 
@@ -128,7 +129,10 @@
                     <a href="#visita" aria-controls="visita" role="tab" data-toggle="tab">Solicitar Visita</a>
                 </li>
                 <li role="presentation">
-                    <a href="/{{pais}}/favoritos/" aria-controls="visita" >Ver Favoritos</a>
+                    <a href="#financiamiento" aria-controls="financiamiento" data-toggle="tab" >Solicitar Financiamiento</a>
+                </li>
+                <li role="presentation">
+                    <a href="/{{pais}}/favoritos/" aria-controls="favoritos" >Ver Favoritos</a>
                 </li>
             </ul>
 
@@ -332,6 +336,34 @@
                             <div class="form-group">
                                 {%bootstrap_form SolicitarVisitaForm%}
                                 <button type="submit" class="btn btn-primary" name="visita">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade {%if financiamiento%} in active {%endif%}" id="financiamiento">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <h4>Formulario para solicitar planes de financiamiento</h4>
+                        {%if envio_financiamiento%}
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">
+                                    &times;
+                                </span>
+                            </button>
+                            <strong>Enviado</strong> con &eacute;xito!
+                        </div>
+                        {%endif%}
+                        <form action="" method="POST">  
+                            {%csrf_token%}
+                            <div class="form-group">
+                                {%bootstrap_field SolicitarFinanciamientoForm.correo%}
+                                <div class="form-group">
+                                    <label for="id_telefonos">
+                                         Telefonos <span class="text-danger">(opcional)</span>
+                                    </label>
+                                    {%render_field SolicitarFinanciamientoForm.telefonos class="form-control"%}
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="financiamiento">Enviar</button>
                             </div>
                         </form>
                     </div>

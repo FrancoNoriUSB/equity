@@ -46,10 +46,10 @@ def visit_email(request, form, inmueble):
 
     # Informacion del usuario
     name = emailF.cleaned_data['nombre']
+    telephone = emailF.cleaned_data['telefonos']
     emails.append('contactcenter@equitymedia.la')
     emails.append('fernandoweber@equitymedia.la')
     emails.append('info@equitymedia.la')
-    telephone = emailF.cleaned_data['telefonos']
 
     # Verificacion de si posee telefono
     if telephone == '':
@@ -108,6 +108,33 @@ def reporte_email(request, user, pais, inmueble):
 
     email = EmailMessage()
     email.subject = '[Equity International] Reporte de Mercado'
+    email.body = message
+    email.to = emails
+    email.content_subtype = "html"
+    enviado = email.send()
+    return enviado
+
+
+# Funcion para enviar correo de solicitud de financiamiento
+def financiamiento_email(request, pais, form, inmueble):
+
+    emails = []
+    emails.append('contactcenter@equitymedia.la')
+    emails.append('fernandoweber@equitymedia.la')
+    emails.append('info@equitymedia.la')
+    correo = form.cleaned_data['correo']
+    telefonos = form.cleaned_data['telefonos']
+
+    message = '<p>Solicita Planes de Financiamiento' + correo + '</p>'
+
+    if inmueble:
+        message += '<a href="http://www.equity-international.com/' + pais + '/inmuebles/' + inmueble.codigo + '/" >' + inmueble.titulo + '</a>'
+
+    if telefonos:
+        message += '<br/><br/> Teléfono de usuario: ' + telefonos
+
+    email = EmailMessage()
+    email.subject = '[Equity International] Solicitud de financiamiento'
     email.body = message
     email.to = emails
     email.content_subtype = "html"
