@@ -131,7 +131,7 @@ def financiamiento_email(request, pais, form, inmueble):
         message += '<a href="http://www.equity-international.com/' + pais + '/inmuebles/' + inmueble.codigo + '/" >' + inmueble.titulo + '</a>'
 
     if telefonos:
-        message += '<br/><br/> Teléfono de usuario: ' + telefonos
+        message += '<br/><br/> Telefono de usuario: ' + telefonos
 
     email = EmailMessage()
     email.subject = '[Equity International] Solicitud de financiamiento'
