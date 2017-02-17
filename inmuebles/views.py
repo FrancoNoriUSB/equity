@@ -32,11 +32,11 @@ def index(request):
 
     # Formulario para los paises disponibles
     paisesF = PaisesForm(initial={
-
+ 
     })
 
     ctx = {
-        'paisesF': paisesF,
+        'PaisesForm': paisesF,
     }
 
     return render_to_response('index/index.html', ctx, context_instance=RequestContext(request))
