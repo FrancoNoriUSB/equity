@@ -273,6 +273,7 @@ def inmueble(request, codigo, pais):
 
     constructor = False
     visita = False
+    financiamiento = False
     envio_contacto = False
     envio_visita = False
     envio_financiamiento = False
@@ -352,7 +353,7 @@ def inmueble(request, codigo, pais):
                 contactoF = ContactoAgenteForm()
 
         elif 'financiamiento' in request.POST:
-            visita = True
+            financiamiento = True
             financiamientoF = SolicitarFinanciamientoForm(request.POST)
 
             if financiamientoF.is_valid():
@@ -375,6 +376,7 @@ def inmueble(request, codigo, pais):
         'constructor': constructor,
         'envio_contacto': envio_contacto,
         'visita': visita,
+        'financiamiento': financiamiento,
         'envio_visita': envio_visita,
         'envio_financiamiento': envio_financiamiento,
         'fecha_entrega': fecha_entrega,
