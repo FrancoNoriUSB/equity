@@ -17,7 +17,7 @@
 {% block content %}
     <div class="container">
         <div class="banners col-lg-3 col-md-3 col-sm-3">
-            <form class="form" role="form" action="/{{pais}}/" method="GET">
+            <form class="form" role="form" action="." method="GET">
                 {%for banner in banners%}
                     {%if forloop.counter == 1%}
                             {% csrf_token %}

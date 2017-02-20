@@ -11,8 +11,6 @@ from django.template import RequestContext
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 from datetime import datetime, date
 from django.forms.models import inlineformset_factory
-from django.db.models import Count
-from django.db.models import Q
 from inmuebles.models import *
 from inmuebles.forms import *
 from noticias.models import *
@@ -20,7 +18,6 @@ from functions import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django_countries import countries
 from django import forms
-from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from easy_pdf.views import PDFTemplateView
 import json
@@ -48,13 +45,14 @@ def home(request, pais):
     # Buscador de inmuebles
     buscadorF = BuscadorForm()
 
-    buscadorF.fields['pais'] = forms.ModelChoiceField(Pais.objects.filter(nombre=pais), empty_label=u' - País -')
+    buscadorF.fields['pais'] = forms.ModelChoiceField(Pais.objects.all(), empty_label=u' - País -')
     buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
     buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
 
     ciudades = {}
     zonas = {}
     inmuebles = []
+    pais_codigo = pais
     min_habitaciones = 0
     max_habitaciones = 0
     inmuebles_pagina = 24
@@ -212,7 +210,7 @@ def home(request, pais):
                 #                 inmuebles.insert(0, inmueble)
                 #     inmuebles_list = inmuebles
     else:
-        pais = Pais.objects.get(nombre=pais)
+        pais_codigo = Pais.objects.get(nombre=pais)
 
     # Verificacion de cual de los filtros se uso
     if inmuebles_inf != 24 and inmuebles_inf != '':
@@ -255,7 +253,7 @@ def home(request, pais):
         'buscadorF': buscadorF,
         'moneda_get': moneda_get,
         'moneda': moneda,
-        'pais': pais,
+        'pais': pais_codigo,
         'inmuebles': inmuebles,
         'inmuebles_pagina': inmuebles_pagina,
         'imagen_banner': imagen_banner,
