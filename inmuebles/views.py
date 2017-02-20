@@ -64,14 +64,14 @@ def home(request, pais):
     precio_max = ''
 
     # Imagen del banner
-    imagen_banner = Slide.objects.filter(pais__nombre=pais)[:1]
+    imagen_banner = Slide.objects.filter(pais__nombre=pais_codigo)[:1]
 
     # Lista inmuebles por pagina
-    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, visible=True).order_by('ciudad__nombre', 'zona__nombre', 'tipo__nombre')
+    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais_codigo, visible=True).order_by('ciudad__nombre', 'zona__nombre', 'tipo__nombre')
 
     # Moneda nacional
     try:
-        moneda = Moneda.objects.get(pais__nombre=pais)
+        moneda = Moneda.objects.get(pais__nombre=pais_codigo)
     except:
         moneda = ''
 
@@ -235,19 +235,19 @@ def home(request, pais):
         # If page is out of range (e.g. 9999), deliver last page of results.
         inmuebles = paginator.page(paginator.num_pages)
 
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais_codigo), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais_codigo), empty_label=' - Zona -')
 
-    for pais in Pais.objects.filter(nombre=pais):
+    for pais in Pais.objects.all():
         ciudades[pais.id] = dict(Ciudad.objects.filter(pais=pais).values_list('id', 'nombre'))
     ciudades = json.dumps(ciudades)
 
-    for ciudad in Ciudad.objects.filter(pais__nombre=pais):
+    for ciudad in Ciudad.objects.filter(pais__nombre=pais_codigo):
         zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
     zonas = json.dumps(zonas)
 
     # Banners publicitarios de cada pais
-    banners = Banner.objects.filter(pais__nombre=pais).order_by('nombre')
+    banners = Banner.objects.filter(pais__nombre=pais_codigo).order_by('nombre')
 
     ctx = {
         'buscadorF': buscadorF,
