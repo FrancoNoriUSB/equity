@@ -45,9 +45,9 @@ def home(request, pais):
     # Buscador de inmuebles
     buscadorF = BuscadorForm()
 
-    buscadorF.fields['pais'] = forms.ModelChoiceField(Pais.objects.all(), empty_label=u' - País -')
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label=' - Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label=' - Zona -')
+    buscadorF.fields['pais'] = forms.ModelChoiceField(Pais.objects.all(), empty_label=u'- País -')
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label='- Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label='- Zona -')
 
     ciudades = {}
     zonas = {}
