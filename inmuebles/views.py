@@ -240,11 +240,11 @@ def home(request, pais):
 
     for pais in Pais.objects.all():
         ciudades[pais.id] = dict(Ciudad.objects.filter(pais=pais).values_list('id', 'nombre'))
-    ciudades = json.dumps(ciudades)
 
-    for ciudad in Ciudad.objects.filter(pais__nombre=pais_codigo):
-        zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+        for ciudad in Ciudad.objects.filter(pais__nombre=pais.nombre):
+            zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
     zonas = json.dumps(zonas)
+    ciudades = json.dumps(ciudades)
 
     # Banners publicitarios de cada pais
     banners = Banner.objects.filter(pais__nombre=pais_codigo).order_by('nombre')
