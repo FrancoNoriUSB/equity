@@ -19,7 +19,7 @@ class Pais(models.Model):
         verbose_name_plural = _('Paises')
 
     def __unicode__(self):
-        return unicode(self.nombre)
+        return unicode(self.nombre.name)
 
 
 # Ciudad que se relaciona con el pais

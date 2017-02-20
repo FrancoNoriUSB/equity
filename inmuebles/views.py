@@ -80,7 +80,7 @@ def home(request, pais):
 
         # Caso para el buscador de inmuebles
         if buscadorF.is_valid():
-            pais = buscadorF.cleaned_data['pais']
+            pais = Pais.objects.get(id=request.GET['pais'])
             ciudad = buscadorF.cleaned_data['ciudad']
             zona = buscadorF.cleaned_data['zona']
             tipo = buscadorF.cleaned_data['tipo']
@@ -124,12 +124,12 @@ def home(request, pais):
             if palabra != '':
 
                 slug = slugify(palabra)
-                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, slug__icontains=slug, visible=True)
+                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais.nombre, slug__icontains=slug, visible=True)
 
                 if not inmuebles_list:
-                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, codigo__startswith=palabra, visible=True)
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais.nombre, codigo__startswith=palabra, visible=True)
                 if not inmuebles_list:
-                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais, agente__nombre=slug, visible=True)
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais.nombre, agente__nombre=slug, visible=True)
 
             # Caso demas
             elif (pais is not None) or (ciudad is not None) or (zona is not None) or (tipo is not None) or (habitaciones != '') or (precio_max != '') or (metros != ''):
@@ -180,7 +180,7 @@ def home(request, pais):
 
                 # Valores a buscar
                 values_list = []
-                values_list.append(pais)
+                values_list.append(pais.nombre)
                 values_list.append(ciudad)
                 values_list.append(zona)
                 values_list.append(tipo)
