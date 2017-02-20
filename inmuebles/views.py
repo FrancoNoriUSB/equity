@@ -46,8 +46,8 @@ def home(request, pais):
     buscadorF = BuscadorForm()
 
     buscadorF.fields['pais'] = forms.ModelChoiceField(Pais.objects.all(), empty_label=u'- País -')
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais), empty_label='- Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais), empty_label='- Zona -')
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.all(), empty_label='- Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.all(), empty_label='- Zona -')
 
     ciudades = {}
     zonas = {}
@@ -209,8 +209,6 @@ def home(request, pais):
                 #             else:
                 #                 inmuebles.insert(0, inmueble)
                 #     inmuebles_list = inmuebles
-    else:
-        pais_codigo = Pais.objects.get(nombre=pais)
 
     # Verificacion de cual de los filtros se uso
     if inmuebles_inf != 24 and inmuebles_inf != '':
@@ -235,8 +233,8 @@ def home(request, pais):
         # If page is out of range (e.g. 9999), deliver last page of results.
         inmuebles = paginator.page(paginator.num_pages)
 
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais__nombre=pais_codigo), empty_label=' - Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais__nombre=pais_codigo), empty_label=' - Zona -')
+    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.all(), empty_label=' - Ciudad -')
+    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.all(), empty_label=' - Zona -')
 
     for pais in Pais.objects.all():
         ciudades[pais.id] = dict(Ciudad.objects.filter(pais=pais).values_list('id', 'nombre'))
@@ -248,6 +246,8 @@ def home(request, pais):
 
     # Banners publicitarios de cada pais
     banners = Banner.objects.filter(pais__nombre=pais_codigo).order_by('nombre')
+
+    print pais_codigo
 
     ctx = {
         'buscadorF': buscadorF,
