@@ -218,6 +218,13 @@ def home(request, pais):
             moneda = Moneda.objects.get(pais=pais_busqueda)
         except:
             moneda = ''
+
+        # Banners publicitarios de cada pais
+        banners = Banner.objects.filter(pais=pais_busqueda).order_by('nombre')
+
+        # Imagen del banner
+        imagen_banner = Slide.objects.filter(pais=pais_busqueda)[:1]
+
     else:
         buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.all(), empty_label='- Ciudad -')
         buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.all(), empty_label='- Zona -')
@@ -227,6 +234,12 @@ def home(request, pais):
             moneda = Moneda.objects.get(pais__nombre=pais_codigo)
         except:
             moneda = ''
+
+        # Banners publicitarios de cada pais
+        banners = Banner.objects.filter(pais__nombre=pais_codigo).order_by('nombre')
+
+        # Imagen del banner
+        imagen_banner = Slide.objects.filter(pais__nombre=pais_codigo)[:1]
 
     # Verificacion de cual de los filtros se uso
     if inmuebles_inf != 24 and inmuebles_inf != '':
@@ -260,11 +273,6 @@ def home(request, pais):
     zonas = json.dumps(zonas)
     ciudades = json.dumps(ciudades)
 
-    # Banners publicitarios de cada pais
-    banners = Banner.objects.filter(pais__nombre=pais_codigo).order_by('nombre')
-
-    # Imagen del banner
-    imagen_banner = Slide.objects.filter(pais__nombre=pais_codigo)[:1]
 
     ctx = {
         'buscadorF': buscadorF,

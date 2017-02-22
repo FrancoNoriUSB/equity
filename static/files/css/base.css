@@ -48,7 +48,7 @@ header > nav > div > div > div > div.navbar-header > a > p{
 }
 
 header > nav > div > div > div > div > ul > .linea-divisoria-fondos{
-	left: 628px;
+	left: 602px;
     width: 61px;
     position: relative;
     transform: rotate(90deg) translateZ(0px);
@@ -59,7 +59,7 @@ header > nav > div > div > div > div > ul > .linea-divisoria-fondos{
 }
 
 header > nav > div > div > div > div > ul > .linea-divisoria-contacto{
-	left: 895px;
+	left: 870px;
     width: 61px;
     position: relative;
     transform: rotate(90deg) translateZ(0px);
