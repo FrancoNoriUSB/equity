@@ -45,10 +45,6 @@ def home(request, pais):
     # Buscador de inmuebles
     buscadorF = BuscadorForm()
 
-    buscadorF.fields['pais'] = forms.ModelChoiceField(Pais.objects.all(), empty_label=u'- País -')
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.all(), empty_label='- Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.all(), empty_label='- Zona -')
-
     ciudades = {}
     zonas = {}
     inmuebles = []
@@ -62,9 +58,6 @@ def home(request, pais):
     hasta = ''
     precio_min = ''
     precio_max = ''
-
-    # Imagen del banner
-    imagen_banner = Slide.objects.filter(pais__nombre=pais_codigo)[:1]
 
     # Lista inmuebles por pagina
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais_codigo, visible=True).order_by('ciudad__nombre', 'zona__nombre', 'tipo__nombre')
@@ -80,7 +73,11 @@ def home(request, pais):
 
         # Caso para el buscador de inmuebles
         if buscadorF.is_valid():
-            pais = Pais.objects.get(id=request.GET['pais'])
+
+            try:
+                pais = Pais.objects.get(id=request.GET['pais'])
+            except:
+                pais = None
             ciudad = buscadorF.cleaned_data['ciudad']
             zona = buscadorF.cleaned_data['zona']
             tipo = buscadorF.cleaned_data['tipo']
@@ -146,7 +143,8 @@ def home(request, pais):
 
                 # Campos a buscar
                 fields_list = []
-                fields_list.append('pais')
+                if pais is not None:
+                    fields_list.append('pais')
                 fields_list.append('ciudad')
                 fields_list.append('zona')
                 fields_list.append('tipo')
@@ -163,7 +161,8 @@ def home(request, pais):
 
                 # Comparadores para buscar
                 types_list = []
-                types_list.append('nombre__exact')
+                if pais is not None:
+                    types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
@@ -180,7 +179,9 @@ def home(request, pais):
 
                 # Valores a buscar
                 values_list = []
-                values_list.append(pais.nombre)
+
+                if pais is not None:
+                    values_list.append(pais.nombre)
                 values_list.append(ciudad)
                 values_list.append(zona)
                 values_list.append(tipo)
@@ -210,6 +211,13 @@ def home(request, pais):
                 #                 inmuebles.insert(0, inmueble)
                 #     inmuebles_list = inmuebles
 
+    if pais is not None:
+        buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais=pais), empty_label='- Ciudad -')
+        buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais=pais), empty_label='- Zona -')
+    else:
+        buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.all(), empty_label='- Ciudad -')
+        buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.all(), empty_label='- Zona -')
+
     # Verificacion de cual de los filtros se uso
     if inmuebles_inf != 24 and inmuebles_inf != '':
         inmuebles_pagina = inmuebles_inf
@@ -233,21 +241,20 @@ def home(request, pais):
         # If page is out of range (e.g. 9999), deliver last page of results.
         inmuebles = paginator.page(paginator.num_pages)
 
-    buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.all(), empty_label=' - Ciudad -')
-    buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.all(), empty_label=' - Zona -')
+    for paisLista in Pais.objects.all():
+        ciudades[paisLista.id] = dict(Ciudad.objects.filter(pais=paisLista).values_list('id', 'nombre'))
 
-    for pais in Pais.objects.all():
-        ciudades[pais.id] = dict(Ciudad.objects.filter(pais=pais).values_list('id', 'nombre'))
-
-        for ciudad in Ciudad.objects.filter(pais__nombre=pais.nombre):
+        for ciudad in Ciudad.objects.filter(pais__nombre=paisLista.nombre):
             zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+
     zonas = json.dumps(zonas)
     ciudades = json.dumps(ciudades)
 
     # Banners publicitarios de cada pais
     banners = Banner.objects.filter(pais__nombre=pais_codigo).order_by('nombre')
 
-    print pais_codigo
+    # Imagen del banner
+    imagen_banner = Slide.objects.filter(pais__nombre=pais_codigo)[:1]
 
     ctx = {
         'buscadorF': buscadorF,

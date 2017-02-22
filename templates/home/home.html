@@ -18,9 +18,9 @@
     <div class="container">
         <div class="banners col-lg-3 col-md-3 col-sm-3">
             <form class="form" role="form" action="." method="GET">
+                {% csrf_token %}
                 {%for banner in banners%}
                     {%if forloop.counter == 1%}
-                            {% csrf_token %}
                             <!-- Barra de busqueda -->
                             <div class="container-fluid">
                                 <div class="busqueda row">
@@ -87,7 +87,6 @@
                         </div>
                     {% endif %}
                 {%empty%}
-                    {% csrf_token %}
                     <!-- Barra de busqueda -->
                     <div class="container-fluid">
                         <div class="busqueda row">
