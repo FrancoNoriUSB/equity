@@ -263,12 +263,14 @@
                                                     Desde: {{modulo.metros|floatformat|intcomma}} m&#178;
                                                     {%if modulo.precio != 0%}
                                                         /
-                                                        {%if moneda_get == 'nacional'%}
-                                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-                                                        {%elif moneda_get == 'usd'%}
-                                                            {{modulo.precio|floatformat|intcomma}} USD
-                                                        {%else%}
-                                                            {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                        {%if moneda.tasa%}
+                                                            {%if moneda_get == 'nacional'%}
+                                                                {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                            {%elif moneda_get == 'usd'%}
+                                                                {{modulo.precio|floatformat|intcomma}} USD
+                                                            {%else%}
+                                                                {{moneda.simbolo}} {{modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                            {%endif%}
                                                         {%endif%}
                                                     {%endif%}
                                                 {%endfor%}

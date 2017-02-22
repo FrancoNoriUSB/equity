@@ -49,6 +49,7 @@ def home(request, pais):
     zonas = {}
     inmuebles = []
     pais_codigo = pais
+    pais_busqueda = None
     min_habitaciones = 0
     max_habitaciones = 0
     inmuebles_pagina = 24
@@ -62,12 +63,6 @@ def home(request, pais):
     # Lista inmuebles por pagina
     inmuebles_list = Inmueble.objects.filter(pais__nombre=pais_codigo, visible=True).order_by('ciudad__nombre', 'zona__nombre', 'tipo__nombre')
 
-    # Moneda nacional
-    try:
-        moneda = Moneda.objects.get(pais__nombre=pais_codigo)
-    except:
-        moneda = ''
-
     if request.GET:
         buscadorF = BuscadorForm(request.GET)
 
@@ -75,9 +70,9 @@ def home(request, pais):
         if buscadorF.is_valid():
 
             try:
-                pais = Pais.objects.get(id=request.GET['pais'])
+                pais_busqueda = Pais.objects.get(id=request.GET['pais'])
             except:
-                pais = None
+                pais_busqueda = None
             ciudad = buscadorF.cleaned_data['ciudad']
             zona = buscadorF.cleaned_data['zona']
             tipo = buscadorF.cleaned_data['tipo']
@@ -121,15 +116,15 @@ def home(request, pais):
             if palabra != '':
 
                 slug = slugify(palabra)
-                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais.nombre, slug__icontains=slug, visible=True)
+                inmuebles_list = Inmueble.objects.filter(pais__nombre=pais_busqueda.nombre, slug__icontains=slug, visible=True)
 
                 if not inmuebles_list:
-                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais.nombre, codigo__startswith=palabra, visible=True)
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais_busqueda.nombre, codigo__startswith=palabra, visible=True)
                 if not inmuebles_list:
-                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais.nombre, agente__nombre=slug, visible=True)
+                    inmuebles_list = Inmueble.objects.filter(pais__nombre=pais_busqueda.nombre, agente__nombre=slug, visible=True)
 
             # Caso demas
-            elif (pais is not None) or (ciudad is not None) or (zona is not None) or (tipo is not None) or (habitaciones != '') or (precio_max != '') or (metros != ''):
+            elif (pais_busqueda is not None) or (ciudad is not None) or (zona is not None) or (tipo is not None) or (habitaciones != '') or (precio_max != '') or (metros != ''):
 
                 # Verificacion de string vacio
                 # if orden == '':
@@ -143,7 +138,7 @@ def home(request, pais):
 
                 # Campos a buscar
                 fields_list = []
-                if pais is not None:
+                if pais_busqueda is not None:
                     fields_list.append('pais')
                 fields_list.append('ciudad')
                 fields_list.append('zona')
@@ -161,7 +156,7 @@ def home(request, pais):
 
                 # Comparadores para buscar
                 types_list = []
-                if pais is not None:
+                if pais_busqueda is not None:
                     types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
                 types_list.append('nombre__exact')
@@ -180,8 +175,8 @@ def home(request, pais):
                 # Valores a buscar
                 values_list = []
 
-                if pais is not None:
-                    values_list.append(pais.nombre)
+                if pais_busqueda is not None:
+                    values_list.append(pais_busqueda.nombre)
                 values_list.append(ciudad)
                 values_list.append(zona)
                 values_list.append(tipo)
@@ -211,15 +206,27 @@ def home(request, pais):
                 #                 inmuebles.insert(0, inmueble)
                 #     inmuebles_list = inmuebles
 
-    if pais is not None:
-        buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais=pais), empty_label='- Ciudad -')
+    if pais_busqueda is not None:
+        buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais=pais_busqueda), empty_label='- Ciudad -')
         if ciudad is not None:
             buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad=ciudad), empty_label='- Zona -')
         else:
-            buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais=pais), empty_label='- Zona -')
+            buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais=pais_busqueda), empty_label='- Zona -')
+
+        # Moneda nacional
+        try:
+            moneda = Moneda.objects.get(pais=pais_busqueda)
+        except:
+            moneda = ''
     else:
         buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.all(), empty_label='- Ciudad -')
         buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.all(), empty_label='- Zona -')
+
+        # Moneda nacional
+        try:
+            moneda = Moneda.objects.get(pais__nombre=pais_codigo)
+        except:
+            moneda = ''
 
     # Verificacion de cual de los filtros se uso
     if inmuebles_inf != 24 and inmuebles_inf != '':
