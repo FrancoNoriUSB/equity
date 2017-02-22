@@ -213,7 +213,10 @@ def home(request, pais):
 
     if pais is not None:
         buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais=pais), empty_label='- Ciudad -')
-        buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais=pais), empty_label='- Zona -')
+        if ciudad is not None:
+            buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad=ciudad), empty_label='- Zona -')
+        else:
+            buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.filter(ciudad__pais=pais), empty_label='- Zona -')
     else:
         buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.all(), empty_label='- Ciudad -')
         buscadorF.fields['zona'] = forms.ModelChoiceField(Zona.objects.all(), empty_label='- Zona -')
