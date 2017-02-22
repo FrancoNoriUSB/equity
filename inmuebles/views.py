@@ -52,9 +52,9 @@ def home(request, pais):
     pais_busqueda = None
     min_habitaciones = 0
     max_habitaciones = 0
-    inmuebles_pagina = 24
-    inmuebles_inf = 24
-    inmuebles_sup = 24
+    inmuebles_pagina = 28
+    inmuebles_inf = 28
+    inmuebles_sup = 28
     moneda_get = ''
     hasta = ''
     precio_min = ''
@@ -242,9 +242,9 @@ def home(request, pais):
         imagen_banner = Slide.objects.filter(pais__nombre=pais_codigo)[:1]
 
     # Verificacion de cual de los filtros se uso
-    if inmuebles_inf != 24 and inmuebles_inf != '':
+    if inmuebles_inf != 28 and inmuebles_inf != '':
         inmuebles_pagina = inmuebles_inf
-    if inmuebles_sup != 24 and inmuebles_sup != '':
+    if inmuebles_sup != 28 and inmuebles_sup != '':
         inmuebles_pagina = inmuebles_sup
 
     # Busqueda de propiedades en el pais actual
@@ -272,7 +272,6 @@ def home(request, pais):
 
     zonas = json.dumps(zonas)
     ciudades = json.dumps(ciudades)
-
 
     ctx = {
         'buscadorF': buscadorF,

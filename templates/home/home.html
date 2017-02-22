@@ -178,13 +178,6 @@
         	<div class="paginacion-superior row">
         		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
                     <div class="row">
-                        <div class="form-inline col-lg-4 col-md-4">
-                            <form id="form-cantidad" class="form" role="form" action="." method="GET">
-                                <label for="id_inmuebles">
-                                    Mostrar:  {% render_field buscadorF.inmuebles_sup class="form-control"%} por p&aacute;gina.
-                                </label>
-                            </form>
-                        </div>
                         <!--
                         <div class="form-group col-lg-3 col-md-3">
                             <form id="form-orden" class="form" role="form" action="/{{pais}}/" method="GET">
@@ -293,16 +286,9 @@
         		</div>
         	</div>
         	<div class="paginacion-inferior row">
-        		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0">
-                    <div class="row">
-                        <div class="form-inline col-lg-6 col-md-3">
-                            <form id="form-cantidad" class="form" role="form" action="/{{pais}}/" method="GET">
-                                <label for="id_inmuebles">
-                                    Mostrar:  {% render_field buscadorF.inmuebles_inf class="form-control"%} por p&aacute;gina.
-                                </label>
-                            </form>
-                        </div>
-                        <div class="col-lg-6 col-md-3">
+        		<div class="col-lg-12 col-md-12 col-lg-offset-0 col-md-offset-0 pull-right">
+                    <div class="row  pull-right">
+                        <div class="col-lg-3 col-md-3">
                             <nav class="text-right">
                               <ul class="pagination">
                                 {% if inmuebles.has_previous %}
