@@ -1232,8 +1232,8 @@ def agentes_agregar(request, pais):
 
         if agenteF.is_valid() and telefonoAgenteF.is_valid():
             agente = agenteF.save(commit=False)
-            pais = Pais.objects.get(nombre=pais)
-            agente.pais = pais
+            paisAgente = Pais.objects.get(nombre=pais)
+            agente.pais = paisAgente
             agente.save()
 
             # Verificacion de telefonos del agente
@@ -1328,8 +1328,8 @@ def ciudades_agregar(request, pais):
         ciudadF = CiudadForm(request.POST)
         if ciudadF.is_valid():
             ciudad = ciudadF.save(commit=False)
-            pais = Pais.objects.get(nombre=pais)
-            ciudad.pais = pais
+            paisCiudad = Pais.objects.get(nombre=pais)
+            ciudad.pais = paisCiudad
             ciudad.save()
 
             return HttpResponseRedirect('/' + str(pais) + '/admin/ciudades/')
@@ -1477,8 +1477,8 @@ def monedas_agregar(request, pais):
         monedaF = MonedaForm(request.POST)
         if monedaF.is_valid():
             moneda = monedaF.save(commit=False)
-            pais = Pais.objects.get(nombre=pais)
-            moneda.pais = pais
+            paisMoneda = Pais.objects.get(nombre=pais)
+            moneda.pais = paisMoneda
             moneda.save()
 
             return HttpResponseRedirect('/' + str(pais) + '/admin/monedas/')
@@ -1569,7 +1569,7 @@ def estadisticas_list(request, pais):
         'skypes_total': skypes_total,
         'vistas_total': vistas_total,
         'inmuebles': inmuebles,
-        'pais': pais,
+        'pais': pais.nombre,
     }
 
     return render_to_response('admin/estadisticas/estadisticas_listar.html', ctx, context_instance=RequestContext(request))
