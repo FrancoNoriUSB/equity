@@ -1532,7 +1532,7 @@ def estadisticas_list(request, pais):
     skypes_total = 0
     estadisticas = []
     pais = Pais.objects.get(nombre=pais)
-    inmuebles = Inmueble.objects.filter(pais__nombre=pais)
+    inmuebles = Inmueble.objects.filter(pais=pais)
 
     # Estadisticas de cada inmueble
     for inmueble in inmuebles:
