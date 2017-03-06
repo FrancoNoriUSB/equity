@@ -293,6 +293,9 @@ def home(request, pais):
 # Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
+    # Buscador de inmuebles
+    buscadorF = BuscadorForm()
+
     constructor = False
     visita = False
     financiamiento = False
@@ -300,7 +303,11 @@ def inmueble(request, codigo, pais):
     envio_visita = False
     envio_financiamiento = False
     fecha_entrega = ''
-    modulos_favs = []
+    paises = {}
+    ciudades = {}
+    zonas = {}
+    inmuebles = {}
+    inmuebles_favs = []
     user = request.user
 
     # Inmueble
@@ -310,9 +317,9 @@ def inmueble(request, codigo, pais):
     modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
 
     try:
-        modulos_favs = ModuloFavorito.objects.filter(usuario=user, modulo__in=modulos).values_list('modulo', flat=True)
+        inmuebles_favs = InmuebleFavorito.objects.filter(usuario=user, modulo__in=modulos).values_list('modulo', flat=True)
     except:
-        modulos_favs = []
+        inmuebles_favs = []
 
     # Agente
     agente = inmueble.agente
@@ -338,9 +345,6 @@ def inmueble(request, codigo, pais):
         moneda = Moneda.objects.get(pais__nombre=pais)
     except:
         moneda = ''
-
-    # Banners del home
-    banners = Banner.objects.filter(pais__nombre=pais)
 
     # Vista del inmueble por parte del usuario
     visto = inmueble_vista_count(request, inmueble.id)
@@ -383,18 +387,35 @@ def inmueble(request, codigo, pais):
                 solicitarvF = SolicitarVisitaForm()
                 contactoF = ContactoAgenteForm()
 
+    for paisLista in Pais.objects.all():
+        ciudades[paisLista.id] = dict(Ciudad.objects.filter(pais=paisLista).values_list('id', 'nombre'))
+
+        for ciudad in Ciudad.objects.filter(pais__nombre=paisLista.nombre):
+            zonas[ciudad.id] = dict(Zona.objects.filter(ciudad=ciudad).values_list('id', 'nombre'))
+
+            for zona in Zona.objects.filter(ciudad__nombre=ciudad.nombre):
+                inmuebles[zona.id] = dict(Inmueble.objects.filter(zona=zona).values_list('id', 'titulo'))
+
+    ciudades = json.dumps(ciudades)
+    zonas = json.dumps(zonas)
+    inmuebles = json.dumps(inmuebles)
+
     ctx = {
+        'buscadorF': buscadorF,
         'inmueble': inmueble,
         'modulos': modulos,
-        'modulos_favs': modulos_favs,
+        'inmuebles_favs': inmuebles_favs,
         'moneda': moneda,
         'telefonosAgente': telefonos,
         'ContactoAgenteForm': contactoF,
         'SolicitarVisitaForm': solicitarvF,
         'SolicitarFinanciamientoForm': financiamientoF,
         'imagenes': imagenes,
-        'banners': banners,
         'pais': pais,
+        'paises': paises,
+        'ciudades': ciudades,
+        'zonas': zonas,
+        'inmuebles': inmuebles,
         'constructor': constructor,
         'envio_contacto': envio_contacto,
         'visita': visita,
@@ -405,6 +426,14 @@ def inmueble(request, codigo, pais):
     }
 
     return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para visitar un proyecto
+def visitar_proyecto_view(request, pais, id_inmueble):
+
+    inmueble = Inmueble.objects.get(id=id_inmueble)
+
+    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + inmueble.codigo + '/')
 
 
 # Vista para enviar reporte de mercado de usuarios
@@ -431,7 +460,7 @@ def favoritos_list(request, pais):
     modulos = []
     user = request.user
 
-    if user.is_authenticated() and request.user:
+    if user.is_authenticated() and user:
 
         # Moneda
         try:
@@ -457,22 +486,26 @@ def favoritos_list(request, pais):
 # Vista para agregar inmuebles favoritos
 def favoritos_agregar(request, pais, id_inmueble):
 
+    inmueble = Inmueble.objects.get(id=id_inmueble)
     user = request.user
+    inmuebleF = None
     url = '/'
 
-    if user.is_authenticated() and request.user:
+    if user.is_authenticated() and user:
         try:
-            inmueble = InmuebleFavorito.objects.get(inmueble__id=id_inmueble, usuario=user)
+            inmuebleF = InmuebleFavorito.objects.get(inmueble__id=id_inmueble, usuario=user)
         except:
-            url = '/' + str(pais) + '/favoritos/'
+            url = '/' + str(pais) + '/favoritos/'\
 
-        if inmueble:
+        if not inmuebleF:
             favorito = InmuebleFavorito(inmueble=inmueble, usuario=user)
             favorito.save()
-            url = '/' + str(pais) + '/favoritos/'
+            url = '/' + str(pais) + '/inmuebles/' + str(inmueble.codigo) + '/'
+
     else:
         url = '/' + str(pais) + '/ingreso-registro/'
-        return HttpResponseRedirect(url)
+
+    return HttpResponseRedirect(url)
 
 
 # Vista para eliminar inmuebles favoritos
@@ -632,7 +665,7 @@ def inmueble_call_agente(request, pais, id_inmueble):
         click = InmuebleSkypeClick(cantidad=1, agente=inmueble.agente, inmueble=inmueble)
         click.save()
 
-    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + str(id_inmueble))
+    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + str(id_inmueble) + '/')
 
 
 # Vista para contar los clicks de los usuarios a los links de los agentes

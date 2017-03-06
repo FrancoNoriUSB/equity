@@ -15,68 +15,122 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
 <script src="{{STATIC_URL}}files/js/jquery.fullscreen.min.js"></script>
 
-
-<!-- Favoritos -->
-<script>
-    function favorito(link, id){
-        $.ajax({
-          method: "GET",
-          url: link
-        });
-        
-        $('#'+id).children().removeClass('glyphicon-heart-empty');
-        $('#'+id).children().addClass('glyphicon-heart');
-    }
-</script>
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
 {% block content %}
-    <div class="container-fluid carrusel-inicio">
-        <!-- main slider carousel -->
+    <div class="container">
         <div class="row">
-            <div id="carousel-bounding-box">
-                <div id="carousel" class="carousel slide carousel-fade">
-                    <!-- main slider carousel items -->
-                    <div class="carousel-inner">
-                    {%for imagen in imagenes%}
-                        <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
-                            <img class="img-responsive" src="{{imagen.imagen.url}}" alt="" id="carousel-image">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 filtro">
+                <form action="." method="GET" >
+                    {%csrf_token%}
+                    {%render_field buscadorF.pais class="form-control"%}
+                    <br>
+                    {%render_field buscadorF.ciudad class="form-control"%}
+                    <br>
+                    {%render_field buscadorF.zona class="form-control"%}
+                    <br>
+                    {%render_field buscadorF.proyecto class="form-control"%}
+                </form>
+                <h3>Solicita:</h3>
+                <a type="button" class="btn btn-primary boton-azul" data-toggle="modal" data-target=".planes-pago-modal">
+                    Planes de pago
+                </a>
+                <div class="modal fade planes-pago-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                    <div class="modal-dialog modal-md" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <br>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <h4>Formulario para solicitar planes de financiamiento</h4>
+                                        {%if envio_financiamiento%}
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">
+                                                    &times;
+                                                </span>
+                                            </button>
+                                            <strong>Enviado</strong> con &eacute;xito!
+                                        </div>
+                                        {%endif%}
+                                        <form action="" method="POST">  
+                                            {%csrf_token%}
+                                            <div class="form-group">
+                                                {%bootstrap_field SolicitarFinanciamientoForm.correo%}
+                                                <div class="form-group">
+                                                    <label for="id_telefonos">
+                                                         Telefonos <span class="text-danger">(opcional)</span>
+                                                    </label>
+                                                    {%render_field SolicitarFinanciamientoForm.telefonos class="form-control"%}
+                                                </div>
+                                                <button type="submit" class="btn btn-primary boton-azul" name="financiamiento">Enviar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    {%endfor%}
                     </div>
-                    <!-- main slider carousel nav controls --> 
-                    <a class="carousel-control left" href="#carousel" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="carousel-control right" href="#carousel" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
                 </div>
-            </div>
-        </div>
-        <!--/main slider carousel-->
-    </div>
-    <br>
-    <div class="container info-base">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
-                <img src="{{ inmueble.logo.url }}" class="img-responsive" />
-                <h4 class="text-left">
-                    <strong>{{inmueble.tipo}} - <u>{{ inmueble.tipo_obra }}</u></strong>
-                </h4>
-                <p>
-                    {{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}
+                        
+                <br>
+                <br>
+                {%if inmueble.archivo%}
+                    <a href="{{inmueble.archivo.url}}" class="btn btn-primary boton-azul" target="_new">
+                        Brochure Digital
+                    </a>
                     <br>
-                    {{inmueble.direccion}}
                     <br>
-                    Entrega estimada: {{ fecha_entrega|date:"M Y" }}
-                    <br>
-                </p>
+                {%endif%}
+                <a type="button" class="btn btn-primary boton-azul" data-toggle="modal" data-target=".visitar-inmueble-modal">
+                    Visitar el Inmueble
+                </a>
+                <div class="modal fade visitar-inmueble-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                    <div class="modal-dialog modal-md" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <br>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <h4>Formulario para solicitar una visita al inmueble</h4>
+                                        {%if envio_visita%}
+                                        <div class="alert alert-success alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">
+                                                    &times;
+                                                </span>
+                                            </button>
+                                            <strong>Enviado</strong> con &eacute;xito!
+                                        </div>
+                                        {%endif%}
+                                        <form action="" method="POST">  
+                                            {%csrf_token%}
+                                            <div class="form-group">
+                                                {%bootstrap_form SolicitarVisitaForm%}
+                                                <button type="submit" class="btn btn-primary" name="visita">Enviar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <a href="/{{pais}}/favoritos/" class="btn btn-primary boton-azul">
+                    Ver Favoritos
+                </a>
                 <script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
                 <div id="SkypeButton_Call_equity" class="skype-equity">
                     <h4 class="text-inline skype">
-                        Contáctenos de manera directa
                         <script type="text/javascript">
                         Skype.ui({
                             "name": "call",
@@ -87,285 +141,150 @@
                         </script>
                     </h4>
                 </div>
-                <br>
-                {%if inmueble.archivo%}
-                    <br>
-                    <a href="{{inmueble.archivo.url}}" class="btn btn-primary" target="_new">
-                        Brochure Digital
-                    </a>
-                {%endif%}
-                {%if inmueble.ficha_tecnica%}
-                    <br>
-                    <br>
-                    <a href="{{inmueble.ficha_tecnica.url}}" class="btn btn-primary" target="_new">
-                        Ficha T&eacute;cnica
-                    </a>
-                {%endif%}
             </div>
-            <div class="col-lg-6 col-md-4 col-sm-4">
-                {%if inmueble.video%}
-                    <div class="video-container">
-                        <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
-                        </iframe>
-                    </div>
-                {%endif%}
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="container informacion">
-        <div class="tabpanel col-lg-12 col-md-12 col-sm-12">
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" {%if not visita and not constructor%} class="active" {%endif%} >
-                    <a href="#general" aria-controls="general" role="tab" data-toggle="tab">Informaci&oacute;n General</a>
-                </li>
-                <li role="presentation">
-                    <a href="#ubicacion" aria-controls="ubicacion" role="tab" data-toggle="tab">Ubicaci&oacute;n</a>
-                </li>
-                <li role="presentation" {%if constructor%} class="active" {%endif%}>
-                    <a href="#contactar" aria-controls="contactar" role="tab" data-toggle="tab">Contactar al constructor</a>
-                </li>
-                <li role="presentation" {%if visita%} class="active" {%endif%}>
-                    <a href="#visita" aria-controls="visita" role="tab" data-toggle="tab">Solicitar Visita</a>
-                </li>
-                <li role="presentation" {%if financiamiento%} class="active" {%endif%}>
-                    <a href="#financiamiento" aria-controls="financiamiento" role="tab" data-toggle="tab" >Solicitar Planes de Pago</a>
-                </li>
-                <li role="presentation">
-                    <a href="/{{pais}}/favoritos/" aria-controls="favoritos" >Ver Favoritos</a>
-                </li>
-            </ul>
-
-             <!-- Tab panels -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade {%if not visita and not constructor%} in active {%endif%}" id="general">
-                    <div class="tabla-info row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <table class="table table-bordered">
-                                <tr class="active">
-                                    <td>
-                                        <p class="text-center">Mt&#178;</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-center">Dormitorios</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-center">Ba&ntilde;os</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-center">Estacionamiento</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-center">Moneda Nacional</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-center">USD</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-center">Plano</p>
-                                    </td>
-                                    <td>
-                                        <p class="text-center"><a href="/{{pais}}/favoritos/">Favorito</a></p>
-                                    </td>
-                                </tr>
-                                {% for modulo in modulos %}
-                                    <tr>
-                                        <td class="text-center">{{modulo.metros}}</td>
-                                        <td class="text-center">{{modulo.dormitorios}}</td>
-                                        <td class="text-center">{{modulo.banos}}</td>
-                                        <td class="text-center">{{modulo.estacionamientos}}</td>
-                                        <td class="text-center">
-                                            {%if moneda.tasa != None%}
-                                                {{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
-                                            {%else%}
-                                                Conversion no disponible
-                                            {%endif%}
-                                        </td>
-                                        <td class="text-center">
-                                            {{modulo.precio|floatformat|intcomma}}
-                                        </td>
-                                        <td class="text-center">
-                                            <!-- Button trigger modal -->
-                                            <a href="" type="button" class="" data-toggle="modal" data-target="#{{modulo.tipo|slugify}}Modal">
-                                            Ver
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            {%if user.is_authenticated%}
-                                                <button value="/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/" onclick="favorito('/{{pais}}/favoritos/modulos/agregar/{{modulo.id}}/', 'corazon_favorito{{modulo.id}}')" id="corazon_favorito{{modulo.id}}" class="corazon_favorito">
-                                            {%else%}
-                                            <a href="/{{pais}}/ingreso-registro/" class="corazon_favorito">
-                                            {%endif%}
-                                                {%if modulo.id in modulos_favs%}
-                                                    <span class="glyphicon glyphicon-heart"></span>
-                                                {%else%}
-                                                    <span class="glyphicon glyphicon-heart-empty"></span>
-                                                {%endif%}
-                                            {%if user.is_authenticated%}
-                                                </button>
-                                            {%else%}
-                                                </a>
-                                            {%endif%}
-                                        </td>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="{{modulo.tipo|slugify}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{modulo.tipo|slugify}}ModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content col-lg-8 col-md-8 col-sm-8 col-xs-12 centering">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title" id="{{modulo.tipo|slugify}}ModalLabel">Plano {{ modulo.tipo }}</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <img src="{{ modulo.plano.url }}" alt="" class="img-responsive">
-                                                        <a class="text-center" target="_blank" href="{{ modulo.plano.url }}">Ver grande</a>
-                                                    </div>
-                                                </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-8">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="container-fluid carrusel-inicio">
+                            <!-- main slider carousel -->
+                            <div class="row">
+                                <div id="carousel-bounding-box">
+                                    <div id="carousel" class="carousel slide carousel-fade">
+                                        <!-- main slider carousel items -->
+                                        <div class="carousel-inner">
+                                        {%for imagen in imagenes%}
+                                            <div class="{%if forloop.counter == 1%}active{%endif%} item" data-slide-number="{{forloop.counter}}">
+                                                <img class="img-responsive" src="{{imagen.imagen.url}}" alt="" id="carousel-image">
                                             </div>
+                                        {%endfor%}
                                         </div>
-                                    </tr>
-                                {% empty %}
-                                <tr>
-                                    <td>No disponible</td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                            <p class="text-justify">
-                                <small>
-                                    Precios sujetos a cambios sin previo aviso. Las im&aacute;genes y caracter&iacute;sticas son referenciales, y el proyecto final puede tener variaciones con respecto a esta informaci&oacute;n la cual es solamente de manera referencial.
-                                </small>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="caracteristicas row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <strong>Descripci&oacute;n:</strong>
-                            <p class="text-justify">
-                                {{inmueble.descripcion}}
-                            </p>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <strong>&Aacute;reas Comunes:</strong>
-                            <p class="text-justify">
-                                {{inmueble.areas_comunes}}
-                            </p>
-                        </div>
-                        {%if inmueble.forma_pago%}
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <strong>Forma de pago:</strong>
-                                <p class="text-justify">
-                                    {{inmueble.forma_pago}}
-                                </p>
+                                        <!-- main slider carousel nav controls --> 
+                                        <a class="carousel-control left" href="#carousel" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                        </a>
+                                        <a class="carousel-control right" href="#carousel" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        {%endif%}
+                            <!--/main slider carousel-->
+                        </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="ubicacion">
-                    <div class="row">
-                        <h4>Ubicaci&oacute;n</h4>
+                <br>
+                <div class="row">
+                    {%if inmueble.video%}
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="video-container">
+                                <iframe width="640" height="352" src="https://www.youtube.com/embed/{{inmueble.video}}" frameborder="0" allowfullscreen="">
+                                </iframe>
+                            </div>
+                        </div>
+                    {%endif%}
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="col-lg-2 col-md-2 col-sm-2">
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8">
                         
                             <!-- Mapa de google maps -->
                             <div class="mapa" id="mapa">
-                                <input type="hidden" id="lat" value=''>
-                                <input type="hidden" id="lng" value=''>
                             </div>
-                            <p>
-                                {{inmueble.direccion}}, {{inmueble.zona}}, {{inmueble.ciudad}}.
-                            </p>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                         </div>
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade {%if constructor%} in active {%endif%}" id="contactar">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h4>Contactar al constructor</h4>
-                        {%if envio_contacto%}
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">
-                                    &times;
-                                </span>
-                            </button>
-                            <strong>Enviado</strong> con &eacute;xito!
-                        </div>
-                        {%endif%}
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <img class="img-responsive" src="{{MEDIA_URL}}{{inmueble.agente.logo}}" alt="">
-                        <p class="telefonos text-left">
-                            {%for telefono in telefonosAgente%}
-                                <strong>{{telefono.tipo}}:</strong> {{telefono.numero}}<br>
-                            {%endfor%}
-                            {%if inmueble.agente.pagina%}
-                                P&aacute;gina Web: 
-                                <a href="http://{{inmueble.agente.pagina}}" id="web_page">
-                                    {{inmueble.agente.pagina}}
-                                </a>
-                            {%endif%}
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modulos">
+                        <strong>Descripci&oacute;n:</strong>
+                        <p class="text-justify">
+                            {{inmueble.descripcion}}
                         </p>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <form action="" method="POST">  
-                            {%csrf_token%}
-                            <div class="form-group">
-                                {%bootstrap_form ContactoAgenteForm%}
-                                <button type="submit" class="btn btn-primary" name="constructor">Enviar</button>
+                        <strong>&Aacute;reas Comunes:</strong>
+                        <p class="text-justify">
+                            {{inmueble.areas_comunes}}
+                        </p>
+                        <div class="tabla-info row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table class="table table-bordered">
+                                    <tr class="active">
+                                        <td>
+                                            <p class="text-center">Mt&#178;</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">Dormitorios</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">Ba&ntilde;os</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">Estacionamiento</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">Moneda Nacional</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">USD</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-center">Plano</p>
+                                        </td>
+                                    </tr>
+                                    {% for modulo in modulos %}
+                                        <tr>
+                                            <td class="text-center">{{modulo.metros}}</td>
+                                            <td class="text-center">{{modulo.dormitorios}}</td>
+                                            <td class="text-center">{{modulo.banos}}</td>
+                                            <td class="text-center">{{modulo.estacionamientos}}</td>
+                                            <td class="text-center">
+                                                {%if moneda.tasa != None%}
+                                                    {{ modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
+                                                {%else%}
+                                                    Conversion no disponible
+                                                {%endif%}
+                                            </td>
+                                            <td class="text-center">
+                                                {{modulo.precio|floatformat|intcomma}}
+                                            </td>
+                                            <td class="text-center">
+                                                <!-- Button trigger modal -->
+                                                <a href="" type="button" class="" data-toggle="modal" data-target="#{{modulo.tipo|slugify}}Modal">
+                                                Ver
+                                                </a>
+                                            </td>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="{{modulo.tipo|slugify}}Modal" tabindex="-1" role="dialog" aria-labelledby="{{modulo.tipo|slugify}}ModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content col-lg-8 col-md-8 col-sm-8 col-xs-12 centering">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title" id="{{modulo.tipo|slugify}}ModalLabel">Plano {{ modulo.tipo }}</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <img src="{{ modulo.plano.url }}" alt="" class="img-responsive">
+                                                            <a class="text-center" target="_blank" href="{{ modulo.plano.url }}">Ver grande</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td>No disponible</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                <p class="text-justify">
+                                    <small>
+                                        Precios sujetos a cambios sin previo aviso. Las im&aacute;genes y caracter&iacute;sticas son referenciales, y el proyecto final puede tener variaciones con respecto a esta informaci&oacute;n la cual es solamente de manera referencial.
+                                    </small>
+                                </p>
                             </div>
-                        </form>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane fade {%if visita%} in active {%endif%}" id="visita">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <h4>Formulario para solicitar una visita al inmueble</h4>
-                        {%if envio_visita%}
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">
-                                    &times;
-                                </span>
-                            </button>
-                            <strong>Enviado</strong> con &eacute;xito!
                         </div>
-                        {%endif%}
-                        <form action="" method="POST">  
-                            {%csrf_token%}
-                            <div class="form-group">
-                                {%bootstrap_form SolicitarVisitaForm%}
-                                <button type="submit" class="btn btn-primary" name="visita">Enviar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div role="tabpanel" class="tab-pane fade {%if financiamiento%} in active {%endif%}" id="financiamiento">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <h4>Formulario para solicitar planes de financiamiento</h4>
-                        {%if envio_financiamiento%}
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">
-                                    &times;
-                                </span>
-                            </button>
-                            <strong>Enviado</strong> con &eacute;xito!
-                        </div>
-                        {%endif%}
-                        <form action="" method="POST">  
-                            {%csrf_token%}
-                            <div class="form-group">
-                                {%bootstrap_field SolicitarFinanciamientoForm.correo%}
-                                <div class="form-group">
-                                    <label for="id_telefonos">
-                                         Telefonos <span class="text-danger">(opcional)</span>
-                                    </label>
-                                    {%render_field SolicitarFinanciamientoForm.telefonos class="form-control"%}
-                                </div>
-                                <button type="submit" class="btn btn-primary" name="financiamiento">Enviar</button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -411,7 +330,9 @@ function initialize(){
         title: 'Click para hacer zoom'
     });
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
+
 $('a[href="#ubicacion"]').on('shown.bs.tab', function (e) {
     initialize();
 });

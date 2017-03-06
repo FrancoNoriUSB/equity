@@ -32,6 +32,20 @@
         <link rel="stylesheet" type="text/css" href="{% static 'files/css/base_inmueble.css' %}">
 
         <!-- BLoque para cargar cualquier script en el header -->
+
+        <!-- Favoritos -->
+        <script>
+            function favorito(link, id){
+                $.ajax({
+                  method: "GET",
+                  url: link
+                });
+                
+                $(id).children().removeClass('glyphicon-heart-empty');
+                $(id).children().addClass('glyphicon-heart');
+            }
+        </script>
+
         {% block scripts %}
             
         {% endblock scripts %}
@@ -39,40 +53,39 @@
     <body>
         <!-- Header de la página -->
         {% block header %}
-        <header>
-            <nav class="navbar navbar-fixed-top navbar-default">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="navbar-header">
-                                <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                </button>
-                                <a class="navbar-brand hidden-xs" href="javascript:window.history.back();">
-                                    <img class="" src="{{STATIC_URL}}files/img/eq-volver.png" alt="">
-                                </a>
-                            </div>
-                            <div class="collapse navbar-collapse navHeaderCollapse navheader">
-                                <div class="row titulo">
-                                    <div class="col-lg-5 col-md-4 col-sm-4 col-xs-6">
-                                        <h3 class="titulo">
-                                            {{inmueble.titulo}}
-                                        </h3>
-                                        <br>
-                                        <h4 class="tipo">
-                                            {{inmueble.ciudad.nombre}} - {{inmueble.zona.nombre}}
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        
+        <div class="container-fluid header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-4 logo">
+                        <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-solo.png" alt="">
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-4 titulo-inmueble">
+                        <h1>{{inmueble.titulo}}</h1>
+                        <h2>{{inmueble.zona.nombre}}, {{inmueble.ciudad.nombre}}</h2>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 me-interesa">
+                        {%if user.is_authenticated%}
+                            <button value="/{{pais}}/favoritos/agregar/{{inmueble.id}}/" onclick="favorito('/{{pais}}/favoritos/agregar/{{inmueble.id}}/', '#corazon_favorito{{inmueble.id}}')" id="corazon_favorito{{inmueble.id}}" class="corazon_favorito btn btn-primary boton-morado">
+                            Me Interesa 
+                        {%else%}
+                            <a href="/{{pais}}/ingreso-registro/" class="corazon_favorito btn btn-primary boton-morado">
+                                Me Interesa 
+                        {%endif%}
+                            {%if inmueble.id in inmuebles_favs%}
+                                <span class="glyphicon glyphicon-heart"></span>
+                            {%else%}
+                                <span class="glyphicon glyphicon-heart-empty"></span>
+                            {%endif%}
+                        {%if user.is_authenticated%}
+                            </button>
+                        {%else%}
+                            </a>
+                        {%endif%}
                     </div>
                 </div>
-            </nav>
-        </header>
+            </div>
+        </div>
 
         {% endblock header %}
 
@@ -84,133 +97,94 @@
 
         <!-- Footer de la página -->
         {% block footer %}
-        <footer>
-            <!--Footer principal-->
-            <div class="container-fluid primario">
-                <div class="row paises centering">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centering">
-                        <ul class="media-list">
-                            <li class="media">
-                                <a href="/CO/"><strong>Colombia, Bogot&aacute;</strong></a>
-                            </li>
-                            <li class="media">
-                                <a href="/CR/"><strong>Costa Rica, San Jos&eacute;</strong></a>
-                            </li>
-                            <li class="media">
-                                <a href="/US/"><strong>EE. UU., Miami</strong></a>
-                            </li>
-                            <li class="media">
-                                <a href="/MX/"><strong>M&eacute;xico, DF.</strong></a>
-                            </li>
-                            <li class="media">
-                                <a href="/PA/"><strong>Panam&aacute;, Ciudad de Panam&aacute;</strong></a>
-                            </li>
-                            <li class="media">
-                                <a href="/VE/"><strong>Venezuela, Caracas</strong></a>
-                            </li>
-                        </ul> 
-                        <ul class="media-list">
-                            <li class="media">
-                                <abbr title="Teléfono">(+57)-1-486.49.14</abbr>
-                            </li>
-                            <li class="media">
-                                <abbr title="Teléfono">(+506)-40.00.19.67</abbr>
-                            </li>
-                            <li class="media">
-                                <abbr title="Phone">(+1)-305-770.61.42</abbr>
-                            </li>
-                            <li class="media">
-                                <abbr title="Teléfono">(+52)-55-47.77.28.87</abbr>
-                            </li>
-                            <li class="media">
-                                <abbr title="Teléfono">(+507)-833.69.96</abbr>
-                            </li>
-                            <li class="media">
-                                <abbr title="Teléfono">(+58)-212-710.21.34</abbr>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <ul class="media-list">
-                            <li class="media">
-                                <a href="http://revistaequity.jimdo.com/versi%C3%B3n-digital/">
-                                    <h4><strong>L&eacute;anos</strong></h4>
-                                    <img src="{% static 'files/img/leanos.png' %}" alt="">
-                                    
-                                </a>
-                            </li>
-                            <li class="media">
-                               <a href="">
-                                    <h4><strong>Cons&uacute;ltenos</strong></h4>
-                                    <img src="{% static 'files/img/consultenos.png' %}" alt="">
-                                </a>
-                            </li>
-                            <li class="media">
-                                <a href="">
-                                    <h4><strong>Ll&aacute;menos</strong></h4>
-                                    <img src="{% static 'files/img/llamenos.png' %}" alt="">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row redes">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-6 col-sm-offset-0 col-xs-offset-0 centering">
-                        <img class="correo" src="{% static 'files/img/correo.png' %}" alt="">
-                        <a href="https://www.facebook.com/RevistaEquity"><img class="fb" src="{% static 'files/img/fb.png' %}" alt=""></a>
-                        <a href="https://twitter.com/EquityLA"><img class="tw" src="{% static 'files/img/tw.png' %}" alt=""></a>
-                        <a href="https://plus.google.com/u/0/112322346471753138539/about"><img class="g+" src="{% static 'files/img/g+.png' %}" alt=""></a>
-                        <a href="https://www.youtube.com/channel/UCb2tj5241TiUEZKqY9XEYBA"><img class="yt" src="{% static 'files/img/yt.png' %}" alt=""></a>
-                        <a href="http://www.pinterest.com/EquityLA/"><img class="pn" src="{% static 'files/img/pn.png' %}" alt=""></a>
-                        <img class="in" src="{% static 'files/img/in.png' %}" alt="">
-                    </div>
-                </div>
-            </div>
-            <!--Footer secundario-->
-            <div class="container-fluid secundario">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <form class="form-inline" role="form" action="/{{pais}}/" method="POST">
-                        {%csrf_token%}
-                            <div class="form-group">
-                                <label for="form-control">
-                                    <h5>Suscr&iacute;base a nuestro Newsletter EQNEWS</h5>
-                                </label>
-                                <input class="form-control" type="text" placeholder="Email">
-                                <button class="btn btn-primary">Suscribirse</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        
         {% endblock footer %}
     </body>
 
 <!-- Seccion donde se carga el JS -->
-<script>
-/*Funcion para cambiar de pais actual*/
-$('#id_pais').change(function(){
-    var pais = $(this).val();
-    window.location.replace("/"+pais+"/");
-});
 
-/*Funciones para darle formato a los campos de precios*/
-$('#id_desde').change(function(){
-    var valor = $(this).val();
-    if (valor != ''){
-        valor = numeral(valor).format('0,0.00');
-    }
-    $(this).val(valor);
-});
+<script type="text/javascript">
+var paises = {{ paises | safe }};
+var ciudades = {{ ciudades | safe }};
+var zonas = {{ zonas | safe }};
+var proyectos = {{ inmuebles | safe }};
 
-$('#id_hasta').change(function(){
-    var valor = $(this).val();
-    if (valor != ''){
-        valor = numeral(valor).format('0,0.00');
+function cargar_ciudades(){
+    var pais = $('#id_pais');
+    var elem_ciudades = $('#id_ciudad');
+
+    pais = pais.val();
+
+    if (pais != "")
+    {
+        elem_ciudades.empty();
+        elem_ciudades.append('<option value="" selected="selected">- Ciudad -</option>');
+        $.each(ciudades[pais], function(i, ciudad){
+            elem_ciudades.append('<option value="'+ i +'">' + ciudad + '</option>')
+        });
+    } 
+    else 
+    {
+        elem_ciudades.empty();
+        elem_ciudades.append('<option value="" selected="selected">- Ciudad -</option>');
     }
-    $(this).val(valor);
-});
+}
+
+function cargar_zonas(){
+    var ciudad = $('#id_ciudad');
+    var elem_zonas = $('#id_zona');
+
+    ciudad = ciudad.val();
+
+    if (ciudad != "")
+    {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected">- Zona -</option>');
+        $.each(zonas[ciudad], function(i, zona){
+            elem_zonas.append('<option value="'+ i +'">' + zona + '</option>')
+        });
+    } 
+    else 
+    {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected">- Zona -</option>');
+    }
+}
+
+function cargar_proyectos(){
+    var zona = $('#id_zona');
+    var elem_proyectos = $('#id_proyecto');
+
+    zona = zona.val();
+
+    if (zona != "")
+    {
+        elem_proyectos.empty();
+        elem_proyectos.append('<option value="" selected="selected">- Proyecto -</option>');
+        $.each(proyectos[zona], function(i, proyecto){
+            elem_proyectos.append('<option value="'+ i +'">' + proyecto + '</option>')
+        });
+    } 
+    else 
+    {
+        elem_proyectos.empty();
+        elem_proyectos.append('<option value="" selected="selected">- Proyecto -</option>');
+    }
+}
+
+function visitar_proyecto(){
+    var proyecto = $('#id_proyecto').val();
+    window.location.replace("/{{ pais | safe }}/visitar_proyecto/" + proyecto + "/");
+}
+
+$(document).on('change', '#id_pais', cargar_ciudades);
+$(document).on('change', '#id_pais', cargar_zonas);
+$(document).on('change', '#id_pais', cargar_proyectos);
+$(document).on('change', '#id_ciudad', cargar_zonas);
+$(document).on('change', '#id_ciudad', cargar_proyectos);
+$(document).on('change', '#id_zona', cargar_proyectos);
+$(document).on('change', '#id_proyecto', visitar_proyecto);
+
 </script>
 
 <!-- Begin Web-Stat code v 6.2 -->

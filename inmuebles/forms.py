@@ -80,6 +80,7 @@ class BuscadorForm(forms.Form):
     pais = forms.ModelChoiceField(queryset=Pais.objects.all().order_by('nombre'), empty_label=u' - País -', required=False)
     ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all().order_by('nombre'), empty_label=' - Ciudad -', required=False)
     zona = forms.ModelChoiceField(queryset=Zona.objects.all().order_by('nombre'), empty_label=' - Zona -', required=False)
+    proyecto = forms.ModelChoiceField(queryset=Inmueble.objects.all().order_by('titulo'), empty_label=' - Proyecto -', required=False)
     tipo = forms.ModelChoiceField(queryset=TipoInmueble.objects.all().order_by('nombre'), empty_label=' - Tipo -', required=False)
     habitaciones = forms.ChoiceField(choices=habitaciones, required=False)
     metros = forms.ChoiceField(choices=metros, required=False)
