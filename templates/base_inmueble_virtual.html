@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load staticfiles %}
+    {% load widget_tweaks %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="propiedades, casas, apartamentos, real state,Venezuela,Miami, Mexico, Ecuador, Costa Rica, Panama, Colombia">
+        <link rel="SHORTCUT ICON" href="{% static 'files/img/favicon.ico' %}"/>
+        <title>Equity</title>
+ 
+         <!-- Modernizr -->
+        <script src="{% static 'files/js/modernizr.custom.80055.js' %}"></script>
+
+        <!-- jQuery -->
+        <script src="{{STATIC_URL}}files/js/jquery-1.11.3.min.js"></script>
+
+        <!-- Numeral JS -->
+        <script src="{{STATIC_URL}}files/js/numeral.min.js"></script>
+
+        <!--Bootstrap Local-->
+        <!--CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+
+        <!--JavaScript -->
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+        <!--Estilos-->
+        <link rel="stylesheet" type="text/css" href="{% static 'files/css/base_inmueble.css' %}">
+
+        <!-- BLoque para cargar cualquier script en el header -->
+
+        <!-- Favoritos -->
+        <script>
+            function favorito(link, id){
+                $.ajax({
+                  method: "GET",
+                  url: link
+                });
+                
+                $(id).children().removeClass('glyphicon-heart-empty');
+                $(id).children().addClass('glyphicon-heart');
+            }
+        </script>
+
+        {% block scripts %}
+            
+        {% endblock scripts %}
+    </head> 
+    <body>
+        <!-- Header de la página -->
+        {% block header %}
+        
+        <div class="container-fluid header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-4 logo">
+                        <img class="img-responsive" src="{{STATIC_URL}}files/img/logo-solo.png" alt="">
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-4 titulo-inmueble">
+                        <h1>{{inmueble.titulo}}</h1>
+                        <h2>{{inmueble.zona.nombre}}, {{inmueble.ciudad.nombre}}</h2>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 me-interesa">
+                        {%if user.is_authenticated%}
+                            <button value="/{{pais}}/favoritos/agregar/{{inmueble.id}}/" onclick="favorito('/{{pais}}/favoritos/agregar/{{inmueble.id}}/', '#corazon_favorito{{inmueble.id}}')" id="corazon_favorito{{inmueble.id}}" class="corazon_favorito btn btn-primary boton-morado">
+                            Me Interesa 
+                        {%else%}
+                            <a href="/{{pais}}/ingreso-registro/" class="corazon_favorito btn btn-primary boton-morado">
+                                Me Interesa 
+                        {%endif%}
+                            {%if inmueble.id in inmuebles_favs%}
+                                <span class="glyphicon glyphicon-heart"></span>
+                            {%else%}
+                                <span class="glyphicon glyphicon-heart-empty"></span>
+                            {%endif%}
+                        {%if user.is_authenticated%}
+                            </button>
+                        {%else%}
+                            </a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% endblock header %}
+
+        <!-- Sección interna de la página -->
+        <div class="contenido container-fluid">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <!-- Footer de la página -->
+        {% block footer %}
+        
+        {% endblock footer %}
+    </body>
+
+<!-- Seccion donde se carga el JS -->
+
+<script type="text/javascript">
+var paises = {{ paises | safe }};
+var ciudades = {{ ciudades | safe }};
+var zonas = {{ zonas | safe }};
+var proyectos = {{ inmuebles | safe }};
+
+function cargar_ciudades(){
+    var pais = $('#id_pais');
+    var elem_ciudades = $('#id_ciudad');
+
+    pais = pais.val();
+
+    if (pais != "")
+    {
+        elem_ciudades.empty();
+        elem_ciudades.append('<option value="" selected="selected">- Ciudad -</option>');
+        $.each(ciudades[pais], function(i, ciudad){
+            elem_ciudades.append('<option value="'+ i +'">' + ciudad + '</option>')
+        });
+    } 
+    else 
+    {
+        elem_ciudades.empty();
+        elem_ciudades.append('<option value="" selected="selected">- Ciudad -</option>');
+    }
+}
+
+function cargar_zonas(){
+    var ciudad = $('#id_ciudad');
+    var elem_zonas = $('#id_zona');
+
+    ciudad = ciudad.val();
+
+    if (ciudad != "")
+    {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected">- Zona -</option>');
+        $.each(zonas[ciudad], function(i, zona){
+            elem_zonas.append('<option value="'+ i +'">' + zona + '</option>')
+        });
+    } 
+    else 
+    {
+        elem_zonas.empty();
+        elem_zonas.append('<option value="" selected="selected">- Zona -</option>');
+    }
+}
+
+function cargar_proyectos(){
+    var zona = $('#id_zona');
+    var elem_proyectos = $('#id_proyecto');
+
+    zona = zona.val();
+
+    if (zona != "")
+    {
+        elem_proyectos.empty();
+        elem_proyectos.append('<option value="" selected="selected">- Proyecto -</option>');
+        $.each(proyectos[zona], function(i, proyecto){
+            elem_proyectos.append('<option value="'+ i +'">' + proyecto + '</option>')
+        });
+    } 
+    else 
+    {
+        elem_proyectos.empty();
+        elem_proyectos.append('<option value="" selected="selected">- Proyecto -</option>');
+    }
+}
+
+function visitar_proyecto(){
+    var proyecto = $('#id_proyecto').val();
+    window.location.replace("/{{ pais | safe }}/visitar_proyecto/" + proyecto + "/");
+}
+
+$(document).on('change', '#id_pais', cargar_ciudades);
+$(document).on('change', '#id_pais', cargar_zonas);
+$(document).on('change', '#id_pais', cargar_proyectos);
+$(document).on('change', '#id_ciudad', cargar_zonas);
+$(document).on('change', '#id_ciudad', cargar_proyectos);
+$(document).on('change', '#id_zona', cargar_proyectos);
+$(document).on('change', '#id_proyecto', visitar_proyecto);
+
+</script>
+
+<!-- Begin Web-Stat code v 6.2 -->
+<span id="wts1162798">&nbsp;</span><script type="text/javascript">
+var wts=document.createElement('script');wts.type='text/javascript';
+wts.async=true;wts.src=('https:'==document.location.protocol?'https://server2':'http://lb')
++'.web-stat.com/2/1162798/log6_2.js';
+document.getElementById('wts1162798').appendChild(wts);
+</script><noscript><a href="http://www.web-stat.com">
+<img src="//server2.web-stat.com/6/2/1162798.gif"
+style="border:0px;" alt=""></a></noscript>
+<!-- End Web-Stat code v 6.2 -->
+
+{%block js%}
+{%endblock js%}
+</html>

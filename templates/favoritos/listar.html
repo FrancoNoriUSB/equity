@@ -11,6 +11,8 @@
     <script src="{{STATIC_URL}}files/js/jquery.dataTables.js"></script>
     <script src="{{STATIC_URL}}files/js/dataTables.bootstrap.js"></script>
     
+    <!-- Estilos del index -->
+    <link rel="stylesheet" type="text/css" href="{% static 'files/css/inmueble.css' %}">
 {% endblock scripts %}
 
 <!-- Boque del contenido de la pagina -->
@@ -29,8 +31,8 @@
                 </div>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                <h2>Proyectos favoritos:</h2>
-                <table id="content-inmuebles" class="display dataTable table table-striped">
+                <h2>M&oacute;dulos favoritos:</h2>
+                <table id="content-modulos" class="display dataTable table table-striped">
                     <thead>
                         <tr>
                             <th class="">
@@ -40,16 +42,19 @@
                                 Ciudad
                             </th>
                             <th class="">
-                                Zona
+                                Inmueble
                             </th>
                             <th class="">
-                                Nombre
+                                M2
                             </th>
                             <th class="">
-                                Direcci&oacute;n
+                                Hab
                             </th>
                             <th class="">
-                                Tipo
+                                Precio (MN)
+                            </th>
+                            <th class="">
+                                Precio (USD)
                             </th>
                             <th class="">
                                 Ver
@@ -68,16 +73,19 @@
                                 Ciudad
                             </th>
                             <th class="">
-                                Zona
+                                Inmueble
                             </th>
                             <th class="">
-                                Nombre
+                                M2
                             </th>
                             <th class="">
-                                Direcci&oacute;n
+                                Hab
                             </th>
                             <th class="">
-                                Tipo
+                                Precio (MN)
+                            </th>
+                            <th class="">
+                                Precio (USD)
                             </th>
                             <th class="">
                                 Ver
@@ -88,33 +96,36 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        {%for inmuebleF in inmueblesFavoritos%}
+                        {%for moduloF in modulosFavoritos%}
                             <tr>
                                 <td>
-                                    {{inmuebleF.inmueble.pais.nombre.name}}
+                                    {{moduloF.modulo.inmueble.pais.nombre.name}}
                                 </td>
                                 <td>
-                                    {{inmuebleF.inmueble.ciudad.nombre}}
+                                    {{moduloF.modulo.inmueble.ciudad.nombre}}
                                 </td>
                                 <td>
-                                    {{inmuebleF.inmueble.zona.nombre}}
+                                    {{moduloF.modulo.inmueble.titulo}}
                                 </td>
                                 <td>
-                                    {{inmuebleF.inmueble.titulo}}
+                                    {{moduloF.modulo.metros}}
                                 </td>
                                 <td>
-                                    {{inmuebleF.inmueble.direccion}}
+                                    {{moduloF.modulo.dormitorios}}
                                 </td>
                                 <td>
-                                    {{inmuebleF.inmueble.tipo_obra}}
+                                    {{moneda.simbolo}} {{moduloF.modulo.precio|mul:moneda.tasa|floatformat|intcomma}}
                                 </td>
                                 <td>
-                                    <a href="/{{inmuebleF.inmueble.pais.nombre}}/inmuebles/{{inmuebleF.inmueble.codigo}}/">
+                                    {{moduloF.modulo.precio|floatformat|intcomma}} USD
+                                </td>
+                                <td>
+                                    <a href="/{{moduloF.modulo.inmueble.pais}}/inmuebles/{{moduloF.modulo.inmueble.codigo}}/">
                                         Ver
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="/{{pais}}/favoritos/eliminar/{{inmuebleF.inmueble.id}}/">
+                                    <a href="/{{pais}}/favoritos/modulos/eliminar/{{moduloF.modulo.id}}/">
                                         Eliminar
                                     </a>
                                 </td>
@@ -132,7 +143,7 @@
 {% block js %}
 <script>
 $(document).ready(function() {
-    $('#content-inmuebles').dataTable( {
+    $('#content-modulos').dataTable( {
         "language": {
             "lengthMenu": "Mostrar _MENU_ cantidad por página",
             "zeroRecords": "Disculpe, no se han encontrado resultados",

@@ -5,83 +5,87 @@
   Azul Oscuro:#1a2e51;
 */
 
-/*Estilos generales*/
-body{
-    background-color: #fbf4fc !important;
+/*Estilos del Slider*/
+.selected img {
+    opacity:0.5;
 }
 
-@font-face{
-    font-family: "Neutra";
-    src: url(../fonts/NeutraText-BookAlt.ttf) format("truetype");
+#myCarousel > div > div{
+    margin-right: auto;
+    margin-left: auto;
+    height: 760px;
 }
 
-/*Header*/
-.header{
-    margin-bottom: 15px;
+#slider-thumbs > ul > li{
+    cursor: pointer;
 }
 
-.header .logo img{
-    width:50%;
+div.contenido > div.info-base > div.botones{
+    display: flex;
 }
 
-.header .titulo-inmueble{
-    color: #4793f1;
-    padding-top: 15px;
+div.contenido > div.info-base > div > button.video{
+  display: block;
 }
 
-.header .me-interesa{
-    padding-top: 15px;
+div.contenido > div.info-base > div > button.video{
+    margin-right: 3%;
 }
 
-.titulo-inmueble h1,
-.titulo-inmueble h2{
-    display: inline;
-    font-family: "Neutra";
+div.contenido > div.info-base > div.botones > a{
+    color: #FFFFFF;
 }
 
-.filtro{
-    background-color: #d7e5f0;
-    padding-top: 15px;
-}
-
-.filtro h3{
-    color: #7272d2;
-}
-
-.modulos{
-    background-color: #ffffff;
-    padding-top: 15px;
-}
-
-.boton-azul{
-    width: 100%;
-}
-
-.boton-azul,
-.boton-azul:hover, 
-.boton-azul:focus{
-    background-image: linear-gradient(to bottom,#4793f1 0,#4793f1 100%);
-    background-color: #4793f1;
-    border-color: #ffffff;
-    border-width: 3px;
-    border-radius: 15px;
-}
-
-.boton-morado,
-.boton-morado:hover, 
-.boton-morado:focus{
-    background-image: linear-gradient(to bottom,#7272d2 0,#7272d2 100%);
-    background-color: #7272d2;
-    border-radius: 15px;
-    font-size: 20px;
+#carousel > div > div > img,
+#carousel-modal > div > div > img{
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
 }
 
 /*Estilos de info de inmueble*/
-.corazon_favorito span{
-    color: red;
+.corazon_favorito{
+    font-size: 16px;
+    color: blue;
     background-color: transparent;
     border: none;
-    float: right;
+}
+
+div.contenido > div.info-base > div.links > p.text-right{
+    margin-bottom: 0px;
+}
+
+div.contenido > div.info-base > div.agente > img{
+    height: 170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#ubicacion > div > div > #mapa{
+    position:inherit !important;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    height: 500px;
+}
+
+div.contenido > div.informacion > div > div{
+    padding: 2%;
+}
+
+div.contenido > div.info-base > div > div > a.favoritos{
+    color:#000000;
+    font-size: 10pt;
+}
+
+div.contenido > div.info-base > div > div > a.favoritos:hover{
+    text-decoration: none;
+}
+
+#general > div.tabla-info.row > div > p > small,
+div.contenido > div.info-base > div > div > a.favoritos > span{
+    color: red;
+    font-size: 10pt;
 }
 
 .skype-equity{
@@ -122,6 +126,9 @@ body .modal-dialog {
     width: 90%;
 }
 
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+    border: 0px !important;
+}
 
 /*Video*/
 .video-container {

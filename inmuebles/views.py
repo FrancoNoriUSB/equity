@@ -293,6 +293,123 @@ def home(request, pais):
 # Vista de cada inmueble
 def inmueble(request, codigo, pais):
 
+    constructor = False
+    visita = False
+    financiamiento = False
+    envio_contacto = False
+    envio_visita = False
+    envio_financiamiento = False
+    fecha_entrega = ''
+    modulos_favs = []
+    user = request.user
+
+    # Inmueble
+    inmueble = get_object_or_404(Inmueble, codigo=codigo, pais__nombre=pais)
+
+    # Modulos
+    modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
+
+    try:
+        modulos_favs = ModuloFavorito.objects.filter(usuario=user, modulo__in=modulos).values_list('modulo', flat=True)
+    except:
+        modulos_favs = []
+
+    # Agente
+    agente = inmueble.agente
+    telefonos = TelefonoAgente.objects.filter(agente=agente)
+
+    # Contacto con el agente
+    contactoF = ContactoAgenteForm()
+
+    # Solicitar visita al inmueble
+    solicitarvF = SolicitarVisitaForm()
+
+    # Solicitar financiamiento
+    financiamientoF = SolicitarFinanciamientoForm()
+
+    # Imagenes del inmueble
+    imagenes = ImagenInmueble.objects.filter(inmueble=inmueble).order_by('id')
+
+    fecha_entrega = inmueble.fecha_entrega[:2] + inmueble.fecha_entrega[5:]
+    fecha_entrega = datetime.strptime(fecha_entrega, "%m/%Y")
+
+    # Moneda
+    try:
+        moneda = Moneda.objects.get(pais__nombre=pais)
+    except:
+        moneda = ''
+
+    # Banners del home
+    banners = Banner.objects.filter(pais__nombre=pais)
+
+    # Vista del inmueble por parte del usuario
+    visto = inmueble_vista_count(request, inmueble.id)
+
+    if not visto:
+        # Crear una vista nueva o actualizar la cantidad
+        try:
+            vista = InmuebleView.objects.get(inmueble=inmueble)
+            vista.cantidad += 1
+            vista.save()
+        except:
+            vista = InmuebleView(cantidad=1, inmueble=inmueble)
+            vista.save()
+
+    if request.POST:
+        if 'constructor' in request.POST:
+            constructor = True
+            contactoF = ContactoAgenteForm(request.POST)
+
+            if contactoF.is_valid():
+                envio_contacto = contact_email(request, contactoF, agente.correo, inmueble)
+                financiamientoF = SolicitarFinanciamientoForm()
+                solicitarvF = SolicitarVisitaForm()
+
+        elif 'visita' in request.POST:
+            visita = True
+            solicitarvF = SolicitarVisitaForm(request.POST)
+
+            if solicitarvF.is_valid():
+                envio_visita = visit_email(request, solicitarvF, inmueble)
+                financiamientoF = SolicitarFinanciamientoForm()
+                contactoF = ContactoAgenteForm()
+
+        elif 'financiamiento' in request.POST:
+            financiamiento = True
+            financiamientoF = SolicitarFinanciamientoForm(request.POST)
+
+            if financiamientoF.is_valid():
+                envio_financiamiento = financiamiento_email(request, pais, financiamientoF, inmueble)
+                solicitarvF = SolicitarVisitaForm()
+                contactoF = ContactoAgenteForm()
+
+    ctx = {
+        'inmueble': inmueble,
+        'modulos': modulos,
+        'modulos_favs': modulos_favs,
+        'moneda': moneda,
+        'telefonosAgente': telefonos,
+        'ContactoAgenteForm': contactoF,
+        'SolicitarVisitaForm': solicitarvF,
+        'SolicitarFinanciamientoForm': financiamientoF,
+        'imagenes': imagenes,
+        'banners': banners,
+        'pais': pais,
+        'constructor': constructor,
+        'envio_contacto': envio_contacto,
+        'visita': visita,
+        'financiamiento': financiamiento,
+        'envio_visita': envio_visita,
+        'envio_financiamiento': envio_financiamiento,
+        'fecha_entrega': fecha_entrega,
+    }
+
+    return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista de cada inmueble de forma virtual
+def inmueble_virtual(request, codigo):
+
     # Buscador de inmuebles
     buscadorF = BuscadorForm()
 
@@ -311,7 +428,7 @@ def inmueble(request, codigo, pais):
     user = request.user
 
     # Inmueble
-    inmueble = get_object_or_404(Inmueble, codigo=codigo, pais__nombre=pais)
+    inmueble = get_object_or_404(Inmueble, codigo=codigo)
 
     # Modulos
     modulos = Modulo.objects.filter(inmueble=inmueble).order_by('metros')
@@ -339,12 +456,6 @@ def inmueble(request, codigo, pais):
 
     fecha_entrega = inmueble.fecha_entrega[:2] + inmueble.fecha_entrega[5:]
     fecha_entrega = datetime.strptime(fecha_entrega, "%m/%Y")
-
-    # Moneda
-    try:
-        moneda = Moneda.objects.get(pais__nombre=pais)
-    except:
-        moneda = ''
 
     # Vista del inmueble por parte del usuario
     visto = inmueble_vista_count(request, inmueble.id)
@@ -405,13 +516,11 @@ def inmueble(request, codigo, pais):
         'inmueble': inmueble,
         'modulos': modulos,
         'inmuebles_favs': inmuebles_favs,
-        'moneda': moneda,
         'telefonosAgente': telefonos,
         'ContactoAgenteForm': contactoF,
         'SolicitarVisitaForm': solicitarvF,
         'SolicitarFinanciamientoForm': financiamientoF,
         'imagenes': imagenes,
-        'pais': pais,
         'paises': paises,
         'ciudades': ciudades,
         'zonas': zonas,
@@ -425,15 +534,7 @@ def inmueble(request, codigo, pais):
         'fecha_entrega': fecha_entrega,
     }
 
-    return render_to_response('inmuebles/inmueble.html', ctx, context_instance=RequestContext(request))
-
-
-# Vista para visitar un proyecto
-def visitar_proyecto_view(request, pais, id_inmueble):
-
-    inmueble = Inmueble.objects.get(id=id_inmueble)
-
-    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + inmueble.codigo + '/')
+    return render_to_response('inmuebles/inmueble_virtual.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para enviar reporte de mercado de usuarios
@@ -460,7 +561,7 @@ def favoritos_list(request, pais):
     modulos = []
     user = request.user
 
-    if user.is_authenticated() and user:
+    if user.is_authenticated() and request.user:
 
         # Moneda
         try:
@@ -481,6 +582,36 @@ def favoritos_list(request, pais):
     }
 
     return render_to_response('favoritos/listar.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista de inmuebles favoritos
+def favoritos_virtual_list(request, pais):
+
+    inmuebles = []
+    modulos = []
+    user = request.user
+
+    if user.is_authenticated() and request.user:
+
+        # Moneda
+        try:
+            moneda = Moneda.objects.get(pais__nombre=pais)
+        except:
+            moneda = ''
+
+        inmuebles = InmuebleFavorito.objects.filter(usuario=request.user).order_by('inmueble__pais__nombre')
+        modulos = ModuloFavorito.objects.filter(usuario=request.user).order_by('modulo__inmueble__pais__nombre')
+    else:
+        return HttpResponseRedirect('/' + str(pais) + '/ingreso-registro/')
+
+    ctx = {
+        'moneda': moneda,
+        'pais': pais,
+        'inmueblesFavoritos': inmuebles,
+        'modulosFavoritos': modulos
+    }
+
+    return render_to_response('favoritos/listar_virtual.html', ctx, context_instance=RequestContext(request))
 
 
 # Vista para agregar inmuebles favoritos
@@ -665,7 +796,7 @@ def inmueble_call_agente(request, pais, id_inmueble):
         click = InmuebleSkypeClick(cantidad=1, agente=inmueble.agente, inmueble=inmueble)
         click.save()
 
-    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + str(id_inmueble) + '/')
+    return HttpResponseRedirect('/' + str(pais) + '/inmuebles/' + str(id_inmueble))
 
 
 # Vista para contar los clicks de los usuarios a los links de los agentes

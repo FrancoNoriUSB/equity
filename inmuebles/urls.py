@@ -11,6 +11,7 @@ urlpatterns = patterns(
     url(r'^(?P<pais>[A-Z][A-Z])/perfil/editar/$', 'perfil_editar_user', name='perfil_editar_user'),
     url(r'^(?P<pais>[A-Z][A-Z])/logout/$', 'perfil_logout', name='perfil_logout'),
     url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/(?P<codigo>[0-9A-Za-z]+)/$', 'inmueble', name='inmueble'),
+    url(r'^virtual/(?P<codigo>[0-9A-Za-z]+)/$', 'inmueble_virtual', name='inmueble_virtual'),
     url(r'^(?P<pais>[A-Z][A-Z])/(?P<id_inmueble>\d*)/reporte-mercado/$', 'inmueble_reporte_mercado', name='reporte_mercado_inmueble'),
     url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/link/(?P<id_inmueble>\d*)/$', 'inmueble_link_agente', name='inmueble_link_agente'),
     url(r'^(?P<pais>[A-Z][A-Z])/inmuebles/link-skype/(?P<id_inmueble>\d*)/$', 'inmueble_call_agente', name='inmueble_call_agente'),
@@ -18,6 +19,7 @@ urlpatterns = patterns(
 
     # Favoritos
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/$', 'favoritos_list', name='listar_favoritos'),
+    url(r'^(?P<pais>[A-Z][A-Z])/virtual/favoritos/$', 'favoritos_virtual_list', name='listar_favoritos_virtual'),
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/pdf/$', FavoritosPdfList.as_view(), name='pdf_favoritos'),
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/agregar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_agregar', name='agregar_favoritos'),
     url(r'^(?P<pais>[A-Z][A-Z])/favoritos/eliminar/(?P<id_inmueble>[0-9A-Za-z]+)/$', 'favoritos_eliminar', name='eliminar_favoritos'),
