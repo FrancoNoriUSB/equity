@@ -87,6 +87,10 @@ body{
 }
 
 /*Estilos de info de inmueble*/
+.glyphicon-heart-empty{
+    color: orange !important;
+}
+
 .corazon_favorito span{
     color: red;
     background-color: transparent;

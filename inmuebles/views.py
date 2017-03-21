@@ -126,16 +126,6 @@ def home(request, pais):
             # Caso demas
             elif (pais_busqueda is not None) or (ciudad is not None) or (zona is not None) or (tipo is not None) or (habitaciones != '') or (precio_max != '') or (metros != ''):
 
-                # Verificacion de string vacio
-                # if orden == '':
-                #     orden = None
-
-                # if precio_max != '':
-                #     orden = 'precio'
-
-                # if metros != '':
-                #     orden = 'metros'
-
                 # Campos a buscar
                 fields_list = []
                 if pais_busqueda is not None:
@@ -194,17 +184,6 @@ def home(request, pais):
                 operator = 'and'
 
                 inmuebles_list = dynamic_query(Inmueble, fields_list, types_list, values_list, operator).distinct()
-
-                # Eliminando repetidos
-                # if orden == 'precio' or orden == 'metros':
-                #     for inmueble in inmuebles_list:
-                #         modulos = Modulo.objects.filter(inmueble=inmueble)
-                #         if inmueble not in inmuebles:
-                #             if modulos:
-                #                 inmuebles.append(inmueble)
-                #             else:
-                #                 inmuebles.insert(0, inmueble)
-                #     inmuebles_list = inmuebles
 
     if pais_busqueda is not None:
         buscadorF.fields['ciudad'] = forms.ModelChoiceField(Ciudad.objects.filter(pais=pais_busqueda), empty_label='- Ciudad -')
@@ -522,6 +501,7 @@ def inmueble_virtual(request, codigo):
         'SolicitarFinanciamientoForm': financiamientoF,
         'imagenes': imagenes,
         'paises': paises,
+        'pais': inmueble.pais.nombre,
         'ciudades': ciudades,
         'zonas': zonas,
         'inmuebles': inmuebles,
@@ -535,6 +515,13 @@ def inmueble_virtual(request, codigo):
     }
 
     return render_to_response('inmuebles/inmueble_virtual.html', ctx, context_instance=RequestContext(request))
+
+
+# Vista para visitar un proyecto
+def visitar_proyecto_view(request, id_inmueble):
+    inmueble = Inmueble.objects.get(id=id_inmueble)
+
+    return HttpResponseRedirect('/virtual/' + inmueble.codigo + '/')
 
 
 # Vista para enviar reporte de mercado de usuarios
@@ -846,11 +833,6 @@ def login_register_user(request, pais):
     loginF = LoginForm()
     registroF = UserForm()
 
-    # Formulario para los paises disponibles
-    paisesF = PaisesForm(initial={
-        'pais': pais,
-    })
-
     if request.user.is_authenticated() and request.user:
         return HttpResponseRedirect('/' + str(pais) + '/perfil/')
 
@@ -889,7 +871,6 @@ def login_register_user(request, pais):
         'pais': pais,
         'login': loginF,
         'registro': registroF,
-        'paisesF': paisesF,
         'error_login': error_login,
     }
 

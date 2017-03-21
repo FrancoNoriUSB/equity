@@ -174,7 +174,8 @@ function cargar_proyectos(){
 
 function visitar_proyecto(){
     var proyecto = $('#id_proyecto').val();
-    window.location.replace("/{{ pais | safe }}/visitar_proyecto/" + proyecto + "/");
+
+    window.location.replace("/visitar_proyecto/" + proyecto + "/");
 }
 
 $(document).on('change', '#id_pais', cargar_ciudades);
