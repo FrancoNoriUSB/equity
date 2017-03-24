@@ -30,21 +30,33 @@ body{
     margin-bottom: 15px;
 }
 
+.header .container .row{
+    margin-right: 0px;
+    background-color: rgba(1,1,1,0.07);
+}
+
 .header .logo img{
     width:50%;
 }
 
 .header .titulo-inmueble{
-    color: #4793f1;
-    padding-top: 15px;
+    color: #FFFFFF;
+    padding-top: 7.5px;
 }
 
 .header .me-interesa{
     padding-top: 15px;
 }
 
-.titulo-inmueble h1,
-.titulo-inmueble h2{
+/*Contenido*/
+.inmueble{
+    top: -94px;
+    position: relative;
+    z-index: -1;
+}
+
+.titulo-inmueble h2,
+.titulo-inmueble h3{
     display: inline;
     font-family: "Neutra";
 }
@@ -77,22 +89,26 @@ body{
     border-radius: 15px;
 }
 
-.boton-morado,
-.boton-morado:hover, 
-.boton-morado:focus{
-    background-image: linear-gradient(to bottom,#7272d2 0,#7272d2 100%);
-    background-color: #7272d2;
+.boton-naranja,
+.boton-naranja:hover, 
+.boton-naranja:focus{
+    background-image: linear-gradient(to bottom,#ff1901 0,#ff1901 100%);
+    background-color: #ff1901;
     border-radius: 15px;
     font-size: 20px;
 }
 
+.btn-primary.boton-naranja{
+    border-color: #ff1901;
+}
+
 /*Estilos de info de inmueble*/
 .glyphicon-heart-empty{
-    color: orange !important;
+    color: white !important;
 }
 
 .corazon_favorito span{
-    color: red;
+    color: white;
     background-color: transparent;
     border: none;
     float: right;
@@ -135,7 +151,7 @@ body > div.contenido.container-fluid > div > div > div.col-lg-10.col-md-10.col-s
 div.contenido > div.informacion > div > ul{
     border-bottom: 5px;
     border-bottom-style: groove;
-    border-bottom-color: #4f4e4e;
+    border-bottom-color: #ff1901;
 }
 
 .carousel-control.right,
